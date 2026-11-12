@@ -8,6 +8,9 @@ assert proof['kernel_commit']=='3eb98fe728aefa780638a1bb2f487e19ba6fadcb'
 target=Path('/root/t110-build')
 assert target.resolve()==target and not target.is_symlink() and target.parent==Path('/root')
 if target.exists():
+ mounts=json.loads(subprocess.check_output(['findmnt','--json','--list','--output','TARGET,SOURCE'],text=True))['filesystems']
+ descendants=[m for m in mounts if m['target']==str(target) or m['target'].startswith(str(target)+'/')]
+ assert not descendants,('Unmount nested filesystems before removing the task tree',descendants)
  config=target/'out-standard-reclaim/.config'
  assert (target/'kernel-display-i2c/Documentation/t110-android13-checkpoint.md').exists()
  assert (target/'kernel-display-i2c/.git').is_dir()
@@ -16,7 +19,8 @@ if target.exists():
   if not proc.name.isdigit() or int(proc.name)==os.getpid():continue
   try:
    cwd=(proc/'cwd').resolve()
-   if cwd==target or target in cwd.parents:active.append(proc.name)
+   args=(proc/'cmdline').read_bytes().replace(b'\0',b' ')
+   if cwd==target or target in cwd.parents or b'/root/t110-build' in args:active.append(proc.name)
   except (OSError,RuntimeError):pass
  assert not active,('Processes still using the task tree',active)
  before=shutil.disk_usage('/').free

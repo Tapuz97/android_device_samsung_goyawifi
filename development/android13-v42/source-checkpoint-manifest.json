@@ -1449,7 +1449,7 @@
   },
   {
     "path": "scripts/cleanup_wsl_t110.py",
-    "sha256": "fcf6ced8225ea2a5768803ccbb261fc2a1a4c7981f2e55ac3adb4ef6e3b93144"
+    "sha256": "6a9606829b08a87a69fd901967d58b774d02118d806632e98e1f45fc4604f1a0"
   },
   {
     "path": "scripts/close_functional_audit_session.py",
