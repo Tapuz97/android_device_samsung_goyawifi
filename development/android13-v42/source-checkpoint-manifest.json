@@ -1524,6 +1524,10 @@
     "sha256": "91b5e5a46640939420faf0bf2ca3e2d90e28fe0766f6034cc6e0493c7ab7e4a3"
   },
   {
+    "path": "scripts/create_final_metadata_capsule.py",
+    "sha256": "8a1567434c7faf1e806f83f57817058a477b5ad8b3891c496ece3edf8aa3c448"
+  },
+  {
     "path": "scripts/decode_window_views.py",
     "sha256": "251acdd3c230b59c34353befc37834e393c342b7b7ac68b0de65b742c1fef244"
   },
@@ -3120,6 +3124,10 @@
     "sha256": "66bc2a647f68e8217f40c25c23db409b989bb2bbf3a885f1e2be87e0a36b8a1f"
   },
   {
+    "path": "scripts/verify_firmware_derivation.py",
+    "sha256": "1b58f3e576fa82b31d2fb09ab4f217f4f96ebed5b2ebb507b197078201f3d940"
+  },
+  {
     "path": "scripts/verify_functional_v28_live.py",
     "sha256": "a68d80f45d50ea59bc963acb83fd2511eeba96c0191c2b8ffc607b0d7d849bde"
   },
@@ -3565,7 +3573,7 @@
   },
   {
     "path": "audit-evidence/ALL-PRIMARY-SOURCES.json",
-    "sha256": "e77f9b37e442e42d25d31c224423eb5854951da699c4c63fde776698b391ab98"
+    "sha256": "4fd76ffa999eef7b9c701f5d335d508a86451f89432903f1a6cd2188bd625032"
   },
   {
     "path": "audit-evidence/blob-textrel.json",
@@ -3573,6 +3581,6 @@
   },
   {
     "path": "audit-evidence/source-checks.json",
-    "sha256": "5dca2eb0e29f4035418af880cc3b6cdcee5ed6c667858768fc816204e8ba4612"
+    "sha256": "b93626af0f7bf7d07691a4e7f0fe0931d373540408e890b2afa100dee704811a"
   }
 ]

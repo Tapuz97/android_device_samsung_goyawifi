@@ -166,5 +166,12 @@
     "encoding": "utf-8",
     "url": "https://github.com/LineageOS/android_frameworks_base/blob/cm-14.1/libs/hwui/TextureCache.cpp",
     "ranged_excerpt": false
+  },
+  {
+    "path": "opengl/libs/EGL/Loader.cpp",
+    "git_blob_sha": "4234db823925e9a7d5530d78b73f1935ab288f92",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/opengl/libs/EGL/Loader.cpp",
+    "ranged_excerpt": false
   }
 ]

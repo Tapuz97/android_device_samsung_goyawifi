@@ -7,7 +7,9 @@
     "device_textrel_option_present": true,
     "autosleep_backend_disabled_in_this_branch": true,
     "jit_default_ashmem": true,
-    "bt532_runtime_and_system_callbacks_selected_as_alternatives": true
+    "bt532_runtime_and_system_callbacks_selected_as_alternatives": true,
+    "platform_textrel_exception_is_target_sdk_conditional": true,
+    "stock_egl_loader_has_no_target_sdk_override": true
   },
   "nougat_hardware_tested": false,
   "gpu_qualified": false,
