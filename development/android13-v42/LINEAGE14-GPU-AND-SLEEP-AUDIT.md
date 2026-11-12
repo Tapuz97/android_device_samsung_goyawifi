@@ -38,8 +38,9 @@ drop-in board, kernel, partition table or proof of a working T110 ROM.
   The current-image/source archive passed every member hash on readback;
   the complete kernel-source archive also passed decompression/readback.
   See verification.json and kernel-source-export.json. The full E: source
-  delta export has a separate completion record; absence of that record
-  means it is not yet complete. Local archives are not an online backup.
+  delta export completed:1242 projects,25 changed projects, no missing projects;
+  all25 changed-project bases are reachable from their remotes. Online backup
+  completion and post-download hashes are recorded in ONLINE-BACKUP.md.
 
 ## Graphics compatibility matrix
 
@@ -53,7 +54,7 @@ drop-in board, kernel, partition table or proof of a working T110 ROM.
 | Framebuffer/HWC lifetime | Stock-oriented donor modifies framebuffer-HAL lifetime and exposes fbPrePost/stretchBlit/getBackBuffer | Determine which callbacks this exact HWC uses; do not blindly keep or close mFbDev based on an unrelated donor macro | HWC1 constructor:118-128; donor ab83455 |
 | Buffer ownership | Android13 needed retained stock allocation ownership across the allocator/import boundary | Nougat removes the HIDL boundary, but apps still import buffers across processes. Prove original allocation stays alive until consumer release and that unregister/free are paired correctly | Gralloc1On0Adapter release/import paths; current work/ renderer |
 | Native-window ABI | Android13 used an explicit old-layout compatibility window for the vendor driver | Audit Nougat ANativeWindow and ANativeWindowBuffer layout/callback ABI against the stock expectation. Test dequeue/queue/cancel, fences, usage, stride and references; do not assume its C++ GraphicBuffer layout is Android4.2-compatible | Canonical T110EglWindow source and stock buffer probes |
-| Linker | Fresh readelf finds DT_TEXTREL in libGAL.so, not the other five inspected graphics roots | Enable the existing device build option TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS. Resolve actual remaining imports with narrow shims; do not replace all Nougat system libraries with stock copies | blob-textrel.json; cm14.1 linker/Android.mk:57 and linker.cpp:4064 onward |
+| Linker | Fresh readelf finds DT_TEXTREL in libGAL.so, not the other five inspected graphics roots | Use the existing TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS option for baseline bring-up, but also check the process target-SDK condition described below. Resolve actual imports with narrow shims | blob-textrel.json; cm14.1 linker/Android.mk:57 and linker.cpp:4064 onward |
 | Application rendering | GLES2 compositor tests and visible animation are insufficient; Android13 GPU app windows had missing text/strips | Test HWUI glyphs, texture uploads, layers, alpha and scrolling in an actual accelerated app; keep no permanent software-rendering escape hatch as a PASS | Gate G3 below |
 | Formats/geometry | Actual panel is1024x600; current port has a measured600x1024 logical portrait path | Choose one owner for rotation; preserve measured fb line_length, bpp, virtual page size and scanout extent. Query formats instead of copying BGRA/RGBX flags from T210 | T110Framebuffer / T110Scanout, historical physical verification |
 | ION/cache/fences | T110 uses a PXA cache ioctl with five32-bit fields, command0xc0144907; stock handle path validated as2FD/34ints in the existing presenter | Check exact allocation type before using that layout; do not apply it to every handle. Verify GPU completion and CPU cache visibility separately; stock gralloc unlock alone was too late for CPU readers | T110Framebuffer.cpp; existing ION bounds patch |
@@ -73,7 +74,31 @@ names such as MRVL_HARDWARE, BOARD_EGL_NEEDS_LEGACY_FB or TARGET_FORCE_CPU_UPLOA
 do nothing where the corresponding code was removed. Do not copy Android13
 debug properties, renderer disables, HIDL manifests or no-JIT defaults into Nougat.
 
-## Sleep/wake: what the code actually does
+## Additional application-loader blocker: the textrel flag has a scope limit
++
++The cm-14.1 linker option is not an unconditional vendor-driver exception.
++Inside TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS it still rejects text relocations
++when the process target SDK is greater than22 AND differs from the linker's
++compile-time __ANDROID_API__. Resolve the actual macro value during component
++compilation rather than assuming it. Our fresh readelf confirms libGAL has
++DT_TEXTREL, and the stock-driver branch in cm-14.1 EGL Loader.cpp calls ordinary
++dlopen with no temporary target-SDK override. Consequently a platform/native
++probe passing does not establish that fresh accelerated third-party app
++processes with other target SDKs can load this GPU stack.
++
++G0/G3 must cover those process identities explicitly. If a narrow additional
++exception is required, restrict it to the product's exact trusted ARM32 libGAL
++path/label; preserve rejection of arbitrary app-supplied textrel libraries and
++normal linker/SELinux restrictions. Check fresh post-fork initialization and
++the actual app namespace/dependency resolution. Zygote preloading can conceal
++a loader failure while introducing invalid inherited Vivante objects; it is
++not a substitute for passing fresh-process app rendering.
++
++This is a source-confirmed limitation in the generic flag, not a report of an
++already-run Nougat app crash. The startup/loader compatibility target needs to
++resolve it before the full product build.
++
++## Sleep/wake: what the code actually does
 
 1. **Panel off/on is runtime PM.** The matched PXA framebuffer driver maps
    FBIOBLANK into pm_runtime_put_sync_suspend / pm_runtime_get_sync. It changes
@@ -99,9 +124,9 @@ debug properties, renderer disables, HIDL manifests or no-JIT defaults into Noug
    Validate actual /sys/power/state and /sys/power/wakeup_count behavior,
    writable labels/permissions, wakelocks and the selected backend. Avoid an
    init script and libsuspend both controlling suspend independently.
-5. **The stock power HAL can affect devices too.** Strings/disassembly show
-   power_set_interactive enumerating sysfs device power/control and
-   runtime_status paths under input/graphics/video classes. Audit its effect
+5. **The stock power HAL can affect devices too.** Its strings reference
+   power_set_interactive, device power/control and runtime_status paths under
+   input/graphics/video classes. Trace its exact per-device writes and effect
    alongside HWC blanking and init's TSP power/control=on writes; avoid two
    owners racing touch/panel runtime PM. The existence of a tiny stock HAL
    does not establish compatibility with the new lifecycle.
@@ -124,7 +149,7 @@ or a real system-suspend transition. Keep those hypotheses separate.
 | G0 | Offline ARM32 ABI/linker checks with matched blobs and small Nougat compatibility components | Correct struct offsets/callbacks, vendor imports resolved, textrel exception active only where required, no Android13 HIDL dependency | Source audit complete; component compile/runtime not performed |
 | G1 | Native GLES2 window renderer using the Nougat EGL/gralloc compatibility path | Real Vivante renderer; textured draw, alpha, glyph-like atlas and window swaps; correct GPU readback and scanout, no SwiftShader/software masquerading as acceleration | Not tested on Nougat |
 | G2 | HWC1 composition with the same minimal userspace | Correct full-screen pixels across damage/full redraw, rotation, layer alpha, swaps and buffer release; no top stripes, missing text or stale handles | Not tested on Nougat |
-| G3 | One small hardware-accelerated Android app against the minimal Nougat framework | HWUI text and scrolling visibly correct; accelerated app confirmed; bounded memory/fd growth; no CPU-only fallback, EGL crash or missing labels | Not tested on Nougat |
+| G3 | One small hardware-accelerated Android app against the minimal Nougat framework | HWUI text and scrolling visibly correct; accelerated app confirmed in fresh processes with platform and newer target SDKs; bounded memory/fd growth; no CPU-only fallback, EGL crash or missing labels | Not tested on Nougat |
 | P1 | Panel-only blank/unblank with autosuspend inhibited for isolation | Correct visible frame/backlight and immediate physical touch after each of20 cycles; no I2C timeout, stuck pm_runtime count or dead display thread | Not tested on Nougat |
 | P2 | System suspend with known wake source; first RTC timeout safeguard, then physical Power/Home | Suspend/resume counters advance, panel visibly returns, touch works, GPU draws a fresh frame after resume;20 cycles including USB disconnected | Not tested on Nougat |
 | P3 | Short idle soak with recording stopped | No spontaneous reset, lost touch, black panel, monotonic memory leak or diagnostic-write stall; sleep actually reduces activity | Not tested on Nougat |
@@ -163,7 +188,7 @@ Keep app/software features and GApps out of the first hardware qualification.
 - [Marvell hardware-header donor b804d20](https://github.com/suyouxin/android_hardware_libhardware/commit/b804d20e6bc23fbdbc62060cea71b195d1eeb8d9)
 - [GOYA kernel base](https://github.com/visyone/android_kernel_samsung_goya/tree/3c50b450af74d42f8c5d360c692f71002b3bb0af)
 
-Local evidence/lineage14-audit contains fetched primary files, Git blob
+The restoration archive evidence/lineage14-audit contains fetched primary files, Git blob
 identities/provenance, fresh stock ELF textrel inspection, stock power HAL
 disassembly and the exact BT532 PM-source excerpt. Stock binaries are private
 inputs, not part of a public source contribution. Historical donor descriptions

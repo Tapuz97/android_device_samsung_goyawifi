@@ -1,31 +1,25 @@
-# Next development pass
+# Current T110 task resume state — 2026-11-12
 
-The requested permanent logging/memory update is DONE: v42-GApps/BOOT48 installed
-and verified after a fresh boot. Read CURRENT-STATUS.md. Do not reapply the live
-swappiness workaround or restart diagnostic writers automatically.
+The owner asked for an Android7.1/Lineage14.1 GPU/sleep source audit, preservation/publication of Android13 work, then COMPLETE C/E T110-development cleanup, keeping informative Markdown only. Do not start a full Nougat build or flash the tablet. The owner authorized use of our existing GitHub repository after Gerrit-only archive proved impossible.
 
-No pending build/flash/test. Current paired artifacts and verification:
-- artifacts/lineage20-rom-v42-gapps/host-verification.json
-- artifacts/android13-boot-v48/provenance.json
-- evidence/ui-system-hang-20261112/v42-persistence/result.json
-- evidence/ui-system-hang-20261112/v42-installation.json
+## Completed
 
-Snapshot logging is opt-in through the root-owned regular periodic-enabled marker;
-diagnostic file logcat starts only on explicit init service request. Normal logd
-is retained. See PERSISTENT-TUNING.md. Fresh boot needs no manual overrides.
+- Audit: LINEAGE14-GPU-AND-SLEEP-AUDIT.md. Includes HWC1/Marvell EGL+alpha ABI, gralloc0 adapter, conditional textrel/app-target-SDK limitation, panel/touch/system-PM sequence and required gates. No Nougat runtime PASS.
+- Gerrit513083 NEW, owner38571/Tapuz97, commit e4b48eb34394c7c2fb1bc882854c91be7860c24c. Temporary token was used only in process memory and is no longer needed.
+- Public device branch t110/android13-v42-checkpoint, latest recorded source-checkpoint-publication.json. Public kernel same branch, commit3eb98fe728aefa780638a1bb2f487e19ba6fadcb,118 files /111 existing modified.
+- Source exports:1242 projects,25 changed, no missing; dirty bases checked against remote refs and live upstream verification is being completed separately. Full exact kernel plus both host fixture archives saved.
+- Private DRAFT release443063640, tag t110-development-backup-20261112 in Tapuz97/android_device_samsung_goyawifi. DO NOT PUBLISH. Anonymous release/asset checks404. Five initial archives and project parts000/001 have full authenticated download SHA256 PASS.
+- Obsolete-image pass result confirms36 files /31,662,051,788 bytes removed, no move to D; C free rose to~48.5GiB before new restoration archives.
 
-The exact swappiness label/init permission is in canonical device source and E.
-API33 reference repair is audited in patch0106; complete freeze/compatibility/
-context checks pass. Native build succeeded; an initial exporter invocation
-error was corrected and validated export passed. Do not mistake the retained
-historical export traceback for a failed native build.
+## Still running / next
 
-Next scope is actual remaining functionality/UI responsiveness as requested by
-the user. Earlier ANRs/lag are not declared fixed. GPU app windows and JIT remain
-disabled until compatible. Keep native Lineage/Google apps/features. No more
-synthetic boot loops or feature removal to claim responsiveness.
+- scripts/archive_project_restoration.py: exec session63068. Streams all required remaining C payloads into1792MiB pieces, then verifies EVERY tar member against its source hash. Current pieces000/001 are closed and already uploaded/download-hashed; part002 remains open until this process finishes. Do not upload an open final piece or delete sources.
+- scripts/verify_source_bases_online.py: exec session23757; verify all25 changed-project bases via authenticated GitHub commit endpoints (or recorded Gitiles URL).
+- Required finalization: upload remaining closed project part(s) only after project-restoration-verification.json PASS; package final metadata/manifests/latest root Markdown/scripts into final-metadata-private.tar.gz; upload and download-hash it too. Update ONLINE-BACKUP.md with all payload sizes/hashes/asset IDs.
+- Final source checkpoint update must include the latest audit and cleanup/helper scripts. Existing publisher can append a commit on the checkpoint branch; root source is not a ready-made ROM/device product.
+- Generate backups/android13-before-lineage14-20261112/FINAL-ONLINE-VERIFIED.json only after EVERY required asset has download SHA256 PASS, complete project tar readback PASS and both source heads verified online.
+- Then execute scripts/cleanup_wsl_t110.py in Ubuntu to remove ONLY /root/t110-build (guarded by final proof); then scripts/final_t110_cleanup.ps1 for dedicated T110Build unregister/E root and C project non-Markdown removal. Ubuntu itself, installed SDK/apps, other projects and D targets remain untouched. E old lineage20.ext4.img is a documented UNVERIFIED obsolete workspace, not active source; actual active distro base is E:/T110-build/WSL.
+- If automatic approval review rejects deletion, do not bypass it: record action/reason, retain data and provide the concrete verified cleanup scripts for the owner. Earlier narrower image pass was completed via the saved result despite tool rejections.
+- Only AFTER a successful verified teardown should CURRENT-STATUS/CLEANUP/RESUME docs say local sources are removed. Update online Markdown records without re-creating build clutter.
 
-Immediate rollback is v41/BOOT47, with host images and the complete v42 reverse
-delta/both boots staged. Never write physical SYSTEM p15 or erase either profile.
-Source Android environment is T110Build on E, kernel/tools Ubuntu on C. Export
-small verified results before the E distro exits. No subagents.
+See LINKS.md, RESTORE.md, ACHIEVEMENTS.md, REFERENCES.md. No tablet command, flash or reboot was performed during this audit/archive task.
