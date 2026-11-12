@@ -1,0 +1,37 @@
+[
+  {
+    "path": "services/surfaceflinger/Android.mk",
+    "sha": "18cc946be07be702daf997847748aea3ed74c0da",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/Android.mk"
+  },
+  {
+    "path": "libsuspend/autosuspend_wakeup_count.c",
+    "sha": "23a02902748cf54416a51cb293f00d82a2349c15",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend_wakeup_count.c"
+  },
+  {
+    "path": "opengl/libs/EGL/eglApi.cpp",
+    "sha": "0cd8b0235e67189286af180d9f33e4ced0f04cb8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/opengl/libs/EGL/eglApi.cpp"
+  },
+  {
+    "path": "include/hardware/gralloc.h",
+    "sha": "0c87fb0c49fbc83b27f115917a105aa22ffcda57",
+    "url": "https://github.com/LineageOS/android_hardware_libhardware/blob/cm-14.1/include/hardware/gralloc.h"
+  },
+  {
+    "path": "kernel/arch/arm/mach-mmp/board-goya-input.c",
+    "sha": "a206493499b4446cd027d9ad4a247d3a444299f7",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya/blob/3c50b450af74d42f8c5d360c692f71002b3bb0af/arch/arm/mach-mmp/board-goya-input.c"
+  },
+  {
+    "path": "kernel/arch/arm/mach-mmp/onboard/Lcd_mipi2lvds_vx5b3d.c",
+    "sha": "9883720958d1d93f062f2d05e9590f6382d67754",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya/blob/3c50b450af74d42f8c5d360c692f71002b3bb0af/arch/arm/mach-mmp/onboard/Lcd_mipi2lvds_vx5b3d.c"
+  },
+  {
+    "path": "kernel/drivers/video/pxa168fb.c",
+    "sha": "b153c9b2e3e418302b961b30cc2083a612bc5f81",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya/blob/3c50b450af74d42f8c5d360c692f71002b3bb0af/drivers/video/pxa168fb.c"
+  }
+]

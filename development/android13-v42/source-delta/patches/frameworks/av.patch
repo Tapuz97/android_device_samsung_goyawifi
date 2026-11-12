@@ -1,0 +1,78 @@
+diff --git a/media/codec2/vndk/C2AllocatorGralloc.cpp b/media/codec2/vndk/C2AllocatorGralloc.cpp
+index bc4053d..5620b7b 100644
+--- a/media/codec2/vndk/C2AllocatorGralloc.cpp
++++ b/media/codec2/vndk/C2AllocatorGralloc.cpp
+@@ -19,6 +19,8 @@
+ #include <utils/Log.h>
+ 
+ #include <mutex>
++#include <android-base/properties.h>
++#include "T110Yv12Layout.h"
+ 
+ #include <aidl/android/hardware/graphics/common/PlaneLayoutComponentType.h>
+ #include <android/hardware/graphics/common/1.2/types.h>
+@@ -636,6 +638,31 @@ c2_status_t C2AllocationGralloc::map(
+ 
+             status_t err = GraphicBufferMapper::get().lockYCbCr(
+                     const_cast<native_handle_t*>(mBuffer), grallocUsage, rect, &ycbcrLayout);
++            if (err && mFormat == static_cast<uint32_t>(PixelFormat4::YV12) &&
++                    base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++                // API0.1 has raw lock but no lock_ycbcr. C2 already owns the
++                // full imported dimensions/stride; use Android's YV12 contract.
++                t110_yv12_layout sizes;
++                if (!t110_compute_yv12_layout(mWidth, mHeight, mStride, &sizes)) {
++                    return C2_CORRUPTED;
++                }
++                void* pointer = nullptr;
++                err = GraphicBufferMapper::get().lock(
++                        const_cast<native_handle_t*>(mBuffer), grallocUsage, rect, &pointer);
++                if (!err) {
++                    if (!pointer) {
++                        GraphicBufferMapper::get().unlock(mBuffer);
++                        return C2_CORRUPTED;
++                    }
++                    ycbcrLayout = {};
++                    ycbcrLayout.y = pointer;
++                    ycbcrLayout.cr = static_cast<uint8_t*>(pointer) + sizes.y_size;
++                    ycbcrLayout.cb = static_cast<uint8_t*>(ycbcrLayout.cr) + sizes.c_size;
++                    ycbcrLayout.ystride = sizes.y_stride;
++                    ycbcrLayout.cstride = sizes.c_stride;
++                    ycbcrLayout.chroma_step = 1;
++                }
++            }
+             if (err) {
+                 ALOGE("failed transaction: lockYCbCr (err=%d)", err);
+                 return C2_CORRUPTED;
+diff --git a/media/codec2/vndk/C2AllocatorIon.cpp b/media/codec2/vndk/C2AllocatorIon.cpp
+index a6a733e..a3f41df 100644
+--- a/media/codec2/vndk/C2AllocatorIon.cpp
++++ b/media/codec2/vndk/C2AllocatorIon.cpp
+@@ -481,17 +481,20 @@ C2AllocationIon::C2AllocationIon(int ionFd, size_t size, int shareFd, C2Allocato
+ C2AllocatorIon::C2AllocatorIon(id_t id)
+     : mInit(C2_OK),
+       mIonFd(ion_open()) {
++    // Traits remain queryable even when /dev/ion cannot be opened. C2Store
++    // calls setUsageMapper before any allocation checks mInit.
++    const int openError = mIonFd < 0 ? errno : 0;
++    C2MemoryUsage minUsage = { 0, 0 };
++    C2MemoryUsage maxUsage = { C2MemoryUsage::CPU_READ, C2MemoryUsage::CPU_WRITE };
++    Traits traits = { "android.allocator.ion", id, LINEAR, minUsage, maxUsage };
++    mTraits = std::make_shared<Traits>(traits);
++    mBlockSize = ::getpagesize();
+     if (mIonFd < 0) {
+-        switch (errno) {
++        switch (openError) {
+         case ENOENT:    mInit = C2_OMITTED; break;
+-        default:        mInit = c2_map_errno<EACCES>(errno); break;
++        default:        mInit = c2_map_errno<EACCES>(openError); break;
+         }
+-    } else {
+-        C2MemoryUsage minUsage = { 0, 0 };
+-        C2MemoryUsage maxUsage = { C2MemoryUsage::CPU_READ, C2MemoryUsage::CPU_WRITE };
+-        Traits traits = { "android.allocator.ion", id, LINEAR, minUsage, maxUsage };
+-        mTraits = std::make_shared<Traits>(traits);
+-        mBlockSize = ::getpagesize();
++        ALOGW("ION unavailable; preserving allocator traits and allocation error %d", mInit);
+     }
+ }
+ 

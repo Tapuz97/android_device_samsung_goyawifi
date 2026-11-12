@@ -1,0 +1,26 @@
+diff --git a/include/fuse_common.h b/include/fuse_common.h
+index 3f836d7..25ac0aa 100644
+--- a/include/fuse_common.h
++++ b/include/fuse_common.h
+@@ -409,7 +409,7 @@ struct fuse_loop_config {
+  *
+  * This feature is disabled by default.
+  */
+-#define FUSE_CAP_PASSTHROUGH            (1 << 31)
++#define FUSE_CAP_PASSTHROUGH            (1U << 31)
+ 
+ /**
+  * Ioctl flags
+diff --git a/include/fuse_kernel.h b/include/fuse_kernel.h
+index 70278fa..e0e01a4 100644
+--- a/include/fuse_kernel.h
++++ b/include/fuse_kernel.h
+@@ -301,7 +301,7 @@ struct fuse_file_lock {
+ #define FUSE_CACHE_SYMLINKS	(1 << 23)
+ #define FUSE_NO_OPENDIR_SUPPORT (1 << 24)
+ #define FUSE_EXPLICIT_INVAL_DATA (1 << 25)
+-#define FUSE_PASSTHROUGH	(1 << 31)
++#define FUSE_PASSTHROUGH	(1U << 31)
+ 
+ /**
+  * CUSE INIT request/reply flags

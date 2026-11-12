@@ -1,0 +1,81 @@
+--- a/libprocessgroup/processgroup.cpp
++++ b/libprocessgroup/processgroup.cpp
+@@ -26,6 +26,8 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
++#include <sys/vfs.h>
++#include <linux/magic.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+ 
+@@ -66,6 +68,39 @@
+         *path = controller.path();
+     }
+ 
++    return true;
++}
++
++// Android's host glibc 2.17 sysroot predates the cgroup-v2 magic constant.
++#ifndef CGROUP2_SUPER_MAGIC
++#define CGROUP2_SUPER_MAGIC 0x63677270
++#endif
++
++// T110 bring-up: use a real v1 hierarchy for process lifetime tracking when
++// explicitly enabled. Do not pretend an ordinary directory is a cgroup, and
++// never write v2 activation controls to a v1 hierarchy.
++static bool GetProcessGroupHierarchy(std::string* path, bool* activate = nullptr) {
++    if (activate) *activate = true;
++    if (!GetBoolProperty("ro.t110.legacy_processgroups", false)) {
++        return CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, path);
++    }
++
++    struct statfs fs;
++    auto unified = CgroupMap::GetInstance().FindController(CGROUPV2_CONTROLLER_NAME);
++    if (unified.HasValue() && unified.IsUsable() && statfs(unified.path(), &fs) == 0 &&
++        fs.f_type == CGROUP2_SUPER_MAGIC) {
++        *path = unified.path();
++        return true;
++    }
++
++    auto legacy = CgroupMap::GetInstance().FindController("cpuacct");
++    if (!legacy.HasValue() || legacy.version() != 1 || !legacy.IsUsable() ||
++        statfs(legacy.path(), &fs) != 0 || fs.f_type != CGROUP_SUPER_MAGIC) {
++        LOG(ERROR) << "No usable v2 or T110 cpuacct process-group hierarchy";
++        return false;
++    }
++    *path = legacy.path();
++    if (activate) *activate = false;
+     return true;
+ }
+ 
+@@ -246,7 +281,7 @@
+     std::vector<std::string> cgroups;
+     std::string path, memcg_apps_path;
+ 
+-    if (CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &path)) {
++    if (GetProcessGroupHierarchy(&path)) {
+         cgroups.push_back(path);
+     }
+     if (CgroupGetMemcgAppsPath(&memcg_apps_path) && memcg_apps_path != path) {
+@@ -418,7 +453,7 @@
+ static int KillProcessGroup(uid_t uid, int initialPid, int signal, int retries,
+                             int* max_processes) {
+     std::string hierarchy_root_path;
+-    CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &hierarchy_root_path);
++    if (!GetProcessGroupHierarchy(&hierarchy_root_path)) return -ENOENT;
+     const char* cgroup = hierarchy_root_path.c_str();
+ 
+     std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+@@ -558,8 +593,9 @@
+         }
+     }
+ 
+-    CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &cgroup);
+-    return createProcessGroupInternal(uid, initialPid, cgroup, true);
++    bool activate_controllers;
++    if (!GetProcessGroupHierarchy(&cgroup, &activate_controllers)) return -ENOENT;
++    return createProcessGroupInternal(uid, initialPid, cgroup, activate_controllers);
+ }
+ 
+ static bool SetProcessGroupValue(int tid, const std::string& attr_name, int64_t value) {

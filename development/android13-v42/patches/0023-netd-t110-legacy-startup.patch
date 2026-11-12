@@ -1,0 +1,59 @@
+--- a/server/main.cpp
++++ b/server/main.cpp
+@@ -26,6 +26,7 @@
+ #include <sys/wait.h>
+ #include <chrono>
+ #include <cinttypes>
++#include <android-base/properties.h>
+ #include <mutex>
+ 
+ #define LOG_TAG "Netd"
+@@ -126,17 +127,20 @@
+         gLog.info("setCloseOnExec(%s)", sock);
+     }
+ 
++    const bool legacy_bpf = android::base::GetBoolProperty("ro.t110.legacy_bpf", false);
+     std::string cg2_path;
+     if (!CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &cg2_path)) {
+         ALOGE("Failed to find cgroup v2 root %s", strerror(errno));
+-        exit(1);
++        if (!legacy_bpf) exit(1);
+     }
+ 
+     if (libnetd_updatable_init(cg2_path.c_str())) {
+         ALOGE("libnetd_updatable_init failed");
+-        exit(1);
+-    }
+-    gLog.info("libnetd_updatable_init success");
++        if (!legacy_bpf) exit(1);
++        ALOGW("T110 legacy mode: BPF service unavailable; returning errors for BPF operations");
++    } else {
++        gLog.info("libnetd_updatable_init success");
++    }
+ 
+     NetlinkManager *nm = NetlinkManager::Instance();
+     if (nm == nullptr) {
+--- a/server/Controllers.cpp
++++ b/server/Controllers.cpp
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <cinttypes>
++#include <android-base/properties.h>
+ #include <regex>
+ #include <set>
+ #include <string>
+@@ -284,9 +285,10 @@
+         // As such simply exit netd.  This may crash loop the system, but by failing
+         // to bootup we will trigger rollback and thus this offers us protection against
+         // a mainline update breaking things.
+-        exit(1);
+-    }
+-    gLog.info("Enabling bandwidth control: %" PRId64 "us", s.getTimeAndResetUs());
++        if (!android::base::GetBoolProperty("ro.t110.legacy_bpf", false)) exit(1);
++        gLog.error("T110 legacy mode: bandwidth accounting is unavailable");
++    }
++    gLog.info("Attempted bandwidth control setup: %" PRId64 "us", s.getTimeAndResetUs());
+ 
+     if (int ret = RouteController::Init(NetworkController::LOCAL_NET_ID)) {
+         gLog.error("Failed to initialize RouteController (%s)", strerror(-ret));

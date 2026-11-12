@@ -1,0 +1,29 @@
+--- a/public/attributes
++++ b/public/attributes
+@@ -1,3 +1,7 @@
++# T110 stock GPU library. Only the device policy assigns this attribute.
++attribute t110_gpu_file_type;
++
++
+ ######################################
+ # Attribute declarations
+ #
+--- a/public/domain.te
++++ b/public/domain.te
+@@ -1082,6 +1082,7 @@
+   -apk_data_file
+   -app_data_file
+   -asec_public_file
++  -t110_gpu_file_type
+ }:file execmod;
+ 
+ # Do not allow making the stack or heap executable.
+@@ -1092,7 +1093,7 @@
+ # Do not allow the introduction of new execmod rules. Text relocations
+ # and modification of executable pages are unsafe.
+-neverallow { domain -untrusted_app_25 -untrusted_app_27 } file_type:file execmod;
++neverallow { domain -untrusted_app_25 -untrusted_app_27 } { file_type -t110_gpu_file_type }:file execmod;
+ 
+ neverallow { domain -init } proc:{ file dir } mounton;
+ 
+ # Ensure that all types assigned to processes are included

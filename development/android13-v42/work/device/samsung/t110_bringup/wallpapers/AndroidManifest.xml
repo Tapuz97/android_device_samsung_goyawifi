@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.lineageos.t110.wallpapers">
+    <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="33" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_COMPONENT" />
+    <application android:label="@string/app_name" android:icon="@android:drawable/ic_menu_gallery"
+        android:theme="@android:style/Theme.Material.NoActionBar" android:hardwareAccelerated="false"
+        android:allowBackup="false" android:supportsRtl="true">
+        <activity android:name=".ResetLockActivity" android:exported="false" android:theme="@android:style/Theme.NoDisplay" />
+        <service android:name=".StaticWallpaperService" android:permission="android.permission.BIND_WALLPAPER" android:exported="true">
+            <intent-filter><action android:name="android.service.wallpaper.WallpaperService" /></intent-filter>
+            <meta-data android:name="android.service.wallpaper" android:resource="@xml/wallpaper" />
+        </service>
+        <activity android:name=".WallpaperActivity" android:exported="true" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:label="@string/picker_name">
+                <action android:name="android.intent.action.SET_WALLPAPER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

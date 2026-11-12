@@ -1,0 +1,25 @@
+diff --git a/core/java/android/view/ViewRootImpl.java b/core/java/android/view/ViewRootImpl.java
+index f6211fd4..faaa78ab 100644
+--- a/core/java/android/view/ViewRootImpl.java
++++ b/core/java/android/view/ViewRootImpl.java
+@@ -1599,6 +1599,20 @@ public final class ViewRootImpl implements ViewParent,
+         mAttachInfo.mHardwareAccelerated = false;
+         mAttachInfo.mHardwareAccelerationRequested = false;
+ 
++        // The T110's stock EGL driver corrupts normal HWUI window frames and can
++        // abort in swapBuffers. Use the existing software View/Canvas path for
++        // this engineering device, as already validated by its setup activity.
++        // SurfaceView, direct GLES clients and SurfaceFlinger remain separate.
++        // Keep this opt-in under the existing exported device compatibility flag.
++        if (SystemProperties.getBoolean("ro.t110.legacy_gpu", false)) {
++            if (mAttachInfo.mThreadedRenderer != null) {
++                mAttachInfo.mThreadedRenderer.destroy();
++                mAttachInfo.mThreadedRenderer = null;
++            }
++            Log.i(mTag, "T110 window rendering: software Canvas for " + attrs.getTitle());
++            return;
++        }
++
+         // Don't enable hardware acceleration when the application is in compatibility mode
+         if (mTranslator != null) return;
+ 

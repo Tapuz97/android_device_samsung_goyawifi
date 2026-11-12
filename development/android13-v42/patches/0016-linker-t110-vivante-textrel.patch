@@ -1,0 +1,16 @@
+--- a/linker/linker.cpp
++++ b/linker/linker.cpp
+@@ -3326,7 +3326,12 @@
+   if (has_text_relocations) {
+     // Fail if app is targeting M or above.
+     int app_target_api_level = get_application_target_sdk_version();
+-    if (app_target_api_level >= 23) {
++    // The stock T110 GPU library predates PIC. Limit the compatibility path
++    // to its installed vendor file and the explicit device opt-in.
++    const bool t110_gpu = android::base::GetBoolProperty("ro.t110.legacy_gpu", false) &&
++        (strcmp(get_realpath(), "/vendor/lib/libGAL.so") == 0 ||
++         strcmp(get_realpath(), "/system/vendor/lib/libGAL.so") == 0);
++    if (app_target_api_level >= 23 && !t110_gpu) {
+       DL_ERR_AND_LOG("\"%s\" has text relocations (%s#Text-Relocations-Enforced-for-API-level-23)",
+                      get_realpath(), kBionicChangesUrl);
+       return false;

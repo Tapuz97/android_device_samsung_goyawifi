@@ -1,0 +1,16 @@
+--- a/service-t/src/com/android/server/net/NetworkStatsService.java
++++ b/service-t/src/com/android/server/net/NetworkStatsService.java
+@@ -1282,8 +1282,11 @@
+     private void registerGlobalAlert() {
+         try {
+             mNetd.bandwidthSetGlobalAlert(mGlobalAlertBytes);
+-        } catch (IllegalStateException e) {
+-            Log.w(TAG, "problem registering for global alert: " + e);
++        } catch (IllegalStateException | ServiceSpecificException e) {
++            // Kernel quota support can be unavailable. Keep scheduled polling
++            // and provider alerts active; a rejected netd alert is not a
++            // reason to terminate system_server from the polling receiver.
++            Log.w(TAG, "Global bandwidth alert unavailable; retaining polling: " + e);
+         } catch (RemoteException e) {
+             // ignored; service lives in system_server
+         }

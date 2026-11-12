@@ -1,0 +1,77 @@
+--- a/media/codec2/vndk/C2AllocatorGralloc.cpp
++++ b/media/codec2/vndk/C2AllocatorGralloc.cpp
+@@ -19,6 +19,8 @@
+ #include <utils/Log.h>
+ 
+ #include <mutex>
++#include <android-base/properties.h>
++#include "T110Yv12Layout.h"
+ 
+ #include <aidl/android/hardware/graphics/common/PlaneLayoutComponentType.h>
+ #include <android/hardware/graphics/common/1.2/types.h>
+@@ -636,6 +638,31 @@
+ 
+             status_t err = GraphicBufferMapper::get().lockYCbCr(
+                     const_cast<native_handle_t*>(mBuffer), grallocUsage, rect, &ycbcrLayout);
++            if (err && mFormat == static_cast<uint32_t>(PixelFormat4::YV12) &&
++                    base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++                // API0.1 has raw lock but no lock_ycbcr. C2 already owns the
++                // full imported dimensions/stride; use Android's YV12 contract.
++                t110_yv12_layout sizes;
++                if (!t110_compute_yv12_layout(mWidth, mHeight, mStride, &sizes)) {
++                    return C2_CORRUPTED;
++                }
++                void* pointer = nullptr;
++                err = GraphicBufferMapper::get().lock(
++                        const_cast<native_handle_t*>(mBuffer), grallocUsage, rect, &pointer);
++                if (!err) {
++                    if (!pointer) {
++                        GraphicBufferMapper::get().unlock(mBuffer);
++                        return C2_CORRUPTED;
++                    }
++                    ycbcrLayout = {};
++                    ycbcrLayout.y = pointer;
++                    ycbcrLayout.cr = static_cast<uint8_t*>(pointer) + sizes.y_size;
++                    ycbcrLayout.cb = static_cast<uint8_t*>(ycbcrLayout.cr) + sizes.c_size;
++                    ycbcrLayout.ystride = sizes.y_stride;
++                    ycbcrLayout.cstride = sizes.c_stride;
++                    ycbcrLayout.chroma_step = 1;
++                }
++            }
+             if (err) {
+                 ALOGE("failed transaction: lockYCbCr (err=%d)", err);
+                 return C2_CORRUPTED;
+diff --git a/media/codec2/vndk/T110Yv12Layout.h b/media/codec2/vndk/T110Yv12Layout.h
+new file mode 100644
+--- /dev/null
++++ b/media/codec2/vndk/T110Yv12Layout.h
+@@ -0,0 +1,29 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++
++#include <stdbool.h>
++#include <stddef.h>
++#include <stdint.h>
++
++struct t110_yv12_layout {
++    size_t y_stride, c_stride, y_size, c_size, total_size;
++};
++
++/* Android YV12: even dimensions, 16-byte row alignment, then Cr and Cb. */
++static inline bool t110_compute_yv12_layout(uint32_t width, uint32_t height,
++        uint32_t stride, struct t110_yv12_layout* out) {
++    if (!out || !width || !height || ((width | height) & 1) ||
++            stride < width || (stride & 15)) return false;
++    size_t y_stride = stride;
++    size_t c_stride = ((size_t)stride / 2 + 15) & ~(size_t)15;
++    if (height > SIZE_MAX / y_stride || height / 2 > SIZE_MAX / c_stride) return false;
++    size_t y_size = y_stride * height;
++    size_t c_size = c_stride * (height / 2);
++    if (c_size > (SIZE_MAX - y_size) / 2) return false;
++    out->y_stride = y_stride;
++    out->c_stride = c_stride;
++    out->y_size = y_size;
++    out->c_size = c_size;
++    out->total_size = y_size + c_size * 2;
++    return true;
++}

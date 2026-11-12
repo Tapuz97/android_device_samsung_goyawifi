@@ -1,0 +1,137 @@
+// Proprietary libraries from the verified SM-T110 stock firmware.
+
+// Loaded by libGLESv2_MRVL through dlopen when compiling GLSL shaders.
+cc_prebuilt_library_shared {
+    name: "t110_libGLESv2SC",
+    stem: "libGLESv2SC",
+    srcs: ["libGLESv2SC.so"],
+    vendor: true,
+    compile_multilib: "32",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libGAL",
+    stem: "libGAL",
+    srcs: ["libGAL.so"],
+    vendor: true,
+    compile_multilib: "32",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libgputex",
+    stem: "libgputex",
+    srcs: ["libgputex.so"],
+    vendor: true,
+    compile_multilib: "32",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libgcu",
+    stem: "libgcu",
+    srcs: ["libgcu.so"],
+    vendor: true,
+    compile_multilib: "32",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libHWComposerGC",
+    stem: "libHWComposerGC",
+    srcs: ["libHWComposerGC.so"],
+    vendor: true,
+    compile_multilib: "32",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libstdcpp",
+    stem: "libstdc++",
+    srcs: ["libstdc++.so"],
+    vendor: true,
+    compile_multilib: "32",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libEGL_MRVL",
+    stem: "libEGL_MRVL",
+    srcs: ["egl/libEGL_MRVL.so"],
+    vendor: true,
+    compile_multilib: "32",
+    relative_install_path: "egl",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libGLESv1_CM_MRVL",
+    stem: "libGLESv1_CM_MRVL",
+    srcs: ["egl/libGLESv1_CM_MRVL.so"],
+    vendor: true,
+    compile_multilib: "32",
+    relative_install_path: "egl",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_libGLESv2_MRVL",
+    stem: "libGLESv2_MRVL",
+    srcs: ["egl/libGLESv2_MRVL.so"],
+    vendor: true,
+    compile_multilib: "32",
+    relative_install_path: "egl",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_gralloc_mrvl",
+    stem: "gralloc.mrvl",
+    srcs: ["hw/gralloc.mrvl.so"],
+    vendor: true,
+    compile_multilib: "32",
+    relative_install_path: "hw",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_hwcomposer_mrvl",
+    stem: "hwcomposer.mrvl",
+    srcs: ["hw/hwcomposer.mrvl.so"],
+    vendor: true,
+    compile_multilib: "32",
+    relative_install_path: "hw",
+    strip: { none: true },
+    check_elf_files: false,
+    shared_libs: [],
+}
+
+cc_library_shared {
+    name: "libt110_gralloc_binder_compat",
+    vendor: true,
+    srcs: ["binder_compat.c"],
+    shared_libs: ["libbinder"],
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

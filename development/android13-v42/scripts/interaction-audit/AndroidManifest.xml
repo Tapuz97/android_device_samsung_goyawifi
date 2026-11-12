@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dev.tapuz.t110.interaction">
+  <uses-sdk android:minSdkVersion="33" android:targetSdkVersion="33"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+  <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation"/>
+  <application android:label="T110 temporary interaction audit" android:allowBackup="false" android:extractNativeLibs="true">
+    <meta-data android:name="com.android.graphics.injectLayers.enable" android:value="true"/>
+  </application>
+  <instrumentation android:name=".InteractionInstrumentation" android:targetPackage="dev.tapuz.t110.interaction" android:functionalTest="true"/>
+</manifest>

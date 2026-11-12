@@ -1,0 +1,3514 @@
+[
+  {
+    "path": "work/T110EglWindow.cpp",
+    "sha256": "d0971f10b59d80c42f801f6a5934032a8b8dec856a6bd0eef6644b96c33a2da1"
+  },
+  {
+    "path": "work/T110EglWindow.h",
+    "sha256": "2441d61c589c77a16438a7a17f0601b983f63574405f9301d577dc2841fc4d73"
+  },
+  {
+    "path": "work/T110Framebuffer.cpp",
+    "sha256": "98881acc2fba5f1412668b1e7b377883af269e884f00511ed6a7e6040f79de84"
+  },
+  {
+    "path": "work/T110Framebuffer.h",
+    "sha256": "6d52132bd6e2a9fd9788e5e971fa108b6204e37176d9793434e8818ad09c0fda"
+  },
+  {
+    "path": "work/T110Scanout.h",
+    "sha256": "1306b23699730f2019be3d4f55612d7f9e3f2e7b998174877222dc2f7028e771"
+  },
+  {
+    "path": "work/T110ScanoutNeon.h",
+    "sha256": "3c2eae0859002b6947a2db3ad299ab618f18ce31ed988f50fbeeea817ce3b24c"
+  },
+  {
+    "path": "work/T110WindowSlots.h",
+    "sha256": "baf8e3d550b25bf6787edd7d8f82a99cbd31702fed7b987a8b213aee9e8b0ef1"
+  },
+  {
+    "path": "work/core-boot/a9_string_test.c",
+    "sha256": "7012ed19bd01a0a0a64dc98d864ca3d9da9715fda6d77392f66fef5132ae26cd"
+  },
+  {
+    "path": "work/core-boot/alarm_timer_test.c",
+    "sha256": "6c13836d51441f2c912e19e6ccf2e58519d45f0f8299285610bb0f931d8bf8b8"
+  },
+  {
+    "path": "work/core-boot/ambient_test.c",
+    "sha256": "7eb6dcaf9d46a11a4e726fc47bb5c07d0ae4e75b5e2317f2cb46d027106f9b70"
+  },
+  {
+    "path": "work/core-boot/build-qemu-kernel.sh",
+    "sha256": "aa02967746ee521b1803437da3fd80aab85d8c5d239b03c2b8afa44f8c0b5426"
+  },
+  {
+    "path": "work/core-boot/egl_probe.c",
+    "sha256": "199cf95408c67bd53458db4f484ae200f32d338560a61fd8fbd3dab86f4f1639"
+  },
+  {
+    "path": "work/core-boot/getrandom_test.c",
+    "sha256": "2623a02794a635ad46aa2f12c1c167f3bc5cdc3340a47fc354209cdb224f4dfc"
+  },
+  {
+    "path": "work/core-boot/init.environ.rc",
+    "sha256": "cb612c1ab9a5edf2a70664a881e6f80aa3b97088c98ef7a8dca69d569c1a8b14"
+  },
+  {
+    "path": "work/core-boot/init.mrvl.rc",
+    "sha256": "cc1e18e073e4e87c9f39ff8d939929162399dda359cc3c8321597aae5133d312"
+  },
+  {
+    "path": "work/core-boot/init.rc",
+    "sha256": "8c76e37bf515c19000007c39fc5b8f7770cb6aaec56f7d27b12d09f51f37fd5e"
+  },
+  {
+    "path": "work/core-boot/ion_alloc_probe.c",
+    "sha256": "27bb3eeefcb7156a9cc1293a5836aeb6576e5c0b373b3f581b39afc460dfe8f6"
+  },
+  {
+    "path": "work/core-boot/legacy_galcore.h",
+    "sha256": "e3ebe0ec1487be67e97c93098ee987d9d2fb5ad68f19d4246dbab29835ae906a"
+  },
+  {
+    "path": "work/core-boot/load_galcore.c",
+    "sha256": "119180048f1a1d7381b0d572b604f4da52281639827d18d0324ddbdddc7384a5"
+  },
+  {
+    "path": "work/core-boot/logging_test.c",
+    "sha256": "3d5906009d9722ee5e916e7c688c33923cb094217a176e76630042c4594fe7f5"
+  },
+  {
+    "path": "work/core-boot/prepare_boot_logs.c",
+    "sha256": "7624e819b3ce7a455492c16a1e92ebfaf152fe82823245c0b249af9c7e4dfd12"
+  },
+  {
+    "path": "work/core-boot/stage.c",
+    "sha256": "2b4efe69f0cb59070d9c2718abbd5078b3aeeb476d32827b454acfe2673298f8"
+  },
+  {
+    "path": "work/core-boot/ueventd.mrvl.rc",
+    "sha256": "1e0e1ee5683bf00df41fe53a69e97afc1c9817243011828210325cd5139f14db"
+  },
+  {
+    "path": "work/core-boot/v22-init.environ.rc",
+    "sha256": "cb612c1ab9a5edf2a70664a881e6f80aa3b97088c98ef7a8dca69d569c1a8b14"
+  },
+  {
+    "path": "work/core-boot/v23-init.environ.rc",
+    "sha256": "cb612c1ab9a5edf2a70664a881e6f80aa3b97088c98ef7a8dca69d569c1a8b14"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/Android.mk",
+    "sha256": "4c0cf347d8d8c13d68ffc1ce1b525cd1b4f86c0c8af56e8f3472743fe1adae59"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/AndroidProducts.mk",
+    "sha256": "c986d8856ac4d797bcfa54bb8d5f5aad264499569f85149ce34eacc5ec2c806e"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/BoardConfig.mk",
+    "sha256": "cbbd293a52c6a3b7ef1f9df1c5c0560eac6c79dcd653ed2e719f07035acfa5f4"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/device_goyawifi.mk",
+    "sha256": "a7644f9dbe2ff12ecc2eb851d591621fcbf521156558babcb1efd63fa917397f"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/extract-files.sh",
+    "sha256": "d6a47b655fcd3ec81f46e778b6bb937510f7e5187ad22a187293d33911b4472d"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/full_goyawifi.mk",
+    "sha256": "7599073bd4f68820f93d11d587974c2fee953527397921c486a27ddb093809fe"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/lineage.mk",
+    "sha256": "db4946b6a0b71a14feba9cf5521236c42bf49b880a5480f5e857db1125faecef"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/proprietary-files.txt",
+    "sha256": "5d378c12c2b4979daa6d077b5164778f9ad3505a8a586818a774eb17eac92b62"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/README.md",
+    "sha256": "9019edea74eb90cd3cacd30534120ec6f2144f11f221dc8d2f6684cb4a16213d"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/setup-makefiles.sh",
+    "sha256": "983cd55fed1ea47fd9fa5d21aa623496fe748bdd38fb98788199637864c117a8"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/system.prop",
+    "sha256": "66aae19981ec25dc358f06cff555142349f4f01576c7a7f794e2c3ce1bbd2a40"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/audio/audio_hw.xml",
+    "sha256": "d7593e4ad14dfdac67356f3b657c45e0191f31963932350787b4ffaf49e0d544"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/audio/codec_pga.xml",
+    "sha256": "746b94a44eca42d011374f5da6f7e0f4020a103b8680abb08cb9e1973620e982"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/audio/tiny_hw.xml",
+    "sha256": "f071993ef69256b1da35f9ae75b9a339cd3710d416855bc37c2e211b4756dc91"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/bluetooth/bdroid_buildcfg.h",
+    "sha256": "6aadcf1f39c7d29f00686afeaebaf6f3bd4cb37b44429749d3f35b3b9789336e"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/gps/gps.xml",
+    "sha256": "24ff3e2e4776c2dbab59acf9d98d3dd6e8dc3485bc23a410e91c448a879dd9b8"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/keylayout/sci-keypad.kl",
+    "sha256": "6e18f9888c91b8413bf41e94c4ed29493b27a80a99ea789da9ca35bb68cd5c7a"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/keylayout/sec_touchkey.kl",
+    "sha256": "ea9bf3e4daf1208a113a374136526e65a87025d587b52a7f84e833474c25eb0e"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/frameworks/base/core/res/res/values/config.xml",
+    "sha256": "a227990d33395faf92f1d6c515dc39870132e3c2628f884cdbf3e9fff427dc8b"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/frameworks/base/core/res/res/xml/storage_list.xml",
+    "sha256": "17eed8dd0d748e2ee97549823428afb7935fb391ce21b9e0c255d78a79a0a11a"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/frameworks/base/packages/Keyguard/res/values-large/dimens.xml",
+    "sha256": "ef2e748d58cfd8b4c8a733dcf61ac9b7a4933d0c3b0d3e51918c2155f3cd9e38"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/frameworks/base/packages/Keyguard/res/values-sw600dp/dimens.xml",
+    "sha256": "ef2e748d58cfd8b4c8a733dcf61ac9b7a4933d0c3b0d3e51918c2155f3cd9e38"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/frameworks/base/packages/SystemUI/res/values/config.xml",
+    "sha256": "4013ce7429b752f7f3f6de11ad83e11b4f9a1a1ced4d526af620b05756b12547"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/packages/apps/Browser/res/values/bools.xml",
+    "sha256": "cdd3b57a9f87ea3c7c476661c254ac91b8e764f679b8e636cc226c3722f50a6c"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/packages/apps/Camera2/res/values/config.xml",
+    "sha256": "afdf233ee3201e77ac91dc90895b32641cd375e483dcfb5ee58511de85c6dbc0"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/packages/apps/Launcher3/res/values/config.xml",
+    "sha256": "2b68725cb26dcde0a405b286b70fb51c7954e5dca75a93d2274af8858b92d01e"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/packages/apps/Settings/res/values/bools.xml",
+    "sha256": "adbed9f247a22ae7d34448a9e40f04b0e4504871a13640271377312ac800dd1a"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/overlay/packages/apps/Settings/res/values/config.xml",
+    "sha256": "1f5d5aa4d83c65f077ad4ca4f893c27f6368f85b8f1477581fd6d607d719de3a"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/Android.mk",
+    "sha256": "33c5fdbfa564a4c5383a512931a249a05d6467b58166f37bb3825ef8df1ba5df"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/init.pxa988.rc",
+    "sha256": "56e1e91734d4dbee7b79e68b1f43c9f0575bf2649af0f4c91a9d929a5216228c"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/init.pxa988.tel.rc",
+    "sha256": "68dec70cbc5abab6613af89cfd57cca59bdd6e54f7ecba7cf518333704c4bfee"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/init.pxa988.usb.rc",
+    "sha256": "83214c335702bf39cf94d1867fcd3ba51831a2987a4fca51943b07768141a27e"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/init.recovery.pxa988.rc",
+    "sha256": "e19648c03891a2080cbc7206585a3188160ba5dbec313059f8b7a71171696f86"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/lpm.rc",
+    "sha256": "6e0122fb2806957c31c4cc3e1fb3c2134c2b0d0cdcdfcdf307ac892c2f5d6025"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/rootdir/ueventd.pxa988.rc",
+    "sha256": "614d5a86c1de85ce6e649f9ccdec644bfe969e9a8a8adf5e9b769ec369a2b725"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/device.te",
+    "sha256": "07305446ac99c6009e08849b2504976fbcfd1f484a49b4e2925dfb3340bf40ff"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/dhcp.te",
+    "sha256": "7cc8a0a339a9bb2a0001b0b5fa578fc3cc6ec1b81cc2042a795199d82d779bdc"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/file.te",
+    "sha256": "d84f4a683487b0b3718a28c6682facbde5ce32713a7638b50626f29c8754107b"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/init.te",
+    "sha256": "7d7e8eb29c8bec2fc7ffdccefe51d8df0e577a0e377a01eb4a676017ceb47fba"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/mediaserver.te",
+    "sha256": "37c48998113fc23bc94bc7813ff506cf06805c4a7ff51d2f9a0185ea6ca2527d"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/netmgrd.te",
+    "sha256": "5b07dba20216d17e2fb535ead6d1e25454885e9aba05e905ffd21f9bda1b76a9"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/rild.te",
+    "sha256": "32d46a06438eddd3aaa2a1cc0cf9f69f917abdb6bd619d2c5ff86696d8990a0b"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/secril.te",
+    "sha256": "2d0b1c004dce857449854dda7e9753428b396d43d670b856ecc950fdb9f0804b"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/system.te",
+    "sha256": "52bc577b8514ae5b4c73b2e0d4d431f1d7670b0d7ab3f5503cf538672a134757"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/ueventd.te",
+    "sha256": "505c6e2da79a12f249f13c99558cd30f0bd33922fd2f3076ecbbfa4191b03330"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/vold.te",
+    "sha256": "f1b84e6e1ffce009260f43f45fbf535e1f715b6600d6cf3a9aa2ee380df95432"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/sepolicy/wpa_supplicant.te",
+    "sha256": "7da5c562959b3bf459afb2905173f824b619bd91fbe3721ea10e442f000f8372"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/vendor/mediaconfig/media_codecs.xml",
+    "sha256": "ff8fe9be2db362ee2d2dc957de8916eb8485c6a869c0611a4290cf682d049739"
+  },
+  {
+    "path": "work/device/samsung/goyawifi/vendor/mediaconfig/media_profiles.xml",
+    "sha256": "187bf9fc81aa45e7fcdc24bbcb79642f71885bbe33de4791e625322f4794d737"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/Android.bp",
+    "sha256": "0e6dfc1c6558b2f1b0578971077800cb05b55669c83a8235a915d2288c7c35dd"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/AndroidProducts.mk",
+    "sha256": "b7cae5a62165f2137bb2158c89e8ad6da3a2c89f50e1866dfab287413d7d4170"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/binder_probe.cpp",
+    "sha256": "76ffc0fa717edfe3272e6d28da5659fa8e562de609bd7864b69acbf9cef690a5"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/bionic_probe.c",
+    "sha256": "f2dfeaa7548d6816a056970f0961c2a5248f397751d54d0addcede7251b6c59e"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/BoardConfig.mk",
+    "sha256": "5446654ad68c81a8491e2f40c1559480ef41e32e25cf7dfb8881f24f626ca69a"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics-manifest.xml",
+    "sha256": "af4dac173c012dd673aee2adfcc8e2204ceaee1b2499da7b67a5189a53886ce6"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics.mk",
+    "sha256": "fba54afcaeec1490de6e8ff9cb7ca21b5bdf1af137a5c90501ec836b9854ea42"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/hwbinder_probe.cpp",
+    "sha256": "625fc09f108b7a2d624f689fceb2a13b8f5976ef2702f44d6c1d68ef60111efa"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/path_probe.c",
+    "sha256": "684c7a15415c94c8372d277aae726a41f00c0d6ae7d0ca988ff097398db2f6b0"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/processgroup_probe.cpp",
+    "sha256": "dc05bba8f46cca7a08da17c061272fef40302c731f40d7ba0ee3dc00f2bc0fae"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/README.md",
+    "sha256": "f33e00306e40eee65498f81e1ba688688f3b60680ca16809518b9988df1bb344"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/recovery_watchdog.c",
+    "sha256": "2476cbe0da7dc76730f72fb7379503987053176742e5bde55489f7b9f7d04871"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/t110_bringup.mk",
+    "sha256": "d330a9340f0c4e7c6032c88e7a83b3e852616702973427df326eff94bf0f9687"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/t110_system.mk",
+    "sha256": "f70389c23956ab82c038cf3dca9f6e8e0630d211b358d589320acc156c0d1c97"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/bluetooth/bt_vendor_t110.c",
+    "sha256": "997c71645a4004cf1a2432988c64b4c999ababfd400fe4662ed0fb953f10f568"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/bluetooth/init.t110.bluetooth.rc",
+    "sha256": "7b0a7d3e13d39120b0a227535a819e3f49ee0045ee6f0589873575daa3e9ab8d"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/bluetooth/manifest.xml",
+    "sha256": "227830a0fd025bcace76ffffc963f0319febc6f0db938f31fd6ac48b4e31e821"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/bluetooth/t110_bt_init.c",
+    "sha256": "bd80a47e3d09e15fc60ce9a66f4abe2df39009f8625120765ec0c447aea57f4a"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/Android.bp",
+    "sha256": "9c0e61541d993a62d6300e42fe387a605eefb00cbaf645ff8e3e218cf9f67112"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/binder_compat.c",
+    "sha256": "36453bfb89c0dad101949e583398739fd7c67d4f504135051d7d6fd9025b5843"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/CaptureResultsCompat.cpp",
+    "sha256": "4156bf967f2de47d0ef212d574d81f1ac29534fd4081f70ddc80bb6f5390f8a1"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/codec_loader_probe.c",
+    "sha256": "bbe5f36330f95b1f0f001c11e10f1c975158aab8676e7d63396a39e6f60c04fb"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/GpuReadbackProtocol.h",
+    "sha256": "4791a933fe2431459c5d661ed470653b34c213d9525381f5f001a637ab51cf2f"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/gpu_readback_probe.cpp",
+    "sha256": "fbce54ebb7ccf27ee0afa0e34a34c89e125fa3d0d66c64841b2f2339091c9728"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/graphic_import_probe.cpp",
+    "sha256": "89c3a20ae2598fce859228b3333280dff59f63e930c7becd311d78603bb033e0"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/T110EglWindow.cpp",
+    "sha256": "d9deafaf13e73012fbc2b5e54fe2bf0422f7e312f45a5647a41e051aa72a2700"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/T110EglWindow.h",
+    "sha256": "2441d61c589c77a16438a7a17f0601b983f63574405f9301d577dc2841fc4d73"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/T110WindowSlots.h",
+    "sha256": "baf8e3d550b25bf6787edd7d8f82a99cbd31702fed7b987a8b213aee9e8b0ef1"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/graphics/T110Yv12Layout.h",
+    "sha256": "c1c9041f2d12ea4f5f19046811155013e2622b8ebe317b0df3a43861cb37f0fb"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/kernel/lineage-reclaim.config",
+    "sha256": "99fd3bd76398be046a21d94865a7d2d7ed606ec07617dc77695e92decbb5b0fa"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/keylayout/gpio-keys.kl",
+    "sha256": "eceaf5da9faa89a24705b4c2c8938834a36fa0c67a31e2224f69e2cded2c4d75"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/keylayout/sec_touchscreen.kl",
+    "sha256": "356727baff5e728876549f1265ce002f76f82fca0dcc53e904634e584ce819f5"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/lights/init.t110.lights.rc",
+    "sha256": "9caea0c13c80184e65c768663e8a6454a0ea99246cc5ee1b5851610bdb0c6209"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/lights/lights.c",
+    "sha256": "8cb6e40ebf54135898ee2eb1a60db08197482d57f12b73c33d58074e6c2a94e6"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/lights/probe.c",
+    "sha256": "e1423ccfed367c9a96706ae31206433b17ad325db39af48865433c9f7abedf84"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/overlay/lineage-sdk/lineage/res/res/values/config.xml",
+    "sha256": "1684f77aca18565d2b474b1c30c1e3627921d92850ed7a330cb074110d3ff365"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/overlay/packages/apps/Settings/res/values/dimens.xml",
+    "sha256": "8aa88ac957933ede304b83cb459192dcc43eb749a2056a511187b8f8cdcf8d3d"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/overlay/packages/apps/SetupWizard/res/values/config.xml",
+    "sha256": "2480af0575468f1f0bb9c9f94bb71aca024a8415bcc22bd25e5a2bd205f4f21c"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/sepolicy/t110_bootlog.te",
+    "sha256": "43ad169c0091c00e1eb24d5457c725dd58f492c586cf92dd4df5df13fe06d377"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/sepolicy/t110_gpu.te",
+    "sha256": "ee3abd7c192ab29e2f5d37bfd1f6d8e2cc811711cffc3145fcdb7cef40ff97c4"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/sepolicy/t110_radio_init.te",
+    "sha256": "55bd516c4034f76292f342b73c0c437d05bd3db58c614c58cb09978a3da0f94b"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/Android.bp",
+    "sha256": "9c43f5b21578ecc605c6a81c37a373f313baad01adaa1875b9b10c8d4fa03cdf"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/AndroidManifest.xml",
+    "sha256": "8cff86bf49984abfe9699a53821c9756b144f58942dea6d9aa18f9add20a590e"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/README.md",
+    "sha256": "e8e892b7ce638530d9d19ac8096d21317c95f97110b272438da460542a7afe4a"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/res/values/strings.xml",
+    "sha256": "e0bec8f0576bdff2ecfc6c34fedad84e0f51e0b1c2a09a4a84b2c9e73d142c47"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/res/xml/wallpaper.xml",
+    "sha256": "ca4d6bdfa79e9603560e49b1c5f1980b211706db99e64b2f6dd494af4721df83"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/src/org/lineageos/t110/wallpapers/ResetLockActivity.java",
+    "sha256": "9c2c05201a4ee6b7765e690ab93b78f94caf4f2ef42e1291c857b2a81d4a087e"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/src/org/lineageos/t110/wallpapers/StaticWallpaperService.java",
+    "sha256": "440761e8bec9a43d298114584e6e7c469c596542337b405037000fd4c6e275c5"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wallpapers/src/org/lineageos/t110/wallpapers/WallpaperActivity.java",
+    "sha256": "377287ec703f3aad75070f060b860caaa1362412bfc908ffd2f7ceedd69564a5"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wifi/init.t110.radio.rc",
+    "sha256": "af59b8642082f9b02d11c066ca6868ad57c74f70ae5280ae642eec1ce5ba585b"
+  },
+  {
+    "path": "work/device/samsung/t110_bringup/wifi/t110_load_radio_module.c",
+    "sha256": "ce38e8c959320f4ef47257d61d3db1e0ec8e43aaac60b333f37d503b144b499c"
+  },
+  {
+    "path": "work/native-ramdisk/cgroups.json",
+    "sha256": "8016cf3bb9face65f034450e0c39248715792f548d20bb34a8f1f2bd33e16c4b"
+  },
+  {
+    "path": "work/native-ramdisk/init.rc",
+    "sha256": "b392c6514a195b60ff3b5b27179704e89ab6e0349db02ad8fc5400fdbaf7eba6"
+  },
+  {
+    "path": "work/native-ramdisk/ld.config.txt",
+    "sha256": "3b2191ac0dc8abf06fa9eb11905da568d781933581f8cb2fe2646e944d1f443a"
+  },
+  {
+    "path": "work/native-ramdisk/README.md",
+    "sha256": "cecad5b107aea778187bbb278e84ba30dde501034706c676d89299857608105b"
+  },
+  {
+    "path": "work/native-ramdisk/ueventd.rc",
+    "sha256": "fb0b4d144c226d56aee43c79c016ba7b78f64defb8e778a4b94ba1494b3dbb3c"
+  },
+  {
+    "path": "work/native-ramdisk/usb_legacy_t110.h",
+    "sha256": "c6618ce73ae885ac941817feca9d7237d57b3c40436c9af6755bb6180d5a090a"
+  },
+  {
+    "path": "patches/0001-product-and-source-wiring.patch",
+    "sha256": "b27ebc3fa480502da600c8358ed95d68ba07892d711686f454600e1ff57eae37"
+  },
+  {
+    "path": "patches/0003-config-file-install-paths.patch",
+    "sha256": "7a942c243f710f47796af6e16a35e1df84db342dbaec26ec6a7cf984824d3826"
+  },
+  {
+    "path": "patches/0004-seccomp-arm-tsync-backport.patch",
+    "sha256": "4da4760878373a3007ce606972b50084c8efa77ee4229bd3d35137228fef3b8c"
+  },
+  {
+    "path": "patches/0005-qemu-debug-header-guard.patch",
+    "sha256": "62e6c0ffa528624132528ca594fc527fa7af7af2022dd18c46ecc314206f1db8"
+  },
+  {
+    "path": "patches/0006-selinux-policy30-backport.patch",
+    "sha256": "352fb649082a8ad2fb7731b0b43d3a025c90da4d522669dcc06ea00a9d2e9167"
+  },
+  {
+    "path": "patches/0007-binder-lsm-hooks.patch",
+    "sha256": "6ff3d4e3fcabdab30e2120794c39f37c262d483a0db216d92e64f7214c998a4f"
+  },
+  {
+    "path": "patches/0008-binder-contexts-scatter-gather-backport.patch",
+    "sha256": "0ea7e79c858fe74b2fd53b50eb67e52ff5b9e3ae0021d7e01dbf525fa0cbb4ef"
+  },
+  {
+    "path": "patches/0009-android13-t110-legacy-processgroups.patch",
+    "sha256": "0f2cbd29dd9e3c2ca9c5403863a27ac37ff3e545819d7853f67327744737d3c0"
+  },
+  {
+    "path": "patches/0010-kernel-opath-fstat.patch",
+    "sha256": "fa66eb8d42f2cfedd3512466b4685bb5987dc0e11e53967c77dab9c8dcdbb1c7"
+  },
+  {
+    "path": "patches/0011-arm-mmap-entropy-control.patch",
+    "sha256": "6da7d53721d77c41480d30df7df78cc3d3076d84c70b69dd9c079c1e5ef44636"
+  },
+  {
+    "path": "patches/0012-functionfs-string-table-lifetime.patch",
+    "sha256": "7f7edfcaeea840487aaa2171c3f8b09343202b0fe3d3d3b175302ac0e69ba751"
+  },
+  {
+    "path": "patches/0013-adbd-t110-synchronous-functionfs.patch",
+    "sha256": "8df5807777ca83bad675dd7dfbc930b1c530ec802b6611b5841a776f1a31850a"
+  },
+  {
+    "path": "patches/0014-host-soong-gc-opt-in.patch",
+    "sha256": "a88e8ebfbf261c1968ebaf16ec7118c315b6a75faf780ff2c5b405d4a045995c"
+  },
+  {
+    "path": "patches/0015-soong-binder32bit-android-only.patch",
+    "sha256": "832b48d78f17acde80d4b37a962cd8e16c1fd7cb9a113005de5e1343d771a498"
+  },
+  {
+    "path": "patches/0016-linker-t110-vivante-textrel.patch",
+    "sha256": "01d3eac8acdd0377475d4a6ba3355fb84e9110ff8990af942c37da498f34dbd2"
+  },
+  {
+    "path": "patches/0017-sepolicy-t110-vivante-textrel.patch",
+    "sha256": "3f71235a7f2797cd3c1d3fd59552db515641c44c8c691d1bbf657c026a25687c"
+  },
+  {
+    "path": "patches/0018-kernel-ambient-capabilities.patch",
+    "sha256": "4443fdbaf0a1a9a383c3b15c317071e4b70e5272d14ebc6d654c250f4446f2e1"
+  },
+  {
+    "path": "patches/0019-init-t110-flattened-namespace.patch",
+    "sha256": "aca592ad058bee0fbfe013a1809e1c8aaa3df2092e41ea18c453e78667bde97c"
+  },
+  {
+    "path": "patches/0020-kernel-seeded-getrandom.patch",
+    "sha256": "20caf798f38bca16ab94aaf0256a322529ed80bab58e5b26b6abfb3a98ea5a07"
+  },
+  {
+    "path": "patches/0021-init-nonthrowing-fd-diagnostics.patch",
+    "sha256": "8b9015eaa05c30ecad08ef354e0771c1f6fe1c865b373f9ce10a811a5453b4d7"
+  },
+  {
+    "path": "patches/0022-bpfloader-t110-legacy-kernel.patch",
+    "sha256": "acc65fc3dae0ee9672bf1b0182e90f495b19be724dc48803fbfac54e0a920f98"
+  },
+  {
+    "path": "patches/0023-netd-t110-legacy-startup.patch",
+    "sha256": "51a436cfaa981284631698fade842ca1b643d6501b500f2f7bf66e98e7d43391"
+  },
+  {
+    "path": "patches/0024-bpfmap-pre-ebpf-error-handling.patch",
+    "sha256": "e5584e0bca6f4c924ea2e5a6e0f90930b774c2009531c55403ead36025dee299"
+  },
+  {
+    "path": "patches/0025-connectivity-legacy-qtaguid.patch",
+    "sha256": "06e17690f1b339f9c69ac5e0d8a7a334db8f62f17710fb0ac57001a51e19b494"
+  },
+  {
+    "path": "patches/0026-init-fatal-reboot-target-length.patch",
+    "sha256": "453020b9697b20c3575346ffcff28d21b1448845449b4604e8a6d317f9b6c716"
+  },
+  {
+    "path": "patches/0027-sepolicy-t110-compat-property-contexts.patch",
+    "sha256": "c6743a08dbd31288a8df1677c631f84d438abc2dd7e418ee76811cdbd551a6a7"
+  },
+  {
+    "path": "patches/0028-bionic-a9-single-register-thumb-store.patch",
+    "sha256": "7d423a485be180fa93c9fc034d49c33b4a9383756c4860fb64ca019f83e9af73"
+  },
+  {
+    "path": "patches/0029-audio-binder-pool-initialization-order.patch",
+    "sha256": "724ac725cadb9ab22376bc478ac4ebb63b9666966475bc0fc04d5fa2fef8f1f8"
+  },
+  {
+    "path": "patches/0030-ui-t110-retained-gralloc-owners.patch",
+    "sha256": "ff46a74d43566dcc4ff1dd98fdbb52d58a09327f9bdac4aa2934dd6c15d2abee"
+  },
+  {
+    "path": "patches/0031-composer-t110-vivante-initialization.patch",
+    "sha256": "7cd334b04eafbe6b625d61e4878a8f6861aa1b4441802cfc37650d61de109cca"
+  },
+  {
+    "path": "patches/0032-build-allow-device-jit-default-override.patch",
+    "sha256": "89400dea96b2684ad39faf9be024e0e45b76d77ff27476567baf8815bdda36cf"
+  },
+  {
+    "path": "patches/0033-composer-t110-direct-fb-scanout.patch",
+    "sha256": "0bbe5e83e1b147def1d1c233fdb18f73aa3b9c2ba5b4d26e4a2ab84bc6004e3a"
+  },
+  {
+    "path": "patches/0034-ui-t110-linear-scanout-targets.patch",
+    "sha256": "ffe438c681a6b37df6d7886491d88af9abb18bf5f4fff38289a99e54e720acb0"
+  },
+  {
+    "path": "patches/0035-kernel-alarm-and-boottime-timerfd.patch",
+    "sha256": "12aec60c89ca5365938f252a1b17a08a8f9ab77e46c3b4b2abfe6531fa9e7a96"
+  },
+  {
+    "path": "patches/0036-composer-t110-synchronized-scanout.patch",
+    "sha256": "f4d45ca1c8b77082be54bf4d25179366f6ef6596331c0549a9a7cce064e0e479"
+  },
+  {
+    "path": "patches/0037-renderengine-t110-resolve-before-handoff.patch",
+    "sha256": "887a13f7c15e11b9a3d5614ad9ef2aba6f4bc1f5be4454f6102b266cd71d02a6"
+  },
+  {
+    "path": "patches/0038-renderengine-t110-egl-window-bridge.patch",
+    "sha256": "032017602d2a771057b0329fa87ea400d8406a0775fa0c7678f7d1ae34159716"
+  },
+  {
+    "path": "patches/0039-art-zygote-visibility-checkpoint-lock.patch",
+    "sha256": "02382a596f85cc49f34c507d62262dc0561a17261a892a5361f1eea4a866cef3"
+  },
+  {
+    "path": "patches/0040-gnss-t110-declared-service-probe.patch",
+    "sha256": "05b20ca29dfcac0f14e10cb837cbb7492713d286d88d83f4ed77d2a5c906d5f4"
+  },
+  {
+    "path": "patches/0041-lmkd-accepted-socket-credentials.patch",
+    "sha256": "d629516d581e18742c747302931e82f564dc02e9a1ebbcd03528f83a4f11682a"
+  },
+  {
+    "path": "patches/0042-soong-t110-flattened-apex-app-preopt.patch",
+    "sha256": "9f1ed79675f80c6017aad63192e8f1923001213c725333f738bb811983e1f7ce"
+  },
+  {
+    "path": "patches/0043-build-t110-standard-art-selection.patch",
+    "sha256": "dc03e00e2143c3018f4877f028430ffa95a9d1d56aab2e58a814778d20659039"
+  },
+  {
+    "path": "patches/0044-kernel-binder-security-context.patch",
+    "sha256": "537fda1f7783299a435e97003d9e294c27bc8274616c1fecfa710dcd1f3ecc05"
+  },
+  {
+    "path": "patches/0045-systemui-empty-active-appops.patch",
+    "sha256": "a83010fa8d84b9db18109a44eccfb19ec0550841d9300f504aa3da58e976f7c9"
+  },
+  {
+    "path": "patches/0046-codec2-ion-error-state-traits.patch",
+    "sha256": "31fcde7c51eaafaee978f3c4dcae7876a17dd82ce0d44950b081fb233be3c5e0"
+  },
+  {
+    "path": "patches/0047-egl-t110-process-initialization.patch",
+    "sha256": "f49c9956be5ff2f256826ff41b06644b5106a55badfad2045aacfeed64843a10"
+  },
+  {
+    "path": "patches/0048-gralloc-t110-process-initialization.patch",
+    "sha256": "f3d79de3af3b7d6240d4998232e2195eeca491fdf5cd1066fb1d1b71629a2711"
+  },
+  {
+    "path": "patches/0049-networkstats-global-alert-service-errors.patch",
+    "sha256": "30cefcde598a7957c7233f78e96fe15e12d3fa9c8912f07d84b782c273c4cb6c"
+  },
+  {
+    "path": "patches/0050-netd-global-alert-commit-on-success.patch",
+    "sha256": "a611948a6bf9bf4bc0e417283d7411f0b415f8d27673a38b7533ad44cb1241d3"
+  },
+  {
+    "path": "patches/0051-libfuse-unsigned-passthrough-mask.patch",
+    "sha256": "7ab53098ea11968cb5758fcbf0c27df5f6f2130c47c2275136b462bfe06c501a"
+  },
+  {
+    "path": "patches/0052-kernel-ext4-posix-acl.config.patch",
+    "sha256": "7efb513f68cf8144674f29df08d38739c8ec2aa22dc996e600a9b5dc48c6fde0"
+  },
+  {
+    "path": "patches/0053-renderengine-t110-oriented-window-bridge.patch",
+    "sha256": "c9f9a4eb8ee646859dfb41473a1f51f7bb623fb6e996bec25c49c14199369b1b"
+  },
+  {
+    "path": "patches/0054-composer-t110-scanout-and-display-power.patch",
+    "sha256": "7e1d5f5f70339e29594d9f8a271ae34bb58ebbf93fac69fe00c7b9d4d68cdbf6"
+  },
+  {
+    "path": "patches/0055-composer-t110-natural-portrait-scanout.patch",
+    "sha256": "db4299799c29e0238555813b872cde8fa190f0fba132eec10f160e6465283d16"
+  },
+  {
+    "path": "patches/0056-composer-t110-padded-portrait-scanout.patch",
+    "sha256": "541a31463fac73cbdecb5280070694d5428754f95f36f330ea0ae8f2a3a4c306"
+  },
+  {
+    "path": "patches/0057-setupwizard-configurable-canvas-rendering.patch",
+    "sha256": "cd10f38f66ed36b8383a34e9a6eaccfa8eaf817078c9c39b70b302ebafa37d9f"
+  },
+  {
+    "path": "patches/0058-framework-t110-software-window-rendering.patch",
+    "sha256": "8b30f9f527c8a804af80e679ea97a813d98cc724945f75b6759ee4f2b7ba234c"
+  },
+  {
+    "path": "patches/0059-iconloader-t110-software-bitmaps.patch",
+    "sha256": "f00f2a5e0baa268e1edd6af4d083fd3f6ac63c824e895d566c25912d976ac08e"
+  },
+  {
+    "path": "patches/0060-systemui-shared-t110-software-task-snapshots.patch",
+    "sha256": "02c627e52d1a1c09d5224f420a26542c00e494d5fe6f6d567708e2e883241d2b"
+  },
+  {
+    "path": "patches/0061-kernel-goya-preserve-shared-i2c-on-fb-blank.patch",
+    "sha256": "250aac6ffebb55bf8ba4985ea9a2eedcb1a8a69253c0adc41ab30be556eb8b22"
+  },
+  {
+    "path": "patches/0062-framework-t110-exclusive-navigation.patch",
+    "sha256": "f5f13998eff16a38c4d16cd35f62cad746132497925639b21a11cc1317198c91"
+  },
+  {
+    "path": "patches/0063-lineageparts-t110-navigation-mode-switch.patch",
+    "sha256": "0d9745daccc800a5f5ac6e21ba99269ef029fa7b2e37261ff54da9adedf4ea40"
+  },
+  {
+    "path": "patches/0064-composer-t110-cached-scanout-staging.patch",
+    "sha256": "554421e1fddf04926a73c1abb85f51be70f36feaba617050fde22a64ae6b0b74"
+  },
+  {
+    "path": "patches/0065-renderengine-t110-reuse-idle-swap-spares.patch",
+    "sha256": "485233759d68cb12306cf57044d46b261e07bd1f474d136f51a4b73fe2d0376f"
+  },
+  {
+    "path": "patches/0066-systemui-respect-strictmode-default-optout.patch",
+    "sha256": "f2965933d005263ebf211de4b73e42d63d1ed5b5b67238d7c416a4cd2aac0981"
+  },
+  {
+    "path": "patches/0067-trebuchet-t110-software-frame-completion.patch",
+    "sha256": "175ea483e75ea0a01fa7f4d0628946443ee32a8ddc6485648a6003349b2f0a53"
+  },
+  {
+    "path": "patches/0068-trebuchet-t110-software-surface-transactions.patch",
+    "sha256": "e51c19a1e99b90cdfd6a5655080c0bb895265ff70b5c072b6653df65e5603bc3"
+  },
+  {
+    "path": "patches/0069-settings-t110-optional-usb-ethernet.patch",
+    "sha256": "683e742f12e3293ad62347e1f12f7b9fbc5b620a21743f2ff3986bc40d6520b8"
+  },
+  {
+    "path": "patches/0070-settings-hearing-aid-without-bluetooth.patch",
+    "sha256": "05da80b3ea3cabc3797c3d44c4ff623633c645a4ab791194c9d9c725ed091739"
+  },
+  {
+    "path": "patches/0071-wallpaper-t110-software-crop.patch",
+    "sha256": "ddba738ecaf2c9bb35556fc21c203f84511358ce9be90fd59b705bdcb66b2c84"
+  },
+  {
+    "path": "patches/0072-systemui-t110-readable-lock-wallpaper.patch",
+    "sha256": "3a4539d703a644dd3e6d90dcda4c486c78603934617de831ea61b4469d782ae5"
+  },
+  {
+    "path": "patches/0073-systemui-t110-software-image-wallpaper.patch",
+    "sha256": "1be7352c7be3139c6c9c89816c8f3df22cf09dd9466c23ae8712e2eb2a6023b1"
+  },
+  {
+    "path": "patches/0074-kernel-goya-touch-in-charger-boot.patch",
+    "sha256": "589c115f08706d2233c0feaaa26dd26f010fc3c29dee7105c7d3eab80f198e1d"
+  },
+  {
+    "path": "patches/0075-wallpaperpicker-t110-readable-bitmaps.patch",
+    "sha256": "8e5f76a3c514a8603ab0fd136676116dc5936dea4b3ca8cb28d5d28e411fe318"
+  },
+  {
+    "path": "patches/0076-systemui-t110-finite-notification-clips.patch",
+    "sha256": "bae0c0e58a4f95cd3f944a601cddfe97b289dd47e56c366a561e44c903c6d005"
+  },
+  {
+    "path": "patches/0077-lineage-sdk-t110-nonblocking-hardware-probes.patch",
+    "sha256": "9948d36a784bd4e9bd40bd50bc4fd2fe85bc4d60f311d620326be24871b250e8"
+  },
+  {
+    "path": "patches/0078-gralloc-t110-initialize-import-only-clients.patch",
+    "sha256": "7232b1f0b64797a5580dede712461ebcd797de789837bfb89b38948ca4237028"
+  },
+  {
+    "path": "patches/0079-kernel-goya-ion-map-shared-buffer.patch",
+    "sha256": "e1fa10efbdcd8249c532b26b60c57bc7ef66cc0db47a0c7d526826aeab56eee2"
+  },
+  {
+    "path": "patches/0080-gui-t110-retain-capture-buffer-owner.patch",
+    "sha256": "88c92fd7c59bddf991f3090741c12481036782279a4ee584f3cc1ac1ecfb1188"
+  },
+  {
+    "path": "patches/0081-kernel-goya-bound-ion-user-mappings.patch",
+    "sha256": "f5eee4d17955c96aeb50d575c200a86827280f916c25e35306aec829f0deb979"
+  },
+  {
+    "path": "patches/0082-gralloc-t110-isolated-apex-hardware-lookup.patch",
+    "sha256": "3199ad14048a716d2b2bf44904a1c07dbf39e301f06ea05a312c5aa745bbe9de"
+  },
+  {
+    "path": "patches/0083-sepolicy-t110-legacy-swap-permission.patch",
+    "sha256": "ef3097ac850f6fd78cb9766120be37831693207a0d7d70584c5ed753ea3210e0"
+  },
+  {
+    "path": "patches/0084-codec2-t110-standard-yv12-raw-lock.patch",
+    "sha256": "77c8d2bf9399ab51d2a5e20cefe3997ed7d80369a6642d7048814bf62fd0b051"
+  },
+  {
+    "path": "patches/0085-kernel-goya-android-bootloader-reboot-alias.patch",
+    "sha256": "139d3e2475a6d23518733d8d302593dc40e42a94abcd4921886714ef7e7aa491"
+  },
+  {
+    "path": "patches/0086-soong-preopt-selected-t110-tethering-app.patch",
+    "sha256": "a5418b8f9cd2de32a76c8d89a95034808e014e24c9cc49acbdec0af900d8418d"
+  },
+  {
+    "path": "patches/0087-policy-honor-advanced-restart-in-fallback-menu.patch",
+    "sha256": "6ab0fd84fe8f7591a5386b3614fdc0bcb37d5a9ada7bcfb8a8190b4409f8be82"
+  },
+  {
+    "path": "patches/0088-framework-export-fallback-restart-labels.patch",
+    "sha256": "1c5bdc2deae1bf43781429c6ce4a86f8b5a867e82e59917bd2f71d653fee509b"
+  },
+  {
+    "path": "patches/0089-composer-t110-neon-scanout.patch",
+    "sha256": "896da8c0f80edd8b5d4a9f34eb0e88815208652c0920129ad1fc64fafe7c85ba"
+  },
+  {
+    "path": "patches/0090-cfg80211-report-interface-mac.patch",
+    "sha256": "74cca4de27943f872d93d72d72e75d4c5a67909e641b2904971fa22f7a7693d0"
+  },
+  {
+    "path": "patches/0091-init-allow-pmic-recovery-without-misc.patch",
+    "sha256": "fc2bf2cbde437c337cb0a518d13101650de483494bfcdd4ec3dc097ead778dac"
+  },
+  {
+    "path": "patches/0092-netlink-accept-legacy-address-header-flags.patch",
+    "sha256": "cd85d1c2f63c61e9679f8a46bc82235e90cdfc22befe8ef94412e283006501dc"
+  },
+  {
+    "path": "patches/0093-tonal-parse-palettes-with-literal-replacement.patch",
+    "sha256": "970e5caff2dc157b7ef55e47bf9a2429744b4d17d35dfebcbc0e63e521b142f5"
+  },
+  {
+    "path": "patches/0094-tests-legacy-netlink-address-flags.patch",
+    "sha256": "51ee5995c7ccc58f0bf91b6ad22635dbd6572f9ac1f760ecee679f9722f8e84a"
+  },
+  {
+    "path": "patches/0095-kernel-modern-uid-routing.patch",
+    "sha256": "9d1407635edb7b26ea30f2cf4235eb173aeefc0cd8979d8558e2395d4ab12daf"
+  },
+  {
+    "path": "patches/0096-goyawifi-enable-netd-packet-targets.patch",
+    "sha256": "4d67e42737145927cd07aeea3c70499fddcd7697749e31b90abca1d8f2a93370"
+  },
+  {
+    "path": "patches/0097-kernel-explicit-table-gateway-validation.patch",
+    "sha256": "568672a2766ba0550c31465c37b2ff2aee1f8b4c09cb4e2548128b0e8e776edb"
+  },
+  {
+    "path": "patches/0098-hwui-t110-resolve-window-before-presentation.patch",
+    "sha256": "2a483adcec95ddaffa4f306aaf22e4ae3d0441611cc32f3b65e6a2120aafc61a"
+  },
+  {
+    "path": "patches/0099-netd-accept-legacy-idletimer-label.patch",
+    "sha256": "909b71408e5c43e658c04c7968a7f733b0785648408b702b98a5e241171cd254"
+  },
+  {
+    "path": "patches/0100-mbt8xxx-restrict-nodes-and-existing-firmware.patch",
+    "sha256": "4ddd511319cda7432325f863242c8b095084e9c62f6ead8d50d9b430a685fd44"
+  },
+  {
+    "path": "patches/0101-bluetooth-packetized-h4-transport.patch",
+    "sha256": "3cd8aa6d4935dcb77561fc068286c1d38d97eeac7a53bd7d66eabf6ca51904d1"
+  },
+  {
+    "path": "patches/0102-t110-native-bluetooth-and-sd-slot.patch",
+    "sha256": "06746f118370d53d286bd10146b5976cd00d7274c0971a1448b96c948304fdab"
+  },
+  {
+    "path": "patches/0103-bluetooth-h4-register-test-receivers-before-write.patch",
+    "sha256": "72b1a3192bfe27f82f46d112a00f5bfee016ce740f3dfdb362459904f2bd6be3"
+  },
+  {
+    "path": "patches/0104-bluetooth-service-find-installed-implementation.patch",
+    "sha256": "85d2f6803c66b0f2d1480c1e9fca058686fdd2fb60412ff2872fa7dca3d62211"
+  },
+  {
+    "path": "patches/0105-bluetooth-ignore-completed-service-lookup-watchdog.patch",
+    "sha256": "fcb0fbb4b6e09f25dd637c4101d071d9c15ad2eb8bcc9da2a2fc92810368de7d"
+  },
+  {
+    "path": "patches/0106-sepolicy-record-existing-t110-gpu-api-contract.patch",
+    "sha256": "976b6ecb4513e329ace61651113601044d35d701d1c1edaab74951509bd6d553"
+  },
+  {
+    "path": "scripts/activate_owned_zram_live.py",
+    "sha256": "464f05429d212d05cdcb79cd487e9e047a9bd822b312a1a05f2d8ec783b4cf05"
+  },
+  {
+    "path": "scripts/anonymize_netlink_test_vectors.py",
+    "sha256": "8ad511243d53752cf69abdd6ae98296196d0ec014dd8f5f7d0f72a461b1c74b0"
+  },
+  {
+    "path": "scripts/apply_intended_live_swappiness.py",
+    "sha256": "7b100e4b93e18e2e4fc88ec4962ccf35936bf3e7592d21d8f60ab8ee986f8146"
+  },
+  {
+    "path": "scripts/apply_uid_routing_candidate.py",
+    "sha256": "68e3dab41b83569f06a79f904b4bab4b993bffa1f5801fc7666adeccb5a59b3c"
+  },
+  {
+    "path": "scripts/archive_alarm_kernel.py",
+    "sha256": "34ca921ec7641d84de070d7ccd6d5a5e2d8ffe7f5c08086f088a78bebaa475f5"
+  },
+  {
+    "path": "scripts/archive_binder_candidate.py",
+    "sha256": "7f422fe2572ad58f82c1e8a0986833b51ade2c982260db46d18636a67765bbb2"
+  },
+  {
+    "path": "scripts/archive_display_i2c_kernel.py",
+    "sha256": "0788db32b43c2508cad8bb29d6a2541d4f910628057cc75b51ea2c7526d06d97"
+  },
+  {
+    "path": "scripts/archive_graphics_system.sh",
+    "sha256": "10acb8efef008b0fe259a7067498f64462bc4b27fed30648e87ed13b43cf7114"
+  },
+  {
+    "path": "scripts/archive_kernel_candidates.py",
+    "sha256": "0a9b507823bdd899604a7a697b233eaab401988a3a01d2a6c67134cdaa58550b"
+  },
+  {
+    "path": "scripts/archive_modern_binder.py",
+    "sha256": "a7e1b10c1a7410e9afa3487f7416059447d8900384ae22f520110847017e76bb"
+  },
+  {
+    "path": "scripts/archive_opath_kernel.py",
+    "sha256": "0e784517df23abf247fa9d43c847aec74534480e737569e4b58bff186993f872"
+  },
+  {
+    "path": "scripts/archive_platform_kernel.py",
+    "sha256": "fde28deb74aad837ea2e706edb3bf2889873112e651c11b5029844994f9af58d"
+  },
+  {
+    "path": "scripts/archive_random_kernel.py",
+    "sha256": "4ae726b4b17877eb2b831bc1b19e88eec6cce3fb67127057342163716bccf003"
+  },
+  {
+    "path": "scripts/archive_storage_acl_kernel.py",
+    "sha256": "7e27920b3b82f89060107dcf5ef6f4189382521e64b3583700e5bb2e1922fbb4"
+  },
+  {
+    "path": "scripts/archive_v25_kernel.py",
+    "sha256": "b0e06979b7cbf623dc72b4d2c3942fad73c692f6734d888d7d1bc5fa1f47b874"
+  },
+  {
+    "path": "scripts/assess_functional_checklist.py",
+    "sha256": "4710eeec8e4ad1d0a4b46fb991cf78819de522838373ff9d9f123860a7f429bc"
+  },
+  {
+    "path": "scripts/audit_bt_sd_live.py",
+    "sha256": "6eb6b7248c9695879fd2438ea2ce0d0021ccfa6cc918ea8b92a02da9d3da6aea"
+  },
+  {
+    "path": "scripts/audit_control_checks.py",
+    "sha256": "bf1bf500fc9f2951947a6ce7b5031b828b67171e935204ae8043fc184fdc6514"
+  },
+  {
+    "path": "scripts/audit_display_sources.py",
+    "sha256": "708f82e7b769b097b5ecd6dfe5c72c1204c129cd549b4ef969adcefa8aa8abc0"
+  },
+  {
+    "path": "scripts/audit_focused_sources.py",
+    "sha256": "22f515462d8a2c16fb6cc5e6a5f660b9a0c02a2f2d81ce80a5b6191314c210ea"
+  },
+  {
+    "path": "scripts/audit_gpu_policy_api_reference.py",
+    "sha256": "6b3128cf94e8362a0685c8b9648d87a949196bfd7189ccb1f6421370023e92f6"
+  },
+  {
+    "path": "scripts/audit_legacy_graphics_symbols.py",
+    "sha256": "7f4e0db26352aa9973e3939c4a20342aa40d373d44052fe6673c5b76f34ab394"
+  },
+  {
+    "path": "scripts/audit_stock_keylights.py",
+    "sha256": "79b447f2b2c9b40ae445cf17e4a8dcd58832d2f6c5447bd09ac963ec27b1c65d"
+  },
+  {
+    "path": "scripts/audit_t110_functions.py",
+    "sha256": "5fe4642b27f5bef5c5c0f764631dd071bcf4c18fb7806975de93b93ee9a00cad"
+  },
+  {
+    "path": "scripts/audit_ui_check.py",
+    "sha256": "17cf4cd82ce157d1f31561d63770be70c21ff666d4dd07e2b9398eb7151fb5de"
+  },
+  {
+    "path": "scripts/backup_repaired_system.py",
+    "sha256": "ee332359701a4ed0acda48876364db68b510db5d1229853e167f91ed3d8e2f3a"
+  },
+  {
+    "path": "scripts/benchmark_libyuv_scanout.cpp",
+    "sha256": "fbd7ddcfd4d1eeb3d429e62f79d065899c1fba08854f657af0eda54ab2b89737"
+  },
+  {
+    "path": "scripts/bench_t110_scanout_neon.cpp",
+    "sha256": "519ce88afa40d2586a87c358788271fb2c6cc934b78443bef777ff8a5854e6aa"
+  },
+  {
+    "path": "scripts/binder_arm_test.h",
+    "sha256": "d9188dc62bc50d1ec588863163b8207df87a090d907cc19bf4d1954eaeb9bb11"
+  },
+  {
+    "path": "scripts/binder_modern_arm_test.h",
+    "sha256": "a14361a08c88395bae353c95e95f10ceacc9f1737f97f3089d00621730b758cf"
+  },
+  {
+    "path": "scripts/bt_h4_probe.cpp",
+    "sha256": "b3076195b10dccc8e45c838907ae11455a92dd5d3a077e1308b3d0218c4e91cf"
+  },
+  {
+    "path": "scripts/build_alarm_kernel.sh",
+    "sha256": "527a641589392911625279bdfd38b7d1129ab7d64a1ca548e64db4e0ed640795"
+  },
+  {
+    "path": "scripts/build_binder_secctx_kernel.sh",
+    "sha256": "b1bc156c6788d4e94c0111fc53258d484fc61db779f3e549a5588e719914292e"
+  },
+  {
+    "path": "scripts/build_bt_h4_probe.py",
+    "sha256": "ca50236eecea16e007b978c128883c1928162f314792dc984d6b4542e8598841"
+  },
+  {
+    "path": "scripts/build_bt_h4_tests.sh",
+    "sha256": "a25bf0eb7be57574f4d4e53d1554873b658b7c9580d9c61139eb8c93292264e4"
+  },
+  {
+    "path": "scripts/build_bt_identity_mode.sh",
+    "sha256": "fcf6ff81d07ec582f4da7205107c0046fb02fdc4bd8ee06e94a1fee1f79fbfe8"
+  },
+  {
+    "path": "scripts/build_bt_lookup.sh",
+    "sha256": "cd7596924ac2ae3314737f7810632edef147c16358123912b584c6ebb7a2b8f2"
+  },
+  {
+    "path": "scripts/build_bt_module.sh",
+    "sha256": "ca96acc2225563bc9b06f70267626d0d4778fb84ac216d2f67db7dac02767053"
+  },
+  {
+    "path": "scripts/build_bt_runpath.sh",
+    "sha256": "9a63a76c6027eff420a87bc7a70e3d3c63db614722025835c8dcd42be5b359c3"
+  },
+  {
+    "path": "scripts/build_bt_sd_rom.sh",
+    "sha256": "ed9ff94cb6ec1e6e79ccbe8471168099340e7f45729087f5bcdf13b7c13f1067"
+  },
+  {
+    "path": "scripts/build_codec_zram_v29.sh",
+    "sha256": "aa44948c1c746bcab738a3e597631a4cf8989d1ae6ad671451a4ae3928411d5c"
+  },
+  {
+    "path": "scripts/build_display_i2c_kernel.sh",
+    "sha256": "af99ee793593d8550dc96bc6857d14d67c2fcb5a4ca892c60ef4ddb00c103553"
+  },
+  {
+    "path": "scripts/build_e2fsprogs_checker.sh",
+    "sha256": "6c1e046292df85e283ec1eb844cb39478529cf59bda8dce2be5dd6eaf4a0765c"
+  },
+  {
+    "path": "scripts/build_functional_v28.sh",
+    "sha256": "2f6aaa810ce2345748200a39000e025fdc4d58588c0b73bfb5d42d764f92c56f"
+  },
+  {
+    "path": "scripts/build_gapps_loop_v29.py",
+    "sha256": "6a04e0a3ba358e77f508c9e57999b8f7b8770ed6cc76c7ca19c298afe76cad23"
+  },
+  {
+    "path": "scripts/build_gapps_v30_delta.py",
+    "sha256": "355a195d4a131b36c028900efc85dc42d206f532ca4097574037860dbb1ad333"
+  },
+  {
+    "path": "scripts/build_gateway_kernel.sh",
+    "sha256": "6889ad99ca94d546875333291dda94d566321536c81447d188ce4949bc7d7ad5"
+  },
+  {
+    "path": "scripts/build_gles_audit.sh",
+    "sha256": "c707919e7ecea0ddf731cab38931aa61f90cae0af9d24c330ef6e1bce1f3fa10"
+  },
+  {
+    "path": "scripts/build_gpu_readback_probe.sh",
+    "sha256": "cf819d6f08560e514770c0683d6ef43e934744bf17fab848d211035259245601"
+  },
+  {
+    "path": "scripts/build_hwui_resolve_system.sh",
+    "sha256": "7a170ad593a94615dc267884508d7498b67d7c5da36706198eb2a40d0d00d6d9"
+  },
+  {
+    "path": "scripts/build_interaction_audit.py",
+    "sha256": "c7c96cbab023debe614458a98049b12c72a38b0f890c74964c032012c67c1b1b"
+  },
+  {
+    "path": "scripts/build_kernel_binder.sh",
+    "sha256": "9abf11bdeb9e054dae7c5f5cc131bf848bd389ce52c63a0e844829a20a9430c6"
+  },
+  {
+    "path": "scripts/build_kernel_binder_modern.sh",
+    "sha256": "6327529f74276c9f43d83fc3ca7411f35f62aa270791b1b74b9f88fcdc0fce07"
+  },
+  {
+    "path": "scripts/build_kernel_modern.sh",
+    "sha256": "5dc3a5dcc0a784f763c0deabd9bf3aae11d1749b05e95a1ea268ce7f93b6b36f"
+  },
+  {
+    "path": "scripts/build_kernel_qemu.sh",
+    "sha256": "289ed51158a512d0c9d0040502737b35f5cbfa0e87cc37e52507d2e20e03d799"
+  },
+  {
+    "path": "scripts/build_kernel_qemu_policy30.sh",
+    "sha256": "d392ddb7c7c89d9225faf9b6f9caab1068364ad39db340dbca1bf279a4bf4297"
+  },
+  {
+    "path": "scripts/build_kernel_security.sh",
+    "sha256": "f2b0130598fec9bcb868bad7f6f0d81bca045961fb8f68391ae74031d6a1f6c2"
+  },
+  {
+    "path": "scripts/build_launcher_candidate.sh",
+    "sha256": "4d0ed65e29a680b1c9339df8354c12fd43aaaf2e4f84d7124dbf6307fb713067"
+  },
+  {
+    "path": "scripts/build_launcher_frame_candidate.sh",
+    "sha256": "1d0c24f3f4109947bd29ffb41fffda53fa7d43317121d9f7aa24744d1f9f9765"
+  },
+  {
+    "path": "scripts/build_libyuv_scanout_benchmark.py",
+    "sha256": "b3310766a872d7233b0f8d82d9c2b3660c4fded27c6da790498a4aa13fb45d7c"
+  },
+  {
+    "path": "scripts/build_native_bootstrap.sh",
+    "sha256": "12fe5c407cda93723ed9fa679681b0b3a5e47a867837b4946b2c009887333864"
+  },
+  {
+    "path": "scripts/build_native_ramdisk_components.sh",
+    "sha256": "0f75c44efb26463433beaa80a44f53a5e153c5742d3568a322c353076a122ad9"
+  },
+  {
+    "path": "scripts/build_netd_idletimer.sh",
+    "sha256": "bca14e9b807ec13cec65486e3c137b1d8073f45a471429e5f2efb2701e6bd886"
+  },
+  {
+    "path": "scripts/build_netd_targets_kernel.sh",
+    "sha256": "4dbceb86c0a2c53c0eec4d164cd272295a15781cccf9e69fffcb851fa520076e"
+  },
+  {
+    "path": "scripts/build_netlink_regression_tests.sh",
+    "sha256": "e5c0e1996bf9579cbb3251a7c91a938d85c7893ef08cdb2c0b89b03416976a08"
+  },
+  {
+    "path": "scripts/build_notification_clip_candidate.sh",
+    "sha256": "725888acca3e6b80feb20a8e8d02d81bea79ac594379c477bae37e15be4c3f7f"
+  },
+  {
+    "path": "scripts/build_platform_kernel.sh",
+    "sha256": "acf81d092c5b13f7bbe9ef4500acb1b73bd1d55c53c3cb995f2541cdfba9c035"
+  },
+  {
+    "path": "scripts/build_portrait_roundtrip.py",
+    "sha256": "8fd75c199cea7162437a8e432f7ca477748a0d255c3691e8e7b0088094f6048b"
+  },
+  {
+    "path": "scripts/build_private_search_preopt.py",
+    "sha256": "c57494673b8b5ab452aef61bd5d0fdf19dd6eb1d91aef99de05b78d4bebbcc44"
+  },
+  {
+    "path": "scripts/build_random_kernel.sh",
+    "sha256": "6782d1eadb56d8e3f69de77d7995de21a25b509117bbf2712312eb53eb9da916"
+  },
+  {
+    "path": "scripts/build_reclaim_policy.sh",
+    "sha256": "0ab48ec8bd2b06ea73bcdb91d2d03fe2b5c225f5d09c9b0d0b3af702d913f971"
+  },
+  {
+    "path": "scripts/build_remote_ion_kernel.sh",
+    "sha256": "28b0ba67cd3eb2762eded7f88cbd5d7c9ddb16f826e0b650c9351898345340d8"
+  },
+  {
+    "path": "scripts/build_remote_sdk.sh",
+    "sha256": "4438c424a6cac29fb81a06004a86ea27be244db112361339640b90e5494ffd51"
+  },
+  {
+    "path": "scripts/build_sd8777_kernel.sh",
+    "sha256": "fc87a0a3c4588245cc97a420dd49d00206f329ee9bf156912d90355853721c49"
+  },
+  {
+    "path": "scripts/build_settings_search_candidate.sh",
+    "sha256": "859f8cd9f7487a98474861798546054ea5762e73426f16847accf3360dd074ec"
+  },
+  {
+    "path": "scripts/build_setup_candidate.sh",
+    "sha256": "b663e85ce0a8cc48d75d84f283594423b3ee2c1d13cb988930bee079ddf85a2b"
+  },
+  {
+    "path": "scripts/build_standard_reclaim_kernel.py",
+    "sha256": "03d3597d706fc70df8cc94962fa880b03882e2e522433154eb217e0f6869e5a1"
+  },
+  {
+    "path": "scripts/build_startup_and_restart.sh",
+    "sha256": "78f267780c273e219539209281d603200fd4b9c82be8f23e6e343b8a27b6656f"
+  },
+  {
+    "path": "scripts/build_storage_acl_kernel.sh",
+    "sha256": "e5f917c0b9eb613286cf4f0c735b5a68802dd18e1a0d4be0768172f077e67efb"
+  },
+  {
+    "path": "scripts/build_swap_label_fix.sh",
+    "sha256": "0bf882d69ef06028404564224ee2b3a0bd511159deec93819172abc48eef11ea"
+  },
+  {
+    "path": "scripts/build_system_image.sh",
+    "sha256": "83638817c1450f18b0e48577d1b30f443f06d2965f7d51a1f47bb0a27b3593e9"
+  },
+  {
+    "path": "scripts/build_uid_routing_qemu.sh",
+    "sha256": "0c177d0820123c53eefb1f77db3ed8c42e88315fa39d2abd7f01f66c1577f2dd"
+  },
+  {
+    "path": "scripts/build_uid_routing_tablet.sh",
+    "sha256": "7e29d4fc61284212bd0b96fa50924465ecb6060727ea6c746c08031111c418ad"
+  },
+  {
+    "path": "scripts/build_v25_swap_benchmark.py",
+    "sha256": "8eed7ca61730e136dea9692b769e03cf5d7f936e6e03d5957b4121110e376a89"
+  },
+  {
+    "path": "scripts/build_wallpaper_picker.py",
+    "sha256": "5570e546f0ea216038ab48ff397b30a13b20e28cf52142a4a94f824ad463f7c4"
+  },
+  {
+    "path": "scripts/bundle_native_probes.py",
+    "sha256": "1af60bdd2431954016a2a49800231cffe09691a59fec4777be29716072681f44"
+  },
+  {
+    "path": "scripts/bundle_v25_graphics_patches.py",
+    "sha256": "f734bab7638df52298c2b0f6cacc82fe65a3a0ad677797265267ace1ad3ea2aa"
+  },
+  {
+    "path": "scripts/camera_v4l2_capabilities.c",
+    "sha256": "1df2ccb6a6d6c1c9591d217d3d24f4dc20a54deebada51699f91a0b39aeb779e"
+  },
+  {
+    "path": "scripts/camera_v4l2_stream.c",
+    "sha256": "639fb86c839f6fcdd8c077b7d3d7d9222812a69ecffa70a40d5b2c53b42e6bb4"
+  },
+  {
+    "path": "scripts/capture_aot_failure.py",
+    "sha256": "fc5d60df412ec5b2087ed63da823b253bebb407b737868fda1532d76cdc94f1d"
+  },
+  {
+    "path": "scripts/capture_art_boot_identity.py",
+    "sha256": "0e73e1058a0d08a81d9eb7067ce5f34874d6331cf45bb26aa809fbe3e2865ffd"
+  },
+  {
+    "path": "scripts/capture_bt_unit_hang.py",
+    "sha256": "e41c1df1560003b340b0c412d99e782ba0a39cbda237f647c2db1b90f05d807f"
+  },
+  {
+    "path": "scripts/capture_current_screen.py",
+    "sha256": "a439ba120414b0dac50dda1c7e943c0f40e73aa3c807e6270c69934c491d646d"
+  },
+  {
+    "path": "scripts/capture_full_boot_recovery.py",
+    "sha256": "9aa8b7dee018fd26d849f24bd10817bd1301f717d06aa3d846503c33e3339d53"
+  },
+  {
+    "path": "scripts/capture_gapps_v29_live.py",
+    "sha256": "3b1bd420b1dd26cca7508370bb2ca757d2c9cf3e6b3d52dc71b8d7d56fee9bfd"
+  },
+  {
+    "path": "scripts/capture_hardware_runtime.py",
+    "sha256": "f3cce5a941fe27e7202d8a332d0bdb5c5f9ea5ffba8d08fec6325ab6327ed447"
+  },
+  {
+    "path": "scripts/capture_live_graphics.py",
+    "sha256": "91b5d4280d102c48a5b80fc237b7224ac4582224a3ea4ed210d408fab9717c7e"
+  },
+  {
+    "path": "scripts/capture_live_system_hang.py",
+    "sha256": "8e3b9d89b01159d5dd7582719fa15f89307e95c87dcd66ba9151a1054ec763b7"
+  },
+  {
+    "path": "scripts/capture_memory_reclaim_policy.py",
+    "sha256": "d0bdab660737210774078802eeac10dd648c3e382886b4ff7b238aa699d959b8"
+  },
+  {
+    "path": "scripts/capture_notification_view.py",
+    "sha256": "f2789693c11919a7156cf259a218c9f84b8b35dc7eb443ac2907926c4f92b958"
+  },
+  {
+    "path": "scripts/capture_rom_startup.py",
+    "sha256": "ed6fd2a628e419c7a3df145a1d74472342150e760eb93e753e7592bb3c4ed3fc"
+  },
+  {
+    "path": "scripts/capture_shade_transition.py",
+    "sha256": "49bd41ca5a95491a5d8e14a23b664a5950c03b71133cdcef3613d1fd01c61c4f"
+  },
+  {
+    "path": "scripts/capture_touch_events.py",
+    "sha256": "621e4d5aeffce26e79f7e4fc1856ff01f042a1f034ea33921ef3c1c66f7b8726"
+  },
+  {
+    "path": "scripts/capture_ui_fault_status.py",
+    "sha256": "13c34122c5e599934893d5c4bfb39d64c5da8a09b2631442d6bad4343ed938f1"
+  },
+  {
+    "path": "scripts/capture_v26_boot_result.py",
+    "sha256": "93df281ca02a67837472ad30cd9571f9d66138a211992f592fdca64a41b0a8c0"
+  },
+  {
+    "path": "scripts/capture_v26_framebuffer.py",
+    "sha256": "215e0b6d279122b9d34981e9e7566b228fb5009039c848655acca8c548add157"
+  },
+  {
+    "path": "scripts/capture_v28_recovery_logs.py",
+    "sha256": "5a88713ae6c7e794e19e31904e9aee6c4288c1792d498b1f93e064da5ec52a6b"
+  },
+  {
+    "path": "scripts/capture_v34_followup.py",
+    "sha256": "a4b21eac06d60eb95fa477afbcb7d539dd9606ee7a6e7699ba6d1cb7c0870a9c"
+  },
+  {
+    "path": "scripts/capture_v35_dexopt.py",
+    "sha256": "dae75f18b77a3d3c6027110adb085df702e9c23ca614e84b02dfef5b0a9ccfe4"
+  },
+  {
+    "path": "scripts/capture_v35_input_dispatch.py",
+    "sha256": "55d0543f54f4f107f79abbced01ccf3b29e626c647ca5d926d9c3c0e53656332"
+  },
+  {
+    "path": "scripts/capture_v35_memory.py",
+    "sha256": "abd7126ff761f820092ecd1bfde9a247667ca807c905f5f2cc097754097aef19"
+  },
+  {
+    "path": "scripts/capture_v36_ui_diagnostics.py",
+    "sha256": "72c7d0156f73109752c4312239e289ba9e611a60a00bfd922a4acfabe1211802"
+  },
+  {
+    "path": "scripts/capture_v40_art_rejection.py",
+    "sha256": "3ccc62f0446386bf469b08893d2aab22acf2da6b8e955920099ead3e743ca698"
+  },
+  {
+    "path": "scripts/checkpoint_persistent_v42.py",
+    "sha256": "eac6c8959ec236851a5ab18b489f8746c06369f2e4da9595808200a93a7a4a9d"
+  },
+  {
+    "path": "scripts/checkpoint_ui_anr_20261112.py",
+    "sha256": "f279974982cad928d326581003949f2372a33c3e7050a0506af3f78cf732968a"
+  },
+  {
+    "path": "scripts/check_binder_warnings.py",
+    "sha256": "fe0cd8daf01bd947acce08ff0ea5bdf5a39c699eec285614f893b881646d94a3"
+  },
+  {
+    "path": "scripts/check_bt_blocked_live.py",
+    "sha256": "49c295f76d8055498158c65a3fca646313f60523016fc92ba42a633007d4fd90"
+  },
+  {
+    "path": "scripts/check_build_host.py",
+    "sha256": "4771b6c1a64093529c61781804b394abdf79d54040909bf2cf7a9497c6f6ba07"
+  },
+  {
+    "path": "scripts/check_build_volume_readonly.sh",
+    "sha256": "e6d121463754737a299a12b1e373a970c7c032de118a6e616df76ed06d6e403c"
+  },
+  {
+    "path": "scripts/check_build_volume_write.py",
+    "sha256": "446294209a5841ada8e0cdfdd2485361b78040ba60c10a609ce0b7bd73276f4d"
+  },
+  {
+    "path": "scripts/check_gerrit_archive_capability.py",
+    "sha256": "13d097a64382348a2c09df147ad06d91cac0799eebd7f63b5be304838ebf9f97"
+  },
+  {
+    "path": "scripts/check_google_startup_profiles.py",
+    "sha256": "39b2b5db02ea254194bf7de7935f6db093873bf7059cdddf2a0b7315728ed5dc"
+  },
+  {
+    "path": "scripts/check_v26_policy.py",
+    "sha256": "5a38ab3434ad36fe16bc5b2552242ba6bf6651576925f951b31bafe564231891"
+  },
+  {
+    "path": "scripts/close_functional_audit_session.py",
+    "sha256": "0376c41fa845c2d5a8a749c5170f1fd4415e5df17c1464704a22254695e97a86"
+  },
+  {
+    "path": "scripts/close_hardware_checkpoint.py",
+    "sha256": "61eddd73562c59b09d08d6513c782c34429554fbb101974b3dab1c5bac00525d"
+  },
+  {
+    "path": "scripts/collect_functional_v28_anr.py",
+    "sha256": "7f6cc62b4229a535015b39612119aeabca02d287e8b190b7c1d02f49ed231c2b"
+  },
+  {
+    "path": "scripts/collect_v35_ui_threads.py",
+    "sha256": "77ceea85f2ffc1c3fe97e504ea16eba1f32a070b06e06a26daa211acc20991b0"
+  },
+  {
+    "path": "scripts/compare_binder_abi.py",
+    "sha256": "b959c0b5773b2910a10069275a8f8206b4809e5402d9613db6e2078dd67d864e"
+  },
+  {
+    "path": "scripts/compare_framework_capture.py",
+    "sha256": "31e7a3daf6bfb4041da9880cd9797814674f41720524c444c7e7d3a6871228ce"
+  },
+  {
+    "path": "scripts/compare_modern_binder_abi.py",
+    "sha256": "f9fb410cf028fa734e7b750d078bfd81be1bd82b80d1de52583086f0f15fd3ab"
+  },
+  {
+    "path": "scripts/compare_runtime_art_headers.py",
+    "sha256": "ffb2978b8a4c8f1711594180c5acf539b5758e63963e2b1226ff786bdbb0dc84"
+  },
+  {
+    "path": "scripts/compare_uid_modules.py",
+    "sha256": "c0eb6d4001d8cd65120df59ede498017eccb0eb80c26cde27b469533b5c10dd0"
+  },
+  {
+    "path": "scripts/compile_v23_graphics.py",
+    "sha256": "3c9a0d5beb225873857b723eec9c98484cb80ad3a3dac9e64dd8dbdb2b7db2b3"
+  },
+  {
+    "path": "scripts/connect_authorized_mitrani.py",
+    "sha256": "72c0a9ae3b568f8c0081034980b47aa72ee245a9a27ef791e0bd06ba354ffd55"
+  },
+  {
+    "path": "scripts/continue_system_build_after_enclosure.ps1",
+    "sha256": "42e1cd37745e4456c408d90efbfd1478e0f4f4c919e8489fbb40860099f83c36"
+  },
+  {
+    "path": "scripts/correct_v24_apex_selection.py",
+    "sha256": "93a9375a129290aafb39983ce2644547208e50d5144029a97c3c7df4c74d6752"
+  },
+  {
+    "path": "scripts/correct_v24_art_selection.py",
+    "sha256": "908ec6d0f3a0b3ec184137e1a5a6cc8fbae68c4d0d3a8c1b05c8bc55c5513e12"
+  },
+  {
+    "path": "scripts/correct_v24_gnss_header.py",
+    "sha256": "d28eaef7ff7d0c386b74f2e08d349ec3cfdd46245fb91aca3c5ca2f6c86eabdc"
+  },
+  {
+    "path": "scripts/correct_v24_gnss_link.py",
+    "sha256": "6377224e91f2330b92f5f04d3feec76947119944a4b4dabef905e75a9c216102"
+  },
+  {
+    "path": "scripts/correct_v24_snapshot_source.py",
+    "sha256": "91b5e5a46640939420faf0bf2ca3e2d90e28fe0766f6034cc6e0493c7ab7e4a3"
+  },
+  {
+    "path": "scripts/decode_window_views.py",
+    "sha256": "251acdd3c230b59c34353befc37834e393c342b7b7ac68b0de65b742c1fef244"
+  },
+  {
+    "path": "scripts/document_offline_v24.py",
+    "sha256": "bcc9433dc4ae4d113facd16b643087430cfc8250229bf3cca11eb8ad4a3f7cc1"
+  },
+  {
+    "path": "scripts/document_v18_trial.py",
+    "sha256": "7ba9918ff8f1866d8c79194183b98a29b0c774dcbec5eb4c077b402fe05a38d0"
+  },
+  {
+    "path": "scripts/document_v25_completion.py",
+    "sha256": "e5d155dd37464219bed73aad58a408aa865468d27431566117c52ab4407f62fd"
+  },
+  {
+    "path": "scripts/document_v25_hardware.py",
+    "sha256": "bb21aa445204714c463748c8c136d4803096be5cf7ac841a46b3398152f5f9b4"
+  },
+  {
+    "path": "scripts/document_v26_hardware.py",
+    "sha256": "391592814748bbab321b71a27de231968b74ddf8f3d083180538443e132e6e0a"
+  },
+  {
+    "path": "scripts/document_v27_and_v19_progress.py",
+    "sha256": "b566e74b7031bd7217a9d3bb7d979effce749d7a59a00315480316ec92f91a29"
+  },
+  {
+    "path": "scripts/download_archive.py",
+    "sha256": "2a8fddd473cec48538dc907ef10f893f803ac8122745aaee3a031cde66cd38bf"
+  },
+  {
+    "path": "scripts/dump_emmc_regions.py",
+    "sha256": "974711dcf02f50e29b6bf7b2d15c2ddee1bfdd16e2f7fa056fc60946e18af452"
+  },
+  {
+    "path": "scripts/dump_firmware.py",
+    "sha256": "660d959deda954e632850e926f4481a1bb980991f3f92d8744c79956bcbd69b9"
+  },
+  {
+    "path": "scripts/emmc_read_scan.c",
+    "sha256": "39b71fed25f386da8ca15422f5f7d0eac895327e9979053434c57f6840cead0a"
+  },
+  {
+    "path": "scripts/enable_qemu_ext4_labels.sh",
+    "sha256": "0e722ba6348adca777ea081feefbe3c6064732888f82ecddbcbbbe4d98eee5e5"
+  },
+  {
+    "path": "scripts/export_android13_sources.py",
+    "sha256": "de3b8f8071344d64548980ef3e8c86b42c359f86944103b6f9df580dce4eba00"
+  },
+  {
+    "path": "scripts/export_bt_sd_v37.py",
+    "sha256": "966c3109edf0bb720fbfa508ff4f8932631c8a76ea14fd9566166911196940c7"
+  },
+  {
+    "path": "scripts/export_bt_unit_binary.py",
+    "sha256": "a2e1fbd1072d713fdf33329c7118acf8cbcb798af3084d0fc75c1050707ac1dd"
+  },
+  {
+    "path": "scripts/export_ion_bounds_kernel.py",
+    "sha256": "0b2cdf1e6f7f7f50326597feb0b3a49e1694787f4bc4d8acffa66923b6d76fed"
+  },
+  {
+    "path": "scripts/export_modern_binder_patch.py",
+    "sha256": "91993f316cad7d2d0ff00dbe49c24fb7a640f6f8918b0df805dec924efd5880c"
+  },
+  {
+    "path": "scripts/export_native_wallpaper_system.sh",
+    "sha256": "4c8aaa88408a4cf0eaef82e9b81bd8226021e1b33b17856249c00bb7383f436d"
+  },
+  {
+    "path": "scripts/export_netd_test_binary.py",
+    "sha256": "6b233c82a9d99cf245c5a85676421ef9bfefb71d1eef238be8ee6557af604a24"
+  },
+  {
+    "path": "scripts/export_netd_v36_delta.py",
+    "sha256": "5bf9bee7209aeea4266bc6629f25345a42a156d33994c4b5d0f8bc20b1ddb6b7"
+  },
+  {
+    "path": "scripts/export_policy30_patch.py",
+    "sha256": "378242411323a8e09a2b3d81ddad3ff014d7a967112a854d62e81eaba6ce711d"
+  },
+  {
+    "path": "scripts/export_reclaim_policy.py",
+    "sha256": "b6749a9235cdd041c9dc5a42a1848c366e75070c48549cd5ec68b9883dfbc2e6"
+  },
+  {
+    "path": "scripts/export_verify_functional_v28.py",
+    "sha256": "0c96f9d3c993000401055bf5d314daea88978338d892221c67eb3aad7a5140db"
+  },
+  {
+    "path": "scripts/extract_shader_compiler.py",
+    "sha256": "64ca5dd4d34307bf579587881ead640edac47eadd6d43f8ec36d8bd259d496a1"
+  },
+  {
+    "path": "scripts/extract_stock_radio_reference.py",
+    "sha256": "6c6dba8c05d2af2aeb4dac92d31e6a6bb7432729e1737be11bea8a6c1ddbe7d7"
+  },
+  {
+    "path": "scripts/fetch_binder_audit.py",
+    "sha256": "574783641ac3f31b3e99786907d8bc5a4d0a2b6589e8fc3a70cab5a9b7ed3572"
+  },
+  {
+    "path": "scripts/fetch_binder_config_audit.py",
+    "sha256": "91d0457477fd597e33ec67fca042b8f5233a9ce7635e5ca714cdfaf5486a40a8"
+  },
+  {
+    "path": "scripts/fetch_gateway_reference.py",
+    "sha256": "4f5c6ae317c08e9027d394dc78df897479a5abd81a2e6cbb4afef479c8a1943a"
+  },
+  {
+    "path": "scripts/fetch_hardware_reference.py",
+    "sha256": "6e977c306cd41216622d5b00a7ce82114ada9389f72a2d1e2f69f00cd8478319"
+  },
+  {
+    "path": "scripts/fetch_v33_reference_sources.py",
+    "sha256": "d69a53f40ccd24c80529ab3d5e408ab2b3a58612c68bd0f2f79b803f2ab4c7f0"
+  },
+  {
+    "path": "scripts/finalize_boot40_monitor.py",
+    "sha256": "da81b48b3d3be08d95b41124f6adabeac38987b02dfb70ffdc283d6f2af45fdf"
+  },
+  {
+    "path": "scripts/finalize_offline_v24.py",
+    "sha256": "2757bcd8fc24e4bfd73fdac33e525fc339a270180c5314db2f5475f231e26e17"
+  },
+  {
+    "path": "scripts/finalize_remote_fix_pass.py",
+    "sha256": "577b8f4ef04798da9ca41b5c428baa9fb049e172b3e4229632eb543467ec3d75"
+  },
+  {
+    "path": "scripts/finalize_v18_offline.py",
+    "sha256": "6ea06b66e78674a66fb13baa69a9c9237b9bccbf66ce02d86b6fd689af8700ca"
+  },
+  {
+    "path": "scripts/finalize_v19_offline.py",
+    "sha256": "6ffb4c1978646a252364df5474fbb551fc8f81696dea7f661eaeb81c94c63049"
+  },
+  {
+    "path": "scripts/finalize_v20_offline.py",
+    "sha256": "0bad87cb8b682f24d1f392b075eb42519d36ac9afc93789614e6fa5fce459f18"
+  },
+  {
+    "path": "scripts/finalize_v21_offline.py",
+    "sha256": "d12a7d41100ea52e2459de1b8f4112f60dcfa53cf6c571d092323a29f2038097"
+  },
+  {
+    "path": "scripts/finalize_v22_offline.py",
+    "sha256": "179013405c158f752e4a0ccc0bb09fc2cd8a36fee1883e55c11a381b8a7cda08"
+  },
+  {
+    "path": "scripts/finalize_v23.py",
+    "sha256": "8279eceb45b426ffa52e12cdfcb6ed8dbd7626791463518cdc5e14f69f98eee0"
+  },
+  {
+    "path": "scripts/finalize_v23_offline.py",
+    "sha256": "caa60ebfa008efb1df0a0d1988309b3c76013941ac43fe719d9f2af0c808d65a"
+  },
+  {
+    "path": "scripts/finalize_v24_offline.py",
+    "sha256": "df06ff7c6ef0f33a8dcdd44fb9f755e9dd350e436bba94d4e67dd57f521a3704"
+  },
+  {
+    "path": "scripts/finalize_v25_offline.py",
+    "sha256": "3c0836abd496b4ae2da0996456fd6684f318294f6132156163a26073c5622744"
+  },
+  {
+    "path": "scripts/finalize_v25_pair.py",
+    "sha256": "8ecdbfac2f4877784136184f3b1d8a27ff0c2f8f4fbc9401544061b56fc467a7"
+  },
+  {
+    "path": "scripts/finish_ambient_backport.py",
+    "sha256": "9f30b52e182c2a70cbbe6c957360dd68f176f5e01242ec920ec9736efd44bf8f"
+  },
+  {
+    "path": "scripts/finish_bt_source.py",
+    "sha256": "1e757528377d5ccb5f5b12f66ac42975d6a7ac2e556e2affcdc96e72879299d3"
+  },
+  {
+    "path": "scripts/finish_combined_recovery_test.py",
+    "sha256": "6d024e6114b6b3cf0b6be5ce5b5ee09462b7144632f184958d31d78396a77a10"
+  },
+  {
+    "path": "scripts/finish_hardware_records.py",
+    "sha256": "3135abc164bb1b8c65679d12d239d9590b9ce95114edd651ecdd83448caf330b"
+  },
+  {
+    "path": "scripts/finish_legacy_gralloc_patch.py",
+    "sha256": "7a048ef84e9180ad05b5599dc6966dac0ea1207bb779a769d3b5a45c6e8a1806"
+  },
+  {
+    "path": "scripts/finish_notification_clip_rom.py",
+    "sha256": "ae38fb10925d486cd53408b0da4edf9227ef643703d752f551c3ac9524d937b6"
+  },
+  {
+    "path": "scripts/finish_v22_stage_after_adb_restart.py",
+    "sha256": "26e4270744c8ce1a2e1de8ab265bde9f589ba3d66f526e7d13bba36d00f96b73"
+  },
+  {
+    "path": "scripts/finish_v23_build_and_install.py",
+    "sha256": "091755e64bdd900d56f3d42068c49d8cb375bc9b87d9511dc41813024eff5db4"
+  },
+  {
+    "path": "scripts/finish_v24_build_and_install.py",
+    "sha256": "e8570f14d4feabeb6f38b053d69349b99d2ac7a2f2a805a9c30a5475929e28f0"
+  },
+  {
+    "path": "scripts/finish_v25_build_and_install.py",
+    "sha256": "5efe88632261946ebf6148fa95a8aef430c47b073094ed0a55ce67e8d468c06b"
+  },
+  {
+    "path": "scripts/finish_v34_recovery_test.py",
+    "sha256": "43dd7304581fcb7f5079fb7b1c76637ee58259225b65a1f5055dcae708e4c510"
+  },
+  {
+    "path": "scripts/fix_bt_identity_mode_live.py",
+    "sha256": "e954f5ddbeb185b0233d580ba87e98590516ec986b3b32a502c503f8d8faeda4"
+  },
+  {
+    "path": "scripts/fix_legacy_gralloc_loading.py",
+    "sha256": "d77c9fcab7bb49aa72e7d62dca14312413fdc415a85259e7ca06cc9a34264824"
+  },
+  {
+    "path": "scripts/fix_portrait_padding.py",
+    "sha256": "a248b0fc3be9b03c6500411689df6b5bca3c7b3a84d91637ea797d0572d69946"
+  },
+  {
+    "path": "scripts/fix_t110_clock.py",
+    "sha256": "6fc4199753220b596e7feb8e01f999591a47d2c0a430613f81124e82d066a5ad"
+  },
+  {
+    "path": "scripts/fix_v25_systemui_diagnostics.py",
+    "sha256": "482c10204c8ec3c3add331d4540b1b283d080dc0c0c50c06698ed5933f6880c7"
+  },
+  {
+    "path": "scripts/gateway_guest_init.c",
+    "sha256": "a09d24e1720732e8e538c0c4f07faad45bb75f10a65c297bd0125c1038b67f05"
+  },
+  {
+    "path": "scripts/gateway_route_regression.c",
+    "sha256": "89c0c2aa8a6546acd85d94a766e6aac6267056baf8ba252ccfb2735ca0303fd9"
+  },
+  {
+    "path": "scripts/generate_qemu_policy.py",
+    "sha256": "dd43862a889a0b4a200152a79d7c5eb0ffa5f8bf165b0ae7984408dd915c7292"
+  },
+  {
+    "path": "scripts/hardware_kernel_probe.c",
+    "sha256": "4d4aca18fe07cee7c671f50c7f7b0efb4d27a451f2dda00993e2fc69c7c20bd5"
+  },
+  {
+    "path": "scripts/initialize_build_volume.sh",
+    "sha256": "25c0e6d3fa2bc3d87a743d3e329e0a7cdcdfd3100e56c941cdc9e3abfcedcbc9"
+  },
+  {
+    "path": "scripts/InspectShade.java",
+    "sha256": "b1117d78a97eb5bb8f9677327f07f98ad81dd42d8cd0789516ca8d9ea44ff9d1"
+  },
+  {
+    "path": "scripts/inspect_adb_host.py",
+    "sha256": "576558335f08f47e4c6b1e1930686cf70f45e8d41ef91c94b1d52301025e3bf1"
+  },
+  {
+    "path": "scripts/inspect_boot41_init.py",
+    "sha256": "b49bf8fa87656a701e1a012909da93b8e752cd16fcd06cdf4105d0ade836347f"
+  },
+  {
+    "path": "scripts/inspect_bt_boot_inputs.py",
+    "sha256": "a5dec2a40fa2d495b9843f8301c2d97d11e101b5ac3f5683211a02c47dcdf76e"
+  },
+  {
+    "path": "scripts/inspect_bt_identity_access.py",
+    "sha256": "9f5b341a2c0f423273bb02086cc19a414afb5c362106dfa1737acb9e2634d3ff"
+  },
+  {
+    "path": "scripts/inspect_bt_startup.py",
+    "sha256": "893a869c24efa0a1e4a271be1094c897ea673b1d18b6603b94b1c1b2f55caa58"
+  },
+  {
+    "path": "scripts/inspect_host_app_preopt.py",
+    "sha256": "96aa8bc057f0728b0e2e5f279db1588eaaf23cc6ebfe382b6c319562da857d29"
+  },
+  {
+    "path": "scripts/inspect_host_tools.py",
+    "sha256": "a1cc2dd46805e1dcb92f8a6ce93b8b70ea99953d54348c770a4c2aac8b1d0adb"
+  },
+  {
+    "path": "scripts/inspect_live_reclaim_controls.py",
+    "sha256": "0379265a7d1801e849abc74bb4555f61e2d8ead1d65e9388e7383f1530288dc7"
+  },
+  {
+    "path": "scripts/inspect_tablet.py",
+    "sha256": "61b81b4427edfeb9d3d3a06f1869966635a9ed9fbcd2dfe39908fa239936c844"
+  },
+  {
+    "path": "scripts/inspect_v42_unresponsive.py",
+    "sha256": "930247d6fb9e1758c04887e8b991fc028b96db7d58a6ce45f2d975a80cc545d3"
+  },
+  {
+    "path": "scripts/install_bt_boot44.py",
+    "sha256": "a582a6f09496b4ac5330b502bab45c292202c4f5dec1c6d6020eca93b1f13185"
+  },
+  {
+    "path": "scripts/install_bt_sd_v37.py",
+    "sha256": "8c588fa722a55d1f06bdf358f8792d4257d6176341c6d63ee6e0a9a515f456c9"
+  },
+  {
+    "path": "scripts/install_bt_v38.py",
+    "sha256": "a6b52ac52553ad9d6b564b9f54ba1cbf4f7b9b000eae18f1aec775289db47d46"
+  },
+  {
+    "path": "scripts/install_bt_v39.py",
+    "sha256": "c60e2739b0a80fd3fd4d9d7411ed7ca628fa8e06565b807101fa78d91862fcf6"
+  },
+  {
+    "path": "scripts/install_canonical_boot46.py",
+    "sha256": "f87486d0109653c6fc999265e93f9af85232f1e7cd5d5910ec1c020847223234"
+  },
+  {
+    "path": "scripts/install_codec_gapps_v29.py",
+    "sha256": "3553d918b1b12cf1142b2ffa342ac9ff84baaf5b0c08c64698790f382b069861"
+  },
+  {
+    "path": "scripts/install_ion_bounds_boot32.py",
+    "sha256": "b664726561ad0c8cafd98d32748e74b435b1f53172718f7c1c64c0d45bf31f72"
+  },
+  {
+    "path": "scripts/install_launcher_frame_candidate.py",
+    "sha256": "6c3cdeefce2d19e6dceacca7b7555269ebdec6fa0e25c4ca5c9ed78564b0f159"
+  },
+  {
+    "path": "scripts/install_native_wallpaper_system.py",
+    "sha256": "bfb5c07474cc706e02f0d92637cc1922120711c4db4b069a1722fbd396cad111"
+  },
+  {
+    "path": "scripts/install_netd_v36_delta.py",
+    "sha256": "92121924f2b6c0a477e4b2e4e9d06f34463af487deb1540ee00c2688dbba9363"
+  },
+  {
+    "path": "scripts/install_notification_clip_candidate.py",
+    "sha256": "d87185f12554fc9a364f81a8aae436c1c9495fc1fac6c01d6e40373755165d4d"
+  },
+  {
+    "path": "scripts/install_safe_boot42.py",
+    "sha256": "2524e46afc497eac78f7206c460f60ab4b710278408f8c993cb4cea574c813aa"
+  },
+  {
+    "path": "scripts/install_settings_search_candidate.py",
+    "sha256": "9077a8ec0a65321f08dc4db068dbfae1d3c466bf867efb5f63fc1f4b4029503b"
+  },
+  {
+    "path": "scripts/install_swap_keyboard_v30.py",
+    "sha256": "d971eaf50ff1b82db3876141fb52784806d9f700a95e833809100527dc7cac07"
+  },
+  {
+    "path": "scripts/install_touch_charge_boot.py",
+    "sha256": "c24cf837d242932e0fc2f992937eb0ce7129b1f6c9f2b809d14e098bcc6760fe"
+  },
+  {
+    "path": "scripts/install_uid_boot39.py",
+    "sha256": "83036f37bbf4291adbd4d27822ab9402f9995b3d948787b127767af2c84bc3b7"
+  },
+  {
+    "path": "scripts/install_ui_v40.py",
+    "sha256": "213aff095c5220e870c90ab39d8e4c1c11bd64c54696c25b365ba66d05de5354"
+  },
+  {
+    "path": "scripts/install_verified_v23.py",
+    "sha256": "8e5430258495fa655d63f3a9a2a5819b7ff7dbc5abd70620ce5579c6557c0546"
+  },
+  {
+    "path": "scripts/install_verified_v24.py",
+    "sha256": "e5fba69df25a783a53ab462498c7e10bf2ebcca55abfc0c9d2646e9039aa4558"
+  },
+  {
+    "path": "scripts/install_verified_v25.py",
+    "sha256": "3763974685f56550fc93633df96bdc939d806e253234c3c333351fc7cc96b5f1"
+  },
+  {
+    "path": "scripts/integrate_remote_fix_pipeline.py",
+    "sha256": "00b15a618a13edcae4e7c61d87c5995de271259b53a91598ce2951061f19ee09"
+  },
+  {
+    "path": "scripts/inventory_c_cleanup.py",
+    "sha256": "f75dab3d728293facfd816f282c8757cf39aa9c2316b34eb20e512fdd1d44869"
+  },
+  {
+    "path": "scripts/inventory_stock_elf.py",
+    "sha256": "1452ac65f65cab788815ca5ef7bf53ed718fec5313b23a34f6f1993430d405b1"
+  },
+  {
+    "path": "scripts/live_tablet_view.py",
+    "sha256": "bde6112f437739c7b431b02c88763287672bc61c885cecdca2d43dca08c2b044"
+  },
+  {
+    "path": "scripts/mount_build_volume.sh",
+    "sha256": "4e3888a6a3d2739f515972218eaf9c699dde0cfd12378189b68e3a20460e1fd2"
+  },
+  {
+    "path": "scripts/netd_guest_init.c",
+    "sha256": "d0a3936cf33ab2d05cca63fc7226f1ec129f04b6ecad4cb519fa412da7ea8f65"
+  },
+  {
+    "path": "scripts/netd_target_probe.c",
+    "sha256": "6341c2b9689c1c549149b5c9d385b87e49e6a791687760092ac2728274c5c7ec"
+  },
+  {
+    "path": "scripts/optimize_google_for_nojit.py",
+    "sha256": "5c165067a80057be21f75f8598c092b3a2e0c850486da328f133753505da9700"
+  },
+  {
+    "path": "scripts/package_bt_boot44.py",
+    "sha256": "8c00f308d23f9a938fb973113d2ce339512d8672ffe399f67b1a24410ab314da"
+  },
+  {
+    "path": "scripts/package_bt_boot45.py",
+    "sha256": "b887941da8dbf5c19f2c8a608daa406688d85eea948bd5dc83ae279dd1fa6c32"
+  },
+  {
+    "path": "scripts/package_bt_sd_boot43.py",
+    "sha256": "ccaf63abbea9df0c0675a1adac084dad15e6bad5db138b47859dd80ec0056944"
+  },
+  {
+    "path": "scripts/package_canonical_boot46.py",
+    "sha256": "c6c1586196fcccd34f6da8a663ca0b4ad9bb210e94e14e3ee4517c852e35f6bc"
+  },
+  {
+    "path": "scripts/package_codec_gapps_boot33.py",
+    "sha256": "d289050f6c23d6741b731c318adc1b2d40805be3f74bc7dfce70d2077e1e5ea8"
+  },
+  {
+    "path": "scripts/package_core_boot.py",
+    "sha256": "42d07cd52beb5da272f87ba340f1f33aa18c91597939018fbb47b58933bd987b"
+  },
+  {
+    "path": "scripts/package_experimental_rom.py",
+    "sha256": "b25ea3618c297e2befa82038e102970143462ae6dfbe053b2e298bc4287553b1"
+  },
+  {
+    "path": "scripts/package_functional_boot_v31.py",
+    "sha256": "71101762bd9742033474826050548cb934d46fbea08d5ed4a878c1b0737c4c78"
+  },
+  {
+    "path": "scripts/package_gateway_boot41.py",
+    "sha256": "43f1a56324989a2480795212decf42606974bf84202cb21893b444c252ce7ed1"
+  },
+  {
+    "path": "scripts/package_ion_bounds_zram_boot.py",
+    "sha256": "c151f65025950018891dedd8946875edda01c3db35bfdbefbad02ed3b9f113dd"
+  },
+  {
+    "path": "scripts/package_native_ramdisk.py",
+    "sha256": "2a7c6190c3baae162eee6a91aae57a27cc46ec5ddc19547e8161e44ead3560ee"
+  },
+  {
+    "path": "scripts/package_persistent_boot48.py",
+    "sha256": "7b5497188521e163f38fcec361becd94fb952e530e4144045ea07360e586188c"
+  },
+  {
+    "path": "scripts/package_remote_ion_boot.py",
+    "sha256": "0c4c08c8a5c8b21c9178b78f272cb3c1f19ec7f73a0f52ead5805aa7bf329524"
+  },
+  {
+    "path": "scripts/package_safe_hwui_boot42.py",
+    "sha256": "e9310952080610cf78668c8dab4588680ccd4d902feda7ec6739f778fbfc82a7"
+  },
+  {
+    "path": "scripts/package_standard_reclaim_boot47.py",
+    "sha256": "01518b0374e11756386857cde054e9b04976bca8a5183ff38fd1e58f80ff0c00"
+  },
+  {
+    "path": "scripts/package_swap_boot34.py",
+    "sha256": "564921941297e85ede850ee6d0fdac35ae15311d2cf57449dd7915f5519fdef0"
+  },
+  {
+    "path": "scripts/package_touch_charge_boot.py",
+    "sha256": "d5e780dd0f9161482a53c385e7f80da9b24db9ccddd9d210644ceda359c8e3b4"
+  },
+  {
+    "path": "scripts/package_uid_boot39.py",
+    "sha256": "bf4ce66bcd2abe1c40771c9cbbfc650525f197d122660c6ac4204ed380287b03"
+  },
+  {
+    "path": "scripts/package_v23_offline.py",
+    "sha256": "640c9b17970a35b7f5c44d1ec52e31861ad660a2f8260832fe71efab644676bc"
+  },
+  {
+    "path": "scripts/package_v25_boot.py",
+    "sha256": "bb9abfc7add4eabd717d36048e7f1c59b1fc127c443044e3c72203d24514c955"
+  },
+  {
+    "path": "scripts/package_v26_boot.py",
+    "sha256": "d3c1019b73e2fb85ea859c1c203020e164b43ebad9b3a149f75362eaf71845c1"
+  },
+  {
+    "path": "scripts/package_v27_boot.py",
+    "sha256": "7397193ca792e9d7396ecb42ba1adf8af9cfbbd9da7b184ddade49f380f85ceb"
+  },
+  {
+    "path": "scripts/package_v28_boot.py",
+    "sha256": "b81fa62cadf68e81fea8303869a57e39df4faae015229441cd33c5d4fbc543a8"
+  },
+  {
+    "path": "scripts/patch_bt_v38_image.py",
+    "sha256": "44c8249503349b3142979cd50f6cb53e5d69700776af0643bbf6faecdaa21881"
+  },
+  {
+    "path": "scripts/patch_bt_v39_image.py",
+    "sha256": "4b25d0bb9c601e312b00b4df969bc4003f3b53c7e2f4a3ba1f6efecbfe46f089"
+  },
+  {
+    "path": "scripts/patch_egl_vendor_paths.py",
+    "sha256": "78995b7422a9032b1c967d865bdfa5b6c3e1165f6a7e09c600efdb374bb6f518"
+  },
+  {
+    "path": "scripts/patch_persistent_v42_image.py",
+    "sha256": "27d22a88efa6406ebc12bed38eaca1dd55cbbb92610c97462641dcdfae2b1355"
+  },
+  {
+    "path": "scripts/patch_search_v40_image.py",
+    "sha256": "c57914120dc7f89b8d2c309a28edce37e4e0356d2d9a7acd1d07732410915606"
+  },
+  {
+    "path": "scripts/peek_bt39.py",
+    "sha256": "6114d2de931f4eab24034e3f86907d865adc7a5dd1fdee7b7ef01d5ca796ef26"
+  },
+  {
+    "path": "scripts/peek_ui_optimization.py",
+    "sha256": "405e1d2786f1eeba3ad488c297b8d5325df212b315d52d9f70a2d869d9aa6c32"
+  },
+  {
+    "path": "scripts/port_seccomp.py",
+    "sha256": "c95e8b17576cf22dc02db6397eddb3cb41bf3738dd76e3a89cd4b44a74f451a7"
+  },
+  {
+    "path": "scripts/port_seccomp_audit_fix.py",
+    "sha256": "488c4821593270a30e6066633dc76644ec4b9645a8a55915abee8088ff4b6a3a"
+  },
+  {
+    "path": "scripts/preflight.py",
+    "sha256": "4a23a8fbc36bd28174e251724a12f659fe8fe814ddac94b67a8eed2bcd5ab22a"
+  },
+  {
+    "path": "scripts/prepare_audio_binder_order.py",
+    "sha256": "8d58651bfaea6937c86a4ae0c734a72ff91f1406b2cc4868ea3446a814dcf4ce"
+  },
+  {
+    "path": "scripts/prepare_binder_lsm.py",
+    "sha256": "b57da6622123edfdb8701ddecff740953c77bfc60a3015010c595b1a6aaed257"
+  },
+  {
+    "path": "scripts/prepare_bt_h4_atomic.py",
+    "sha256": "e5c1fdd41d295572f191f2fbac84ca74274594dbc81f38ac9b4b60cae86239b2"
+  },
+  {
+    "path": "scripts/prepare_bt_h4_harness.py",
+    "sha256": "146353ab6c462b5b2d6218de4478103df744317ca9c221c3f26c6eb9da0a2d7d"
+  },
+  {
+    "path": "scripts/prepare_bt_identity_build.py",
+    "sha256": "67b3d03c098ec6cdeee800e60616981eff6c1e1410c6e613420968c135982aa9"
+  },
+  {
+    "path": "scripts/prepare_bt_lookup_watchdog.py",
+    "sha256": "85d3177b3be338bd42729e6079d6ebdb03616a80f9c107a97147ab8790cbe148"
+  },
+  {
+    "path": "scripts/prepare_bt_module.py",
+    "sha256": "0f6c80f21527882e2dd2186ae278ded626346d34e348c4da80572a7a4e4ba408"
+  },
+  {
+    "path": "scripts/prepare_bt_runpath.py",
+    "sha256": "dae7386abe631c7a003354b70b05a8f2deb9dcba5df5caf4c9f62372b8d97447"
+  },
+  {
+    "path": "scripts/prepare_bt_v38.py",
+    "sha256": "12e16c56030cbca98173328b9c4ed082c2730e7ebf2bcdd00b2ae5502cb49a66"
+  },
+  {
+    "path": "scripts/prepare_bt_v38_installer.py",
+    "sha256": "9e083e43ea0d51ad161942a801d2daffc0de5e34aab4fa4e06df2a9c99ef8ef7"
+  },
+  {
+    "path": "scripts/prepare_bt_v39.py",
+    "sha256": "b50a771eef247d72ab8082db59cb2007bed822591cbfc6dd1f3e82c9dd710cb6"
+  },
+  {
+    "path": "scripts/prepare_bt_v39_tools.py",
+    "sha256": "b6178c9e2ac8821a61daa97a76ba7e879d268ea47b0a7f94cc9f4fa570111c45"
+  },
+  {
+    "path": "scripts/prepare_capture_owner_fix.py",
+    "sha256": "75453b043fc627be4bc6064d86732edaa934b427aca8a5695a0712e2487a9c7f"
+  },
+  {
+    "path": "scripts/prepare_codec_loader_swap_policy.py",
+    "sha256": "330c33e8fccec47697f410d4b386dd66080687c674591928716e12767f77bbc9"
+  },
+  {
+    "path": "scripts/prepare_codec_yv12_fallback.py",
+    "sha256": "3029949dc15cfa44661f227c412461223afa8b9ba31da43bf48f627404a4088c"
+  },
+  {
+    "path": "scripts/prepare_dictionary_repair.py",
+    "sha256": "99ed65037154a34f1db5b72213f00ca039e35df039176f568c8f7af6b42d5cfc"
+  },
+  {
+    "path": "scripts/prepare_display_i2c_kernel.py",
+    "sha256": "d0af89ebdf20f503ce42179f56f93758072f9ebf574a900369c7be883dfb58b7"
+  },
+  {
+    "path": "scripts/prepare_fatal_reboot_fix.py",
+    "sha256": "9529b6658bd2d9ae1854e6775f641908d4fab421a707a2cf794532bd4eaadd12"
+  },
+  {
+    "path": "scripts/prepare_focused_boot_fixes.py",
+    "sha256": "47e60751ad38113d4527661f42abbafd8e634ad4dab0eb8221e7e386b62f65d5"
+  },
+  {
+    "path": "scripts/prepare_functional_checklist.py",
+    "sha256": "ccbc950b165c78c5e0fd82bea4fb4b406ca15a2a233f1aaa9d02308e8b105181"
+  },
+  {
+    "path": "scripts/prepare_gateway_routes.py",
+    "sha256": "a96fce9b6891770c609fc924119159792beda904e0eec99c7fdb4230eb79d75e"
+  },
+  {
+    "path": "scripts/prepare_goya_reboot_alias.py",
+    "sha256": "46451dd4fbe1c07f1ba5a99810a4db0306694ca8480c15da2c54af0d535b5ba0"
+  },
+  {
+    "path": "scripts/prepare_graphics_product.py",
+    "sha256": "1b30bd6a3e239fa15076826b2ac0c46b0acbc31165746db3abf6aeca65c02bc2"
+  },
+  {
+    "path": "scripts/prepare_hwui_resolve.py",
+    "sha256": "ff58856a3d4bcc8278dd721bf66e3e9f415f0ddc0b697f501a961e320c972ca4"
+  },
+  {
+    "path": "scripts/prepare_internal_sdk_dependencies.py",
+    "sha256": "5e7d96bddad8e7fedfd95dcd8bf7018c36bbde26bcd2bdcd51ffa011bd841cc4"
+  },
+  {
+    "path": "scripts/prepare_ion_mapping_bounds.py",
+    "sha256": "2b4948752422a960f84d4152341fcc9451665957fe244f1b18734bb0b2c08a25"
+  },
+  {
+    "path": "scripts/prepare_ion_map_kernel.py",
+    "sha256": "e909f2b22b334b8a11a38d61e95d5ca658951daedc29920e677c71a4c36b274e"
+  },
+  {
+    "path": "scripts/prepare_jit_defaults.py",
+    "sha256": "5531ffcc4d5cef070a90bd400a7e4cf64e9385b38c84793a2f25562c077b519f"
+  },
+  {
+    "path": "scripts/prepare_legacy_adbd.py",
+    "sha256": "750d9932413827d4ed91a254ebd56dff7137bee49a96b70465e312c26a94e5f6"
+  },
+  {
+    "path": "scripts/prepare_legacy_gralloc.py",
+    "sha256": "a0a1c03f5771f6ebd33cc857295bd10aa645357edfa83366871bf0bb18a4e1a2"
+  },
+  {
+    "path": "scripts/prepare_legacy_network.py",
+    "sha256": "ce9c8945757855bfd8cd0a562409e311a3406b0c62a0b709857f52faa5d57d05"
+  },
+  {
+    "path": "scripts/prepare_legacy_processgroups.py",
+    "sha256": "2ccdfebdc502788e76bf1355623058166be63b8ea157861458838c3b1f045ad3"
+  },
+  {
+    "path": "scripts/prepare_libyuv_scanout_candidate.py",
+    "sha256": "1a6f6155b93d992d421084b01e5ba3c1e3101dff65f9b38891644f398dff2047"
+  },
+  {
+    "path": "scripts/prepare_mmap_entropy.py",
+    "sha256": "3a3ce7e967c9e39ce4a20f78af6086f1f8a75ad445eb6c2bd7ca93e8406def96"
+  },
+  {
+    "path": "scripts/prepare_modern_binder.py",
+    "sha256": "0a75dcfca191cdf3dfc7fcb9ee5936186299bfe0cb2853d68dfd1546010a1087"
+  },
+  {
+    "path": "scripts/prepare_native_wallpaper_picker.py",
+    "sha256": "882b97e74a42b19681372119cd037f18304c3ec588c271d3a54abfe3e276d7b0"
+  },
+  {
+    "path": "scripts/prepare_netd_idletimer.py",
+    "sha256": "696d14c510906884dad6b747ba9247fc33de023f70ba0768864751db2426641c"
+  },
+  {
+    "path": "scripts/prepare_netd_targets.py",
+    "sha256": "d2da472641b7ae6a5779f17d74e618d550bf8b005be048fd1cd7eb22976b340b"
+  },
+  {
+    "path": "scripts/prepare_notification_clip_fix.py",
+    "sha256": "5573eedb604658f13ebe77a0eb215d25ff463a4f964ec1c7e9110733882e73e8"
+  },
+  {
+    "path": "scripts/prepare_offline_v21.py",
+    "sha256": "43c12d576543cc881461f0acc3141a074cccccf30aafd72ea25363217e77f99c"
+  },
+  {
+    "path": "scripts/prepare_offline_v22.py",
+    "sha256": "4b24255c25814d84812d8e497cb0f3826f1ced3e8efaf9cf0356723c1f3634e3"
+  },
+  {
+    "path": "scripts/prepare_offline_v23.py",
+    "sha256": "f400030fded3d7b59fb06617d8f8f8cc8fd8f33c5bbe4704d048e7a479fb70ee"
+  },
+  {
+    "path": "scripts/prepare_offline_v24.py",
+    "sha256": "73ee5cdca9ce72f0d995784073a43a1964e0d982a59629de64842154228f56ee"
+  },
+  {
+    "path": "scripts/prepare_offline_v26.py",
+    "sha256": "129f35ba0928d1c1d5acd30e1be5d854cc7560acfc36e11837f54e514afc3230"
+  },
+  {
+    "path": "scripts/prepare_offline_v27.py",
+    "sha256": "57891f8846bf7b1e2a08d66123116b072a88b9e42765e85d3cb594dbba1025a1"
+  },
+  {
+    "path": "scripts/prepare_offline_v29.py",
+    "sha256": "c64ff79768c0f2078ef3b92157ee85a78c2865abff06cd3dfd64be15a1679614"
+  },
+  {
+    "path": "scripts/prepare_offline_v30.py",
+    "sha256": "d5fadba55d51b0bd13bf84d5149fc7cfb3ab8ff316024e8acb4e370ee63ab6e5"
+  },
+  {
+    "path": "scripts/prepare_persistent_v42.py",
+    "sha256": "bd34cadb4dedd2dc5970301816e7ab192a9c47e8c669cf6a3e5e69e2d99ffd8f"
+  },
+  {
+    "path": "scripts/prepare_pure_import_probe.py",
+    "sha256": "95b1d0856eabe682af8433a0d8049c112469425d71ff184d84ff0123b5b7ea22"
+  },
+  {
+    "path": "scripts/prepare_random_kernel.py",
+    "sha256": "2e7f8f94e7fbca7300b456e2b02e74622fe6d10046e9a73c02ee0509e39c7351"
+  },
+  {
+    "path": "scripts/prepare_remote_function_fixes.py",
+    "sha256": "a7b5e20d3a349394c114e9beb0821d4328cd24de8e96704813af216a38096bb4"
+  },
+  {
+    "path": "scripts/prepare_sd8777_build.py",
+    "sha256": "6574980a077170d6c74132cf21bf346ee848a49aa92fc092995140fa90cc1379"
+  },
+  {
+    "path": "scripts/prepare_seccomp_diffs.py",
+    "sha256": "0f7413affccaee9ec4c67355e4a6b7754bd20c01246bd7cebbf36e07a0ffa07c"
+  },
+  {
+    "path": "scripts/prepare_settings_hearing_aid.py",
+    "sha256": "372ba62a9a2c424f15cc229b33378882c8c13eb9c03cbaa37c20e494ef22a9e0"
+  },
+  {
+    "path": "scripts/prepare_settings_optional_services.py",
+    "sha256": "38f5e4346885a05b48b0188d48f7f0270610e6bc8f0e7f451167210bba470e5b"
+  },
+  {
+    "path": "scripts/prepare_setup_software_drawing.py",
+    "sha256": "52a7d33b4faa3cfb2f2264e386b49f1413b6b4e8b58b857308ba530ded5953e0"
+  },
+  {
+    "path": "scripts/prepare_soong_memory.py",
+    "sha256": "79fa0189bdc5096e81d5a9725dafd740cc043394a37d15b9fc2a66542e57a45a"
+  },
+  {
+    "path": "scripts/prepare_startup_and_restart.py",
+    "sha256": "ceb2ec303a282c023163f71536bb1873d290238b9972fd4b423437608baba24e"
+  },
+  {
+    "path": "scripts/prepare_t110_property_contexts.py",
+    "sha256": "69f23c1a922f4a345c998c4cb304cf1b2c6ee85e31767a81fba4f81c4c1450df"
+  },
+  {
+    "path": "scripts/prepare_touch_charge_kernel.py",
+    "sha256": "6aa1b7aa2090492c240121af23bd58b88c00e41592c86a9502f0bff2ca8c9b8c"
+  },
+  {
+    "path": "scripts/prepare_uid_routing_kernel.py",
+    "sha256": "0c69c3c69491302ada3e50309a9a1b9f485c0ee394b853ce2a7e7126c93b488c"
+  },
+  {
+    "path": "scripts/prepare_ui_v40.py",
+    "sha256": "69ad21f59335db826e285155ec591eee502ed50389ad43c8ee0e84b1044e6dc9"
+  },
+  {
+    "path": "scripts/prepare_v18_transfer.py",
+    "sha256": "4d2f1c14512fc7914c944b9b6624aece755218120023872e7b083f3e85b5de09"
+  },
+  {
+    "path": "scripts/prepare_v19_transfer.py",
+    "sha256": "96f4db748cdea18da26728a0e969e4e4843ccd52f2fa7c83ea37de4458feea2f"
+  },
+  {
+    "path": "scripts/prepare_v20_tools.py",
+    "sha256": "ba0c26e53fadb4186fd14bf33a1057e3291f11b15aa011e0ccbad5ca7e8e2eee"
+  },
+  {
+    "path": "scripts/prepare_v21_tools.py",
+    "sha256": "30ccee466d8bf0ab3260ce11c2e53de0db65335b1fa48df71478d0e1eb7d7773"
+  },
+  {
+    "path": "scripts/prepare_v22_recovery.py",
+    "sha256": "30f395407fea28e3bfd206bd5a087dc03945a73f0270b7f96c989de35010f471"
+  },
+  {
+    "path": "scripts/prepare_v22_verifiers.py",
+    "sha256": "40f99cdd90d9c0782760a33965730237aad3099f9216be22d89ec2bab8c3763f"
+  },
+  {
+    "path": "scripts/prepare_v23_pipeline.py",
+    "sha256": "99043f0444556392b3da3920bf340d6a7060ad2018292e0e2dcba14336825a4c"
+  },
+  {
+    "path": "scripts/prepare_v23_recovery.py",
+    "sha256": "76f629ca8cfe6991d1904fbe08c756f1c6b1db0a24d4351598c6bc4f442dcee0"
+  },
+  {
+    "path": "scripts/prepare_v23_ui_compat.py",
+    "sha256": "bca5cb491bbb123448f29c865cae363c3f6a1c5c5212b42f700b5effd38fd98f"
+  },
+  {
+    "path": "scripts/prepare_v24_apex_preopt.py",
+    "sha256": "bfb4e8f0a877da454d196c1d024212b9fbe180634dea3e7b72cc237584346bf0"
+  },
+  {
+    "path": "scripts/prepare_v24_pipeline.py",
+    "sha256": "14e3924a81e8a82843cd8b12a8931279db1a3208c14d73b8c46885b34ab0ea4b"
+  },
+  {
+    "path": "scripts/prepare_v24_recovery.py",
+    "sha256": "7caa7cb9a12921897b18fe41e0c86411516b96dc68c70dfa23e8449222e4b8fd"
+  },
+  {
+    "path": "scripts/prepare_v24_software_bitmaps.py",
+    "sha256": "341e4736b86df76282743158c105b3891b3f33e0428bb735694de5bdf64b0165"
+  },
+  {
+    "path": "scripts/prepare_v25_kernel.py",
+    "sha256": "c2dc0aa6732449bc51f9cc775615cedeee7627490324d1e8216c4beb4a4b8e8e"
+  },
+  {
+    "path": "scripts/prepare_v25_navigation.py",
+    "sha256": "a79f3ff67c3e81c76d4907a2d325d4392c6ba521463752c883f80a83fd777ffb"
+  },
+  {
+    "path": "scripts/prepare_v25_scanout.py",
+    "sha256": "438e18eadec32768f314cfc194fb31444e0beac0af820942cce5b5ef8a04529c"
+  },
+  {
+    "path": "scripts/prepare_v25_systemui.py",
+    "sha256": "223ca09faee6a255ac9c65867e0d332c528497eb6610b33f7afd6cfd08817484"
+  },
+  {
+    "path": "scripts/prepare_v26_software_frame.py",
+    "sha256": "88d4ab8102e6b759b842dcecb729925b6ee312c53b569e5110eb341beda5adc3"
+  },
+  {
+    "path": "scripts/prepare_v26_software_transactions.py",
+    "sha256": "84035ee240c6b6b75931f28e0b982997960d71e417a6e9b818bd662ee187fa4f"
+  },
+  {
+    "path": "scripts/prepare_v27_boot_tools.py",
+    "sha256": "1968ed070ebf7d53b5a2336efbeae3088418edd9183c1e511ddbe49497095ec3"
+  },
+  {
+    "path": "scripts/prepare_v28_packaging.py",
+    "sha256": "194d57b3bff755e9995d1469dc630ff1c7d7cd83c09e3a14d22c6b9b50acb22d"
+  },
+  {
+    "path": "scripts/preserve_android13_audit.py",
+    "sha256": "8c51d30b967fbefa791328014a1468e3f52408e2111f7d5d8c7c9a8c46beaf61"
+  },
+  {
+    "path": "scripts/preserve_bt_help_harness_failure.py",
+    "sha256": "4fcd481ef5737d0d7b3b6fbc8efaa36fb3762117b7e53153689369942dd35187"
+  },
+  {
+    "path": "scripts/preserve_bt_identity_failure.py",
+    "sha256": "cfe8814ca40909a736de2ce9f8bb99c6b08599efbb4eafe52293a3428779b56a"
+  },
+  {
+    "path": "scripts/probe_bt_controller.py",
+    "sha256": "3a830b776dedb20249707215b291521c75c23d1477a3873a339d87b242220771"
+  },
+  {
+    "path": "scripts/probe_external_build_access.py",
+    "sha256": "6361d9d98a249186b9985a623398af8620adc30311cd87eaad4b096435b45537"
+  },
+  {
+    "path": "scripts/probe_sd8777_live.py",
+    "sha256": "aed7b8fcc8a76cb76bab39aafd8e16348c3ae78df9a6c1522427e517b61a2045"
+  },
+  {
+    "path": "scripts/probe_staged_system_ro.sh",
+    "sha256": "9a5e8d08c05dde32d9c96fcecbfe3ca8f3e8bbfaa9f08d61b6baf729b696c5ef"
+  },
+  {
+    "path": "scripts/profile_v24_scrolling.py",
+    "sha256": "586e91a498d604708d250700e4b2381adbc4542c2392680f9ea550608fb71cad"
+  },
+  {
+    "path": "scripts/prune_superseded_v40_transfer.py",
+    "sha256": "e3d21b872a25938ab4e9a30935d65345c93e6ba5e389a9639d65ec8e00e93410"
+  },
+  {
+    "path": "scripts/publish_goya_contributions.py",
+    "sha256": "eb922c20e3b5bba7fe4a0d48410aff2dde4b6c1db9b22f91aea91da85c65f91e"
+  },
+  {
+    "path": "scripts/publish_source_checkpoint.py",
+    "sha256": "dc95d3f835e3dceee566e5cf3361f669916b692209bda6a9ac9dd5c6af080257"
+  },
+  {
+    "path": "scripts/qualify_boot40_network.py",
+    "sha256": "6c00510ba283935edc878cd598a3aa661b6761ff0ec7ced0a662efb1141fab4a"
+  },
+  {
+    "path": "scripts/qualify_bt_sd_v37.py",
+    "sha256": "be4f4b49b6f623542b005c250c0ade7bcba471538a46e71c8468b9ceb52e2989"
+  },
+  {
+    "path": "scripts/qualify_combined_wifi.py",
+    "sha256": "cf592e02992df371d8acc0101f1ee2d494d20499f9e46911d208490778a33d85"
+  },
+  {
+    "path": "scripts/qualify_native_keyboard_fallback.py",
+    "sha256": "b81300b4ef98690c2c0a8366a9e8b512b37fcba675636ddaad23e3d67b987574"
+  },
+  {
+    "path": "scripts/qualify_systemui_speed.py",
+    "sha256": "406bea8448e9b02cecb129c09fca94144f444f0264ab36b65380171c604fda1f"
+  },
+  {
+    "path": "scripts/qualify_ui_v40.py",
+    "sha256": "0c1f05d7cf121525083bd8c856aab7250078c18c63d9574d156d5addf3dbae38"
+  },
+  {
+    "path": "scripts/qualify_v35_ui.py",
+    "sha256": "4952bdf2c5dd3d303d6ae5c8702f1dfc5f5552d1ddc6bb58b2dbdee6ac9d7b28"
+  },
+  {
+    "path": "scripts/quiesce_bt39_and_dump.py",
+    "sha256": "5d72ed84fdfa2c7673be1d9d106bda4e21948e2f1ead7225487772c595240493"
+  },
+  {
+    "path": "scripts/read_aux_hardware.py",
+    "sha256": "07147b0f3c47f8bc2106a9a4ace32d4e6495bd92d09124e7c0f4eb8d416c2dba"
+  },
+  {
+    "path": "scripts/read_bluetooth_transport_sources.py",
+    "sha256": "89cbea4e89d193a57a81384d0f1542c8fc76dd5088667064964625434d53ed48"
+  },
+  {
+    "path": "scripts/read_bt_address_validity.py",
+    "sha256": "cc7887d8f6bbe28cbd5978eeee5e76f75766b14302b53db06db9a36a64e20e25"
+  },
+  {
+    "path": "scripts/read_bt_features_live.py",
+    "sha256": "929a8222854f46af3261049370822d8b0515062a33238804bd56d03f9d87f81d"
+  },
+  {
+    "path": "scripts/read_bt_linker.py",
+    "sha256": "4e7ca851255b5641d73affee7bb1d7e56aa874486909daf35c47f2d497505139"
+  },
+  {
+    "path": "scripts/read_hwui_present_sources.py",
+    "sha256": "bfd612b84f2166be953ddc2f888c3549fcf4bce2cda9f3ad9697a47ba14c8994"
+  },
+  {
+    "path": "scripts/read_kernel_network_sources.py",
+    "sha256": "a6bd4a33ead7a6e1133a9b26568f2629f08b389493426c58d392ae33c937f8b1"
+  },
+  {
+    "path": "scripts/read_netd_event_sources.py",
+    "sha256": "8b86c225dc22f408f59edd406b79dce90edc526b51d563b4a01476fbd256d3ec"
+  },
+  {
+    "path": "scripts/read_netd_test_sources.py",
+    "sha256": "d0ef5818ccfda6eb80ed5f9f793d8f7548a1ab6da0ff079b9b3b536a1defab4f"
+  },
+  {
+    "path": "scripts/read_recent_build_disk_events.py",
+    "sha256": "76b41fb704a0c0e484222739e09582ae5498d4aa1f37328f8994101f272932ca"
+  },
+  {
+    "path": "scripts/read_ui_dexopt_state.py",
+    "sha256": "fe11d8c1f191c373b479a785c97cb04aca372a8ab8657b0d4ba203afe11b5d70"
+  },
+  {
+    "path": "scripts/read_wm_lock_owner.py",
+    "sha256": "16e90a2006fbdd0cb5f945bde7b27c3f894a33b20ffc450cba304a31402455d1"
+  },
+  {
+    "path": "scripts/rebuild_capture_owner_v28.sh",
+    "sha256": "795ce6d46c831ab6cea6f2537b389bf25a500d4f3babba0b5819aa3d31ea9faf"
+  },
+  {
+    "path": "scripts/recheck_bt_sources_after_reconnect.py",
+    "sha256": "93195451f476b54a74e64dd86e862a720b3dc0c6cd0efac7fc381825a543a7f6"
+  },
+  {
+    "path": "scripts/reclaim_recovery_boot_staging.py",
+    "sha256": "27c749e2e65f8be6bc9bfda9639f460d7c19cc3251aa4bde1f20dbba5f860b6d"
+  },
+  {
+    "path": "scripts/reclaim_swap_guest.c",
+    "sha256": "730fa9d74321fa9137b33d12f1d99c50f0a775b64cdd2d0c22c645b99a32cd1f"
+  },
+  {
+    "path": "scripts/record_codec_gapps_checkpoint.py",
+    "sha256": "349852a80c34dce936702314776490ca7198465b25ceec78cf06aa779f2a99fc"
+  },
+  {
+    "path": "scripts/record_functional_v28_result.py",
+    "sha256": "0094d6b6cffa235a32928f65a6e07befe58b29657d741f2f3e62c0daa6070992"
+  },
+  {
+    "path": "scripts/record_gapps_v30_result.py",
+    "sha256": "a5ca4074640884f4f5069a421a6ec6454d2b11fe9e8fa040be436f5d7032f248"
+  },
+  {
+    "path": "scripts/record_modern_boot_success.py",
+    "sha256": "a79a84808ecb3dc737b6335455dd8a06e6443b5a187f6615f1e743eb439123a1"
+  },
+  {
+    "path": "scripts/record_native_checkpoint.py",
+    "sha256": "3b44c7832728db25996910a57c997d8ebe8ff004c8165f98eba8d5e8df6a67c5"
+  },
+  {
+    "path": "scripts/record_native_sources.py",
+    "sha256": "427f3f215ba5bbe538c5fb6ebbc099288a7427ce3f99c559d305a8cb70b565cb"
+  },
+  {
+    "path": "scripts/record_v21_ui_findings.py",
+    "sha256": "f8b49660975b7e755a12535ce16b4ef437adfe21e5406e9350832b0b9e3fbdf2"
+  },
+  {
+    "path": "scripts/record_v22_ui_result.py",
+    "sha256": "b472f5dbaaaf994af789b6e092dabf1942718d1bf13d42b8fbdaca87ef45da3e"
+  },
+  {
+    "path": "scripts/record_v23_sources.py",
+    "sha256": "ae6c43f7d8258ce6e25e9d77c237d93de4d40bf3d7951df0558eb8ec813b6c4d"
+  },
+  {
+    "path": "scripts/record_v24_boot_test.py",
+    "sha256": "be03aaf2e25165f4c9bcab2f20a5cbd54731b9b72c54c5b8acf19e7f9db93d88"
+  },
+  {
+    "path": "scripts/recover_build_volume_journal.sh",
+    "sha256": "0e552a7ab320d16ab42635318509cf95205f1ae44cc887b47a4cc74409b252cf"
+  },
+  {
+    "path": "scripts/refresh_adbd_runtime_env.py",
+    "sha256": "a010c1e71be2d0509d72ce611b1844e075c54e611767ea6a0c21a0b9d63b494a"
+  },
+  {
+    "path": "scripts/refresh_full_boot_inputs.py",
+    "sha256": "d12a512139b14bc632672dc474dfd48a6d374c0682e18da1ee00c4a5f4e2e4ea"
+  },
+  {
+    "path": "scripts/relocate_more_roms.ps1",
+    "sha256": "077feccca4f31990c8a01083b7738ec01aae488f7885c7e0752ab8bb1f890033"
+  },
+  {
+    "path": "scripts/relocate_old_roms.ps1",
+    "sha256": "b38edd466d3951f55da788c36a744334411e6a5aad9f548b41649c017a0cda02"
+  },
+  {
+    "path": "scripts/relocate_v13_v16.ps1",
+    "sha256": "94f21d8e029ef2ff1fd4dbe1231e5b9ea2b1fa4ec905e31574f6d1b718b44b63"
+  },
+  {
+    "path": "scripts/relocate_v17_v20.ps1",
+    "sha256": "70cea5df71ac570e83df685a2c05ec6e8ab10022cec791b48e661387614df492"
+  },
+  {
+    "path": "scripts/relocate_v9_v12_roms.ps1",
+    "sha256": "b64161550885866edb25e7d941a7103f72bb351746de68084cb0c81cc4d956e1"
+  },
+  {
+    "path": "scripts/remove_verified_boot40_transfer.py",
+    "sha256": "ae10c9169050b372381798715482067492d60e0add54381629401f39d0e9ae33"
+  },
+  {
+    "path": "scripts/repack_legacy_boot.py",
+    "sha256": "068c4816885cf9081245aef34d862c5077efb4d78ed20b7c08b2fcdcbefec26b"
+  },
+  {
+    "path": "scripts/restore_v35_live_fallback.py",
+    "sha256": "8c71f49fce7b9f7757bab58d86b2653626c2f255e5c5dcd63a021eb8dc7148f0"
+  },
+  {
+    "path": "scripts/resume_system_after_storage_check.py",
+    "sha256": "52984a594468f40cb2f654b55bcb4929a43f9aa6a63fbffef2506bc2eeb65115"
+  },
+  {
+    "path": "scripts/resume_v16_transfer.py",
+    "sha256": "6f45b031cce231e759b8e1bc7193d38f6bf204680fc72c94211bf34891ba093e"
+  },
+  {
+    "path": "scripts/review_source_integrity.py",
+    "sha256": "d5066a9b74546bef3b9bf88e129ecc98805995b2aece180d1c4292f52e289b92"
+  },
+  {
+    "path": "scripts/revise_bt_lookup_binding.py",
+    "sha256": "1af270d3e47ec6a4d6ee0ca0808bd06a277fe85e6fcabb6f36b6a0693065ee82"
+  },
+  {
+    "path": "scripts/run_binder_modern_qemu.sh",
+    "sha256": "a97a94daeba7e0cd60b9b25fe8e42562879817ae7b0124064db43b233e10987d"
+  },
+  {
+    "path": "scripts/run_binder_qemu.sh",
+    "sha256": "4d588968d5ec3e5f15334b628d4b014fba315faba4ae6d258c67222152bfc89b"
+  },
+  {
+    "path": "scripts/run_bt_unit_tests.py",
+    "sha256": "eed8da959703d46431753273560d82ebd42424f756597671781e1679aeb98f17"
+  },
+  {
+    "path": "scripts/run_buffer_display.py",
+    "sha256": "6f9fca21d3080d83b296112cf0ad1aaf5f47ee6caff8cdde69f174ece0f398a3"
+  },
+  {
+    "path": "scripts/run_canvas_comparison.py",
+    "sha256": "38d1148150ddfdbf9f8aeaffaaf50707e62c8102dfb94894e63b2e991095026b"
+  },
+  {
+    "path": "scripts/run_canvas_readback.py",
+    "sha256": "e9e40e16ce8f16740575b12eccdc3a02097d51c2e4fbf83f6e20b9787f164f4e"
+  },
+  {
+    "path": "scripts/run_clip_probe.py",
+    "sha256": "d30d05bd6b69a30548e1982fc7926342426c918343a2d9c72ebeb54429277bd3"
+  },
+  {
+    "path": "scripts/run_codec_loader_probe.py",
+    "sha256": "0ced267ee6033d66d89e6a5f41847be7d307f52500c3913116e89078903a52a7"
+  },
+  {
+    "path": "scripts/run_core_boot_tablet.py",
+    "sha256": "5d7d91cd67bea0dc16378a130f463e22120115f07f9d216e1082670c010ea5ea"
+  },
+  {
+    "path": "scripts/run_functional_app_probe.py",
+    "sha256": "5c864c89fcb07ca560c36412625e1702115098283266d713ee30b54d727b54b4"
+  },
+  {
+    "path": "scripts/run_gpu_readback_probe.py",
+    "sha256": "ee827c71e18bfff06c125420817c7dba158a0bd8a1ccd51bffa75a3f1aeed6c5"
+  },
+  {
+    "path": "scripts/run_hwbinder_tablet.py",
+    "sha256": "e6a2c120faa44972d46c831865e6d40fff3d05141f4b1b016a4304dce7c01106"
+  },
+  {
+    "path": "scripts/run_netd_event_tests.py",
+    "sha256": "76bcc4f6b96d7303a6019a7ccf4f03e05786b3da6fd397f69dc98504da9d7e2f"
+  },
+  {
+    "path": "scripts/run_policy30_qemu.sh",
+    "sha256": "15833a4bc4b548e920a60b53cfb824a172d31fe5c7a05fcba56d579c34607dd9"
+  },
+  {
+    "path": "scripts/run_seccomp_qemu.sh",
+    "sha256": "473aeeb17e379fcccfc8e5f6ff2757c916812f9941fd569b722da70956dfed2f"
+  },
+  {
+    "path": "scripts/salvage_system_tail.py",
+    "sha256": "8041fcebe90a9c8b56d2ae4c44396132ca071b3999383a927c0aa7ece7ac0490"
+  },
+  {
+    "path": "scripts/save_bt_export_blocked_checkpoint.py",
+    "sha256": "0753891ba9e9cb41ad7dbfaa20376b570587bf5ac4fb9e15fdd0aac374878eb7"
+  },
+  {
+    "path": "scripts/save_reclaim_pause_checkpoint.py",
+    "sha256": "b54906d8a9a743ccbae912e35829f2f279fc7e00e10c3e0c330f08ce8b544c1c"
+  },
+  {
+    "path": "scripts/seccomp_arm_test.c",
+    "sha256": "d7ead382338dcb1003e85bb00edd67c2c8338bf263178e8388a46dd6819806ae"
+  },
+  {
+    "path": "scripts/seccomp_binder_modern_test.c",
+    "sha256": "876179c1ef0093dedd95023260ac9a7c915dca033238afcc217635a7f4864155"
+  },
+  {
+    "path": "scripts/shade_view_command.py",
+    "sha256": "dd350bc31a706d091237bd9fd5de9792c03305adff371eaca92f0a0b9b2d017d"
+  },
+  {
+    "path": "scripts/snapshot_gapps_v30_screen.py",
+    "sha256": "d0dceea9ea834eb159cbc455809bdf09179569c4c28022af2591296b923c6c76"
+  },
+  {
+    "path": "scripts/stage_bt39_components.py",
+    "sha256": "b5e3a304988aa295480f974da583b125afa62df5cef2971264817fca8533927c"
+  },
+  {
+    "path": "scripts/stage_bt_reference.py",
+    "sha256": "30026b0d408fd9f8b623bf774553218d104afa5489afee855761535f82585239"
+  },
+  {
+    "path": "scripts/stage_libui_candidate.py",
+    "sha256": "18eea07d39dad77cc5c3f9d6bdcfe35526fb89284dce684b38d36438fd0ca1b9"
+  },
+  {
+    "path": "scripts/stage_lights_candidate.py",
+    "sha256": "14cc7f64210b24c0af5ac4da3e4318a68938ac1f58b1ebb28e65cede2751676d"
+  },
+  {
+    "path": "scripts/stage_sd8777_reference.py",
+    "sha256": "498a82966a0ea5f7702e9205c56c76307f430ba71f2039f556e1d27964066bc7"
+  },
+  {
+    "path": "scripts/stage_uid_routing_reference.py",
+    "sha256": "fa6d3fa8a37012cd47f1b6ec0a555ace57e6f7b070d6eafc060ba2872822488d"
+  },
+  {
+    "path": "scripts/stage_v12_system.py",
+    "sha256": "7eceb5f4e5d6af32de49250bcad3620b5285c8463c8f21eb83e821886ce52d1e"
+  },
+  {
+    "path": "scripts/stage_v13_system.py",
+    "sha256": "147f1ca130cd4e2cc271ef8056a437d41925264c41a72eb8fda0fea5155ec8a0"
+  },
+  {
+    "path": "scripts/stage_v15_system.py",
+    "sha256": "8a69e94eaf82ee90e7d027daf3997061866d1b81f38b00974eca5bb5b526b597"
+  },
+  {
+    "path": "scripts/stage_v16_system.py",
+    "sha256": "a567af765b6cda0ac88613ff8f6afcf48427ab3012b0438d85975e8a02aed4a3"
+  },
+  {
+    "path": "scripts/stage_v17_system.py",
+    "sha256": "f830c176e993a9e1ab668f8550f551bdc2ce706be72fcf8fd423ffb3a889845a"
+  },
+  {
+    "path": "scripts/stage_v18_system.py",
+    "sha256": "acd2585d8f7096c2f7d8a416f4792610d0ca88038932f3f60ec0c0026d3edd04"
+  },
+  {
+    "path": "scripts/stage_v19_system.py",
+    "sha256": "e1dc29f5794ee11992083613185eb85aa6285dbc81666497466304266a44411b"
+  },
+  {
+    "path": "scripts/stage_v20_system.py",
+    "sha256": "e6f7bd61b290ea6bace55dcf10a0e65b53922bd0b0627f3fa9ed760c3c21f78c"
+  },
+  {
+    "path": "scripts/stage_v21_system.py",
+    "sha256": "59b4f71a7f56179ecb575484ea8921615b3aac6e53cbd11d44997a01a54a3468"
+  },
+  {
+    "path": "scripts/stage_v22_system.py",
+    "sha256": "45adef93d7effa6d51f2c5c94f33dca9d788fd30cfb971b6c68bba76263695e0"
+  },
+  {
+    "path": "scripts/stage_v23_system.py",
+    "sha256": "6f055824ad0598ad7ba1fd76dd4f279216c50fb22e9593f4f9e276a9d6a2487b"
+  },
+  {
+    "path": "scripts/stage_v24_system.py",
+    "sha256": "347b1fd556d9a5433f4311ea73f0359951f462356b0d57e172ce17550433ff7a"
+  },
+  {
+    "path": "scripts/stage_v25_system.py",
+    "sha256": "ab0a7e28d2323b55eac3fc9185bd68c423337acb1a301d37a5162410fa88825e"
+  },
+  {
+    "path": "scripts/stop_verified_boot_snapshot_worker.py",
+    "sha256": "3c97ae1327fc581670167d9b5650b1b67b88b35f2a85a33a8c9dea79f27edc32"
+  },
+  {
+    "path": "scripts/submit_soong_gerrit.py",
+    "sha256": "895b70f1e8027b38e5cc4d8491a9a49a118c45b3685c0a17434a2de0c741d038"
+  },
+  {
+    "path": "scripts/summarize_ui_hang_threads.py",
+    "sha256": "f26c4a29421de5815d9b6bfe52ac3ef499364ed31600208a6adf57f7502478fe"
+  },
+  {
+    "path": "scripts/sync_bt_sd_device.py",
+    "sha256": "620ef87db0dc3d0cd3561e56533f85ad09003c27eeec4335924fd289b9ee659c"
+  },
+  {
+    "path": "scripts/sync_internal_pinned_projects.py",
+    "sha256": "6d9aca99bff60190834898023d83ab20e59622755921f53504a9019780aa461b"
+  },
+  {
+    "path": "scripts/sync_lineage20_full.sh",
+    "sha256": "2f67429afb65e7eae169b62517d43624bee7c35152c17fff04d6efe3214917d7"
+  },
+  {
+    "path": "scripts/sync_lineage20_wsl.sh",
+    "sha256": "3b94268c163f9807746be1f50047329b41288613d6caaa6eeb045048ea2fd574"
+  },
+  {
+    "path": "scripts/sync_native_userspace.sh",
+    "sha256": "72e98fcfd76742693d1c11b80e7d43220dd2c396915d79bc2b76f439a78f4f7b"
+  },
+  {
+    "path": "scripts/system_block_restore.c",
+    "sha256": "d0cc3bd6a908d1d43dc3275e0fff6d9bcc638b1b416d85c720909258748e59fc"
+  },
+  {
+    "path": "scripts/system_read_probe.c",
+    "sha256": "dc7aeaaa2bb8d09c749b75e4fd9e930a4eed4d7112a95ca1e58b00119798be47"
+  },
+  {
+    "path": "scripts/system_read_scan.c",
+    "sha256": "31c0b0d7bc2042b608a23527742c769e39cf963b78802a9742c470edeeb9c18c"
+  },
+  {
+    "path": "scripts/system_read_window.c",
+    "sha256": "87ba2b968891155550d0dd8bd92223c6f09d8f8d1d9c8a9a7d55ed2f59d3d821"
+  },
+  {
+    "path": "scripts/T110BufferDisplay.java",
+    "sha256": "522b3bde4cda6efd39cdaf38fae7cfa0a44d8603ea5edfa1b6977d5a9ef8f5b3"
+  },
+  {
+    "path": "scripts/T110CanvasProbe.java",
+    "sha256": "4945c98d5b19fd49bf590d6325f4535b0af32e7ea9e6e0e1bc87f714387caaee"
+  },
+  {
+    "path": "scripts/T110CanvasReadback.java",
+    "sha256": "32567cadd8a6eca9c6593692db75bf0b5725cf9d43aa12537eb8b1edaea0aeb6"
+  },
+  {
+    "path": "scripts/T110ClipProbe.java",
+    "sha256": "4be55224ffcc8213139ee4c596636526ed1c0e0c7cc2a49a1261369822457d54"
+  },
+  {
+    "path": "scripts/t110_alsa_controls.c",
+    "sha256": "61040a205dfe18905469ad29d190ed63b7cfe7233d6f8dbffa8575d4e4992468"
+  },
+  {
+    "path": "scripts/t110_framebuffer_probe.c",
+    "sha256": "2fc7be8a7457148716752384563347f8fe79e76285633f00b5902ac885a4236d"
+  },
+  {
+    "path": "scripts/t110_full_return_to_recovery.c",
+    "sha256": "03b41c1815ecb0743529990c155986a9b362775ea38044b48166a52401c20e2f"
+  },
+  {
+    "path": "scripts/t110_galcore_query.c",
+    "sha256": "619ccbade507920fc9966b4b1491c37ec1f6331698d1383e85b16bf5c4a34592"
+  },
+  {
+    "path": "scripts/t110_gralloc_binder_compat.c",
+    "sha256": "36453bfb89c0dad101949e583398739fd7c67d4f504135051d7d6fd9025b5843"
+  },
+  {
+    "path": "scripts/t110_load_galcore.c",
+    "sha256": "a1be0c380012f88d27b8714af39362f285f599d14717d880be90aa198835f3a9"
+  },
+  {
+    "path": "scripts/t110_portrait_roundtrip.cpp",
+    "sha256": "67f5b5039c5b5f390ec233cfb30f33c031178450c5ce2f4bb4e18279c635c738"
+  },
+  {
+    "path": "scripts/t110_return_to_recovery.c",
+    "sha256": "f31e6a89a74d686a71734a212f5b6725e35f8f861d676d51d003b8a807c4efb9"
+  },
+  {
+    "path": "scripts/t110_swap_benchmark.cpp",
+    "sha256": "e7e10b9d1d1d5118f851e65df7aac419c61747b12f40de5ac010e9e7f9d53493"
+  },
+  {
+    "path": "scripts/test_a9_strings.py",
+    "sha256": "a08b818463b82bf4f526de854e0cd52a21165374f146054ca21e6c4236ae814b"
+  },
+  {
+    "path": "scripts/test_alarm_qemu.sh",
+    "sha256": "41f026b2538232ab4e74317c69b0c2a4dea09bf4da9a90994bd25532a19611f7"
+  },
+  {
+    "path": "scripts/test_canonical_partition_mounts.py",
+    "sha256": "6d5c6b091833b99781d5b7a699dc00f19887346793203d5e12ec56561da0f689"
+  },
+  {
+    "path": "scripts/test_fb_composer_live.sh",
+    "sha256": "85c4ce5d9650898682c390c0d3f9a881973c34acbdbfde4ec531255630d63e08"
+  },
+  {
+    "path": "scripts/test_full_startup_qemu.sh",
+    "sha256": "40e482aa05e579ce69f187682d4c3939c7abce4a6d8cfb1217a2a8e9f9ad002e"
+  },
+  {
+    "path": "scripts/test_functionfs_strings.py",
+    "sha256": "88f4689ef6e72fac49d8489ecc67ba9c7620e019ae03869802dd39e17313caf1"
+  },
+  {
+    "path": "scripts/test_gateway_routes_qemu.sh",
+    "sha256": "8e2944e3505154debef4b71eb025f50cc0785b86947f1840f13d31b619984ee6"
+  },
+  {
+    "path": "scripts/test_getrandom_qemu.sh",
+    "sha256": "a3cde246e5ff9d8aca444c4568cb942f43c42a2a7678a6b5fe8df646d7a02298"
+  },
+  {
+    "path": "scripts/test_hwbinder_qemu.py",
+    "sha256": "1f381b8ec143b51cca403de9d442d0a4a7cc61cf195b8f99e087d324bec893bc"
+  },
+  {
+    "path": "scripts/test_init_diagnostics.py",
+    "sha256": "d5ab9f22ba913e9cee9676e7a1bfb9fe0f58b7ef18e5b685087c5b8c916b915e"
+  },
+  {
+    "path": "scripts/test_ion_mapping_bounds.py",
+    "sha256": "e7c1a54db45e1ca761ddf1f26fb72905d507dede2cf9441a9333dac2c9268ad6"
+  },
+  {
+    "path": "scripts/test_legacy_gralloc_ownership.py",
+    "sha256": "8a02245eeff541fbf4906f5b704f55dd93733466172c75c5e8e8acf6c901496b"
+  },
+  {
+    "path": "scripts/test_legacy_usb.py",
+    "sha256": "7ec4f531a1e68db30fa768e60f3dc2ad3c5f2d5f1992bca84a639234eb4e1244"
+  },
+  {
+    "path": "scripts/test_netd_targets_qemu.sh",
+    "sha256": "f773b7e55d56472e7aa5da1b5b11cb2e9a08c11768edc0393523a878d7032800"
+  },
+  {
+    "path": "scripts/test_offline_v21.cpp",
+    "sha256": "fd682a4a0deed15f2841ba29f467153b3b641d69ecbdfcda34ed52db86aa00e1"
+  },
+  {
+    "path": "scripts/test_persistent_logging_qemu.sh",
+    "sha256": "1cdb6c914be135fc89d9e3684d5af10a0beaa7da37838bfc0891c70e11aa8cd0"
+  },
+  {
+    "path": "scripts/test_platform_kernel_qemu.sh",
+    "sha256": "32271b473707baf7455a52e683cdcd40ebdc4fbfaa9471726271d5f7e0468b9d"
+  },
+  {
+    "path": "scripts/test_portrait_scanout.cpp",
+    "sha256": "5db6ebffd5b1dff6316bf449fc8ec0f539e5107e172d17e84b99e5892f9e852a"
+  },
+  {
+    "path": "scripts/test_remote_function_sources.py",
+    "sha256": "b971dd642e4800d573eefd7621e294ff3781bb4861cb828e636b907cdfe27811"
+  },
+  {
+    "path": "scripts/test_snapshot_optin.py",
+    "sha256": "11af9510dda634e6ffbd8a03d91e7812494c93ed472b9d8db1e1d8853ff98c6d"
+  },
+  {
+    "path": "scripts/test_software_frame_lifecycle.py",
+    "sha256": "1447fb077df9c67c94723a67039aac6bb8ccdb04804c202c751866eb97aa9803"
+  },
+  {
+    "path": "scripts/test_software_surface_transactions.py",
+    "sha256": "15df6a567d7519d5cffc6930077157bb8b90e57517b8d04094f549cd4f2f613f"
+  },
+  {
+    "path": "scripts/test_standard_reclaim_qemu.py",
+    "sha256": "eecbd2038b3945c4a595129bb8875947aaf8c6b484d7a1b6e6831920c10601e2"
+  },
+  {
+    "path": "scripts/test_t110_lights_source.py",
+    "sha256": "85f990b2ac5a4c4a06ba99f43dfa5e1a30c929111a7f29f9d82f09df6244c393"
+  },
+  {
+    "path": "scripts/test_t110_navigation.java",
+    "sha256": "9a966a06d54288cde62b4a51b1bc742da4fb1eab84dfe31973da9ad9f8305f58"
+  },
+  {
+    "path": "scripts/test_t110_window_slots.cpp",
+    "sha256": "3d5704ed957becdfc72002ffeb8aba6c51289cb4d764cbbd3bc4878924470c95"
+  },
+  {
+    "path": "scripts/test_uid_routing_qemu.sh",
+    "sha256": "2ed3f7869b73f0840d7103fff311ab75262a77265c9ca1ebc0d4fdd103486d6a"
+  },
+  {
+    "path": "scripts/test_v24_startup_offline.py",
+    "sha256": "168e8a03f95dffdb2aafa80737e3ac09658378423143da02a921aa8fd2c236d1"
+  },
+  {
+    "path": "scripts/test_v25_offline.py",
+    "sha256": "dcd581b0ed8275d900520ae95361b6709e69e632875fba1e4e9a7b87c1008ff2"
+  },
+  {
+    "path": "scripts/test_v26_offline.py",
+    "sha256": "1a411acafb82d18ce3e9c7fc9c4889683538efa6d7167a1d2e08040af1ba7f66"
+  },
+  {
+    "path": "scripts/test_v27_offline.py",
+    "sha256": "ae6a67615714be90cdc0485f92e1f110ee5b7af5027158fa0cb98eec007222f6"
+  },
+  {
+    "path": "scripts/test_v29_offline.py",
+    "sha256": "b191e8570f0f0cff4310fa8b77cbb9c8f0aa6b5a001562bbee746d0a1c0f4d53"
+  },
+  {
+    "path": "scripts/test_v30_offline.py",
+    "sha256": "84f91ce59bdfb2a89341ffe667e96cff18b59c768c95a6d11592861c12c56d18"
+  },
+  {
+    "path": "scripts/test_v36_settings_gpu.py",
+    "sha256": "d01c460c69f9c8884f80a5f240cde5e00c09ade68d875f0f476eead9e42349a3"
+  },
+  {
+    "path": "scripts/test_window_offline.sh",
+    "sha256": "fd170b32e5d6dcdb2d7d60e6e0e5013d02f40032ff5ed5b8c6e7f1adfd53e6c4"
+  },
+  {
+    "path": "scripts/test_yv12_layout.py",
+    "sha256": "799377dd0edc7cdc7a55516f4bb334d4a8fc4c4bba460358af244bc5ea6f17b6"
+  },
+  {
+    "path": "scripts/test_zygote_lock_scope.py",
+    "sha256": "b8449985116211f13e37048250ed3bd39af3c7a2b67db8fde437f929576b295d"
+  },
+  {
+    "path": "scripts/trace_bt_enable_after_mode.py",
+    "sha256": "595b11d4e69a14a277238b08827872754c2a51d5e957a023e6ae2877beb93dc8"
+  },
+  {
+    "path": "scripts/trace_bt_h4_receive_test.py",
+    "sha256": "2e44cbaae40e8037200ea71a7033fd4b302d4b88e2e4c4967295865071b93065"
+  },
+  {
+    "path": "scripts/trace_codec_allocation.py",
+    "sha256": "e7895b78470c3e0f59e39980ad1a6f37d8dfa2c42c498f8dfe7a0f37ce215a9f"
+  },
+  {
+    "path": "scripts/trace_isolated_hwui.py",
+    "sha256": "deede0887eee8f48548115224ef4044b9a39335a5fab0f8dd88dd6e2d90fd334"
+  },
+  {
+    "path": "scripts/uid_routing_regression.c",
+    "sha256": "30f9b340e35d0e8eb16d64f968cffedecc98ae9d71a4e8f65bcb26e1d1f8b3be"
+  },
+  {
+    "path": "scripts/update_bt_sd_checkpoint.py",
+    "sha256": "2fe4ab5cb7334cec736ebecdbb54daceddeab254e03553c37ad123c42658e4f8"
+  },
+  {
+    "path": "scripts/update_functional_repair_checkpoint.py",
+    "sha256": "86b9e1d40224c6eb7819fd7313caf68b564b0974369cff385d9ea4e4f8969fe6"
+  },
+  {
+    "path": "scripts/update_v28_resume_docs.py",
+    "sha256": "273341894bdf9923f9057ce8adfad97b318c4d7b06eace992b465a836d58dbb1"
+  },
+  {
+    "path": "scripts/update_v36_checkpoint.py",
+    "sha256": "6c27b498695564f1213e453c843493e2a9162b46c876f057e75a14d6148da01a"
+  },
+  {
+    "path": "scripts/validate_launcher_frame_candidate.py",
+    "sha256": "2e794b5d43f0d4fdfa25ea91b541be94975fbb49764d48b98c33f427b3d0cdf7"
+  },
+  {
+    "path": "scripts/validate_settings_search_candidate.py",
+    "sha256": "ee06960b045c4d1caf2c470c9075204938400dfebec6bad15d7022ab33371f72"
+  },
+  {
+    "path": "scripts/validate_v24_live.py",
+    "sha256": "c943059368bc960bea973fc744ab6d8571e168bb034ab4704091d6b79e6d9a13"
+  },
+  {
+    "path": "scripts/validate_v25_navigation_live.py",
+    "sha256": "b9e93d966f394882c684a0666504ff2dedcd80f2eb14f2e960400487fae29315"
+  },
+  {
+    "path": "scripts/verify_build_sources.py",
+    "sha256": "c6d8f1ab13ee294c0b555b9a438a527ff5c436df69423813f4c2a18e2f891671"
+  },
+  {
+    "path": "scripts/verify_exported_system.py",
+    "sha256": "66bc2a647f68e8217f40c25c23db409b989bb2bbf3a885f1e2be87e0a36b8a1f"
+  },
+  {
+    "path": "scripts/verify_functional_v28_live.py",
+    "sha256": "a68d80f45d50ea59bc963acb83fd2511eeba96c0191c2b8ffc607b0d7d849bde"
+  },
+  {
+    "path": "scripts/verify_import_only_capture.py",
+    "sha256": "aea666906dc6b99d1b18ff34bd732f5ff24c6fbc9d517e375ee401946b24f030"
+  },
+  {
+    "path": "scripts/verify_install_launcher_candidate.py",
+    "sha256": "6e4a674c21ad78d47600f4703ead3855fc318aa91f3ebcc930139104ab9a7e26"
+  },
+  {
+    "path": "scripts/verify_install_setup_candidate.py",
+    "sha256": "83ce5287fbd403190d1a49b790c1fa620057769c15d3e518d4a2601489db0f23"
+  },
+  {
+    "path": "scripts/verify_lights_candidate.py",
+    "sha256": "dc8699161cf88417fe4cb543b8c9aaa5e50355249153ac5584b95f84b33666f8"
+  },
+  {
+    "path": "scripts/verify_mtg_signature.py",
+    "sha256": "eb58cc195ed3e8a8f3ba5cf7d0414a95fb6b8cfeb769d91480d1cd517f534c54"
+  },
+  {
+    "path": "scripts/verify_native_screenshot_action.py",
+    "sha256": "314e3546913e2ab447a82237d2310192817e3c70e32d49f3b78b5ff7735ee9ab"
+  },
+  {
+    "path": "scripts/verify_native_wallpaper_system.py",
+    "sha256": "830b9f1b93092edb538bb7df0dac4090a7dba2b00ee6fe9db202e9df131fead8"
+  },
+  {
+    "path": "scripts/verify_notification_clip_live.py",
+    "sha256": "5485545e95086e4e8ce8e16b591ed1ded7d0d626bae7c20a0e3971d1ee5e3109"
+  },
+  {
+    "path": "scripts/verify_offline_v21_pair.py",
+    "sha256": "8b3ae2d968363f1ec50ae3f129b5e650ec3bad138e8bb8ba7b35c9f694993885"
+  },
+  {
+    "path": "scripts/verify_offline_v22_pair.py",
+    "sha256": "d7a1fd274aa361c31237a6d2b92b34bc28aa96c91fb25a64a91ff71190cc76c8"
+  },
+  {
+    "path": "scripts/verify_offline_v23_pair.py",
+    "sha256": "9b7ea058ce492bc566d65e8c22a377a40833d60f3b14031018bd6c657d6bafcb"
+  },
+  {
+    "path": "scripts/verify_persistent_v42.py",
+    "sha256": "032ce106ee4ad09859834a21fe9260c5cd0026e7b4cf6134a4bee239b094608b"
+  },
+  {
+    "path": "scripts/verify_stock_images.py",
+    "sha256": "ce3dcffaa3d3d5e7b8580a8bb24f3fbffdbf2f97c0378c067c8709fb9d5ff1f9"
+  },
+  {
+    "path": "scripts/verify_system_image_fit.py",
+    "sha256": "064117ef9dfc448279f1bad8135b369d90a00da41ac5f50c6e608d0f8b8b69cf"
+  },
+  {
+    "path": "scripts/verify_v10_contents.py",
+    "sha256": "daf95b34117d1a430fcf90af3b84e910c49602e56d24eff732172bfd32f049df"
+  },
+  {
+    "path": "scripts/verify_v11_contents.py",
+    "sha256": "114deb3b8735ce54ca3e9225839f8c9624aac989deaea7d4600b95f88782e6ea"
+  },
+  {
+    "path": "scripts/verify_v12_contents.py",
+    "sha256": "281911bc9ed6c89478f346efabd7887e551926b4c8ee8e3802998a7a020b2915"
+  },
+  {
+    "path": "scripts/verify_v13_contents.py",
+    "sha256": "c6e485c862b6b6fe05c3cc8570a5d87dc46ea0d22087baf7bf02adb15b701fe0"
+  },
+  {
+    "path": "scripts/verify_v14_contents.py",
+    "sha256": "a04ef981d6d7cd14fd802115794f1780ea82d1233f21aba417e37245b4e20574"
+  },
+  {
+    "path": "scripts/verify_v15_contents.py",
+    "sha256": "a2795d565612709ac0876e3de97e293d45615402395efb5c07bd587f00ae6bbb"
+  },
+  {
+    "path": "scripts/verify_v16_contents.py",
+    "sha256": "58cd2ca1af7feb3cbf92f3427acf1e6f04e89b05a0c0f50b2d70cab18567468a"
+  },
+  {
+    "path": "scripts/verify_v16_systemui.py",
+    "sha256": "866e66f2e7f397b451d746ad5ac38cd3cd27371f41aabb34cf0b0a48071894c9"
+  },
+  {
+    "path": "scripts/verify_v17_contents.py",
+    "sha256": "ecc9ce5cf1cb2750088e9d17be10c2052be3c4b5e95423250d291c7d63273e5a"
+  },
+  {
+    "path": "scripts/verify_v17_systemui.py",
+    "sha256": "84f049b4cf011ff3e7bb092d50dad597daeb6b0e2831c38b9064297004f1ea2b"
+  },
+  {
+    "path": "scripts/verify_v18_contents.py",
+    "sha256": "ad4cbcb370d164a2e1934a5fcef37a633f76f13867eadf3a57f2c02f4bc8e36d"
+  },
+  {
+    "path": "scripts/verify_v19_contents.py",
+    "sha256": "2e1db09504df45a3f6911916ccd58e707d04f448467095e0505c882fd46ed540"
+  },
+  {
+    "path": "scripts/verify_v20_contents.py",
+    "sha256": "47dcf72d27ec3197db5e27c531e02da0c7b3a465b133e1a414906861e1e27f30"
+  },
+  {
+    "path": "scripts/verify_v21_contents.py",
+    "sha256": "43cc0f67d8f74cb9631c4354aac9cfc380ab94ed34d02ccc5c54fd4f845b7700"
+  },
+  {
+    "path": "scripts/verify_v22_contents.py",
+    "sha256": "d4a667c77e4e04c60fbaa13aacc1ff6144d50c4363607426f1e974cb71eb79bb"
+  },
+  {
+    "path": "scripts/verify_v23_contents.py",
+    "sha256": "8eae493b7cefa06ca6d4c03f0f39034743c9252f708c969e3aa4e143f2817010"
+  },
+  {
+    "path": "scripts/verify_v24_contents.py",
+    "sha256": "140075ba87698373f366ef493cdd41b6fb7d241bb179ee0fbe12d93834377d04"
+  },
+  {
+    "path": "scripts/verify_v25_contents.py",
+    "sha256": "699133d7f3430a1e2fd89ad777954daeaf0f9eae44d484a4937673626704c4c9"
+  },
+  {
+    "path": "scripts/verify_v26_boot.py",
+    "sha256": "91412d4b5002dd2798fa7f824a32a788094d4189e74f3941b5de3d05b6eea6e9"
+  },
+  {
+    "path": "scripts/verify_v27_boot.py",
+    "sha256": "92c353e1c8a350369f136a3934791cbc84ce149569e593ec40103781a49f61e7"
+  },
+  {
+    "path": "scripts/verify_v28_boot.py",
+    "sha256": "891dda23ca66a6b040ea8451b4f98d1c9bdbae066f53785c3e70d7ec72c848bf"
+  },
+  {
+    "path": "scripts/verify_v7_graphics_contents.py",
+    "sha256": "ac45886192cd4708b7e6c1cd780d099bd28f2a281d19871e7ca2ea378feae5ef"
+  },
+  {
+    "path": "scripts/verify_v8_graphics_contents.py",
+    "sha256": "017239ada4e6d4aebe651253cade09f0405e6d8841c7c062dd5a8d426a267e87"
+  },
+  {
+    "path": "scripts/verify_v9_contents.py",
+    "sha256": "c77496782a4f421b0f70fffbc1ea6119a8fbe727fdf99e61a662350cb2a9b2bd"
+  },
+  {
+    "path": "scripts/watch_v28_disconnect.py",
+    "sha256": "99a1d201ef071672e7b3e8b1c1d021262d621abf5e484a2f5ae90e74c26d01a6"
+  },
+  {
+    "path": "scripts/functional-audit/AndroidManifest.xml",
+    "sha256": "5396329c302b2439fbbe9f441c8063e25e01c449687915cd0ee6660b4f0ef2bd"
+  },
+  {
+    "path": "scripts/functional-audit/AuditActivity.java",
+    "sha256": "679fccd9733c8458feea58f16fa895fa9e7659827fb2766fb118c66c0a103c7f"
+  },
+  {
+    "path": "scripts/functional-audit/AuditAlarmReceiver.java",
+    "sha256": "6485af9d52abccfa469882a3da2dfc39066adad05e28fb454b1b81b2f053ce1f"
+  },
+  {
+    "path": "scripts/functional-audit/AuditInstrumentation.java",
+    "sha256": "dd8e7ca1911fe6bcf101ecd4b74dc0bd26b4ee984cb520297d9d564022c0f087"
+  },
+  {
+    "path": "scripts/interaction-audit/AndroidManifest.xml",
+    "sha256": "2a830d2adba1d0b0578fbb3a3c62ba4a6f050f45fd02fd52e4fed81dab7167ca"
+  },
+  {
+    "path": "scripts/interaction-audit/gles_audit.c",
+    "sha256": "fdd29898bfc7c17f0a5a16cb7c97399e9e38f384c4b830e229d4820d4f1735f2"
+  },
+  {
+    "path": "scripts/interaction-audit/InteractionInstrumentation.java",
+    "sha256": "f59b704fac3f42d54fa77c06f8f2737ab4433a86c10fe51e27985e43d2b8b4f0"
+  },
+  {
+    "path": "scripts/interaction-audit/NetlinkRuleProbe.java",
+    "sha256": "64533a68eb37d47f64c3084dfaba33672cae342ca19b396b2061a5cdbc027ede"
+  },
+  {
+    "path": "scripts/interaction-audit/PeripheralAudit.java",
+    "sha256": "c93a913d97e56e4249afa5323f745865c779817df5da39a53804c0144fc1da6b"
+  },
+  {
+    "path": "scripts/netd-idletimer/IdletimerEvent.h",
+    "sha256": "4ad4cf5c4109b2f62b93b6cba26d9d82a9583e556690be0f9c1456842f2039ea"
+  },
+  {
+    "path": "scripts/netd-idletimer/IdletimerEventTest.cpp",
+    "sha256": "6e28301834066a60bf93f590196da506fd9b1ef28650417567cfdef1b46dd532"
+  },
+  {
+    "path": "AUDIT.md",
+    "sha256": "b564861cc39ef8e7eecdd7cf3e1709ba2f1089dc65881487f31cf45d88c51074"
+  },
+  {
+    "path": "BINDER-MODERN.md",
+    "sha256": "ee3840da2b7817bb47de2ed55d8e72962988ced362b945366742fb75bef74f07"
+  },
+  {
+    "path": "CURRENT-STATUS.md",
+    "sha256": "e33d40c9e9a5f3c498aedfbff2b4c3b9601c35fd7469c54b244aa682183ce5f9"
+  },
+  {
+    "path": "FEATURE-BACKLOG.md",
+    "sha256": "a0dd22ab7ed70da3f3856ee9d2b4573a33671e3550d0c10176c78ac2209c9cb3"
+  },
+  {
+    "path": "FUNCTIONAL-CHECKLIST.md",
+    "sha256": "34b8c2f95962454e9fdd3281565abb9f7197d4dd70e1c2eb250afa3db3849f19"
+  },
+  {
+    "path": "GRAPHICS-DONOR-AUDIT.md",
+    "sha256": "ffd0c13e0718192b4a6a1d801f894c671e7c390e5ac0a95e2cd00065d15131e9"
+  },
+  {
+    "path": "HARDWARE-BT-SD.md",
+    "sha256": "f4999b3b102247657b8e6b18ba37ce03998458a6a2245dc09794583705a1e22a"
+  },
+  {
+    "path": "HARDWARE-KERNEL.md",
+    "sha256": "1fea5eabc2c3e6592cea3388838eba1cb11fe0c28088c3ab5b47f378e058746a"
+  },
+  {
+    "path": "KERNEL-RECLAIM.md",
+    "sha256": "0ff3e7265c0c0dd3643235af8bbffc5c35c9408a1a6b473e70327c9f68da562d"
+  },
+  {
+    "path": "LEGACY-GRAPHICS.md",
+    "sha256": "3a84906fa26847af9ce9c985510d7fa67039b946127e6e9387d132a61d1e7719"
+  },
+  {
+    "path": "LEGACY-NETWORK.md",
+    "sha256": "6f02f33984cb308507fba9b0c9c6c9d83631f53d4aeeffacc48b684a48a41e2b"
+  },
+  {
+    "path": "LINEAGE14-GPU-AND-SLEEP-AUDIT.md",
+    "sha256": "63351f4e346b6506df93ab13a73231462ae620b8623b0572ac6c71efb7667bb6"
+  },
+  {
+    "path": "NATIVE-BOOT.md",
+    "sha256": "3ffc0af33dfb7d2e47080f3a94274e19895a770329d99e9ef5c2446cd2b3b642"
+  },
+  {
+    "path": "NATIVE-USERSPACE.md",
+    "sha256": "6f22aeb26429c45c12c0436e234e6dd832c6760467e74afb89daad2b5a723c7c"
+  },
+  {
+    "path": "OFFLINE-V23.md",
+    "sha256": "fd8c33fcf8df6bd9f01de545f89d43226a4de4f587801556f523de6c7f9577ad"
+  },
+  {
+    "path": "OFFLINE-V24.md",
+    "sha256": "9b0d9ade7f008063bb47d9fec1affe9d75b7a2f14a5aecb428e5c9ef918ce7a8"
+  },
+  {
+    "path": "OFFLINE-V25.md",
+    "sha256": "f7d0f265cf2b83e6b4b4203b78852784d5e1a31e2ace924c5ea466804db623eb"
+  },
+  {
+    "path": "OFFLINE-V26.md",
+    "sha256": "8587efe0eb8b4a7c78b82cea7c358ef5c88e6fc6d860e9b858a21bcb19deb893"
+  },
+  {
+    "path": "OFFLINE-V27.md",
+    "sha256": "85398e523c8c0521428130cc615ab3ef3316be4f8af548beaf8ed7aa242e9162"
+  },
+  {
+    "path": "OLDER-ANDROID-ASSESSMENT.md",
+    "sha256": "c0a7efd91ed08d47353b2afda9ce0adf8627214ab68ab4e224a463cb5e7ece24"
+  },
+  {
+    "path": "PERSISTENT-TUNING.md",
+    "sha256": "9ce890f1974abc187394202d9631a817179e2dc93a236df0d501f0c086f64c74"
+  },
+  {
+    "path": "RESUME-NEXT.md",
+    "sha256": "bba201b89c8c943a829e2d512521e6d7e9808441c7349d51ed26807a5440c16d"
+  },
+  {
+    "path": "STORAGE-REPAIR.md",
+    "sha256": "698aeb33719635e540c4e432af7d04f85485e20296ff8825ac42638d074e95d2"
+  },
+  {
+    "path": "sources.lock.json",
+    "sha256": "8ec05bc5723d3348c2c2af59c64e55930d80ab78ac5b6e83edca3e1287bb2655"
+  },
+  {
+    "path": "BUILD-WORKSPACE.json",
+    "sha256": "60b07614c04c25f269b71b0de8c35d660ebf669d8201da3500ba196512480b44"
+  },
+  {
+    "path": "source-delta/patches/art.patch",
+    "sha256": "02382a596f85cc49f34c507d62262dc0561a17261a892a5361f1eea4a866cef3"
+  },
+  {
+    "path": "source-delta/patches/bionic.patch",
+    "sha256": "563c85d1a7a6f5d6b921e0bf6714910e7d0f859a0573c72f6a9bf334feda2264"
+  },
+  {
+    "path": "source-delta/patches/lineage-sdk.patch",
+    "sha256": "8b5f55103d765ba9fa8364a0859c483f12d16bb38b156fe08acaf6d1037addee"
+  },
+  {
+    "path": "source-delta/patches/build/make.patch",
+    "sha256": "dc03e00e2143c3018f4877f028430ffa95a9d1d56aab2e58a814778d20659039"
+  },
+  {
+    "path": "source-delta/patches/build/soong.patch",
+    "sha256": "047ca187771ed5176eac623472d776e59e1f1d97d7cad8462752d178fbc2cbdd"
+  },
+  {
+    "path": "source-delta/patches/external/libfuse.patch",
+    "sha256": "7ab53098ea11968cb5758fcbf0c27df5f6f2130c47c2275136b462bfe06c501a"
+  },
+  {
+    "path": "source-delta/patches/frameworks/av.patch",
+    "sha256": "ec0f28237834ccb7b1b58f80bc581779a780236a187603d3180adeed3bacf4d9"
+  },
+  {
+    "path": "source-delta/patches/frameworks/base.patch",
+    "sha256": "b66dfa81e391fc388cdb9376e46f105e7421a4ef42b326e0cad3f2b99f459ceb"
+  },
+  {
+    "path": "source-delta/patches/frameworks/native.patch",
+    "sha256": "a2f935b73785f1b9168a80a97b2f907d058eea34a1db1d4146326f1fb36f3c24"
+  },
+  {
+    "path": "source-delta/patches/hardware/interfaces.patch",
+    "sha256": "880003acc42097b7af844f337aeed17abf6b5cef3291262e6b014b409c993375"
+  },
+  {
+    "path": "source-delta/patches/system/bpf.patch",
+    "sha256": "3fa0d814b99f687700d396b1f67b59f69a732ea2d985d286283ad41487e71d4e"
+  },
+  {
+    "path": "source-delta/patches/system/core.patch",
+    "sha256": "f7a70b97e8a96e2a862ac038892339df4ec6d1c50e24c120151a0bda746198bd"
+  },
+  {
+    "path": "source-delta/patches/system/netd.patch",
+    "sha256": "5a4a3d130da9ef9cd51a05fbd7b6e3ad543a237eb6ae6f98df18610f2e35d85d"
+  },
+  {
+    "path": "source-delta/patches/system/sepolicy.patch",
+    "sha256": "b28473111b529cb62a542ddd3f925fe97077ee8c3ea781d089037fa366d4264c"
+  },
+  {
+    "path": "source-delta/patches/system/memory/lmkd.patch",
+    "sha256": "d629516d581e18742c747302931e82f564dc02e9a1ebbcd03528f83a4f11682a"
+  },
+  {
+    "path": "source-delta/patches/packages/apps/LineageParts.patch",
+    "sha256": "13dea4942286e1ddb4af6c2ee307680d3f3594a520f78172afbba1854908527e"
+  },
+  {
+    "path": "source-delta/patches/packages/apps/Settings.patch",
+    "sha256": "ab79a49e84d02cc2ed77963fc79288487784ce7db27b764e1c39dfbbff90fe8e"
+  },
+  {
+    "path": "source-delta/patches/packages/apps/SetupWizard.patch",
+    "sha256": "cd10f38f66ed36b8383a34e9a6eaccfa8eaf817078c9c39b70b302ebafa37d9f"
+  },
+  {
+    "path": "source-delta/patches/packages/apps/Trebuchet.patch",
+    "sha256": "5be40c1466c72dcfe2ccb1ef1b670a081279c93c2e90bf0b1aa661b88231bfd6"
+  },
+  {
+    "path": "source-delta/patches/packages/apps/WallpaperPicker2.patch",
+    "sha256": "21c1f3de6f6242efc07719a6b617d9018a5f01c3cb64da8c68bf59dffb19d80b"
+  },
+  {
+    "path": "source-delta/patches/packages/modules/adb.patch",
+    "sha256": "2933e32d1c50a9aea718d85ada4f8e1b315547727210f4032bbad28cfc07b220"
+  },
+  {
+    "path": "source-delta/patches/packages/modules/Bluetooth.patch",
+    "sha256": "1505795e79c0c98ba625953458ad027d5de6cbd929f3d2d90fac0562773e7027"
+  },
+  {
+    "path": "source-delta/patches/packages/modules/Connectivity.patch",
+    "sha256": "f59e5f1c5565a6ebb620658cc8ed24a54840a8969da9d2041e14db518541316b"
+  },
+  {
+    "path": "source-delta/patches/frameworks/libs/net.patch",
+    "sha256": "51ca28e161126e0ef170b14b10139daf5882dca14414f09ebc356045dacacbc6"
+  },
+  {
+    "path": "source-delta/patches/frameworks/libs/systemui.patch",
+    "sha256": "f00f2a5e0baa268e1edd6af4d083fd3f6ac63c824e895d566c25912d976ac08e"
+  },
+  {
+    "path": "pinned-manifest.xml",
+    "sha256": "ad1219a926a4773256f1ec0abbe3bc8fad47c7ad0d4f654ad8b150fed371b475"
+  },
+  {
+    "path": "audit-evidence/primary-provenance.json",
+    "sha256": "81728b1df5fa79305b5cf4e8ba05fc397ce616bb88c399fa71349a15b1d1bac3"
+  },
+  {
+    "path": "audit-evidence/additional-primary-provenance.json",
+    "sha256": "10e55657a9b5e1cb104a8ecf694bf973d0bf782f5c34cbebfe227b28edfc5264"
+  },
+  {
+    "path": "audit-evidence/blob-textrel.json",
+    "sha256": "f534a121107bd1552b172fe39688ef13a7a573d09fdc1020325da282d03dda16"
+  }
+]

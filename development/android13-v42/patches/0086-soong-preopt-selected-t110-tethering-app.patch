@@ -1,0 +1,43 @@
+--- a/java/dexpreopt.go
++++ b/java/dexpreopt.go
+@@ -148,15 +148,23 @@
+ // The T110 cannot JIT. Opt only selected startup apps in flattened APEXes into
+ // precompilation. Ordinary/updatable APEX builds keep their existing behavior.
+ func (d *dexpreopter) preoptFlattenedApexApp(ctx android.BaseModuleContext) bool {
++	return d.flattenedApexAppName(ctx) != ""
++}
++
++func (d *dexpreopter) flattenedApexAppName(ctx android.BaseModuleContext) string {
+ 	if !ctx.Config().FlattenApex() || !ctx.Config().VendorConfig("t110").Bool("preopt_flattened_apex_apps") || !isApexVariant(ctx) {
+-		return false
+-	}
+-	if _, ok := ctx.Module().(*AndroidApp); !ok {
+-		return false
+-	}
+-	selected := ctx.Config().VendorConfig("t110").String("preopt_apex_name")
++		return ""
++	}
++	if _, ok := ctx.Module().(*AndroidApp); !ok || !inList(moduleName(ctx), dexpreopt.GetGlobalConfig(ctx).SpeedApps) {
++		return ""
++	}
+ 	info := ctx.Provider(android.ApexInfoProvider).(android.ApexInfo)
+-	return selected != "" && inList(selected, info.InApexVariants) && inList(moduleName(ctx), dexpreopt.GetGlobalConfig(ctx).SpeedApps)
++	for _, name := range strings.Fields(ctx.Config().VendorConfig("t110").String("preopt_apex_name")) {
++		if inList(name, info.InApexVariants) {
++			return name
++		}
++	}
++	return ""
+ }
+ 
+ func (d *dexpreopter) dexpreoptDisabled(ctx android.BaseModuleContext) bool {
+@@ -231,8 +239,7 @@
+ // system server jar, which is fine because we currently only preopt system server jars for APEXes.
+ func (d *dexpreopter) getInstallPath(
+ 	ctx android.ModuleContext, defaultInstallPath android.InstallPath) android.InstallPath {
+-	if d.preoptFlattenedApexApp(ctx) {
+-		selected := ctx.Config().VendorConfig("t110").String("preopt_apex_name")
++	if selected := d.flattenedApexAppName(ctx); selected != "" {
+ 		app := ctx.Module().(*AndroidApp)
+ 		dir := "app"
+ 		if app.Privileged() {

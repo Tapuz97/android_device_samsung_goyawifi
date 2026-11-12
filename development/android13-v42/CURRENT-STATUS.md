@@ -1,0 +1,73 @@
+# Current SM-T110 development state
+
+Updated2026-11-12. **v42-GApps / BOOT48 is installed. Requested logging and memory
+defaults are permanent and verified after a fresh boot, without live overrides.**
+No build, flash or test remains running. The broader ROM port is unfinished.
+
+**Later owner report:** tablet remains physically black/unresponsive despite ADB connectivity. Wake-only request changed logical Asleep to Awake; owner still saw black. Subsequent display OFF/brightness0 may include timeout, so the precise wake/display cause is unproven. v42 is not a usable-ROM pass. See OLDER-ANDROID-ASSESSMENT.md and evidence/v42-owner-unresponsive. User is reconsidering an older Android target; no new flash/reboot performed.
+
+
+## Installed identity and safeguards
+
+- BootID 6d07c212-787a-430c-8d2b-fede0573bb90; primary system_server at boot completion302.
+- System SHA aac99e674a85bc94dab1f794e81501a35c2b3958188a2f0a985717a5ddbeeb16.
+- BOOT48 SHA 09da369cd22d09e1b59b70ce273fa305c96cc83bc83bca8a48132737763d3690.
+- Bootstrap/system policy SHA 5475f135b9ba02358c36962a48cb726a397569c3e7ee94ec53b916a6f30841ab.
+- Boot completed229.66s. SELinux Enforcing.
+- System remains the read-only userdata loop image. NEVER write physical SYSTEM
+  p15. TWRP and both Android data profiles are preserved.
+- Immediate complete rollback: v41-GApps/BOOT47. Host full images retained, plus
+  forward/reverse delta and both boot images at Android
+  /stage-data/local/tmp/t110-v42-persistent-delta
+  (TWRP /data/local/tmp/t110-v42-persistent-delta).
+
+## Permanent defaults verified on the tablet
+
+- Init applies swappiness100 with the exact proc_t110_swappiness node label.
+  No write denial and no engineering-shell write was needed after reboot.
+-512MiB standard compressed swap active; page-cluster0. BOOT47's tested standard
+  reclaim kernel and all existing hardware modules are unchanged.
+- Periodic full-kernel snapshot writer absent by default. One early kernel
+  snapshot61167bytes and boot checkpoints retained for this boot.
+- t110-logcat diagnostic file capture never started. Normal Android logd runs.
+- Snapshot opt-in fixture passed all5 cases, including invalid marker rejection.
+- Complete native selinux_policy build passed85 actions, including freeze,
+  compatibility and context checks. No check was disabled. Compiled policy
+  introspection confirms the exact node and unchanged permissive-domain set.
+- Image filesystem, hashes, file metadata/labels, paired boot policy and device
+  write readback checks passed. Only two system SELinux files changed; Google,
+  Lineage APKs and all hardware components were retained.
+
+Evidence: evidence/ui-system-hang-20261112/v42-persistence/result.json,
+v42-installation.json and v42-verified-installation-summary.json.
+
+## Policy reference audit
+
+The fork already had GPU text-relocation exceptions, a conditional legacy file
+swapon permission and4 device-property definitions. Their API33 references had
+not been updated. Each exact hunk was checked against Git HEAD and the effective
+source, then recorded only in the corresponding4 reference files. Runtime rules
+were unchanged by this reference repair. Other API versions were untouched.
+See gpu-api-reference-audit.json and patch0106. The only requested new runtime
+permission grants init access to the specifically labelled swappiness node.
+
+The native build passed. The initial post-build export tool invocation needed
+correction (available checkpolicy, binary MLS mode); checked export then passed.
+Raw build log retains that initial export error; the final component manifest and
+fresh-boot verification above are authoritative. Do not rerun a build because of
+that historical traceback alone.
+
+## Remaining work: no blanket UI/functionality PASS
+
+Earlier v41 interaction tests produced SystemUI and Search ANRs. Owner reported
+better responsiveness after live memory tuning and stopping debug writers, still
+not perfect. v42 verifies those defaults persist; no new UI stress/finger test
+or complete smoothness claim is made. Current last-ANR query had no ANR at its
+inspection time, which is not proof of a fully fixed UI.
+
+Native GPU windows and JIT remain disabled pending proper compatibility work.
+Search host preopt and standard swap remain active. Native Bluetooth previously
+failed lookup qualification; camera provider, audio, sensors, key LEDs and MTP
+remain unfinished. Physical microSD/accessory checks remain pending. Radio code
+was retained, not newly functionally qualified. Preserve normal Lineage features.
+No public push, Gerrit submission or public ROM release was made this turn.

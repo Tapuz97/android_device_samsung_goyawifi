@@ -1,0 +1,25 @@
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index d68f421..5972b2a 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -56,7 +56,8 @@
+     <protected-broadcast android:name="org.lineageos.setupwizard.SETUP_FINISHED"
+                          android:permission="lineageos.permission.FINISH_SETUP"/>
+ 
+-    <application android:label="@string/app_name"
++    <application android:hardwareAccelerated="@bool/config_setupHardwareAccelerated"
++                 android:label="@string/app_name"
+                  android:icon="@mipmap/ic_launcher"
+                  android:theme="@style/Theme.Setup"
+                  android:uiOptions="none"
+diff --git a/res/values/config.xml b/res/values/config.xml
+index d303f1a..718fe58 100644
+--- a/res/values/config.xml
++++ b/res/values/config.xml
+@@ -21,4 +21,6 @@
+     <string name="wizard_script_uri" translatable="false">android.resource://org.lineageos.setupwizard/raw/wizard_script</string>
+     <string name="wizard_script_user_uri" translatable="false">android.resource://org.lineageos.setupwizard/raw/wizard_script_user</string>
+     <bool name="config_isLargeNoTouch">false</bool>
++    <!-- Device overlays may use CPU Canvas for unsupported legacy GPUs. -->
++    <bool name="config_setupHardwareAccelerated">true</bool>
+ </resources>

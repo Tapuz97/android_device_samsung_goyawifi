@@ -1,0 +1,178 @@
+--- a/bluetooth/1.0/default/test/h4_protocol_unittest.cc
++++ b/bluetooth/1.0/default/test/h4_protocol_unittest.cc
+@@ -67,9 +67,10 @@
+                 length - preamble_length) == 0;
+ };
+ 
+-ACTION_P2(Notify, mutex, condition) {
++ACTION_P3(Notify, mutex, condition, received) {
+   ALOGD("%s", __func__);
+   std::unique_lock<std::mutex> lock(*mutex);
++  *received = true;
+   condition->notify_one();
+ }
+ 
+@@ -123,24 +124,25 @@
+     preamble[3] = length & 0xFF;
+     preamble[4] = (length >> 8) & 0xFF;
+ 
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+-    ALOGD("%s waiting", __func__);
+-    std::mutex mutex;
+-    std::condition_variable done;
++    ALOGD("%s waiting", __func__);
++    std::mutex mutex;
++    std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(acl_cb_, Call(HidlVecMatches(preamble + 1, sizeof(preamble) - 1,
+                                              payload)))
+-        .WillOnce(Notify(&mutex, &done));
+-
+-    // Fail if it takes longer than 100 ms.
+-    auto timeout_time =
+-        std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
+-    {
+-      std::unique_lock<std::mutex> lock(mutex);
+-      done.wait_until(lock, timeout_time);
+-    }
++        .WillOnce(Notify(&mutex, &done, &received));
++
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
++    {
++      std::unique_lock<std::mutex> lock(mutex);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
++    }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   void WriteAndExpectInboundScoData(char* payload) {
+@@ -148,45 +150,50 @@
+     char preamble[4] = {HCI_PACKET_TYPE_SCO_DATA, 20, 17, 0};
+     preamble[3] = strlen(payload) & 0xFF;
+ 
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+-    ALOGD("%s waiting", __func__);
+-    std::mutex mutex;
+-    std::condition_variable done;
++    ALOGD("%s waiting", __func__);
++    std::mutex mutex;
++    std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(sco_cb_, Call(HidlVecMatches(preamble + 1, sizeof(preamble) - 1,
+                                              payload)))
+-        .WillOnce(Notify(&mutex, &done));
+-
+-    // Fail if it takes longer than 100 ms.
+-    auto timeout_time =
+-        std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
+-    {
+-      std::unique_lock<std::mutex> lock(mutex);
+-      done.wait_until(lock, timeout_time);
+-    }
++        .WillOnce(Notify(&mutex, &done, &received));
++
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
++    {
++      std::unique_lock<std::mutex> lock(mutex);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
++    }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   void WriteAndExpectInboundEvent(char* payload) {
+     // h4 type[1] + event_code[1] + size[1]
+     char preamble[3] = {HCI_PACKET_TYPE_EVENT, 9, 0};
+     preamble[2] = strlen(payload) & 0xFF;
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+-    ALOGD("%s waiting", __func__);
+-    std::mutex mutex;
+-    std::condition_variable done;
++    ALOGD("%s waiting", __func__);
++    std::mutex mutex;
++    std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(event_cb_, Call(HidlVecMatches(preamble + 1,
+                                                sizeof(preamble) - 1, payload)))
+-        .WillOnce(Notify(&mutex, &done));
+-
+-    {
+-      std::unique_lock<std::mutex> lock(mutex);
+-      done.wait(lock);
+-    }
++        .WillOnce(Notify(&mutex, &done, &received));
++
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
++    {
++      std::unique_lock<std::mutex> lock(mutex);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
++    }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   void WriteAndExpectInboundIsoData(char* payload) {
+@@ -196,24 +203,25 @@
+     preamble[3] = length & 0xFF;
+     preamble[4] = (length >> 8) & 0x3F;
+ 
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+-    ALOGD("%s waiting", __func__);
+-    std::mutex mutex;
+-    std::condition_variable done;
++    ALOGD("%s waiting", __func__);
++    std::mutex mutex;
++    std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(iso_cb_, Call(HidlVecMatches(preamble + 1, sizeof(preamble) - 1,
+                                              payload)))
+-        .WillOnce(Notify(&mutex, &done));
+-
+-    // Fail if it takes longer than 100 ms.
+-    auto timeout_time =
+-        std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
+-    {
+-      std::unique_lock<std::mutex> lock(mutex);
+-      done.wait_until(lock, timeout_time);
+-    }
++        .WillOnce(Notify(&mutex, &done, &received));
++
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
++    {
++      std::unique_lock<std::mutex> lock(mutex);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
++    }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   testing::MockFunction<void(const hidl_vec<uint8_t>&)> event_cb_;

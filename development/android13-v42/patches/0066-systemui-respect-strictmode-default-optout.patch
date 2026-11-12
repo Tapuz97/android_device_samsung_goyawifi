@@ -1,0 +1,16 @@
+--- a/packages/SystemUI/src/com/android/systemui/DejankUtils.java
++++ b/packages/SystemUI/src/com/android/systemui/DejankUtils.java
+@@ -44,8 +44,11 @@
+  */
+ public class DejankUtils {
+ 
+-    public static final boolean STRICT_MODE_ENABLED = Build.IS_ENG
+-            || SystemProperties.getBoolean("persist.sysui.strictmode", false);
++    // Respect the system diagnostic opt-out on engineering devices. An explicit
++    // SystemUI override can still enable diagnostics when a developer needs them.
++    public static final boolean STRICT_MODE_ENABLED = SystemProperties.getBoolean(
++            "persist.sysui.strictmode", Build.IS_ENG
++                    && !SystemProperties.getBoolean(StrictMode.DISABLE_PROPERTY, false));
+     private static final Choreographer sChoreographer = Choreographer.getInstance();
+     private static final Handler sHandler = new Handler();
+     private static final ArrayList<Runnable> sPendingRunnables = new ArrayList<>();

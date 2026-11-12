@@ -1,0 +1,14 @@
+diff --git a/kernel/printk.c b/kernel/printk.c
+index 77b02a72..847a3280 100644
+--- a/kernel/printk.c
++++ b/kernel/printk.c
+@@ -46,7 +46,9 @@
+ 
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/printk.h>
++#ifdef CONFIG_ARCH_MMP
+ #include <mach/sec_debug.h>
++#endif
+ 
+ /*
+  * Architectures can override it:

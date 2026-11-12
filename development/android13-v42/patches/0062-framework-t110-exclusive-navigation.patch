@@ -1,0 +1,39 @@
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -4339,6 +4339,16 @@
+     @Override
+     public int interceptKeyBeforeQueueing(KeyEvent event, int policyFlags) {
+         final int keyCode = event.getKeyCode();
++        // This board has no key-disable HAL. Filter its physical navigation
++        // keys before wake/gesture handling while Lineage's touch navbar is on.
++        // Virtual navbar events, external keyboards, power and volume pass through.
++        if ("t110_bringup".equals(android.os.Build.DEVICE) && mForceNavbar == 1) {
++            final InputDevice device = event.getDevice();
++            if (device != null && T110NavigationKeys.shouldSuppress(true,
++                    device.getName(), device.isVirtual(), keyCode)) {
++                return 0;
++            }
++        }
+         final boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
+         boolean isWakeKey = (policyFlags & WindowManagerPolicy.FLAG_WAKE) != 0
+                 || event.isWakeKey();
+--- /dev/null
++++ b/services/core/java/com/android/server/policy/T110NavigationKeys.java
+@@ -0,0 +1,17 @@
++package com.android.server.policy;
++
++import android.view.KeyEvent;
++
++/** Suppress only the T110's built-in navigation buttons, never its touch stream. */
++final class T110NavigationKeys {
++    static boolean shouldSuppress(boolean touchNavigation, String deviceName,
++            boolean virtualDevice, int keyCode) {
++        if (!touchNavigation || virtualDevice) return false;
++        if (!"gpio-keys".equals(deviceName) && !"sec_touchscreen".equals(deviceName)) {
++            return false;
++        }
++        return keyCode == KeyEvent.KEYCODE_HOME || keyCode == KeyEvent.KEYCODE_MOVE_HOME
++                || keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU
++                || keyCode == KeyEvent.KEYCODE_APP_SWITCH;
++    }
++}

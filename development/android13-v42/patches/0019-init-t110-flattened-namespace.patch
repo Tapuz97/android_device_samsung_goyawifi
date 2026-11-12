@@ -1,0 +1,16 @@
+--- a/init/mount_namespace.cpp
++++ b/init/mount_namespace.cpp
+@@ -209,6 +209,13 @@
+ base::Result<MountNamespace> GetCurrentMountNamespace() {
+     std::string current_namespace_id = GetMountNamespaceId();
+     if (current_namespace_id == "") {
++        // T110's 3.4 kernel does not export /proc/self/ns/mnt. Flattened
++        // APEX deliberately uses one namespace, as in the switch helper.
++        // Restrict the fallback to this device's explicit compatibility mode.
++        if (!IsApexUpdatable() &&
++            android::base::GetBoolProperty("ro.t110.legacy_processgroups", false)) {
++            return NS_DEFAULT;
++        }
+         return Error() << "Failed to get current mount namespace ID";
+     }
+ 

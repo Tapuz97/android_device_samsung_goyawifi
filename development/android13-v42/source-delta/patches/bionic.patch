@@ -1,0 +1,44 @@
+diff --git a/libc/arch-arm/cortex-a9/bionic/strcat.S b/libc/arch-arm/cortex-a9/bionic/strcat.S
+index 430748f..58d9470 100644
+--- a/libc/arch-arm/cortex-a9/bionic/strcat.S
++++ b/libc/arch-arm/cortex-a9/bionic/strcat.S
+@@ -524,7 +524,7 @@ ENTRY(strcat_a9)
+     m_ret   inst=pop
+ 
+ .Lstrcpy_unalign_copy4bytes:
+-    stmia   r0, {r2}
++    str     r2, [r0]  // One-register Thumb-2 STM is unpredictable.
+     m_ret   inst=pop
+ 
+ .Lstrcat_align_src:
+diff --git a/libc/arch-arm/cortex-a9/bionic/string_copy.S b/libc/arch-arm/cortex-a9/bionic/string_copy.S
+index 3605b7a..8260392 100644
+--- a/libc/arch-arm/cortex-a9/bionic/string_copy.S
++++ b/libc/arch-arm/cortex-a9/bionic/string_copy.S
+@@ -534,7 +534,7 @@ ENTRY(strcpy_a9)
+     m_ret   inst=pop
+ 
+ .Lstringcopy_unalign_copy4bytes:
+-    stmia   r0, {r2}
++    str     r2, [r0]  // One-register Thumb-2 STM is unpredictable.
+ #if defined(STPCPY)
+     add     r0, r0, #3
+ #endif
+diff --git a/linker/linker.cpp b/linker/linker.cpp
+index 5df3799..129bf66 100644
+--- a/linker/linker.cpp
++++ b/linker/linker.cpp
+@@ -3326,7 +3326,12 @@ bool soinfo::link_image(const SymbolLookupList& lookup_list, soinfo* local_group
+   if (has_text_relocations) {
+     // Fail if app is targeting M or above.
+     int app_target_api_level = get_application_target_sdk_version();
+-    if (app_target_api_level >= 23) {
++    // The stock T110 GPU library predates PIC. Limit the compatibility path
++    // to its installed vendor file and the explicit device opt-in.
++    const bool t110_gpu = android::base::GetBoolProperty("ro.t110.legacy_gpu", false) &&
++        (strcmp(get_realpath(), "/vendor/lib/libGAL.so") == 0 ||
++         strcmp(get_realpath(), "/system/vendor/lib/libGAL.so") == 0);
++    if (app_target_api_level >= 23 && !t110_gpu) {
+       DL_ERR_AND_LOG("\"%s\" has text relocations (%s#Text-Relocations-Enforced-for-API-level-23)",
+                      get_realpath(), kBionicChangesUrl);
+       return false;

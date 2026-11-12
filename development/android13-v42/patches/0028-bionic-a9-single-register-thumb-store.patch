@@ -1,0 +1,22 @@
+--- a/libc/arch-arm/cortex-a9/bionic/string_copy.S
++++ b/libc/arch-arm/cortex-a9/bionic/string_copy.S
+@@ -534,7 +534,7 @@
+     m_ret   inst=pop
+ 
+ .Lstringcopy_unalign_copy4bytes:
+-    stmia   r0, {r2}
++    str     r2, [r0]  // One-register Thumb-2 STM is unpredictable.
+ #if defined(STPCPY)
+     add     r0, r0, #3
+ #endif
+--- a/libc/arch-arm/cortex-a9/bionic/strcat.S
++++ b/libc/arch-arm/cortex-a9/bionic/strcat.S
+@@ -524,7 +524,7 @@
+     m_ret   inst=pop
+ 
+ .Lstrcpy_unalign_copy4bytes:
+-    stmia   r0, {r2}
++    str     r2, [r0]  // One-register Thumb-2 STM is unpredictable.
+     m_ret   inst=pop
+ 
+ .Lstrcat_align_src:

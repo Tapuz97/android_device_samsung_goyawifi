@@ -1,0 +1,443 @@
+diff --git a/audio/common/all-versions/default/service/service.cpp b/audio/common/all-versions/default/service/service.cpp
+index fbf6165..d817250 100644
+--- a/audio/common/all-versions/default/service/service.cpp
++++ b/audio/common/all-versions/default/service/service.cpp
+@@ -76,10 +76,11 @@ int main(int /* argc */, char* /* argv */ []) {
+     signal(SIGPIPE, SIG_IGN);
+ 
+     ::android::ProcessState::initWithDriver("/dev/vndbinder");
++    // Configure first: on legacy non-VNDK products, C++ and NDK Binder
++    // share one ProcessState. Resizing it after startThreadPool would abort.
++    ABinderProcess_setThreadPoolMaxThreadCount(1);
+     // start a threadpool for vndbinder interactions
+     ::android::ProcessState::self()->startThreadPool();
+-
+-    ABinderProcess_setThreadPoolMaxThreadCount(1);
+     ABinderProcess_startThreadPool();
+ 
+     const int32_t defaultValue = -1;
+diff --git a/bluetooth/1.0/default/h4_protocol.cc b/bluetooth/1.0/default/h4_protocol.cc
+index 2459687..3cc39cd 100644
+--- a/bluetooth/1.0/default/h4_protocol.cc
++++ b/bluetooth/1.0/default/h4_protocol.cc
+@@ -30,6 +30,23 @@ namespace bluetooth {
+ namespace hci {
+ 
+ size_t H4Protocol::Send(uint8_t type, const uint8_t* data, size_t length) {
++  if (packetized_writes_) {
++    // mbtchar consumes one complete H4 packet per write. Its legacy VFS
++    // writev fallback calls ->write separately for each iovec, so an H4 type
++    // iovec followed by a payload iovec would become two corrupt packets.
++    if (data == nullptr || length == 0 || length > 65539) return 0;
++    std::vector<uint8_t> packet(length + 1);
++    packet[0] = type;
++    memcpy(packet.data() + 1, data, length);
++    ssize_t result = TEMP_FAILURE_RETRY(write(uart_fd_, packet.data(), packet.size()));
++    if (result != static_cast<ssize_t>(packet.size())) {
++      // A short packet must never be retried as a fresh H4 packet tail.
++      ALOGE("%s incomplete packet write (%zd/%zu)", __func__, result, packet.size());
++      return 0;
++    }
++    return result;
++  }
++
+   struct iovec iov_array[] = {{&type, sizeof(type)},
+                               {const_cast<uint8_t*>(data), length}};
+   struct iovec* iov = iov_array;
+diff --git a/bluetooth/1.0/default/h4_protocol.h b/bluetooth/1.0/default/h4_protocol.h
+index 0c82fd6..84b8ab3 100644
+--- a/bluetooth/1.0/default/h4_protocol.h
++++ b/bluetooth/1.0/default/h4_protocol.h
+@@ -31,13 +31,15 @@ namespace hci {
+ class H4Protocol : public HciProtocol {
+  public:
+   H4Protocol(int fd, PacketReadCallback event_cb, PacketReadCallback acl_cb,
+-             PacketReadCallback sco_cb, PacketReadCallback iso_cb)
++             PacketReadCallback sco_cb, PacketReadCallback iso_cb,
++             bool packetized_writes = false)
+       : uart_fd_(fd),
+         event_cb_(event_cb),
+         acl_cb_(acl_cb),
+         sco_cb_(sco_cb),
+         iso_cb_(iso_cb),
+-        hci_packetizer_([this]() { OnPacketReady(); }) {}
++        hci_packetizer_([this]() { OnPacketReady(); }),
++        packetized_writes_(packetized_writes) {}
+ 
+   size_t Send(uint8_t type, const uint8_t* data, size_t length);
+ 
+@@ -55,6 +57,7 @@ class H4Protocol : public HciProtocol {
+ 
+   HciPacketType hci_packet_type_{HCI_PACKET_TYPE_UNKNOWN};
+   hci::HciPacketizer hci_packetizer_;
++  const bool packetized_writes_;
+ };
+ 
+ }  // namespace hci
+diff --git a/bluetooth/1.0/default/test/h4_protocol_unittest.cc b/bluetooth/1.0/default/test/h4_protocol_unittest.cc
+index 174861c..e84437b 100644
+--- a/bluetooth/1.0/default/test/h4_protocol_unittest.cc
++++ b/bluetooth/1.0/default/test/h4_protocol_unittest.cc
+@@ -27,6 +27,7 @@
+ 
+ #include <log/log.h>
+ #include <sys/socket.h>
++#include <sys/eventfd.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+ 
+@@ -66,9 +67,10 @@ MATCHER_P3(HidlVecMatches, preamble, preamble_length, payload, "") {
+                 length - preamble_length) == 0;
+ };
+ 
+-ACTION_P2(Notify, mutex, condition) {
++ACTION_P3(Notify, mutex, condition, received) {
+   ALOGD("%s", __func__);
+   std::unique_lock<std::mutex> lock(*mutex);
++  *received = true;
+   condition->notify_one();
+ }
+ 
+@@ -122,24 +124,25 @@ class H4ProtocolTest : public ::testing::Test {
+     preamble[3] = length & 0xFF;
+     preamble[4] = (length >> 8) & 0xFF;
+ 
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+     ALOGD("%s waiting", __func__);
+     std::mutex mutex;
+     std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(acl_cb_, Call(HidlVecMatches(preamble + 1, sizeof(preamble) - 1,
+                                              payload)))
+-        .WillOnce(Notify(&mutex, &done));
++        .WillOnce(Notify(&mutex, &done, &received));
+ 
+-    // Fail if it takes longer than 100 ms.
+-    auto timeout_time =
+-        std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
+     {
+       std::unique_lock<std::mutex> lock(mutex);
+-      done.wait_until(lock, timeout_time);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
+     }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   void WriteAndExpectInboundScoData(char* payload) {
+@@ -147,45 +150,50 @@ class H4ProtocolTest : public ::testing::Test {
+     char preamble[4] = {HCI_PACKET_TYPE_SCO_DATA, 20, 17, 0};
+     preamble[3] = strlen(payload) & 0xFF;
+ 
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+     ALOGD("%s waiting", __func__);
+     std::mutex mutex;
+     std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(sco_cb_, Call(HidlVecMatches(preamble + 1, sizeof(preamble) - 1,
+                                              payload)))
+-        .WillOnce(Notify(&mutex, &done));
++        .WillOnce(Notify(&mutex, &done, &received));
+ 
+-    // Fail if it takes longer than 100 ms.
+-    auto timeout_time =
+-        std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
+     {
+       std::unique_lock<std::mutex> lock(mutex);
+-      done.wait_until(lock, timeout_time);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
+     }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   void WriteAndExpectInboundEvent(char* payload) {
+     // h4 type[1] + event_code[1] + size[1]
+     char preamble[3] = {HCI_PACKET_TYPE_EVENT, 9, 0};
+     preamble[2] = strlen(payload) & 0xFF;
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+     ALOGD("%s waiting", __func__);
+     std::mutex mutex;
+     std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(event_cb_, Call(HidlVecMatches(preamble + 1,
+                                                sizeof(preamble) - 1, payload)))
+-        .WillOnce(Notify(&mutex, &done));
++        .WillOnce(Notify(&mutex, &done, &received));
+ 
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
++
++    bool completed = false;
+     {
+       std::unique_lock<std::mutex> lock(mutex);
+-      done.wait(lock);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
+     }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   void WriteAndExpectInboundIsoData(char* payload) {
+@@ -195,24 +203,25 @@ class H4ProtocolTest : public ::testing::Test {
+     preamble[3] = length & 0xFF;
+     preamble[4] = (length >> 8) & 0x3F;
+ 
+-    ALOGD("%s writing", __func__);
+-    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
+-    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+-
+     ALOGD("%s waiting", __func__);
+     std::mutex mutex;
+     std::condition_variable done;
++    bool received = false;
+     EXPECT_CALL(iso_cb_, Call(HidlVecMatches(preamble + 1, sizeof(preamble) - 1,
+                                              payload)))
+-        .WillOnce(Notify(&mutex, &done));
++        .WillOnce(Notify(&mutex, &done, &received));
++
++    ALOGD("%s writing", __func__);
++    TEMP_FAILURE_RETRY(write(fake_uart_, preamble, sizeof(preamble)));
++    TEMP_FAILURE_RETRY(write(fake_uart_, payload, strlen(payload)));
+ 
+-    // Fail if it takes longer than 100 ms.
+-    auto timeout_time =
+-        std::chrono::steady_clock::now() + std::chrono::milliseconds(100);
++    bool completed = false;
+     {
+       std::unique_lock<std::mutex> lock(mutex);
+-      done.wait_until(lock, timeout_time);
++      completed = done.wait_for(lock, std::chrono::seconds(2), [&]() { return received; });
+     }
++    if (!completed) fd_watcher_.StopWatchingFileDescriptors();
++    EXPECT_TRUE(completed);
+   }
+ 
+   testing::MockFunction<void(const hidl_vec<uint8_t>&)> event_cb_;
+@@ -245,3 +254,35 @@ TEST_F(H4ProtocolTest, TestReads) {
+ }  // namespace bluetooth
+ }  // namespace hardware
+ }  // namespace android
++
++namespace android::hardware::bluetooth::hci {
++// eventfd requires each kernel write call to contain exactly eight bytes.
++// A split type/payload write fails; this checks the production Send method's
++// syscall boundary rather than merely comparing concatenated stream bytes.
++TEST(T110AtomicH4Test, CompletePacketUsesOneKernelWrite) {
++  int fd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
++  ASSERT_GE(fd, 0);
++  auto ignore = [](const hidl_vec<uint8_t>&) {};
++  H4Protocol protocol(fd, ignore, ignore, ignore, ignore, true);
++  uint8_t payload[7] = {};
++  EXPECT_EQ(size_t{8}, protocol.Send(1, payload, sizeof(payload)));
++  uint64_t counter = 0;
++  EXPECT_EQ(ssize_t{8}, read(fd, &counter, sizeof(counter)));
++  EXPECT_EQ(uint64_t{1}, counter);
++  close(fd);
++}
++TEST(T110AtomicH4Test, InvalidPacketDoesNotWriteOrReadPastInput) {
++  int fd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
++  ASSERT_GE(fd, 0);
++  auto ignore = [](const hidl_vec<uint8_t>&) {};
++  H4Protocol protocol(fd, ignore, ignore, ignore, ignore, true);
++  uint8_t payload = 0;
++  EXPECT_EQ(size_t{0}, protocol.Send(1, nullptr, 7));
++  EXPECT_EQ(size_t{0}, protocol.Send(1, &payload, 0));
++  EXPECT_EQ(size_t{0}, protocol.Send(1, &payload, 65540));
++  uint64_t counter = 0;
++  EXPECT_EQ(ssize_t{-1}, read(fd, &counter, sizeof(counter)));
++  EXPECT_EQ(EAGAIN, errno);
++  close(fd);
++}
++}  // namespace android::hardware::bluetooth::hci
+diff --git a/bluetooth/1.0/default/vendor_interface.cc b/bluetooth/1.0/default/vendor_interface.cc
+index 1d15dd6..2ead8aa 100644
+--- a/bluetooth/1.0/default/vendor_interface.cc
++++ b/bluetooth/1.0/default/vendor_interface.cc
+@@ -22,6 +22,7 @@
+ 
+ #include <dlfcn.h>
+ #include <fcntl.h>
++#include <sys/stat.h>
+ 
+ #include "bluetooth_address.h"
+ #include "h4_protocol.h"
+@@ -253,7 +254,13 @@ bool VendorInterface::Open(InitializeCompleteCallback initialize_complete_cb,
+ 
+   if (fd_count == 1) {
+     hci::H4Protocol* h4_hci =
+-        new hci::H4Protocol(fd_list[0], intercept_events, acl_cb, sco_cb, iso_cb);
++        new hci::H4Protocol(fd_list[0], intercept_events, acl_cb, sco_cb, iso_cb,
++            [&]() {
++              struct stat node{}, descriptor{};
++              return lstat("/dev/mbtchar0", &node) == 0 && S_ISCHR(node.st_mode) &&
++                     fstat(fd_list[0], &descriptor) == 0 && S_ISCHR(descriptor.st_mode) &&
++                     descriptor.st_rdev == node.st_rdev;
++            }());
+     fd_watcher_.WatchFdForNonBlockingReads(
+         fd_list[0], [h4_hci](int fd) { h4_hci->OnDataReady(fd); });
+     hci_ = h4_hci;
+diff --git a/bluetooth/1.1/default/Android.bp b/bluetooth/1.1/default/Android.bp
+index ce85db0..8b3ae71 100644
+--- a/bluetooth/1.1/default/Android.bp
++++ b/bluetooth/1.1/default/Android.bp
+@@ -26,6 +26,13 @@ cc_binary {
+     name: "android.hardware.bluetooth@1.1-service",
+     defaults: ["hidl_defaults"],
+     relative_install_path: "hw",
++    // The shared HCI implementation is installed under lib[64]/hw. Give
++    // this executable its direct dependency path in legacy linker namespaces.
++    // A service environment override is ignored on SELinux secure exec.
++    multilib: {
++        lib32: { ldflags: ["-Wl,-rpath,/vendor/lib/hw"] },
++        lib64: { ldflags: ["-Wl,-rpath,/vendor/lib64/hw"] },
++    },
+     vendor: true,
+     init_rc: ["android.hardware.bluetooth@1.1-service.rc"],
+     srcs: [
+diff --git a/graphics/composer/2.1/default/Android.bp b/graphics/composer/2.1/default/Android.bp
+index 96fea4e..0b1792e 100644
+--- a/graphics/composer/2.1/default/Android.bp
++++ b/graphics/composer/2.1/default/Android.bp
+@@ -12,7 +12,7 @@ cc_binary {
+     defaults: ["hidl_defaults"],
+     vendor: true,
+     relative_install_path: "hw",
+-    srcs: ["service.cpp"],
++    srcs: ["service.cpp", "T110Framebuffer.cpp"],
+     init_rc: ["android.hardware.graphics.composer@2.1-service.rc"],
+     header_libs: [
+         "android.hardware.graphics.composer@2.1-passthrough",
+@@ -21,6 +21,7 @@ cc_binary {
+         "android.hardware.graphics.composer@2.1",
+         "android.hardware.graphics.composer@2.1-resources",
+         "libbase",
++        "libdl",
+         "libbinder",
+         "libcutils",
+         "libfmq",
+diff --git a/graphics/composer/2.1/default/service.cpp b/graphics/composer/2.1/default/service.cpp
+index 1276d2d..40bc517 100644
+--- a/graphics/composer/2.1/default/service.cpp
++++ b/graphics/composer/2.1/default/service.cpp
+@@ -17,6 +17,9 @@
+ #define LOG_TAG "android.hardware.graphics.composer@2.1-service"
+ 
+ #include <sched.h>
++#include "T110Framebuffer.h"
++#include <dlfcn.h>
++#include <android-base/properties.h>
+ 
+ #include <android/hardware/graphics/composer/2.1/IComposer.h>
+ 
+@@ -43,7 +46,34 @@ int main() {
+ 
+     android::hardware::configureRpcThreadpool(4, true /* will join */);
+ 
+-    android::sp<IComposer> composer = HwcLoader::load();
++    // Stock T110 HWC calls gcoHAL_Get2DEngine before gralloc has allocated
++    // any buffers. Unlike old SurfaceFlinger, this standalone service has
++    // not loaded EGL, so Vivante's explicit per-process initialization has
++    // never run. The verified stock constructor is PID-guarded/idempotent.
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        void* gal = dlopen("libGAL.so", RTLD_NOW | RTLD_LOCAL);
++        auto initialize = gal ? reinterpret_cast<int (*)()>(
++                dlsym(gal, "gcoOS_ModuleConstructor")) : nullptr;
++        if (!initialize || initialize() < 0) {
++            ALOGE("T110: Vivante process initialization failed before HWC");
++            return 1;
++        }
++        // Keep the driver loaded for the lifetime of its HAL objects.
++        ALOGI("T110: Vivante process state initialized before HWC");
++    }
++
++    android::sp<IComposer> composer;
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        // Stock HWC depends on eglGetNativeWindowVIV in the caller process.
++        // Android 13's separate composer receives only imported buffer handles.
++        auto* fb = openT110Framebuffer();
++        if (!fb) return 1;
++        auto hal = std::make_unique<android::hardware::graphics::composer::V2_1::passthrough::HwcHal>();
++        if (!hal->initWithDevice(new android::HWC2OnFbAdapter(fb), false)) return 1;
++        composer = HwcLoader::createComposer(std::move(hal));
++    } else {
++        composer = HwcLoader::load();
++    }
+     if (composer == nullptr) {
+         return 1;
+     }
+diff --git a/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp b/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp
+index 0f50577..175c21d 100644
+--- a/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp
++++ b/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp
+@@ -137,14 +137,13 @@ int32_t getHdrCapabilitiesHook(hwc2_device_t* device, hwc2_display_t display, ui
+     return HWC2_ERROR_NONE;
+ }
+ 
+-int32_t setPowerModeHook(hwc2_device_t* device, hwc2_display_t display, int32_t /*mode*/) {
++int32_t setPowerModeHook(hwc2_device_t* device, hwc2_display_t display, int32_t mode) {
+     auto& adapter = HWC2OnFbAdapter::cast(device);
+     if (adapter.getDisplayId() != display) {
+         return HWC2_ERROR_BAD_DISPLAY;
+     }
+ 
+-    // pretend that it works
+-    return HWC2_ERROR_NONE;
++    return adapter.setPowerMode(mode);
+ }
+ 
+ int32_t setVsyncEnabledHook(hwc2_device_t* device, hwc2_display_t display, int32_t enabled) {
+@@ -781,6 +780,21 @@ void HWC2OnFbAdapter::setBuffer(buffer_handle_t buffer) {
+     mBuffer = buffer;
+ }
+ 
++int32_t HWC2OnFbAdapter::setPowerMode(int32_t mode) {
++    // Preserve the old adapter contract for framebuffer HALs without this hook.
++    if (!mFbDevice->enableScreen) return HWC2_ERROR_NONE;
++    int enable;
++    switch (mode) {
++        case HWC2_POWER_MODE_OFF: enable = 0; break;
++        case HWC2_POWER_MODE_ON: enable = 1; break;
++        case HWC2_POWER_MODE_DOZE:
++        case HWC2_POWER_MODE_DOZE_SUSPEND: return HWC2_ERROR_UNSUPPORTED;
++        default: return HWC2_ERROR_BAD_PARAMETER;
++    }
++    return mFbDevice->enableScreen(mFbDevice, enable) == 0
++            ? HWC2_ERROR_NONE : HWC2_ERROR_UNSUPPORTED;
++}
++
+ bool HWC2OnFbAdapter::postBuffer() {
+     int error = 0;
+     if (mBuffer) {
+diff --git a/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h b/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h
+index f1f11ef..d4dcb6a 100644
+--- a/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h
++++ b/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h
+@@ -76,6 +76,7 @@ public:
+ 
+     void setBuffer(buffer_handle_t buffer);
+     bool postBuffer();
++    int32_t setPowerMode(int32_t mode);
+ 
+     void setVsyncCallback(HWC2_PFN_VSYNC callback, hwc2_callback_data_t data);
+     void enableVsync(bool enable);

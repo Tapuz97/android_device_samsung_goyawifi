@@ -1,0 +1,19 @@
+From: T110 bring-up <t110-build@localhost>
+Subject: [PATCH] vfs: accept O_PATH descriptors for fstat
+
+Backport upstream 55815f70147dcfa3ead5738fd56d3574e2e3c1c2
+(vfs: make O_PATH file descriptors usable for fstat()).
+Android 13 bionic realpath() opens O_PATH then calls fstat(). Without
+this change, SELinux restorecon aborts init with EBADF.
+
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -57,7 +57,7 @@ EXPORT_SYMBOL(vfs_getattr);
+ 
+ int vfs_fstat(unsigned int fd, struct kstat *stat)
+ {
+-	struct file *f = fget(fd);
++	struct file *f = fget_raw(fd);
+ 	int error = -EBADF;
+ 
+ 	if (f) {

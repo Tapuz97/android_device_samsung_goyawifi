@@ -1,0 +1,127 @@
+cc_binary {
+    name: "t110_bt_init",
+    vendor: true,
+    srcs: ["bluetooth/t110_bt_init.c"],
+    init_rc: ["bluetooth/init.t110.bluetooth.rc"],
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_library_shared {
+    name: "libbt-vendor.t110",
+    stem: "libbt-vendor",
+    vendor: true,
+    srcs: ["bluetooth/bt_vendor_t110.c"],
+    include_dirs: ["hardware/interfaces/bluetooth/1.0/default"],
+    shared_libs: ["liblog"],
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_radio_init",
+    vendor: true,
+    srcs: ["wifi/t110_load_radio_module.c"],
+    init_rc: ["wifi/init.t110.radio.rc"],
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_codec_loader_probe",
+    srcs: ["graphics/codec_loader_probe.c"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["libdl"],
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_graphic_import_probe",
+    srcs: ["graphics/graphic_import_probe.cpp", "graphics/CaptureResultsCompat.cpp"],
+    local_include_dirs: ["graphics"],
+    header_libs: ["libhardware_headers", "libgui_headers"],
+    include_dirs: ["frameworks/native/libs/gui"],
+    shared_libs: ["libui", "libutils", "liblog", "libbinder", "libbase"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_gpu_readback_probe",
+    srcs: ["graphics/gpu_readback_probe.cpp", "graphics/T110EglWindow.cpp", "graphics/CaptureResultsCompat.cpp"],
+    local_include_dirs: ["graphics"],
+    header_libs: ["libhardware_headers", "libnativewindow_headers", "libgui_headers"],
+    include_dirs: ["frameworks/native/libs/gui"],
+    shared_libs: ["libEGL", "libGLESv2", "libui", "libutils", "liblog", "libsync", "libbinder", "libbase"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_lights_probe",
+    srcs: ["lights/probe.c"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["libdl"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_library_shared {
+    name: "lights.mrvl",
+    vendor: true,
+    relative_install_path: "hw",
+    srcs: ["lights/lights.c"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["libcutils"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_bionic_probe",
+    srcs: ["bionic_probe.c"],
+    static_executable: true,
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_libbinder_probe",
+    srcs: ["binder_probe.cpp"],
+    stl: "libc++",
+    shared_libs: ["libbinder", "libutils", "libcutils", "liblog", "libbase"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_hwbinder_probe",
+    srcs: ["hwbinder_probe.cpp"],
+    stl: "libc++",
+    shared_libs: ["libhidlbase", "libutils", "libcutils", "liblog", "libbase"],
+    header_libs: ["libhwbinder_headers"],
+    product_variables: {
+        binder32bit: { cflags: ["-DBINDER_IPC_32BIT=1"] },
+    },
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_processgroup_probe",
+    srcs: ["processgroup_probe.cpp"],
+    stl: "libc++",
+    shared_libs: ["libprocessgroup", "libbase", "liblog"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_recovery_watchdog",
+    srcs: ["recovery_watchdog.c"],
+    static_executable: true,
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "t110_path_probe",
+    srcs: ["path_probe.c"],
+    static_executable: true,
+    stl: "none",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

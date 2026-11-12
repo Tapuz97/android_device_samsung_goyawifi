@@ -1,0 +1,32 @@
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -558,16 +558,28 @@
+ 		}
+ 		rcu_read_lock();
+ 		{
++			struct fib_table *tbl = NULL;
+ 			struct flowi4 fl4 = {
+ 				.daddr = nh->nh_gw,
+ 				.flowi4_scope = cfg->fc_scope + 1,
+ 				.flowi4_oif = nh->nh_oif,
++				.flowi4_iif = net->loopback_dev->ifindex,
++				/* Gateway validation has no packet/socket owner. */
++				.flowi4_uid = (uid_t)-1,
+ 			};
+ 
+ 			/* It is not necessary, but requires a bit of thinking */
+ 			if (fl4.flowi4_scope < RT_SCOPE_LINK)
+ 				fl4.flowi4_scope = RT_SCOPE_LINK;
+-			err = fib_lookup(net, &fl4, &res);
++			/* Prefer the route's own table before policy lookup. Android
++			 * keeps each network's connected prefix in a separate table.
++			 * Mainline v4.3 fib_check_nh uses the same lookup order. */
++			if (cfg->fc_table)
++				tbl = fib_get_table(net, cfg->fc_table);
++			if (tbl)
++				err = fib_table_lookup(tbl, &fl4, &res, FIB_LOOKUP_NOREF);
++			if (!tbl || err)
++				err = fib_lookup(net, &fl4, &res);
+ 			if (err) {
+ 				rcu_read_unlock();
+ 				return err;

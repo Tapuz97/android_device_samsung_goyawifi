@@ -1,0 +1,28 @@
+diff --git a/target/product/runtime_libart.mk b/target/product/runtime_libart.mk
+index b6560fc..f267576 100644
+--- a/target/product/runtime_libart.mk
++++ b/target/product/runtime_libart.mk
+@@ -47,6 +47,12 @@ PRODUCT_PACKAGES += com.android.runtime
+ # PRODUCT_PACKAGES.
+ 
+ art_target_include_debug_build := $(PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD)
++# inherit-product evaluates this node separately from the device product.
++# Its parent PRODUCT_* setting is not available at this selection point.
++# Keep eng debugging access but exclude the debug runtime on this legacy target.
++ifeq (lineage_t110_system,$(TARGET_PRODUCT))
++  art_target_include_debug_build := false
++endif
+ ifneq (false,$(art_target_include_debug_build))
+   ifneq (,$(filter eng,$(TARGET_BUILD_VARIANT)))
+     art_target_include_debug_build := true
+@@ -94,8 +100,8 @@ endif
+ #
+ # The thermal cutoff value is currently set to THERMAL_STATUS_MODERATE.
+ PRODUCT_SYSTEM_PROPERTIES += \
+-    dalvik.vm.usejit=true \
+-    dalvik.vm.usejitprofiles=true \
++    dalvik.vm.usejit?=true \
++    dalvik.vm.usejitprofiles?=true \
+     dalvik.vm.dexopt.secondary=true \
+     dalvik.vm.dexopt.thermal-cutoff=2 \
+     dalvik.vm.appimageformat=lz4

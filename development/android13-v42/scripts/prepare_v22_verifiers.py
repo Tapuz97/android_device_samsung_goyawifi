@@ -1,0 +1,20 @@
+"""Prepare verification/staging tools; does not build, install, or boot anything."""
+from pathlib import Path
+p=Path(__file__).resolve().parents[1];scripts=p/'scripts'
+s=(scripts/'verify_v21_contents.py').read_text()
+s=s.replace('v21','v22').replace('v20','v21').replace('offline-v31','offline-v32')
+s=s.replace("assert json.loads((e/'regressions.json').read_text())['status']=='PASS'", "candidate=json.loads((e/'setup-candidate/installation.json').read_text())\nassert candidate['visual_result']=='WELCOME_RENDERED_CORRECTLY'")
+s=s.replace("for name in ['system/bin/surfaceflinger'", "for name in ['system/vendor/bin/hw/android.hardware.graphics.composer@2.1-service','system/bin/surfaceflinger'")
+s=s.replace("for name in ['system/vendor/bin/hw/android.hardware.graphics.composer@2.1-service']:", "for name in ['system/system_ext/priv-app/LineageSetupWizard/LineageSetupWizard.apk']:")
+s=s.replace("    assert data[:4]==b'\\x7fELF' and data[4]==1 and int.from_bytes(data[18:20],'little')==40", "    assert sha(data)==candidate['sha256']\n    assert data==(e/'setup-candidate/LineageSetupWizard.apk').read_bytes()")
+s=s.replace("('hardware/interfaces','0056-composer-t110-padded-portrait-scanout.patch')", "('hardware/interfaces','0056-composer-t110-padded-portrait-scanout.patch'),\n                   ('packages/apps/SetupWizard','0057-setupwizard-configurable-canvas-rendering.patch')")
+s=s.replace('android_boots=0,tablet_access=False','offline_image_check=True,setup_app_same_boot_validated=True')
+(scripts/'verify_v22_contents.py').write_text(s)
+s=(scripts/'finalize_v21_offline.py').read_text().replace('v21','v22').replace('offline-v31','offline-v32')
+s=s.replace("assert contents['status']==json.loads((e/'regressions.json').read_text())['status']=='PASS'", "assert contents['status']=='PASS'\nassert json.loads((e/'setup-candidate/installation.json').read_text())['visual_result']=='WELCOME_RENDERED_CORRECTLY'")
+s=s.replace("build_log='system-image-20261107T130215Z.log'", "build_log='system-build.log'")
+s=s.replace("fixes=['HWC exposes natural600x1024 with no second rotation in SurfaceFlinger',", "fixes=['T110 setup activities use software Canvas after same-boot scene verification',\n           'HWC exposes natural600x1024 with no second rotation in SurfaceFlinger',")
+(scripts/'finalize_v22_offline.py').write_text(s)
+s=(scripts/'stage_v21_system.py').read_text().replace('v21','v22').replace('offline-v31','offline-v32')
+(scripts/'stage_v22_system.py').write_text(s)
+print('V22_TOOLS_PREPARED_NOT_EXECUTED')

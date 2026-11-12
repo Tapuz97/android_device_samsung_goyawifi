@@ -1,0 +1,20 @@
+Subject: [PATCH] usb: functionfs: retain string table allocation until cleanup
+
+The T110 source frees the allocation while stringtabs/t/s still point into
+it, then writes through those pointers and publishes the freed table.
+Android 13 adbd triggers a kernel Oops in functionfs_bind while walking it.
+Restore the allocation lifetime used by the pinned Android common 3.4
+donor: malformed input frees stringtabs at error_free, successful input
+transfers it to ffs->stringtabs and normal ffs cleanup owns the free.
+
+--- a/drivers/usb/gadget/f_fs.c
++++ b/drivers/usb/gadget/f_fs.c
+@@ -1883,8 +1883,6 @@
+ 		t = d->stringtab;
+ 		s = d->strings;
+ 		strings = s;
+-
+-		kfree(d);
+ 	}
+ 
+ 	/* For each language */

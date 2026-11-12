@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keep the account action accessible without reserving 104dp above
+         the homepage title on this 600x1024 panel. -->
+    <dimen name="avatar_margin_top">8dp</dimen>
+    <dimen name="avatar_length">48dp</dimen>
+</resources>

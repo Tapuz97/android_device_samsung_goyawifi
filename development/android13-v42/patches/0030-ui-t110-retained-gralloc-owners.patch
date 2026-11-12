@@ -1,0 +1,170 @@
+diff --git a/libs/ui/Gralloc2.cpp b/libs/ui/Gralloc2.cpp
+index 995dded..764ab80 100644
+--- a/libs/ui/Gralloc2.cpp
++++ b/libs/ui/Gralloc2.cpp
+@@ -21,6 +21,12 @@
+ #include <ui/Gralloc2.h>
+ 
+ #include <inttypes.h>
++#include <android-base/properties.h>
++#include <hardware/gralloc.h>
++#include <dlfcn.h>
++#include <climits>
++#include <mutex>
++#include <unordered_map>
+ #include <log/log.h>
+ #pragma clang diagnostic push
+ #pragma clang diagnostic ignored "-Wzero-length-array"
+@@ -41,6 +47,110 @@ namespace {
+ 
+ static constexpr Error kTransactionError = Error::NO_RESOURCES;
+ 
++// Stock T110 gralloc keeps GPU signals in the allocation owner, not in the
++// transported file descriptors. A binderized allocator frees those signals
++// before import. Same-process registerBuffer is a no-op in this driver, so
++// merely switching IAllocator to passthrough would leave dangling surfaces.
++// Retain the original allocation alongside the mapper's registered clone.
++class T110LegacyAllocation {
++public:
++    static T110LegacyAllocation& get() {
++        static auto* state = new T110LegacyAllocation;
++        return *state;
++    }
++
++    bool enabled() const { return mEnabled; }
++    bool ready() const { return mDevice != nullptr; }
++
++    status_t allocate(const Gralloc2Mapper& mapper, uint32_t width, uint32_t height,
++                      PixelFormat format, uint32_t layerCount, uint64_t usage,
++                      uint32_t count, uint32_t* stride, buffer_handle_t* handles,
++                      bool importBuffers) {
++        if (!mDevice) return NO_INIT;
++        // Raw FD-only ownership cannot preserve this legacy driver's signals.
++        if (!importBuffers || layerCount != 1 || usage >> 32 || !count ||
++            width > INT_MAX || height > INT_MAX) return BAD_VALUE;
++        // HW_FB returns an unshareable framebuffer handle (FD -1). HWC's
++        // client target must instead be a normal GPU buffer it can import.
++        const int legacyUsage = static_cast<int>(usage & ~uint64_t(GRALLOC_USAGE_HW_FB));
++        status_t status = NO_ERROR;
++        uint32_t allocated = 0;
++        for (; allocated < count; ++allocated) {
++            buffer_handle_t original = nullptr;
++            int localStride = 0;
++            {
++                std::lock_guard<std::mutex> lock(mMutex);
++                status = mDevice->alloc(mDevice, width, height, format, legacyUsage,
++                                        &original, &localStride);
++            }
++            if (status != NO_ERROR) break;
++            if (allocated && *stride != static_cast<uint32_t>(localStride)) {
++                std::lock_guard<std::mutex> lock(mMutex);
++                mDevice->free(mDevice, original);
++                status = BAD_VALUE;
++                break;
++            }
++            status = mapper.importBuffer(hardware::hidl_handle(original), &handles[allocated]);
++            if (status != NO_ERROR) {
++                std::lock_guard<std::mutex> lock(mMutex);
++                mDevice->free(mDevice, original);
++                break;
++            }
++            {
++                std::lock_guard<std::mutex> lock(mMutex);
++                mOwners.emplace(handles[allocated], original);
++            }
++            *stride = static_cast<uint32_t>(localStride);
++        }
++        if (status != NO_ERROR) {
++            while (allocated) {
++                --allocated;
++                mapper.freeBuffer(handles[allocated]);
++                handles[allocated] = nullptr;
++            }
++        }
++        return status;
++    }
++
++    void releaseOwner(buffer_handle_t imported) {
++        std::lock_guard<std::mutex> lock(mMutex);
++        const auto it = mOwners.find(imported);
++        if (it == mOwners.end()) return; // buffer imported from another process
++        const int error = mDevice->free(mDevice, it->second);
++        ALOGE_IF(error, "T110 legacy allocation release failed: %d", error);
++        mOwners.erase(it);
++    }
++
++private:
++    T110LegacyAllocation() : mEnabled(base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        if (!mEnabled) return;
++        // libui also has an APEX variant. Keep this device-only legacy
++        // backend optional instead of imposing libhardware on every APEX.
++        void* library = dlopen("libhardware.so", RTLD_NOW | RTLD_LOCAL);
++        auto getModule = library ? reinterpret_cast<int (*)(const char*, const hw_module_t**)>(
++                dlsym(library, "hw_get_module")) : nullptr;
++        if (!getModule) {
++            ALOGE("T110 legacy gralloc loader unavailable");
++            return;
++        }
++        // Keep the library loaded for the process-long alloc_device_t.
++        const hw_module_t* module = nullptr;
++        int error = getModule(GRALLOC_HARDWARE_MODULE_ID, &module);
++        if (!error) error = gralloc_open(module, &mDevice);
++        if (error) {
++            mDevice = nullptr;
++            ALOGE("T110 legacy gralloc open failed: %d", error);
++        } else {
++            ALOGI("T110 legacy gralloc: retaining allocation owners in process");
++        }
++    }
++    const bool mEnabled;
++    alloc_device_t* mDevice = nullptr;
++    std::mutex mMutex;
++    std::unordered_map<buffer_handle_t, buffer_handle_t> mOwners;
++};
++
++
+ uint64_t getValid10UsageBits() {
+     static const uint64_t valid10UsageBits = []() -> uint64_t {
+         using hardware::graphics::common::V1_0::BufferUsage;
+@@ -192,6 +302,8 @@ void Gralloc2Mapper::freeBuffer(buffer_handle_t bufferHandle) const {
+     auto error = (ret.isOk()) ? static_cast<Error>(ret) : kTransactionError;
+     ALOGE_IF(error != Error::NONE, "freeBuffer(%p) failed with %d",
+             buffer, error);
++    // Unregister the mapper clone before releasing its backing allocation.
++    if (error == Error::NONE) T110LegacyAllocation::get().releaseOwner(bufferHandle);
+ }
+ 
+ status_t Gralloc2Mapper::validateBufferSize(buffer_handle_t bufferHandle, uint32_t width,
+@@ -368,6 +480,7 @@ int Gralloc2Mapper::unlock(buffer_handle_t bufferHandle) const {
+ }
+ 
+ Gralloc2Allocator::Gralloc2Allocator(const Gralloc2Mapper& mapper) : mMapper(mapper) {
++    if (T110LegacyAllocation::get().enabled()) return;
+     mAllocator = IAllocator::getService();
+     if (mAllocator == nullptr) {
+         ALOGW("allocator 2.x is not supported");
+@@ -376,10 +489,12 @@ Gralloc2Allocator::Gralloc2Allocator(const Gralloc2Mapper& mapper) : mMapper(map
+ }
+ 
+ bool Gralloc2Allocator::isLoaded() const {
++    if (T110LegacyAllocation::get().enabled()) return T110LegacyAllocation::get().ready();
+     return mAllocator != nullptr;
+ }
+ 
+ std::string Gralloc2Allocator::dumpDebugInfo(bool /*less*/) const {
++    if (T110LegacyAllocation::get().enabled()) return "T110 retained legacy allocations\n";
+     std::string debugInfo;
+ 
+     mAllocator->dumpDebugInfo([&](const auto& tmpDebugInfo) {
+@@ -407,6 +522,11 @@ status_t Gralloc2Allocator::allocate(std::string /*requestorName*/, uint32_t wid
+         return error;
+     }
+ 
++    if (T110LegacyAllocation::get().enabled()) {
++        return T110LegacyAllocation::get().allocate(mMapper, width, height, format,
++                layerCount, usage, bufferCount, outStride, outBufferHandles, importBuffers);
++    }
++
+     auto ret = mAllocator->allocate(descriptor, bufferCount,
+                                     [&](const auto& tmpError, const auto& tmpStride,
+                                         const auto& tmpBuffers) {

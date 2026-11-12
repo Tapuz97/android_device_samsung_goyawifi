@@ -1,0 +1,110 @@
+diff --git a/common/device/com/android/net/module/util/netlink/RtNetlinkAddressMessage.java b/common/device/com/android/net/module/util/netlink/RtNetlinkAddressMessage.java
+index f7b0d02..ac3be8c 100644
+--- a/common/device/com/android/net/module/util/netlink/RtNetlinkAddressMessage.java
++++ b/common/device/com/android/net/module/util/netlink/RtNetlinkAddressMessage.java
+@@ -110,14 +110,15 @@ public class RtNetlinkAddressMessage extends NetlinkMessage {
+ 
+         // The first 8 bits of flags are in the ifaddrmsg.
+         addrMsg.mFlags = addrMsg.mIfaddrmsg.flags;
+-        // IFA_FLAGS. All the flags are in the IF_FLAGS attribute. This should always be present,
+-        // and will overwrite the flags set above.
++        // Newer kernels provide all flags in IFA_FLAGS. Older kernels only
++        // supply the eight flags above in ifaddrmsg.
+         byteBuffer.position(baseOffset);
+         nlAttr = StructNlAttr.findNextAttrOfType(IFA_FLAGS, byteBuffer);
+-        if (nlAttr == null) return null;
+-        final Integer value = nlAttr.getValueAsInteger();
+-        if (value == null) return null;
+-        addrMsg.mFlags = value;
++        if (nlAttr != null) {
++            final Integer value = nlAttr.getValueAsInteger();
++            if (value == null) return null;
++            addrMsg.mFlags = value;
++        }
+ 
+         return addrMsg;
+     }
+diff --git a/common/native/bpf_headers/include/bpf/BpfMap.h b/common/native/bpf_headers/include/bpf/BpfMap.h
+index 2bee2ee..e9bd390 100644
+--- a/common/native/bpf_headers/include/bpf/BpfMap.h
++++ b/common/native/bpf_headers/include/bpf/BpfMap.h
+@@ -50,6 +50,7 @@ class BpfMap {
+     // flag must be within BPF_OBJ_FLAG_MASK, ie. 0, BPF_F_RDONLY, BPF_F_WRONLY
+     BpfMap<Key, Value>(const char* pathname, uint32_t flags) {
+         mMapFd.reset(mapRetrieve(pathname, flags));
++        if (mMapFd < 0 && !isAtLeastKernelVersion(3, 18, 0)) return;
+         if (mMapFd < 0) abort();
+         if (isAtLeastKernelVersion(4, 14, 0)) {
+             if (bpfGetFdKeySize(mMapFd) != sizeof(Key)) abort();
+@@ -62,6 +63,7 @@ class BpfMap {
+ 
+     BpfMap<Key, Value>(bpf_map_type map_type, uint32_t max_entries, uint32_t map_flags = 0) {
+         mMapFd.reset(createMap(map_type, sizeof(Key), sizeof(Value), max_entries, map_flags));
++        if (mMapFd < 0 && !isAtLeastKernelVersion(3, 18, 0)) return;
+         if (mMapFd < 0) abort();
+     }
+ 
+diff --git a/common/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkAddressMessageTest.java b/common/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkAddressMessageTest.java
+index 7d8dbd2..b58ee4e 100644
+--- a/common/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkAddressMessageTest.java
++++ b/common/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkAddressMessageTest.java
+@@ -89,6 +89,59 @@ public class RtNetlinkAddressMessageTest {
+         assertEquals(0x80, addrMsg.getFlags());
+     }
+ 
++    @Test
++    public void testLegacyIpv4AddressWithoutFlagsAttribute() {
++        // Captured Linux 3.4 RTM_NEWADDR layout with anonymized addresses.
++        final ByteBuffer buffer = toByteBuffer(
++                "3C0000001400000000000000F7EFFFFF0218800004000000"
++                + "08000100C000026C08000200C000026C08000400C00002FF"
++                + "0A000300776C616E30000000");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        final RtNetlinkAddressMessage msg =
++                (RtNetlinkAddressMessage) NetlinkMessage.parse(buffer, NETLINK_ROUTE);
++        assertNotNull(msg);
++        assertEquals(InetAddresses.parseNumericAddress("192.0.2.108"), msg.getIpAddress());
++        assertEquals(24, msg.getIfaddrHeader().prefixLen);
++        assertEquals(4, msg.getIfaddrHeader().index);
++        assertEquals(0x80, msg.getFlags());
++        assertNull(msg.getIfacacheInfo());
++    }
++
++    @Test
++    public void testLegacyIpv6AddressWithoutFlagsAttribute() {
++        final ByteBuffer buffer = toByteBuffer(
++                "400000001400000000000000000000000A4080FD04000000"
++                + "14000100FE8000000000000002005EFFFE100001"
++                + "14000600FFFFFFFFFFFFFFFF43EF070043EF0700");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        final RtNetlinkAddressMessage msg =
++                (RtNetlinkAddressMessage) NetlinkMessage.parse(buffer, NETLINK_ROUTE);
++        assertNotNull(msg);
++        assertEquals(InetAddresses.parseNumericAddress("fe80::200:5eff:fe10:1"),
++                msg.getIpAddress());
++        assertEquals(0x80, msg.getFlags());
++        assertNotNull(msg.getIfacacheInfo());
++    }
++
++    @Test
++    public void testExtendedAddressFlagsOverrideHeader() {
++        final ByteBuffer buffer = toByteBuffer(RTM_NEWADDR_HEX.substring(0,
++                RTM_NEWADDR_HEX.length() - 8) + "80010000");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        final RtNetlinkAddressMessage msg =
++                (RtNetlinkAddressMessage) NetlinkMessage.parse(buffer, NETLINK_ROUTE);
++        assertNotNull(msg);
++        assertEquals(0x180, msg.getFlags());
++    }
++
++    @Test
++    public void testMalformedPresentFlagsAttributeRejected() {
++        final ByteBuffer buffer = toByteBuffer(RTM_NEWADDR_HEX.substring(0,
++                RTM_NEWADDR_HEX.length() - 16) + "0600080080000000");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        assertNull(NetlinkMessage.parse(buffer, NETLINK_ROUTE));
++    }
++
+     private static final String RTM_NEWADDR_PACK_HEX =
+             "48000000140000000000000000000000"             // struct nlmsghr
+             + "0A4080FD1E000000"                           // struct ifaddrmsg

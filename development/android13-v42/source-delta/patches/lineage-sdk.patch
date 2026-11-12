@@ -1,0 +1,74 @@
+diff --git a/sdk/src/java/lineageos/hardware/LineageHardwareManager.java b/sdk/src/java/lineageos/hardware/LineageHardwareManager.java
+index 14d0fff..629d640 100644
+--- a/sdk/src/java/lineageos/hardware/LineageHardwareManager.java
++++ b/sdk/src/java/lineageos/hardware/LineageHardwareManager.java
+@@ -21,6 +21,7 @@ import android.hidl.base.V1_0.IBase;
+ import android.os.IBinder;
+ import android.os.RemoteException;
+ import android.os.ServiceManager;
++import android.os.SystemProperties;
+ import android.util.ArrayMap;
+ import android.util.Log;
+ import android.util.Range;
+@@ -284,40 +285,45 @@ public final class LineageHardwareManager {
+     }
+ 
+     private IBase getHIDLService(int feature) {
++        // This pre-Treble product does not declare optional Lineage HALs.
++        // Do not block IMMS/system_server waiting for absent touch/display
++        // extensions. getService(false) still discovers an available HAL;
++        // isSupported() retains its existing HWC2 fallback.
++        final boolean retry = !SystemProperties.getBoolean("ro.t110.optional_hal_probe", false);
+         try {
+             switch (feature) {
+                 case FEATURE_ADAPTIVE_BACKLIGHT:
+-                    return IAdaptiveBacklight.getService(true);
++                    return IAdaptiveBacklight.getService(retry);
+                 case FEATURE_ANTI_FLICKER:
+-                    return IAntiFlicker.getService(true);
++                    return IAntiFlicker.getService(retry);
+                 case FEATURE_AUTO_CONTRAST:
+-                    return IAutoContrast.getService(true);
++                    return IAutoContrast.getService(retry);
+                 case FEATURE_COLOR_BALANCE:
+-                    return IColorBalance.getService(true);
++                    return IColorBalance.getService(retry);
+                 case FEATURE_COLOR_ENHANCEMENT:
+-                    return IColorEnhancement.getService(true);
++                    return IColorEnhancement.getService(retry);
+                 case FEATURE_DISPLAY_COLOR_CALIBRATION:
+-                    return IDisplayColorCalibration.getService(true);
++                    return IDisplayColorCalibration.getService(retry);
+                 case FEATURE_DISPLAY_MODES:
+-                    return IDisplayModes.getService(true);
++                    return IDisplayModes.getService(retry);
+                 case FEATURE_PICTURE_ADJUSTMENT:
+-                    return IPictureAdjustment.getService(true);
++                    return IPictureAdjustment.getService(retry);
+                 case FEATURE_READING_ENHANCEMENT:
+-                    return IReadingEnhancement.getService(true);
++                    return IReadingEnhancement.getService(retry);
+                 case FEATURE_SUNLIGHT_ENHANCEMENT:
+-                    return ISunlightEnhancement.getService(true);
++                    return ISunlightEnhancement.getService(retry);
+                 case FEATURE_HIGH_TOUCH_POLLING_RATE:
+-                    return IHighTouchPollingRate.getService(true);
++                    return IHighTouchPollingRate.getService(retry);
+                 case FEATURE_HIGH_TOUCH_SENSITIVITY:
+-                    return IGloveMode.getService(true);
++                    return IGloveMode.getService(retry);
+                 case FEATURE_KEY_DISABLE:
+-                    return IKeyDisabler.getService(true);
++                    return IKeyDisabler.getService(retry);
+                 case FEATURE_KEY_SWAP:
+-                    return IKeySwapper.getService(true);
++                    return IKeySwapper.getService(retry);
+                 case FEATURE_TOUCH_HOVERING:
+-                    return IStylusMode.getService(true);
++                    return IStylusMode.getService(retry);
+                 case FEATURE_TOUCHSCREEN_GESTURES:
+-                    return ITouchscreenGesture.getService(true);
++                    return ITouchscreenGesture.getService(retry);
+             }
+         } catch (NoSuchElementException | RemoteException e) {
+         }

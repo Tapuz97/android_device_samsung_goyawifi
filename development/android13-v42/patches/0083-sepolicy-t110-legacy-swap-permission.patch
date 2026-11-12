@@ -1,0 +1,10 @@
+--- a/private/access_vectors
++++ b/private/access_vectors
+@@ -35,6 +35,7 @@
+ 	watch_sb
+ 	watch_with_perm
+ 	watch_reads
++ifdef(`t110_legacy_swapon', `	swapon')
+ }
+ 
+ 

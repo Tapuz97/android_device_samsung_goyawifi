@@ -1,0 +1,134 @@
+--- a/server/NetlinkHandler.cpp
++++ b/server/NetlinkHandler.cpp
+@@ -30,6 +30,7 @@
+ #include <sysutils/NetlinkEvent.h>
+ #include "Controllers.h"
+ #include "NetlinkHandler.h"
++#include "IdletimerEvent.h"
+ #include "NetlinkManager.h"
+ #include "SockDiag.h"
+ 
+@@ -198,22 +199,9 @@
+         }
+ 
+     } else if (!strcmp(subsys, "xt_idletimer")) {
+-        const char *label = evt->findParam("INTERFACE");
+-        const char *state = evt->findParam("STATE");
+-        const char *timestamp = evt->findParam("TIME_NS");
+-        const char *uid = evt->findParam("UID");
+-        if (state) {
+-            bool isActive = !strcmp("active", state);
+-            int64_t processTimestamp = (timestamp == nullptr) ? 0 : strtoll(timestamp, nullptr, 10);
+-            int intLabel;
+-            // NMS only accepts interface class activity changes with integer labels, and only ever
+-            // creates idletimers with integer labels.
+-            if (android::base::ParseInt(label, &intLabel)) {
+-                const long reportedUid =
+-                        (uid != nullptr && isActive) ? strtol(uid, nullptr, 10) : -1;
+-                notifyInterfaceClassActivityChanged(intLabel, isActive, processTimestamp,
+-                                                    reportedUid);
+-            }
++        if (const auto activity = parseIdletimerActivity(*evt)) {
++            notifyInterfaceClassActivityChanged(activity->label, activity->active,
++                                                activity->timestamp, activity->uid);
+         }
+ 
+ #if !LOG_NDEBUG
+--- /dev/null
++++ b/server/IdletimerEvent.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++#pragma once
++
++#include <android-base/parseint.h>
++#include <sysutils/NetlinkEvent.h>
++#include <cstdint>
++#include <cstdlib>
++#include <cstring>
++#include <optional>
++
++namespace android::net {
++struct IdletimerActivity {
++    int label;
++    bool active;
++    int64_t timestamp;
++    int uid;
++};
++
++inline std::optional<IdletimerActivity> parseIdletimerActivity(NetlinkEvent& event) {
++    const char* label = event.findParam("INTERFACE");
++    // Older IDLETIMER kernels name this field LABEL. Both contain the same
++    // interface-class identifier; missing labels must never reach ParseInt.
++    if (label == nullptr) label = event.findParam("LABEL");
++    const char* state = event.findParam("STATE");
++    int intLabel;
++    if (label == nullptr || state == nullptr || !android::base::ParseInt(label, &intLabel)) {
++        return std::nullopt;
++    }
++    const bool active = !strcmp(state, "active");
++    const char* timestamp = event.findParam("TIME_NS");
++    const char* uid = event.findParam("UID");
++    return IdletimerActivity{intLabel, active,
++                            timestamp == nullptr ? 0 : strtoll(timestamp, nullptr, 10),
++                            uid != nullptr && active ? static_cast<int>(strtol(uid, nullptr, 10)) : -1};
++}
++}  // namespace android::net
+--- /dev/null
++++ b/server/IdletimerEventTest.cpp
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++#include "IdletimerEvent.h"
++#include <gtest/gtest.h>
++#include <sysutils/NetlinkListener.h>
++#include <initializer_list>
++#include <string>
++
++namespace android::net {
++static std::optional<IdletimerActivity> decode(std::initializer_list<const char*> attributes) {
++    // Replay the real NUL-separated kernel UEVENT format, not a fake event API.
++    std::string wire("change@/devices/virtual/xt_idletimer/xt_idletimer");
++    wire.push_back('\0');
++    for (const char* attribute : attributes) {
++        wire.append(attribute);
++        wire.push_back('\0');
++    }
++    NetlinkEvent event;
++    EXPECT_TRUE(event.decode(wire.data(), wire.size(), NetlinkListener::NETLINK_FORMAT_ASCII));
++    return parseIdletimerActivity(event);
++}
++TEST(IdletimerEventTest, LegacyActiveWithoutOptionalMetadata) {
++    auto event = decode({"SUBSYSTEM=xt_idletimer", "LABEL=1", "STATE=active"});
++    ASSERT_TRUE(event); EXPECT_EQ(1, event->label); EXPECT_TRUE(event->active);
++    EXPECT_EQ(0, event->timestamp); EXPECT_EQ(-1, event->uid);
++}
++TEST(IdletimerEventTest, LegacyInactive) {
++    auto event = decode({"LABEL=1", "STATE=inactive"});
++    ASSERT_TRUE(event); EXPECT_FALSE(event->active); EXPECT_EQ(-1, event->uid);
++}
++TEST(IdletimerEventTest, ModernMetadataPreserved) {
++    auto event = decode({"INTERFACE=2", "STATE=active", "TIME_NS=1234567890", "UID=10123"});
++    ASSERT_TRUE(event); EXPECT_EQ(2, event->label); EXPECT_TRUE(event->active);
++    EXPECT_EQ(1234567890, event->timestamp); EXPECT_EQ(10123, event->uid);
++}
++TEST(IdletimerEventTest, ModernLabelTakesPrecedence) {
++    auto event = decode({"INTERFACE=2", "LABEL=1", "STATE=inactive", "UID=10123"});
++    ASSERT_TRUE(event); EXPECT_EQ(2, event->label); EXPECT_EQ(-1, event->uid);
++}
++TEST(IdletimerEventTest, MissingLabelRejected) { EXPECT_FALSE(decode({"STATE=active"})); }
++TEST(IdletimerEventTest, MissingStateRejected) { EXPECT_FALSE(decode({"LABEL=1"})); }
++TEST(IdletimerEventTest, NonIntegerLabelRejected) { EXPECT_FALSE(decode({"LABEL=wlan0", "STATE=active"})); }
++TEST(IdletimerEventTest, OverflowRejected) { EXPECT_FALSE(decode({"LABEL=2147483648", "STATE=active"})); }
++}  // namespace android::net
+--- a/server/Android.bp
++++ b/server/Android.bp
+@@ -247,3 +247,10 @@
+     ],
+     // tidy: false,  // cuts test build time by almost 1 minute
+ }
++
++cc_test {
++    name: "netd_idletimer_event_test",
++    srcs: ["IdletimerEventTest.cpp"],
++    shared_libs: ["libbase", "liblog", "libsysutils"],
++    test_suites: ["device-tests"],
++}

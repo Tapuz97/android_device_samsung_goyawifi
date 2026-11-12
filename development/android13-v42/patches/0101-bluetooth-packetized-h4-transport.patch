@@ -1,0 +1,125 @@
+--- a/bluetooth/1.0/default/h4_protocol.h
++++ b/bluetooth/1.0/default/h4_protocol.h
+@@ -31,13 +31,15 @@
+ class H4Protocol : public HciProtocol {
+  public:
+   H4Protocol(int fd, PacketReadCallback event_cb, PacketReadCallback acl_cb,
+-             PacketReadCallback sco_cb, PacketReadCallback iso_cb)
++             PacketReadCallback sco_cb, PacketReadCallback iso_cb,
++             bool packetized_writes = false)
+       : uart_fd_(fd),
+         event_cb_(event_cb),
+         acl_cb_(acl_cb),
+         sco_cb_(sco_cb),
+         iso_cb_(iso_cb),
+-        hci_packetizer_([this]() { OnPacketReady(); }) {}
++        hci_packetizer_([this]() { OnPacketReady(); }),
++        packetized_writes_(packetized_writes) {}
+ 
+   size_t Send(uint8_t type, const uint8_t* data, size_t length);
+ 
+@@ -55,6 +57,7 @@
+ 
+   HciPacketType hci_packet_type_{HCI_PACKET_TYPE_UNKNOWN};
+   hci::HciPacketizer hci_packetizer_;
++  const bool packetized_writes_;
+ };
+ 
+ }  // namespace hci
+--- a/bluetooth/1.0/default/h4_protocol.cc
++++ b/bluetooth/1.0/default/h4_protocol.cc
+@@ -30,6 +30,23 @@
+ namespace hci {
+ 
+ size_t H4Protocol::Send(uint8_t type, const uint8_t* data, size_t length) {
++  if (packetized_writes_) {
++    // mbtchar consumes one complete H4 packet per write. Its legacy VFS
++    // writev fallback calls ->write separately for each iovec, so an H4 type
++    // iovec followed by a payload iovec would become two corrupt packets.
++    if (data == nullptr || length == 0 || length > 65539) return 0;
++    std::vector<uint8_t> packet(length + 1);
++    packet[0] = type;
++    memcpy(packet.data() + 1, data, length);
++    ssize_t result = TEMP_FAILURE_RETRY(write(uart_fd_, packet.data(), packet.size()));
++    if (result != static_cast<ssize_t>(packet.size())) {
++      // A short packet must never be retried as a fresh H4 packet tail.
++      ALOGE("%s incomplete packet write (%zd/%zu)", __func__, result, packet.size());
++      return 0;
++    }
++    return result;
++  }
++
+   struct iovec iov_array[] = {{&type, sizeof(type)},
+                               {const_cast<uint8_t*>(data), length}};
+   struct iovec* iov = iov_array;
+--- a/bluetooth/1.0/default/vendor_interface.cc
++++ b/bluetooth/1.0/default/vendor_interface.cc
+@@ -22,6 +22,7 @@
+ 
+ #include <dlfcn.h>
+ #include <fcntl.h>
++#include <sys/stat.h>
+ 
+ #include "bluetooth_address.h"
+ #include "h4_protocol.h"
+@@ -253,7 +254,13 @@
+ 
+   if (fd_count == 1) {
+     hci::H4Protocol* h4_hci =
+-        new hci::H4Protocol(fd_list[0], intercept_events, acl_cb, sco_cb, iso_cb);
++        new hci::H4Protocol(fd_list[0], intercept_events, acl_cb, sco_cb, iso_cb,
++            [&]() {
++              struct stat node{}, descriptor{};
++              return lstat("/dev/mbtchar0", &node) == 0 && S_ISCHR(node.st_mode) &&
++                     fstat(fd_list[0], &descriptor) == 0 && S_ISCHR(descriptor.st_mode) &&
++                     descriptor.st_rdev == node.st_rdev;
++            }());
+     fd_watcher_.WatchFdForNonBlockingReads(
+         fd_list[0], [h4_hci](int fd) { h4_hci->OnDataReady(fd); });
+     hci_ = h4_hci;
+--- a/bluetooth/1.0/default/test/h4_protocol_unittest.cc
++++ b/bluetooth/1.0/default/test/h4_protocol_unittest.cc
+@@ -27,6 +27,7 @@
+ 
+ #include <log/log.h>
+ #include <sys/socket.h>
++#include <sys/eventfd.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+ 
+@@ -245,3 +246,35 @@
+ }  // namespace bluetooth
+ }  // namespace hardware
+ }  // namespace android
++
++namespace android::hardware::bluetooth::hci {
++// eventfd requires each kernel write call to contain exactly eight bytes.
++// A split type/payload write fails; this checks the production Send method's
++// syscall boundary rather than merely comparing concatenated stream bytes.
++TEST(T110AtomicH4Test, CompletePacketUsesOneKernelWrite) {
++  int fd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
++  ASSERT_GE(fd, 0);
++  auto ignore = [](const hidl_vec<uint8_t>&) {};
++  H4Protocol protocol(fd, ignore, ignore, ignore, ignore, true);
++  uint8_t payload[7] = {};
++  EXPECT_EQ(size_t{8}, protocol.Send(1, payload, sizeof(payload)));
++  uint64_t counter = 0;
++  EXPECT_EQ(ssize_t{8}, read(fd, &counter, sizeof(counter)));
++  EXPECT_EQ(uint64_t{1}, counter);
++  close(fd);
++}
++TEST(T110AtomicH4Test, InvalidPacketDoesNotWriteOrReadPastInput) {
++  int fd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
++  ASSERT_GE(fd, 0);
++  auto ignore = [](const hidl_vec<uint8_t>&) {};
++  H4Protocol protocol(fd, ignore, ignore, ignore, ignore, true);
++  uint8_t payload = 0;
++  EXPECT_EQ(size_t{0}, protocol.Send(1, nullptr, 7));
++  EXPECT_EQ(size_t{0}, protocol.Send(1, &payload, 0));
++  EXPECT_EQ(size_t{0}, protocol.Send(1, &payload, 65540));
++  uint64_t counter = 0;
++  EXPECT_EQ(ssize_t{-1}, read(fd, &counter, sizeof(counter)));
++  EXPECT_EQ(EAGAIN, errno);
++  close(fd);
++}
++}  // namespace android::hardware::bluetooth::hci

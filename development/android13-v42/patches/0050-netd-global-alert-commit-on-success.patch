@@ -1,0 +1,14 @@
+--- a/server/BandwidthController.cpp
++++ b/server/BandwidthController.cpp
+@@ -586,7 +586,10 @@
+             res = -EREMOTEIO;
+         }
+     }
+-    mGlobalAlertBytes = bytes;
++    // A failed iptables insertion did not create the quota node. Preserve
++    // the prior state so the next registration retries insertion, rather
++    // than trying to update a nonexistent /proc/net/xt_quota/globalAlert.
++    if (res == 0) mGlobalAlertBytes = bytes;
+     return res;
+ }
+ 

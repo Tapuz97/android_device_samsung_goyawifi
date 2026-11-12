@@ -1,0 +1,5 @@
+dir.system = /system/bin
+
+[system]
+namespace.default.isolated = false
+namespace.default.search.paths = /system/lib

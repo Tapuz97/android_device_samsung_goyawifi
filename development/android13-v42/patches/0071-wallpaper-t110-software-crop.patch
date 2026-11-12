@@ -1,0 +1,13 @@
+--- a/services/core/java/com/android/server/wallpaper/WallpaperManagerService.java
++++ b/services/core/java/com/android/server/wallpaper/WallpaperManagerService.java
+@@ -772,6 +772,10 @@
+                             ImageDecoder.createSource(wallpaper.wallpaperFile);
+                     final int sampleSize = scale;
+                     Bitmap cropped = ImageDecoder.decodeBitmap(srcData, (decoder, info, src) -> {
++                        // Keep crop scaling on the CPU for the legacy T110 renderer.
++                        if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++                            decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
++                        }
+                         decoder.setTargetSampleSize(sampleSize);
+                         decoder.setCrop(estimateCrop);
+                     });

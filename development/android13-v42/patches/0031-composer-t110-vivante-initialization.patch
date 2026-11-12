@@ -1,0 +1,48 @@
+diff --git a/graphics/composer/2.1/default/Android.bp b/graphics/composer/2.1/default/Android.bp
+index 96fea4e..19ce092 100644
+--- a/graphics/composer/2.1/default/Android.bp
++++ b/graphics/composer/2.1/default/Android.bp
+@@ -21,6 +21,7 @@ cc_binary {
+         "android.hardware.graphics.composer@2.1",
+         "android.hardware.graphics.composer@2.1-resources",
+         "libbase",
++        "libdl",
+         "libbinder",
+         "libcutils",
+         "libfmq",
+diff --git a/graphics/composer/2.1/default/service.cpp b/graphics/composer/2.1/default/service.cpp
+index 1276d2d..ff99091 100644
+--- a/graphics/composer/2.1/default/service.cpp
++++ b/graphics/composer/2.1/default/service.cpp
+@@ -17,6 +17,8 @@
+ #define LOG_TAG "android.hardware.graphics.composer@2.1-service"
+ 
+ #include <sched.h>
++#include <dlfcn.h>
++#include <android-base/properties.h>
+ 
+ #include <android/hardware/graphics/composer/2.1/IComposer.h>
+ 
+@@ -43,6 +45,22 @@ int main() {
+ 
+     android::hardware::configureRpcThreadpool(4, true /* will join */);
+ 
++    // Stock T110 HWC calls gcoHAL_Get2DEngine before gralloc has allocated
++    // any buffers. Unlike old SurfaceFlinger, this standalone service has
++    // not loaded EGL, so Vivante's explicit per-process initialization has
++    // never run. The verified stock constructor is PID-guarded/idempotent.
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        void* gal = dlopen("libGAL.so", RTLD_NOW | RTLD_LOCAL);
++        auto initialize = gal ? reinterpret_cast<int (*)()>(
++                dlsym(gal, "gcoOS_ModuleConstructor")) : nullptr;
++        if (!initialize || initialize() < 0) {
++            ALOGE("T110: Vivante process initialization failed before HWC");
++            return 1;
++        }
++        // Keep the driver loaded for the lifetime of its HAL objects.
++        ALOGI("T110: Vivante process state initialized before HWC");
++    }
++
+     android::sp<IComposer> composer = HwcLoader::load();
+     if (composer == nullptr) {
+         return 1;

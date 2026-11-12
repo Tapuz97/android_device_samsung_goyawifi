@@ -1,0 +1,122 @@
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -244,3 +244,37 @@
+ 	  See Documentation/prctl/seccomp_filter.txt for details.
+ 
+ source "kernel/gcov/Kconfig"
++
++config HAVE_ARCH_MMAP_RND_BITS
++	bool
++	help
++	  An arch should select this symbol if it supports setting a variable
++	  number of bits for use in establishing the base address for mmap
++	  allocations, has MMU enabled and provides values for both:
++	  - ARCH_MMAP_RND_BITS_MIN
++	  - ARCH_MMAP_RND_BITS_MAX
++
++config ARCH_MMAP_RND_BITS_MIN
++	int
++
++config ARCH_MMAP_RND_BITS_MAX
++	int
++
++config ARCH_MMAP_RND_BITS_DEFAULT
++	int
++
++config ARCH_MMAP_RND_BITS
++	int "Number of bits to use for ASLR of mmap base address" if EXPERT
++	range ARCH_MMAP_RND_BITS_MIN ARCH_MMAP_RND_BITS_MAX
++	default ARCH_MMAP_RND_BITS_DEFAULT if ARCH_MMAP_RND_BITS_DEFAULT
++	default ARCH_MMAP_RND_BITS_MIN
++	depends on HAVE_ARCH_MMAP_RND_BITS
++	help
++	  This value can be used to select the number of bits to use to
++	  determine the random offset to the base address of vma regions
++	  resulting from mmap allocations. This value will be bounded
++	  by the architecture's minimum and maximum supported values.
++
++	  This value can be changed after boot using the
++	  /proc/sys/vm/mmap_rnd_bits tunable
++
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1,4 +1,5 @@
+ config ARM
++	select HAVE_ARCH_MMAP_RND_BITS if MMU
+ 	bool
+ 	default y
+ 	select HAVE_AOUT
+@@ -2436,3 +2437,12 @@
+ config SND_AUDIODOCK_SWITCH
+ 	tristate "Alalog audio dock switch support"
+ 	
++
++config ARCH_MMAP_RND_BITS_MIN
++	default 8
++
++config ARCH_MMAP_RND_BITS_MAX
++	default 14 if PAGE_OFFSET=0x40000000
++	default 15 if PAGE_OFFSET=0x80000000
++	default 16
++
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -38,6 +38,12 @@
+ extern int sysctl_legacy_va_layout;
+ #else
+ #define sysctl_legacy_va_layout 0
++#endif
++
++#ifdef CONFIG_HAVE_ARCH_MMAP_RND_BITS
++extern const int mmap_rnd_bits_min;
++extern const int mmap_rnd_bits_max;
++extern int mmap_rnd_bits __read_mostly;
+ #endif
+ 
+ #include <asm/page.h>
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -44,6 +44,12 @@
+ 
+ #ifndef arch_rebalance_pgtables
+ #define arch_rebalance_pgtables(addr, len)		(addr)
++#endif
++
++#ifdef CONFIG_HAVE_ARCH_MMAP_RND_BITS
++const int mmap_rnd_bits_min = CONFIG_ARCH_MMAP_RND_BITS_MIN;
++const int mmap_rnd_bits_max = CONFIG_ARCH_MMAP_RND_BITS_MAX;
++int mmap_rnd_bits __read_mostly = CONFIG_ARCH_MMAP_RND_BITS;
+ #endif
+ 
+ static void unmap_region(struct mm_struct *mm,
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -1270,6 +1270,17 @@
+ 		.proc_handler	= proc_dointvec,
+ 		.extra1		= &zero,
+ 	},
++#ifdef CONFIG_HAVE_ARCH_MMAP_RND_BITS
++	{
++		.procname	= "mmap_rnd_bits",
++		.data		= &mmap_rnd_bits,
++		.maxlen		= sizeof(mmap_rnd_bits),
++		.mode		= 0600,
++		.proc_handler	= proc_dointvec_minmax,
++		.extra1		= (void *)&mmap_rnd_bits_min,
++		.extra2		= (void *)&mmap_rnd_bits_max,
++	},
++#endif
+ #ifdef HAVE_ARCH_PICK_MMAP_LAYOUT
+ 	{
+ 		.procname	= "legacy_va_layout",
+--- a/arch/arm/mm/mmap.c
++++ b/arch/arm/mm/mmap.c
+@@ -262,7 +262,7 @@
+ 	/* 8 bits of randomness in 20 address space bits */
+ 	if ((current->flags & PF_RANDOMIZE) &&
+ 	    !(current->personality & ADDR_NO_RANDOMIZE))
+-		random_factor = (get_random_int() % (1 << 8)) << PAGE_SHIFT;
++		random_factor = (get_random_int() & ((1UL << mmap_rnd_bits) - 1)) << PAGE_SHIFT;
+ 
+ 	if (mmap_is_legacy()) {
+ 		mm->mmap_base = TASK_UNMAPPED_BASE + random_factor;

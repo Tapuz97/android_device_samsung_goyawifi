@@ -1,0 +1,33 @@
+diff --git a/media/codec2/vndk/C2AllocatorIon.cpp b/media/codec2/vndk/C2AllocatorIon.cpp
+index a6a733e..a3f41df 100644
+--- a/media/codec2/vndk/C2AllocatorIon.cpp
++++ b/media/codec2/vndk/C2AllocatorIon.cpp
+@@ -481,17 +481,20 @@ C2AllocationIon::C2AllocationIon(int ionFd, size_t size, int shareFd, C2Allocato
+ C2AllocatorIon::C2AllocatorIon(id_t id)
+     : mInit(C2_OK),
+       mIonFd(ion_open()) {
++    // Traits remain queryable even when /dev/ion cannot be opened. C2Store
++    // calls setUsageMapper before any allocation checks mInit.
++    const int openError = mIonFd < 0 ? errno : 0;
++    C2MemoryUsage minUsage = { 0, 0 };
++    C2MemoryUsage maxUsage = { C2MemoryUsage::CPU_READ, C2MemoryUsage::CPU_WRITE };
++    Traits traits = { "android.allocator.ion", id, LINEAR, minUsage, maxUsage };
++    mTraits = std::make_shared<Traits>(traits);
++    mBlockSize = ::getpagesize();
+     if (mIonFd < 0) {
+-        switch (errno) {
++        switch (openError) {
+         case ENOENT:    mInit = C2_OMITTED; break;
+-        default:        mInit = c2_map_errno<EACCES>(errno); break;
++        default:        mInit = c2_map_errno<EACCES>(openError); break;
+         }
+-    } else {
+-        C2MemoryUsage minUsage = { 0, 0 };
+-        C2MemoryUsage maxUsage = { C2MemoryUsage::CPU_READ, C2MemoryUsage::CPU_WRITE };
+-        Traits traits = { "android.allocator.ion", id, LINEAR, minUsage, maxUsage };
+-        mTraits = std::make_shared<Traits>(traits);
+-        mBlockSize = ::getpagesize();
++        ALOGW("ION unavailable; preserving allocator traits and allocation error %d", mInit);
+     }
+ }
+ 

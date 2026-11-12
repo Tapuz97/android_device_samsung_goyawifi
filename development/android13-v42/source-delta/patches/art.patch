@@ -1,0 +1,24 @@
+diff --git a/runtime/runtime.cc b/runtime/runtime.cc
+index e20f883..14216be 100644
+--- a/runtime/runtime.cc
++++ b/runtime/runtime.cc
+@@ -738,10 +738,15 @@ void Runtime::PreZygoteFork() {
+   if (!heap_->HasZygoteSpace()) {
+     // This is the first fork. Update ArtMethods in the boot classpath now to
+     // avoid having forked apps dirty the memory.
+-    ScopedObjectAccess soa(Thread::Current());
+-    // Ensure we call FixupStaticTrampolines on all methods that are
+-    // initialized.
+-    class_linker_->MakeInitializedClassesVisiblyInitialized(soa.Self(), /*wait=*/ true);
++    Thread* self = Thread::Current();
++    // Class visibility may wait for another thread's checkpoint. Do not hold
++    // the mutator lock while waiting: the callback needs mutator access and
++    // Barrier::Increment correctly rejects waiting with this lock held.
++    {
++      ScopedThreadStateChange tsc(self, ThreadState::kWaitingForCheckPointsToRun);
++      class_linker_->MakeInitializedClassesVisiblyInitialized(self, /*wait=*/ true);
++    }
++    ScopedObjectAccess soa(self);
+     // Update native method JNI entrypoints.
+     FindNativeMethodsVisitor visitor(soa.Self(), class_linker_);
+     class_linker_->VisitClasses(&visitor);

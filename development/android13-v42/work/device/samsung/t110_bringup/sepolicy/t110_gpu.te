@@ -1,0 +1,29 @@
+# The verified stock Vivante library requires relocations in its code segment.
+type t110_gpu_file, file_type, vendor_file_type, t110_gpu_file_type;
+allow domain t110_gpu_file:file { getattr open read execute map execmod };
+
+# The vendor graphics service opens the vendor Binder device during startup.
+vndbinder_use(hal_graphics_composer_default)
+
+# Stock gralloc opens ION with O_RDWR and allocates framebuffer-backed buffers.
+# Modern generic policy assumes read-only ION opens and a separate composer.
+allow { hal_graphics_allocator_default hal_graphics_composer_default surfaceflinger } ion_device:chr_file rw_file_perms;
+allow hal_graphics_allocator_default graphics_device:dir search;
+allow hal_graphics_allocator_default graphics_device:chr_file rw_file_perms;
+
+# Only the display's timestamp node, confirmed on the patched tablet kernel.
+type sysfs_t110_vsync, fs_type, sysfs_type;
+allow hal_graphics_composer_default sysfs_t110_vsync:file r_file_perms;
+
+# Both attributes belong to the platform device, not its graphics child.
+type sysfs_t110_vsync_control, fs_type, sysfs_type;
+allow hal_graphics_composer_default sysfs_t110_vsync_control:file rw_file_perms;
+
+# Ramdisk init owns the chown/chmod commands for this exact sysfs control.
+allow init sysfs_t110_vsync_control:file setattr;
+
+# The stock in-process gralloc opens ION O_RDWR. Modern app and system-server
+# policy already grants the remaining ION operations, but only read access.
+# Keep isolated apps excluded, as in the platform's existing ION/GPU rules.
+allow { appdomain -isolated_app } ion_device:chr_file write;
+allow system_server ion_device:chr_file write;

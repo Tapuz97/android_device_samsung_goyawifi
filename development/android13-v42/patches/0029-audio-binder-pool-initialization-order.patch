@@ -1,0 +1,18 @@
+diff --git a/audio/common/all-versions/default/service/service.cpp b/audio/common/all-versions/default/service/service.cpp
+index fbf6165..d817250 100644
+--- a/audio/common/all-versions/default/service/service.cpp
++++ b/audio/common/all-versions/default/service/service.cpp
+@@ -76,10 +76,11 @@ int main(int /* argc */, char* /* argv */ []) {
+     signal(SIGPIPE, SIG_IGN);
+ 
+     ::android::ProcessState::initWithDriver("/dev/vndbinder");
++    // Configure first: on legacy non-VNDK products, C++ and NDK Binder
++    // share one ProcessState. Resizing it after startThreadPool would abort.
++    ABinderProcess_setThreadPoolMaxThreadCount(1);
+     // start a threadpool for vndbinder interactions
+     ::android::ProcessState::self()->startThreadPool();
+-
+-    ABinderProcess_setThreadPoolMaxThreadCount(1);
+     ABinderProcess_startThreadPool();
+ 
+     const int32_t defaultValue = -1;

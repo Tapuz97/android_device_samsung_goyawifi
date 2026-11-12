@@ -1,0 +1,16 @@
+--- a/bluetooth/1.1/default/Android.bp
++++ b/bluetooth/1.1/default/Android.bp
+@@ -26,6 +26,13 @@
+     name: "android.hardware.bluetooth@1.1-service",
+     defaults: ["hidl_defaults"],
+     relative_install_path: "hw",
++    // The shared HCI implementation is installed under lib[64]/hw. Give
++    // this executable its direct dependency path in legacy linker namespaces.
++    // A service environment override is ignored on SELinux secure exec.
++    multilib: {
++        lib32: { ldflags: ["-Wl,-rpath,/vendor/lib/hw"] },
++        lib64: { ldflags: ["-Wl,-rpath,/vendor/lib64/hw"] },
++    },
+     vendor: true,
+     init_rc: ["android.hardware.bluetooth@1.1-service.rc"],
+     srcs: [

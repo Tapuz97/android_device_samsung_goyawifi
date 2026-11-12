@@ -1,0 +1,75 @@
+--- a/services/core/java/com/android/server/policy/LegacyGlobalActions.java
++++ b/services/core/java/com/android/server/policy/LegacyGlobalActions.java
+@@ -68,6 +68,8 @@
+ import com.android.internal.widget.LockPatternUtils;
+ import com.android.server.policy.WindowManagerPolicy.WindowManagerFuncs;
+ 
++import org.lineageos.internal.util.PowerMenuUtils;
++
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+@@ -304,6 +306,12 @@
+                 mItems.add(getAssistAction());
+             } else if (GLOBAL_ACTION_KEY_RESTART.equals(actionKey)) {
+                 mItems.add(new RestartAction(mContext, mWindowManagerFuncs));
++                if (canShowAdvancedRestart()) {
++                    mItems.add(new RestartToAction(R.string.global_action_restart_to_recovery,
++                            "recovery"));
++                    mItems.add(new RestartToAction(R.string.global_action_restart_to_bootloader,
++                            "bootloader"));
++                }
+             } else {
+                 Log.e(TAG, "Invalid global action key " + actionKey);
+             }
+@@ -347,6 +355,37 @@
+         dialog.setOnDismissListener(this);
+ 
+         return dialog;
++    }
++
++    private boolean canShowAdvancedRestart() {
++        return ActivityManager.getCurrentUser() == UserHandle.USER_SYSTEM
++                && PowerMenuUtils.isAdvancedRestartPossible(mContext);
++    }
++
++    private final class RestartToAction extends SinglePressAction {
++        private final String mReason;
++
++        RestartToAction(int label, String reason) {
++            super(R.drawable.ic_restart, label);
++            mReason = reason;
++        }
++
++        @Override
++        public void onPress() {
++            if (canShowAdvancedRestart()) {
++                mWindowManagerFuncs.reboot(true /* confirm */, mReason);
++            }
++        }
++
++        @Override
++        public boolean showDuringKeyguard() {
++            return true;
++        }
++
++        @Override
++        public boolean showBeforeProvisioning() {
++            return true;
++        }
+     }
+ 
+     private class BugReportAction extends SinglePressAction implements LongPressAction {
+--- a/core/res/res/values/strings.xml
++++ b/core/res/res/values/strings.xml
+@@ -661,6 +661,10 @@
+ 
+     <!-- label for item that restarts phone in phone options dialog [CHAR LIMIT=24]-->
+     <string name="global_action_restart">Restart</string>
++    <!-- Power menu action to restart into device recovery. -->
++    <string name="global_action_restart_to_recovery">Restart to recovery</string>
++    <!-- Power menu action to restart into the bootloader. -->
++    <string name="global_action_restart_to_bootloader">Restart to bootloader</string>
+ 
+     <!-- label for item that opens emergency features in the phone options dialog [CHAR LIMIT=24]-->
+     <string name="global_action_emergency">Emergency</string>

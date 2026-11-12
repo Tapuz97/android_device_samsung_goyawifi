@@ -1,0 +1,15 @@
+on post-fs-data
+    mkdir /data/vendor/wifi 0771 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    restorecon_recursive /data/vendor/wifi
+    start t110-radio-init
+
+service t110-radio-init /vendor/bin/t110_radio_init
+    class core
+    disabled
+    oneshot
+    user root
+    group root
+    capabilities SYS_MODULE NET_ADMIN
+    stdio_to_kmsg

@@ -1,0 +1,70 @@
+--- a/drivers/marvell/sd8787/mbtc_src/bt/bt_main.c
++++ b/drivers/marvell/sd8787/mbtc_src/bt/bt_main.c
+@@ -1836,7 +1836,7 @@
+ 
+ 		/** chmod & chown for BT char device */
+ 		mbtchar_chown(dev_file, AID_SYSTEM, AID_BLUETOOTH);
+-		mbtchar_chmod(dev_file, 0666);
++		mbtchar_chmod(dev_file, 0660);
+ 
+ 		/** create proc device */
+ 		snprintf(priv->bt_dev.m_dev[BT_SEQ].name,
+@@ -1894,7 +1894,7 @@
+ 				  MODULE_NAME, fm_dev->name);
+ 
+ 		/** chmod for FM char device */
+-		mbtchar_chmod(dev_file, 0666);
++		mbtchar_chmod(dev_file, 0660);
+ 
+ 		/** create proc device */
+ 		snprintf(priv->bt_dev.m_dev[FM_SEQ].name,
+@@ -1950,7 +1950,7 @@
+ 				  nfc_dev->name);
+ 
+ 		/** chmod for NFC char device */
+-		mbtchar_chmod(dev_file, 0666);
++		mbtchar_chmod(dev_file, 0660);
+ 
+ 		/** create proc device */
+ 		snprintf(priv->bt_dev.m_dev[NFC_SEQ].name,
+@@ -2003,7 +2003,7 @@
+ 				  debug_dev->name);
+ 
+ 		/** chmod for debug char device */
+-		mbtchar_chmod(dev_file, 0666);
++		mbtchar_chmod(dev_file, 0660);
+ 
+ 		/** create proc device */
+ 		snprintf(priv->bt_dev.m_dev[DEBUG_SEQ].name,
+--- a/drivers/marvell/sd8787/mbtc_src/bt/bt_sdiommc.c
++++ b/drivers/marvell/sd8787/mbtc_src/bt/bt_sdiommc.c
+@@ -20,6 +20,16 @@
+  */
+ 
+ #include <linux/firmware.h>
++#include <linux/module.h>
++
++/* A shared Wi-Fi/BT chip may already run the matching combo firmware.
++ * Bring-up can require that state without attempting a second download.
++ */
++static bool require_fw_ready;
++module_param(require_fw_ready, bool, 0444);
++MODULE_PARM_DESC(require_fw_ready,
++                "Require active combo firmware; never download if it is absent");
++
+ #include <linux/mmc/sdio_func.h>
+ 
+ #include "bt_drv.h"
+@@ -1692,6 +1702,12 @@
+ 		}
+ 		goto exit;
+ 	}
++
++	if (require_fw_ready) {
++		PRINTM(ERROR, "BT: existing firmware required; download blocked\n");
++		sdio_release_host(card->func);
++		return BT_STATUS_FAILURE;
++	}
+ 	/* Check if other interface is downloading */
+ 	ret = sd_check_winner_status(priv, &winner);
+ 	if (ret == BT_STATUS_FAILURE) {

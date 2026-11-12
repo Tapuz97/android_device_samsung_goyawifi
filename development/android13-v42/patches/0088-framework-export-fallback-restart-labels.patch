@@ -1,0 +1,11 @@
+--- a/core/res/res/values/symbols.xml
++++ b/core/res/res/values/symbols.xml
+@@ -1874,6 +1874,8 @@
+   <java-symbol type="string" name="global_action_power_off" />
+   <java-symbol type="string" name="global_action_power_options" />
+   <java-symbol type="string" name="global_action_restart" />
++  <java-symbol type="string" name="global_action_restart_to_recovery" />
++  <java-symbol type="string" name="global_action_restart_to_bootloader" />
+   <java-symbol type="string" name="global_actions_airplane_mode_off_status" />
+   <java-symbol type="string" name="global_actions_airplane_mode_on_status" />
+   <java-symbol type="string" name="global_actions_toggle_airplane_mode" />

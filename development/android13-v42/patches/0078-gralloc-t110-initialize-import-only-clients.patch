@@ -1,0 +1,14 @@
+--- a/libs/ui/Gralloc2.cpp
++++ b/libs/ui/Gralloc2.cpp
+@@ -294,6 +294,11 @@
+ 
+ status_t Gralloc2Mapper::importBuffer(const hardware::hidl_handle& rawHandle,
+                                       buffer_handle_t* outBufferHandle) const {
++    // Import-only clients (notably screencap's binder callback) may never
++    // allocate a buffer or initialize EGL. registerBuffer still needs this
++    // Vivante driver's process-local OS/GPU state before importing handles.
++    auto& legacy = T110LegacyAllocation::get();
++    if (legacy.enabled() && !legacy.ready()) return NO_INIT;
+     Error error;
+     auto ret = mMapper->importBuffer(rawHandle,
+             [&](const auto& tmpError, const auto& tmpBuffer)

@@ -1,0 +1,33 @@
+diff --git a/src/com/android/wallpaper/asset/StreamableAsset.java b/src/com/android/wallpaper/asset/StreamableAsset.java
+index 80e02cd..6fa63b5 100755
+--- a/src/com/android/wallpaper/asset/StreamableAsset.java
++++ b/src/com/android/wallpaper/asset/StreamableAsset.java
+@@ -101,7 +101,9 @@ public abstract class StreamableAsset extends Asset {
+             }
+             options.inSampleSize = BitmapUtils.calculateInSampleSize(
+                     rawDimensions.x, rawDimensions.y, newTargetWidth, newTargetHeight);
+-            options.inPreferredConfig = Config.HARDWARE;
++            // Software Canvas windows need CPU-readable preview/crop bitmaps.
++            options.inPreferredConfig = "t110_bringup".equals(android.os.Build.DEVICE)
++                    ? Config.ARGB_8888 : Config.HARDWARE;
+ 
+             InputStream inputStream = openInputStream();
+             Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+diff --git a/src/com/android/wallpaper/asset/WallpaperGlideModule.java b/src/com/android/wallpaper/asset/WallpaperGlideModule.java
+index 26f64c6..31a4904 100755
+--- a/src/com/android/wallpaper/asset/WallpaperGlideModule.java
++++ b/src/com/android/wallpaper/asset/WallpaperGlideModule.java
+@@ -43,8 +43,11 @@ public class WallpaperGlideModule implements GlideModule {
+                 .setMemoryCacheScreens(1.2f)
+                 .build();
+         builder.setMemorySizeCalculator(calculator);
+-        builder.setDefaultRequestOptions(
+-                new RequestOptions().format(DecodeFormat.PREFER_ARGB_8888));
++        RequestOptions options = new RequestOptions().format(DecodeFormat.PREFER_ARGB_8888);
++        if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++            options = options.disallowHardwareConfig();
++        }
++        builder.setDefaultRequestOptions(options);
+     }
+ 
+     @Override

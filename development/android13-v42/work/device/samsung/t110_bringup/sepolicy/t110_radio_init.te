@@ -1,0 +1,25 @@
+type t110_radio_init, domain;
+type t110_radio_init_exec, exec_type, vendor_file_type, file_type;
+type t110_radio_module_file, vendor_file_type, file_type;
+type sysfs_t110_wifi_rfkill_name, fs_type, sysfs_type;
+type sysfs_t110_wifi_rfkill, fs_type, sysfs_type;
+
+init_daemon_domain(t110_radio_init)
+allow t110_radio_init self:global_capability_class_set { sys_module net_admin };
+userdebug_or_eng(`
+  allow t110_radio_init kmsg_debug_device:chr_file write;
+')
+allow t110_radio_init t110_radio_module_file:system module_load;
+allow t110_radio_init t110_radio_module_file:file { r_file_perms map };
+allow t110_radio_init sysfs:dir search;
+allow t110_radio_init sysfs_t110_wifi_rfkill_name:file r_file_perms;
+allow t110_radio_init sysfs_t110_wifi_rfkill:file rw_file_perms;
+type t110_bt_device, dev_type;
+allow t110_radio_init t110_bt_device:chr_file { getattr setattr };
+type t110_bt_address_file, file_type, data_file_type;
+allow t110_radio_init t110_bt_device:chr_file rw_file_perms;
+allow hal_bluetooth_server t110_bt_device:chr_file rw_file_perms;
+allow t110_radio_init t110_bt_address_file:dir create_dir_perms;
+allow t110_radio_init t110_bt_address_file:file create_file_perms;
+allow hal_bluetooth_server t110_bt_address_file:dir r_dir_perms;
+allow hal_bluetooth_server t110_bt_address_file:file r_file_perms;

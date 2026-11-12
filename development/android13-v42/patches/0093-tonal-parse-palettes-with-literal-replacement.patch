@@ -1,0 +1,11 @@
+--- a/core/java/com/android/internal/colorextraction/types/Tonal.java
++++ b/core/java/com/android/internal/colorextraction/types/Tonal.java
+@@ -556,7 +556,7 @@
+ 
+         private float[] readFloatArray(String attributeValue)
+                 throws IOException, XmlPullParserException {
+-            String[] tokens = attributeValue.replaceAll(" ", "").replaceAll("\n", "").split(",");
++            String[] tokens = attributeValue.replace(" ", "").replace("\n", "").split(",");
+             float[] numbers = new float[tokens.length];
+             for (int i = 0; i < tokens.length; i++) {
+                 numbers[i] = Float.parseFloat(tokens[i]);

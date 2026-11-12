@@ -1,0 +1,18 @@
+--- a/libs/ui/Gralloc2.cpp
++++ b/libs/ui/Gralloc2.cpp
+@@ -131,6 +131,15 @@
+         // libui also has an APEX variant. Keep this device-only legacy
+         // backend optional instead of imposing libhardware on every APEX.
+         void* library = dlopen("libhardware.so", RTLD_NOW | RTLD_LOCAL);
++        if (!library) {
++            // The codec APEX permits /system/lib but does not search it for
++            // this optional library. Keep its existing namespace isolation.
++#if defined(__LP64__)
++            library = dlopen("/system/lib64/libhardware.so", RTLD_NOW | RTLD_LOCAL);
++#else
++            library = dlopen("/system/lib/libhardware.so", RTLD_NOW | RTLD_LOCAL);
++#endif
++        }
+         auto getModule = library ? reinterpret_cast<int (*)(const char*, const hw_module_t**)>(
+                 dlsym(library, "hw_get_module")) : nullptr;
+         if (!getModule) {

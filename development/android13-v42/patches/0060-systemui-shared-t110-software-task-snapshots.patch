@@ -1,0 +1,27 @@
+diff --git a/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java b/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java
+index 0b0df833..4d972f52 100644
+--- a/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java
++++ b/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java
+@@ -26,6 +26,7 @@ import android.graphics.Color;
+ import android.graphics.Point;
+ import android.graphics.Rect;
+ import android.hardware.HardwareBuffer;
++import android.os.Build;
+ import android.util.Log;
+ import android.view.WindowInsetsController.Appearance;
+ import android.window.TaskSnapshot;
+@@ -81,6 +82,14 @@ public class ThumbnailData {
+             Log.e("ThumbnailData", "Unexpected snapshot without USAGE_GPU_SAMPLED_IMAGE: "
+                     + snapshot.getHardwareBuffer(), ex);
+         }
++        // This device's ViewRoot windows use software Canvas. Convert the
++        // owned snapshot wrapper before publishing it to Recents consumers.
++        if (thumbnail != null && "t110_bringup".equals(Build.DEVICE)
++                && thumbnail.getConfig() == Bitmap.Config.HARDWARE) {
++            Bitmap hardwareThumbnail = thumbnail;
++            thumbnail = hardwareThumbnail.copy(ARGB_8888, false);
++            hardwareThumbnail.recycle();
++        }
+         if (thumbnail == null) {
+             Point taskSize = snapshot.getTaskSize();
+             thumbnail = Bitmap.createBitmap(taskSize.x, taskSize.y, ARGB_8888);

@@ -1,0 +1,39 @@
+--- a/system/gd/hal/hci_hal_android_hidl.cc
++++ b/system/gd/hal/hci_hal_android_hidl.cc
+@@ -14,6 +14,8 @@
+  * limitations under the License.
+  */
+ 
++#include <atomic>
++#include <memory>
+ #include <android/hardware/bluetooth/1.0/types.h>
+ #include <android/hardware/bluetooth/1.1/IBluetoothHci.h>
+ #include <android/hardware/bluetooth/1.1/IBluetoothHciCallbacks.h>
+@@ -207,11 +209,14 @@
+     }
+     btsnoop_logger_ = GetDependency<SnoopLogger>();
+ 
++    auto lookup_pending = std::make_shared<std::atomic<bool>>(true);
+     auto get_service_alarm = new os::Alarm(GetHandler());
+     get_service_alarm->Schedule(
+-        BindOnce([] {
+-          LOG_ALWAYS_FATAL("Unable to get a Bluetooth service after 500ms, start the HAL before starting Bluetooth");
+-        }),
++        BindOnce([](std::shared_ptr<std::atomic<bool>> lookup_pending) {
++          if (lookup_pending->exchange(false, std::memory_order_acq_rel)) {
++            LOG_ALWAYS_FATAL("Unable to get a Bluetooth service after 500ms, start the HAL before starting Bluetooth");
++          }
++        }, lookup_pending),
+         std::chrono::milliseconds(500));
+ 
+     bt_hci_1_1_ = IBluetoothHci::getService();
+@@ -222,6 +227,9 @@
+       bt_hci_ = IBluetoothHci_1_0::getService();
+     }
+ 
++    // A timer callback can already be runnable when lookup finishes. Once
++    // the service has been obtained, that stale timeout must not abort startup.
++    lookup_pending->store(false, std::memory_order_release);
+     get_service_alarm->Cancel();
+     delete get_service_alarm;
+ 

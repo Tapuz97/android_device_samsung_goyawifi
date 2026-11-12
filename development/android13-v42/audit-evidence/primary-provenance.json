@@ -1,0 +1,37 @@
+[
+  {
+    "path": "services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp",
+    "sha": "317f948d16b2598008a752479699d848f8dc9619",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp"
+  },
+  {
+    "path": "services/surfaceflinger/SurfaceFlinger_hwc1.cpp",
+    "sha": "e0b2d55b805d5b273340cf75e5aafbd819cae7dc",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/SurfaceFlinger_hwc1.cpp"
+  },
+  {
+    "path": "libs/ui/GraphicBufferAllocator.cpp",
+    "sha": "edfff4d6a5cb62fb530d9e22d589d8b321553c4f",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/libs/ui/GraphicBufferAllocator.cpp"
+  },
+  {
+    "path": "libsuspend/autosuspend.c",
+    "sha": "edd100711c7813a472666443ebda8d906ced6289",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend.c"
+  },
+  {
+    "path": "libsuspend/autosuspend_earlysuspend.c",
+    "sha": "3793a699ede29d81bbad220caf3db8f47546e0d1",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend_earlysuspend.c"
+  },
+  {
+    "path": "libsuspend/autosuspend_autosleep.c",
+    "sha": "7262cc7e8d9d8d0a1b00ac5c428e47522af4ec85",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend_autosleep.c"
+  },
+  {
+    "path": "libs/hwui/Android.mk",
+    "sha": "cacfce16ab9ab1ec73259258ce94368a84eed4d6",
+    "url": "https://github.com/LineageOS/android_frameworks_base/blob/cm-14.1/libs/hwui/Android.mk"
+  }
+]

@@ -1,0 +1,39 @@
+--- a/libs/hwui/renderthread/EglManager.cpp
++++ b/libs/hwui/renderthread/EglManager.cpp
+@@ -595,6 +595,16 @@
+         fence();
+     }
+ 
++    // The stock T110 Vivante driver leaves window geometry in an unresolved
++    // render target across swap, even after glFinish. A one-pixel read forces
++    // its legacy window resolve without reading the full frame. Full-panel
++    // geometry, clipping, texture and surface-recreation fixtures validate it.
++    static const bool legacyT110 = property_get_bool("ro.t110.legacy_gpu", false);
++    if (legacyT110) {
++        GLubyte pixel[4];
++        glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
++    }
++
+     EGLint rects[4];
+     frame.map(screenDirty, rects);
+     eglSwapBuffersWithDamageKHR(mEglDisplay, frame.mSurface, rects, screenDirty.isEmpty() ? 0 : 1);
+--- a/core/java/android/view/ViewRootImpl.java
++++ b/core/java/android/view/ViewRootImpl.java
+@@ -1599,12 +1599,11 @@
+         mAttachInfo.mHardwareAccelerated = false;
+         mAttachInfo.mHardwareAccelerationRequested = false;
+ 
+-        // The T110's stock EGL driver corrupts normal HWUI window frames and can
+-        // abort in swapBuffers. Use the existing software View/Canvas path for
+-        // this engineering device, as already validated by its setup activity.
+-        // SurfaceView, direct GLES clients and SurfaceFlinger remain separate.
+-        // Keep this opt-in under the existing exported device compatibility flag.
+-        if (SystemProperties.getBoolean("ro.t110.legacy_gpu", false)) {
++        // Native HWUI now resolves the T110's legacy Vivante window before
++        // presenting it. Keep the validated software path available for diagnosis
++        // while using normal accelerated rendering by default.
++        if (SystemProperties.getBoolean("ro.t110.legacy_gpu", false)
++                && !SystemProperties.getBoolean("debug.hwui.t110_window_gpu", true)) {
+             if (mAttachInfo.mThreadedRenderer != null) {
+                 mAttachInfo.mThreadedRenderer.destroy();
+                 mAttachInfo.mThreadedRenderer = null;

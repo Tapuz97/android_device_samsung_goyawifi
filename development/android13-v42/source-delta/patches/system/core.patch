@@ -1,0 +1,155 @@
+diff --git a/init/init.cpp b/init/init.cpp
+index 29f643e..c002a66 100644
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -798,7 +798,13 @@ static Result<void> ConnectEarlyStageSnapuserdAction(const BuiltinArguments& arg
+ static void DumpPidFds(const std::string& prefix, pid_t pid) {
+     std::error_code ec;
+     std::string proc_dir = "/proc/" + std::to_string(pid) + "/fd";
+-    for (const auto& entry : std::filesystem::directory_iterator(proc_dir)) {
++    std::filesystem::directory_iterator it(proc_dir, ec), end;
++    if (ec) {
++        LOG(ERROR) << prefix << "Cannot inspect " << proc_dir << ": " << ec.message();
++        return;
++    }
++    for (; it != end; it.increment(ec)) {
++        const auto& entry = *it;
+         std::string target;
+         if (android::base::Readlink(entry.path(), &target)) {
+             LOG(ERROR) << prefix << target;
+@@ -806,6 +812,7 @@ static void DumpPidFds(const std::string& prefix, pid_t pid) {
+             LOG(ERROR) << prefix << entry.path();
+         }
+     }
++    if (ec) LOG(ERROR) << prefix << "Cannot finish inspecting " << proc_dir << ": " << ec.message();
+ }
+ 
+ static void DumpFile(const std::string& prefix, const std::string& file) {
+diff --git a/init/mount_namespace.cpp b/init/mount_namespace.cpp
+index bce1cc3..5ec24ee 100644
+--- a/init/mount_namespace.cpp
++++ b/init/mount_namespace.cpp
+@@ -209,6 +209,13 @@ Result<void> SwitchToMountNamespaceIfNeeded(MountNamespace target_mount_namespac
+ base::Result<MountNamespace> GetCurrentMountNamespace() {
+     std::string current_namespace_id = GetMountNamespaceId();
+     if (current_namespace_id == "") {
++        // T110's 3.4 kernel does not export /proc/self/ns/mnt. Flattened
++        // APEX deliberately uses one namespace, as in the switch helper.
++        // Restrict the fallback to this device's explicit compatibility mode.
++        if (!IsApexUpdatable() &&
++            android::base::GetBoolProperty("ro.t110.legacy_processgroups", false)) {
++            return NS_DEFAULT;
++        }
+         return Error() << "Failed to get current mount namespace ID";
+     }
+ 
+diff --git a/init/reboot.cpp b/init/reboot.cpp
+index b58780f..5fdec76 100644
+--- a/init/reboot.cpp
++++ b/init/reboot.cpp
+@@ -1035,7 +1035,8 @@ void HandlePowerctlMessage(const std::string& command) {
+                                   "bootloader_message: "
+                                << err;
+                 }
+-            } else if (reboot_target == "recovery") {
++            } else if (reboot_target == "recovery" &&
++                       !GetBoolProperty("ro.t110.reboot_without_misc", false)) {
+                 bootloader_message boot = {};
+                 if (std::string err; !read_bootloader_message(&boot, &err)) {
+                     LOG(ERROR) << "Failed to read bootloader message: " << err;
+diff --git a/init/reboot_utils.cpp b/init/reboot_utils.cpp
+index 1f41163..aed831f 100644
+--- a/init/reboot_utils.cpp
++++ b/init/reboot_utils.cpp
+@@ -76,7 +76,7 @@ void SetFatalRebootTarget(const std::optional<std::string>& reboot_target) {
+         // We already default to bootloader if no setting is provided.
+     } else {
+         const std::string kRebootTargetStringPattern = kRebootTargetString + "=";
+-        start_pos += sizeof(kRebootTargetStringPattern) - 1;
++        start_pos += kRebootTargetStringPattern.size();
+ 
+         auto end_pos = cmdline.find(' ', start_pos);
+         // if end_pos isn't found, then we've run off the end, but this is okay as this is the last
+diff --git a/libprocessgroup/processgroup.cpp b/libprocessgroup/processgroup.cpp
+index 267e62c..ce39b38 100644
+--- a/libprocessgroup/processgroup.cpp
++++ b/libprocessgroup/processgroup.cpp
+@@ -26,6 +26,8 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
++#include <sys/vfs.h>
++#include <linux/magic.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+ 
+@@ -69,6 +71,39 @@ bool CgroupGetControllerPath(const std::string& cgroup_name, std::string* path)
+     return true;
+ }
+ 
++// Android's host glibc 2.17 sysroot predates the cgroup-v2 magic constant.
++#ifndef CGROUP2_SUPER_MAGIC
++#define CGROUP2_SUPER_MAGIC 0x63677270
++#endif
++
++// T110 bring-up: use a real v1 hierarchy for process lifetime tracking when
++// explicitly enabled. Do not pretend an ordinary directory is a cgroup, and
++// never write v2 activation controls to a v1 hierarchy.
++static bool GetProcessGroupHierarchy(std::string* path, bool* activate = nullptr) {
++    if (activate) *activate = true;
++    if (!GetBoolProperty("ro.t110.legacy_processgroups", false)) {
++        return CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, path);
++    }
++
++    struct statfs fs;
++    auto unified = CgroupMap::GetInstance().FindController(CGROUPV2_CONTROLLER_NAME);
++    if (unified.HasValue() && unified.IsUsable() && statfs(unified.path(), &fs) == 0 &&
++        fs.f_type == CGROUP2_SUPER_MAGIC) {
++        *path = unified.path();
++        return true;
++    }
++
++    auto legacy = CgroupMap::GetInstance().FindController("cpuacct");
++    if (!legacy.HasValue() || legacy.version() != 1 || !legacy.IsUsable() ||
++        statfs(legacy.path(), &fs) != 0 || fs.f_type != CGROUP_SUPER_MAGIC) {
++        LOG(ERROR) << "No usable v2 or T110 cpuacct process-group hierarchy";
++        return false;
++    }
++    *path = legacy.path();
++    if (activate) *activate = false;
++    return true;
++}
++
+ static bool CgroupGetMemcgAppsPath(std::string* path) {
+     CgroupController controller = CgroupMap::GetInstance().FindController("memory");
+ 
+@@ -246,7 +281,7 @@ void removeAllProcessGroupsInternal(bool empty_only) {
+     std::vector<std::string> cgroups;
+     std::string path, memcg_apps_path;
+ 
+-    if (CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &path)) {
++    if (GetProcessGroupHierarchy(&path)) {
+         cgroups.push_back(path);
+     }
+     if (CgroupGetMemcgAppsPath(&memcg_apps_path) && memcg_apps_path != path) {
+@@ -418,7 +453,7 @@ static int DoKillProcessGroupOnce(const char* cgroup, uid_t uid, int initialPid,
+ static int KillProcessGroup(uid_t uid, int initialPid, int signal, int retries,
+                             int* max_processes) {
+     std::string hierarchy_root_path;
+-    CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &hierarchy_root_path);
++    if (!GetProcessGroupHierarchy(&hierarchy_root_path)) return -ENOENT;
+     const char* cgroup = hierarchy_root_path.c_str();
+ 
+     std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+@@ -558,8 +593,9 @@ int createProcessGroup(uid_t uid, int initialPid, bool memControl) {
+         }
+     }
+ 
+-    CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &cgroup);
+-    return createProcessGroupInternal(uid, initialPid, cgroup, true);
++    bool activate_controllers;
++    if (!GetProcessGroupHierarchy(&cgroup, &activate_controllers)) return -ENOENT;
++    return createProcessGroupInternal(uid, initialPid, cgroup, activate_controllers);
+ }
+ 
+ static bool SetProcessGroupValue(int tid, const std::string& attr_name, int64_t value) {

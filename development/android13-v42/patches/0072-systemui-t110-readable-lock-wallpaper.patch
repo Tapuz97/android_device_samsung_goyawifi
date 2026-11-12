@@ -1,0 +1,21 @@
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/LockscreenWallpaper.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/LockscreenWallpaper.java
+@@ -137,7 +137,8 @@
+         if (fd != null) {
+             try {
+                 BitmapFactory.Options options = new BitmapFactory.Options();
+-                options.inPreferredConfig = Bitmap.Config.HARDWARE;
++                options.inPreferredConfig = "t110_bringup".equals(android.os.Build.DEVICE)
++                        ? Bitmap.Config.ARGB_8888 : Bitmap.Config.HARDWARE;
+                 return LoaderResult.success(BitmapFactory.decodeFileDescriptor(
+                         fd.getFileDescriptor(), null, options));
+             } catch (OutOfMemoryError e) {
+@@ -150,7 +151,7 @@
+             if (selectedUser != null) {
+                 // Show the selected user's static wallpaper.
+                 return LoaderResult.success(mWallpaperManager.getBitmapAsUser(
+-                        selectedUser.getIdentifier(), true /* hardware */));
++                        selectedUser.getIdentifier(), !"t110_bringup".equals(android.os.Build.DEVICE) /* hardware */));
+ 
+             } else {
+                 // When there is no selected user, show the system wallpaper

@@ -1,0 +1,429 @@
+diff --git a/libs/gui/ScreenCaptureResults.cpp b/libs/gui/ScreenCaptureResults.cpp
+index fe38706..bce66ee 100644
+--- a/libs/gui/ScreenCaptureResults.cpp
++++ b/libs/gui/ScreenCaptureResults.cpp
+@@ -15,10 +15,32 @@
+  */
+ 
+ #include <gui/ScreenCaptureResults.h>
++#include <android-base/properties.h>
++#include <binder/Binder.h>
+ 
+ #include <private/gui/ParcelUtils.h>
+ 
+ namespace android::gui {
++namespace {
++constexpr int32_t kT110CaptureOwnerTag = 0x5431314f;
++
++// This driver transports memory FDs, but its allocation owner also holds GPU
++// signals needed while registerBuffer imports the handle in another process.
++// Binder retains this object during delivery; the imported GraphicBuffer then
++// retains the token until its own cleanup. No delayed release or global cache.
++class T110CaptureBufferOwner final : public BBinder {
++public:
++    explicit T110CaptureBufferOwner(const sp<GraphicBuffer>& buffer) : mBuffer(buffer) {}
++private:
++    const sp<GraphicBuffer> mBuffer;
++};
++
++bool retainT110CaptureOwner() {
++    static const bool enabled = base::GetBoolProperty("ro.t110.legacy_gpu", false);
++    return enabled;
++}
++} // namespace
++
+ 
+ status_t ScreenCaptureResults::writeToParcel(android::Parcel* parcel) const {
+     if (buffer != nullptr) {
+@@ -39,6 +61,10 @@ status_t ScreenCaptureResults::writeToParcel(android::Parcel* parcel) const {
+     SAFE_PARCEL(parcel->writeBool, capturedHdrLayers);
+     SAFE_PARCEL(parcel->writeUint32, static_cast<uint32_t>(capturedDataspace));
+     SAFE_PARCEL(parcel->writeInt32, result);
++    if (retainT110CaptureOwner() && buffer != nullptr) {
++        SAFE_PARCEL(parcel->writeInt32, kT110CaptureOwnerTag);
++        SAFE_PARCEL(parcel->writeStrongBinder, sp<T110CaptureBufferOwner>::make(buffer));
++    }
+     return NO_ERROR;
+ }
+ 
+@@ -63,6 +89,21 @@ status_t ScreenCaptureResults::readFromParcel(const android::Parcel* parcel) {
+     SAFE_PARCEL(parcel->readUint32, &dataspace);
+     capturedDataspace = static_cast<ui::Dataspace>(dataspace);
+     SAFE_PARCEL(parcel->readInt32, &result);
++    if (retainT110CaptureOwner() && buffer != nullptr && parcel->dataAvail() >= sizeof(int32_t)) {
++        // Older capture payloads do not have this device-only extension.
++        const size_t position = parcel->dataPosition();
++        int32_t tag = 0;
++        SAFE_PARCEL(parcel->readInt32, &tag);
++        if (tag == kT110CaptureOwnerTag) {
++            sp<IBinder> owner;
++            SAFE_PARCEL(parcel->readStrongBinder, &owner);
++            if (owner == nullptr) return BAD_VALUE;
++            // GraphicBuffer invokes these callbacks after freeing its handle.
++            buffer->addDeathCallback([owner](void*, uint64_t) { (void)owner; }, nullptr);
++        } else {
++            parcel->setDataPosition(position);
++        }
++    }
+     return NO_ERROR;
+ }
+ 
+diff --git a/libs/renderengine/Android.bp b/libs/renderengine/Android.bp
+index cb92df3..5cb1e1d 100644
+--- a/libs/renderengine/Android.bp
++++ b/libs/renderengine/Android.bp
+@@ -65,6 +65,7 @@ filegroup {
+     name: "librenderengine_gl_sources",
+     srcs: [
+         "gl/GLESRenderEngine.cpp",
++        "gl/T110EglWindow.cpp",
+         "gl/GLExtensions.cpp",
+         "gl/GLFramebuffer.cpp",
+         "gl/GLImage.cpp",
+diff --git a/libs/renderengine/gl/GLESRenderEngine.cpp b/libs/renderengine/gl/GLESRenderEngine.cpp
+index 6dc01b9..6b907ed 100644
+--- a/libs/renderengine/gl/GLESRenderEngine.cpp
++++ b/libs/renderengine/gl/GLESRenderEngine.cpp
+@@ -44,6 +44,7 @@
+ #include <utils/KeyedVector.h>
+ #include <utils/Trace.h>
+ #include "GLESRenderEngine.h"
++#include "T110EglWindow.h"
+ #include "GLExtensions.h"
+ #include "GLFramebuffer.h"
+ #include "GLImage.h"
+@@ -271,7 +272,7 @@ std::unique_ptr<GLESRenderEngine> GLESRenderEngine::create(const RenderEngineCre
+     // The code assumes that ES2 or later is available if this extension is
+     // supported.
+     EGLConfig config = EGL_NO_CONFIG;
+-    if (!extensions.hasNoConfigContext()) {
++    if (!extensions.hasNoConfigContext() || property_get_bool("ro.t110.legacy_gpu", false)) {
+         config = chooseEglConfig(display, args.pixelFormat, /*logConfig*/ true);
+     }
+ 
+@@ -651,7 +652,8 @@ void GLESRenderEngine::fillRegionWithColor(const Region& region, float red, floa
+ }
+ 
+ void GLESRenderEngine::setScissor(const Rect& region) {
+-    glScissor(region.left, region.top, region.getWidth(), region.getHeight());
++    const int y = mT110WindowHeight ? mT110WindowHeight - region.bottom : region.top;
++    glScissor(region.left, y, region.getWidth(), region.getHeight());
+     glEnable(GL_SCISSOR_TEST);
+ }
+ 
+@@ -1108,6 +1110,25 @@ void GLESRenderEngine::drawLayersInternal(
+ 
+     validateOutputBufferUsage(buffer->getBuffer());
+ 
++    const bool legacyT110 = property_get_bool("ro.t110.legacy_gpu", false);
++    mT110WindowHeight = 0;
++    std::unique_ptr<T110EglWindow> legacyWindow;
++    if (legacyT110) {
++        if (isProtected() || std::any_of(layers.begin(), layers.end(), [](const auto& layer) {
++                return layer.backgroundBlurRadius > 0;
++            })) {
++            resultPromise->set_value({INVALID_OPERATION, base::unique_fd()});
++            return;
++        }
++        legacyWindow = std::make_unique<T110EglWindow>(mEGLDisplay, mEGLConfig, mEGLContext,
++                                                       mStubSurface, buffer->getBuffer());
++        if (legacyWindow->status() != NO_ERROR) {
++            resultPromise->set_value({legacyWindow->status(), base::unique_fd()});
++            return;
++        }
++        mT110WindowHeight = buffer->getBuffer()->getHeight();
++    }
++
+     std::unique_ptr<BindNativeBufferAsFramebuffer> fbo;
+     // Gathering layers that requested blur, we'll need them to decide when to render to an
+     // offscreen buffer, and when to render to the native buffer.
+@@ -1121,7 +1142,13 @@ void GLESRenderEngine::drawLayersInternal(
+     }
+     const auto blurLayersSize = blurLayers.size();
+ 
+-    if (blurLayersSize == 0) {
++    if (legacyWindow) {
++        setViewportAndProjection(display.physicalDisplay, display.clip);
++        // The EGL window's final clip-space Y inversion is applied after
++        // display orientation below. Scissor uses framebuffer coordinates.
++        glViewport(display.physicalDisplay.left,
++                   mT110WindowHeight - display.physicalDisplay.bottom, mVpWidth, mVpHeight);
++    } else if (blurLayersSize == 0) {
+         fbo = std::make_unique<BindNativeBufferAsFramebuffer>(*this,
+                                                               buffer->getBuffer()
+                                                                       .get()
+@@ -1159,8 +1186,13 @@ void GLESRenderEngine::drawLayersInternal(
+     setDisplayMaxLuminance(display.maxLuminance);
+     setDisplayColorTransform(display.colorTransform);
+ 
+-    const mat4 projectionMatrix =
++    mat4 projectionMatrix =
+             ui::Transform(display.orientation).asMatrix4() * mState.projectionMatrix;
++    if (legacyWindow) {
++        // Flip the final output convention, after rotation. Rotation and this
++        // reflection do not commute at 90/270 degrees.
++        projectionMatrix = mat4(vec4(1, -1, 1, 1)) * projectionMatrix;
++    }
+ 
+     Mesh mesh = Mesh::Builder()
+                         .setPrimitive(Mesh::TRIANGLE_FAN)
+@@ -1298,6 +1330,16 @@ void GLESRenderEngine::drawLayersInternal(
+         }
+     }
+ 
++    if (legacyWindow) {
++        const status_t result = legacyWindow->finish();
++        legacyWindow.reset();
++        mT110WindowHeight = 0;
++        mLastDrawFence = nullptr;
++        mPriorResourcesCleaned = false;
++        resultPromise->set_value({result, base::unique_fd()});
++        return;
++    }
++
+     base::unique_fd drawFence = flush();
+ 
+     // If flush failed or we don't support native fences, we need to force the
+diff --git a/libs/renderengine/gl/GLESRenderEngine.h b/libs/renderengine/gl/GLESRenderEngine.h
+index 1d7c2ca..332269a 100644
+--- a/libs/renderengine/gl/GLESRenderEngine.h
++++ b/libs/renderengine/gl/GLESRenderEngine.h
+@@ -110,6 +110,7 @@ protected:
+ 
+ private:
+     friend class BindNativeBufferAsFramebuffer;
++    int mT110WindowHeight = 0;
+ 
+     enum GlesVersion {
+         GLES_VERSION_1_0 = 0x10000,
+diff --git a/libs/ui/Gralloc2.cpp b/libs/ui/Gralloc2.cpp
+index 995dded..c021510 100644
+--- a/libs/ui/Gralloc2.cpp
++++ b/libs/ui/Gralloc2.cpp
+@@ -21,6 +21,12 @@
+ #include <ui/Gralloc2.h>
+ 
+ #include <inttypes.h>
++#include <android-base/properties.h>
++#include <hardware/gralloc.h>
++#include <dlfcn.h>
++#include <climits>
++#include <mutex>
++#include <unordered_map>
+ #include <log/log.h>
+ #pragma clang diagnostic push
+ #pragma clang diagnostic ignored "-Wzero-length-array"
+@@ -41,6 +47,133 @@ namespace {
+ 
+ static constexpr Error kTransactionError = Error::NO_RESOURCES;
+ 
++// Stock T110 gralloc keeps GPU signals in the allocation owner, not in the
++// transported file descriptors. A binderized allocator frees those signals
++// before import. Same-process registerBuffer is a no-op in this driver, so
++// merely switching IAllocator to passthrough would leave dangling surfaces.
++// Retain the original allocation alongside the mapper's registered clone.
++class T110LegacyAllocation {
++public:
++    static T110LegacyAllocation& get() {
++        static auto* state = new T110LegacyAllocation;
++        return *state;
++    }
++
++    bool enabled() const { return mEnabled; }
++    bool ready() const { return mDevice != nullptr; }
++
++    status_t allocate(const Gralloc2Mapper& mapper, uint32_t width, uint32_t height,
++                      PixelFormat format, uint32_t layerCount, uint64_t usage,
++                      uint32_t count, uint32_t* stride, buffer_handle_t* handles,
++                      bool importBuffers) {
++        if (!mDevice) return NO_INIT;
++        // Raw FD-only ownership cannot preserve this legacy driver's signals.
++        if (!importBuffers || layerCount != 1 || usage >> 32 || !count ||
++            width > INT_MAX || height > INT_MAX) return BAD_VALUE;
++        // HW_FB returns an unshareable framebuffer handle (FD -1). HWC's
++        // client target must instead be a normal GPU buffer it can import.
++        // Stock bit 31 selects linear ION backing even with HW_RENDER. The
++        // direct fbdev presenter must CPU-read the finished client target.
++        uint32_t flags = static_cast<uint32_t>(usage & ~uint64_t(GRALLOC_USAGE_HW_FB));
++        if (usage & GRALLOC_USAGE_HW_FB) flags |= 0x80000000u | GRALLOC_USAGE_SW_READ_OFTEN;
++        const int legacyUsage = static_cast<int>(flags);
++        status_t status = NO_ERROR;
++        uint32_t allocated = 0;
++        for (; allocated < count; ++allocated) {
++            buffer_handle_t original = nullptr;
++            int localStride = 0;
++            {
++                std::lock_guard<std::mutex> lock(mMutex);
++                status = mDevice->alloc(mDevice, width, height, format, legacyUsage,
++                                        &original, &localStride);
++            }
++            if (status != NO_ERROR) break;
++            if (allocated && *stride != static_cast<uint32_t>(localStride)) {
++                std::lock_guard<std::mutex> lock(mMutex);
++                mDevice->free(mDevice, original);
++                status = BAD_VALUE;
++                break;
++            }
++            status = mapper.importBuffer(hardware::hidl_handle(original), &handles[allocated]);
++            if (status != NO_ERROR) {
++                std::lock_guard<std::mutex> lock(mMutex);
++                mDevice->free(mDevice, original);
++                break;
++            }
++            {
++                std::lock_guard<std::mutex> lock(mMutex);
++                mOwners.emplace(handles[allocated], original);
++            }
++            *stride = static_cast<uint32_t>(localStride);
++        }
++        if (status != NO_ERROR) {
++            while (allocated) {
++                --allocated;
++                mapper.freeBuffer(handles[allocated]);
++                handles[allocated] = nullptr;
++            }
++        }
++        return status;
++    }
++
++    void releaseOwner(buffer_handle_t imported) {
++        std::lock_guard<std::mutex> lock(mMutex);
++        const auto it = mOwners.find(imported);
++        if (it == mOwners.end()) return; // buffer imported from another process
++        const int error = mDevice->free(mDevice, it->second);
++        ALOGE_IF(error, "T110 legacy allocation release failed: %d", error);
++        mOwners.erase(it);
++    }
++
++private:
++    T110LegacyAllocation() : mEnabled(base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        if (!mEnabled) return;
++        // libui also has an APEX variant. Keep this device-only legacy
++        // backend optional instead of imposing libhardware on every APEX.
++        void* library = dlopen("libhardware.so", RTLD_NOW | RTLD_LOCAL);
++        if (!library) {
++            // The codec APEX permits /system/lib but does not search it for
++            // this optional library. Keep its existing namespace isolation.
++#if defined(__LP64__)
++            library = dlopen("/system/lib64/libhardware.so", RTLD_NOW | RTLD_LOCAL);
++#else
++            library = dlopen("/system/lib/libhardware.so", RTLD_NOW | RTLD_LOCAL);
++#endif
++        }
++        auto getModule = library ? reinterpret_cast<int (*)(const char*, const hw_module_t**)>(
++                dlsym(library, "hw_get_module")) : nullptr;
++        if (!getModule) {
++            ALOGE("T110 legacy gralloc loader unavailable");
++            return;
++        }
++        // Keep the library loaded for the process-long alloc_device_t.
++        const hw_module_t* module = nullptr;
++        int error = getModule(GRALLOC_HARDWARE_MODULE_ID, &module);
++        if (!error) {
++            // An app can allocate a buffer before creating its first EGL
++            // display. Use the HAL's own libGAL dependency in that case.
++            auto initialize = module && module->dso ? reinterpret_cast<int (*)()>(
++                    dlsym(module->dso, "gcoOS_ModuleConstructor")) : nullptr;
++            if (!initialize || initialize() < 0) {
++                ALOGE("T110 legacy gralloc: Vivante process initialization failed");
++                error = -ENODEV;
++            }
++        }
++        if (!error) error = gralloc_open(module, &mDevice);
++        if (error) {
++            mDevice = nullptr;
++            ALOGE("T110 legacy gralloc open failed: %d", error);
++        } else {
++            ALOGI("T110 legacy gralloc: retaining allocation owners in process");
++        }
++    }
++    const bool mEnabled;
++    alloc_device_t* mDevice = nullptr;
++    std::mutex mMutex;
++    std::unordered_map<buffer_handle_t, buffer_handle_t> mOwners;
++};
++
++
+ uint64_t getValid10UsageBits() {
+     static const uint64_t valid10UsageBits = []() -> uint64_t {
+         using hardware::graphics::common::V1_0::BufferUsage;
+@@ -170,6 +303,11 @@ status_t Gralloc2Mapper::createDescriptor(void* bufferDescriptorInfo,
+ 
+ status_t Gralloc2Mapper::importBuffer(const hardware::hidl_handle& rawHandle,
+                                       buffer_handle_t* outBufferHandle) const {
++    // Import-only clients (notably screencap's binder callback) may never
++    // allocate a buffer or initialize EGL. registerBuffer still needs this
++    // Vivante driver's process-local OS/GPU state before importing handles.
++    auto& legacy = T110LegacyAllocation::get();
++    if (legacy.enabled() && !legacy.ready()) return NO_INIT;
+     Error error;
+     auto ret = mMapper->importBuffer(rawHandle,
+             [&](const auto& tmpError, const auto& tmpBuffer)
+@@ -192,6 +330,8 @@ void Gralloc2Mapper::freeBuffer(buffer_handle_t bufferHandle) const {
+     auto error = (ret.isOk()) ? static_cast<Error>(ret) : kTransactionError;
+     ALOGE_IF(error != Error::NONE, "freeBuffer(%p) failed with %d",
+             buffer, error);
++    // Unregister the mapper clone before releasing its backing allocation.
++    if (error == Error::NONE) T110LegacyAllocation::get().releaseOwner(bufferHandle);
+ }
+ 
+ status_t Gralloc2Mapper::validateBufferSize(buffer_handle_t bufferHandle, uint32_t width,
+@@ -368,6 +508,7 @@ int Gralloc2Mapper::unlock(buffer_handle_t bufferHandle) const {
+ }
+ 
+ Gralloc2Allocator::Gralloc2Allocator(const Gralloc2Mapper& mapper) : mMapper(mapper) {
++    if (T110LegacyAllocation::get().enabled()) return;
+     mAllocator = IAllocator::getService();
+     if (mAllocator == nullptr) {
+         ALOGW("allocator 2.x is not supported");
+@@ -376,10 +517,12 @@ Gralloc2Allocator::Gralloc2Allocator(const Gralloc2Mapper& mapper) : mMapper(map
+ }
+ 
+ bool Gralloc2Allocator::isLoaded() const {
++    if (T110LegacyAllocation::get().enabled()) return T110LegacyAllocation::get().ready();
+     return mAllocator != nullptr;
+ }
+ 
+ std::string Gralloc2Allocator::dumpDebugInfo(bool /*less*/) const {
++    if (T110LegacyAllocation::get().enabled()) return "T110 retained legacy allocations\n";
+     std::string debugInfo;
+ 
+     mAllocator->dumpDebugInfo([&](const auto& tmpDebugInfo) {
+@@ -407,6 +550,11 @@ status_t Gralloc2Allocator::allocate(std::string /*requestorName*/, uint32_t wid
+         return error;
+     }
+ 
++    if (T110LegacyAllocation::get().enabled()) {
++        return T110LegacyAllocation::get().allocate(mMapper, width, height, format,
++                layerCount, usage, bufferCount, outStride, outBufferHandles, importBuffers);
++    }
++
+     auto ret = mAllocator->allocate(descriptor, bufferCount,
+                                     [&](const auto& tmpError, const auto& tmpStride,
+                                         const auto& tmpBuffers) {
+diff --git a/opengl/libs/EGL/Loader.cpp b/opengl/libs/EGL/Loader.cpp
+index 65c3c49..ecbf096 100644
+--- a/opengl/libs/EGL/Loader.cpp
++++ b/opengl/libs/EGL/Loader.cpp
+@@ -472,6 +472,21 @@ static void* load_system_driver(const char* kind, const char* suffix, const bool
+         return nullptr;
+     }
+ 
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false) &&
++            (!strcmp(kind, "EGL") || !strcmp(kind, "GLES"))) {
++        // This stock libGAL has no DT_INIT/DT_INIT_ARRAY. Resolve through
++        // the EGL handle so initialization uses its own linker namespace.
++        // The vendor constructor checks the PID, including after fork.
++        auto initialize = reinterpret_cast<int (*)()>(
++                dlsym(dso, "gcoOS_ModuleConstructor"));
++        const int status = initialize ? initialize() : -1;
++        if (status < 0) {
++            ALOGE("T110 EGL: Vivante process initialization failed: %d", status);
++            do_android_unload_sphal_library(dso);
++            return nullptr;
++        }
++        ALOGI("T110 EGL: Vivante process initialized before entrypoint lookup");
++    }
+     ALOGD("loaded %s", driver_absolute_path);
+ 
+     return dso;

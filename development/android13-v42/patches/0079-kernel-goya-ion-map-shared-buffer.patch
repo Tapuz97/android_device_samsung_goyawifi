@@ -1,0 +1,10 @@
+--- a/drivers/gpu/ion/ion.c
++++ b/drivers/gpu/ion/ion.c
+@@ -1160,6 +1160,7 @@
+ 		break;
+ 	}
+ 	case ION_IOC_SHARE:
++	case ION_IOC_MAP:
+ 	{
+ 		struct ion_fd_data data;
+ 

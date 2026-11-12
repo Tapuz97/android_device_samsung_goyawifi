@@ -1,0 +1,22 @@
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ExpandableView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ExpandableView.java
+@@ -453,7 +453,18 @@
+             int top = getClipTopAmount();
+             int bottom = Math.max(Math.max(getActualHeight()
+                     - mClipBottomAmount, top), mMinimumHeightForClipping);
+-            mClipRect.set(Integer.MIN_VALUE, top, Integer.MAX_VALUE, bottom);
++            if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++                // The raster Canvas can drop this row when an INT_MIN/MAX clip intersects
++                // the shade's rounded path. Keep a full viewport of horizontal overflow
++                // on each side for shadows, groups and swipe/expansion translations.
++                android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
++                int overflow = Math.max(getWidth(),
++                        Math.max(metrics.widthPixels, metrics.heightPixels));
++                overflow += (int) Math.ceil(Math.max(0f, mExtraWidthForClipping));
++                mClipRect.set(-overflow, top, getWidth() + overflow, bottom);
++            } else {
++                mClipRect.set(Integer.MIN_VALUE, top, Integer.MAX_VALUE, bottom);
++            }
+             setClipBounds(mClipRect);
+         } else {
+             setClipBounds(null);

@@ -1,0 +1,118 @@
+--- a/src/com/android/settings/network/EthernetTetherPreferenceController.java
++++ b/src/com/android/settings/network/EthernetTetherPreferenceController.java
+@@ -43,7 +43,18 @@
+ 
+     public EthernetTetherPreferenceController(Context context, String preferenceKey) {
+         super(context, preferenceKey);
+-        mEthernetManager = context.getSystemService(EthernetManager.class);
++        mEthernetManager = getEthernetManager(context);
++    }
++
++    public static EthernetManager getEthernetManager(Context context) {
++        // The T110 product has no Ethernet service until its host stack is ported.
++        // getSystemService itself reports a fatal WTF on this engineering build;
++        // check the published binder before constructing a manager.
++        if ("t110_bringup".equals(android.os.Build.DEVICE)
++                && android.os.ServiceManager.checkService(Context.ETHERNET_SERVICE) == null) {
++            return null;
++        }
++        return context.getSystemService(EthernetManager.class);
+     }
+ 
+     @OnLifecycleEvent(Lifecycle.Event.ON_START)
+--- a/src/com/android/settings/network/TetherEnabler.java
++++ b/src/com/android/settings/network/TetherEnabler.java
+@@ -154,7 +154,7 @@
+         mDataSaverEnabled = mDataSaverBackend.isDataSaverEnabled();
+         mListeners = new ArrayList<>();
+         mMainThreadHandler = new Handler(Looper.getMainLooper());
+-        mEthernetManager = context.getSystemService(EthernetManager.class);
++        mEthernetManager = com.android.settings.network.EthernetTetherPreferenceController.getEthernetManager(context);
+     }
+ 
+     @OnLifecycleEvent(Lifecycle.Event.ON_START)
+--- a/src/com/android/settings/TetherSettings.java
++++ b/src/com/android/settings/TetherSettings.java
+@@ -178,7 +178,7 @@
+         mTm = (TetheringManager) getSystemService(Context.TETHERING_SERVICE);
+         // Some devices do not have available EthernetManager. In that case getSystemService will
+         // return null.
+-        mEm = mContext.getSystemService(EthernetManager.class);
++        mEm = com.android.settings.network.EthernetTetherPreferenceController.getEthernetManager(mContext);
+ 
+         mUsbRegexs = mTm.getTetherableUsbRegexs();
+         mBluetoothRegexs = mTm.getTetherableBluetoothRegexs();
+@@ -609,7 +609,7 @@
+                     }
+ 
+                     final EthernetManager em =
+-                            context.getSystemService(EthernetManager.class);
++                            com.android.settings.network.EthernetTetherPreferenceController.getEthernetManager(context);
+                     final boolean ethernetAvailable = (em != null);
+                     if (!ethernetAvailable) {
+                         keys.add(KEY_ENABLE_ETHERNET_TETHERING);
+--- a/src/com/android/settings/connecteddevice/usb/UsbBackend.java
++++ b/src/com/android/settings/connecteddevice/usb/UsbBackend.java
+@@ -68,7 +68,7 @@
+ 
+     @VisibleForTesting
+     public UsbBackend(Context context, UserManager userManager) {
+-        mUsbManager = context.getSystemService(UsbManager.class);
++        mUsbManager = isServiceAvailable() ? context.getSystemService(UsbManager.class) : null;
+ 
+         mFileTransferRestricted = isUsbFileTransferRestricted(userManager);
+         mFileTransferRestrictedBySystem = isUsbFileTransferRestrictedBySystem(userManager);
+@@ -83,23 +83,30 @@
+         updatePorts();
+     }
+ 
++    public static boolean isServiceAvailable() {
++        // ADB uses the legacy gadget directly; that does not imply UsbService exists.
++        return !"t110_bringup".equals(android.os.Build.DEVICE)
++                || android.os.ServiceManager.checkService(Context.USB_SERVICE) != null;
++    }
++
+     public long getCurrentFunctions() {
+-        return mUsbManager.getCurrentFunctions();
++        return mUsbManager == null ? UsbManager.FUNCTION_NONE : mUsbManager.getCurrentFunctions();
+     }
+ 
+     public void setCurrentFunctions(long functions) {
+-        mUsbManager.setCurrentFunctions(functions);
++        if (mUsbManager != null) mUsbManager.setCurrentFunctions(functions);
+     }
+ 
+     public long getDefaultUsbFunctions() {
+-        return mUsbManager.getScreenUnlockedFunctions();
++        return mUsbManager == null ? UsbManager.FUNCTION_NONE : mUsbManager.getScreenUnlockedFunctions();
+     }
+ 
+     public void setDefaultUsbFunctions(long functions) {
+-        mUsbManager.setScreenUnlockedFunctions(functions);
++        if (mUsbManager != null) mUsbManager.setScreenUnlockedFunctions(functions);
+     }
+ 
+     public boolean areFunctionsSupported(long functions) {
++        if (mUsbManager == null) return false;
+         if ((!mMidiSupported && (functions & UsbManager.FUNCTION_MIDI) != 0)
+                 || (!mTetheringSupported && (functions & UsbManager.FUNCTION_RNDIS) != 0)) {
+             return false;
+@@ -244,6 +251,7 @@
+     private void updatePorts() {
+         mPort = null;
+         mPortStatus = null;
++        if (mUsbManager == null) return;
+         List<UsbPort> ports = mUsbManager.getPorts();
+         // For now look for a connected port, in the future we should identify port in the
+         // notification and pick based on that.
+--- a/src/com/android/settings/connecteddevice/usb/UsbDetailsFragment.java
++++ b/src/com/android/settings/connecteddevice/usb/UsbDetailsFragment.java
+@@ -105,7 +105,7 @@
+             new BaseSearchIndexProvider(R.xml.usb_details_fragment) {
+                 @Override
+                 protected boolean isPageSearchEnabled(Context context) {
+-                    return checkIfUsbDataSignalingIsDisabled(
++                    return UsbBackend.isServiceAvailable() && checkIfUsbDataSignalingIsDisabled(
+                             context, UserHandle.myUserId()) == null;
+                 }
+ 

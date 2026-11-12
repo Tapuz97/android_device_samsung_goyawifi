@@ -1,0 +1,93 @@
+# Device startup for the full Android image.
+# Keep USB debugging available while the full APEX/framework boot is tested.
+# The platform's updatable service is otherwise delayed until APEX config ends.
+service adbd /apex/com.android.adbd/bin/adbd --root_seclabel=u:r:su:s0
+    override
+    class core
+    disabled
+    stdio_to_kmsg
+    socket adbd seqpacket 0660 system system
+    seclabel u:r:adbd:s0
+
+service t110-logcat /system/bin/logcat -b all -f /data/local/tmp/t110-logcat.txt -r 4096 -n 2 snet_event_log:S *:V
+    class core
+    disabled
+    user root
+    group root log readproc
+    seclabel u:r:su:s0
+
+on early-init
+    # stage.c loads the matched galcore using the legacy init_module syscall.
+    # Flattened APEX uses one mount namespace on this kernel.
+    umount /linkerconfig
+    update_linker_config
+
+on init
+    # Keep normal windows on the validated path while GPU presentation is repaired.
+    setprop debug.hwui.t110_window_gpu false
+    mkdir /data/local 0751 root root
+    mkdir /data/local/tmp 0771 shell shell
+    restorecon /data /data/local /data/local/tmp
+    # Optional diagnostic file capture: start explicitly through init when needed.
+    # Normal Android logd remains available without continuous disk writes.
+    mkdir /dev/usb-ffs 0775 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct 4EE7
+    write /sys/class/android_usb/android0/iManufacturer Samsung
+    write /sys/class/android_usb/android0/iProduct SM-T110
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    # Start debug USB before post-fs-data; later property actions retain control.
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.config adb
+    chown system graphics /dev/galcore
+    chmod 0666 /dev/galcore
+    restorecon /dev/galcore
+    chown system graphics /dev/ion
+    chmod 0666 /dev/ion
+    restorecon /dev/ion
+    chown system graphics /sys/devices/platform/pxa168-fb.0/vsync
+    chmod 0660 /sys/devices/platform/pxa168-fb.0/vsync
+    restorecon /sys/devices/platform/pxa168-fb.0/vsync
+    restorecon /sys/devices/platform/pxa168-fb.0/vsync_ts
+
+on fs
+    setprop ro.crypto.state unencrypted
+
+on post-fs-data
+    # The kernel exposes zram0 but it was left at disksize=0. Use Android's
+    # standard swap setup before zygote/main services to relieve boot pressure.
+    restorecon /dev/block/zram0
+    swapon_all /fstab.t110.zram
+    # This is RAM-backed swap, not a disk: reclaim cold anonymous pages before
+    # thrashing hot APK pages, and avoid disk-oriented swap read-ahead.
+    write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/page-cluster 0
+    setprop sys.usb.config adb
+
+# stage.c mounts the unencrypted dedicated data directory before Android init.
+# There is no mount_all to queue this event. Queue it after data preparation;
+# platform init then starts main (including installd) and late_start services.
+on post-fs-data && property:ro.crypto.state=unencrypted
+    trigger nonencrypted
+
+on property:sys.usb.ffs.ready=1
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state adb
+
+on property:sys.boot_completed=1
+    write /dev/t110-keepalive 1
+    # Early diagnostic ADB starts before derive_classpath/load_exports. Refresh
+    # it after startup so Java shell tools inherit Android's final classpaths.
+    restart adbd
+
+# init.svc is a platform-only trigger on Android13. Keep the cross-service
+# dependency in the platform boot script, not a vendor property action.
+on property:init.svc.t110-radio-init=stopped
+    start t110-bluetooth-init
+

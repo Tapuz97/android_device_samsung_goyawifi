@@ -1,0 +1,29 @@
+--- a/arch/arm/mach-mmp/board-goya.c
++++ b/arch/arm/mach-mmp/board-goya.c
+@@ -4389,7 +4389,7 @@
+ 		} else if (!strcmp(cmd, "GlobalActions restart")) {
+ 			data |= PMIC_GENERAL_USE_BOOT_BY_INTENDED_RESET;
+ 			pm822_extern_write(PM822_BASE_PAGE, PMIC_GENERAL_USE_REGISTER, data);
+-		} else if (!strcmp(cmd,"download")) {
++		} else if ((!strcmp(cmd,"download") || !strcmp(cmd,"bootloader"))) {
+ 			pmic_download_register = PMIC_GENERAL_DOWNLOAD_MODE_FUS + DOWNLOAD_FUS_SUD_BASE;
+ 			data |= pmic_download_register;
+ 			pm822_extern_write(PM822_BASE_PAGE, PMIC_GENERAL_USE_REGISTER, data);
+@@ -4464,7 +4464,7 @@
+ 		else if (!strncmp(cmd, "swsel",5))
+ 			pm800_extern_write(PM80X_BASE_PAGE, PMIC_GENERAL_USE_REGISTER, PMIC_GENERAL_USE_BOOT_BY_SET_SWITCH_SEL | cmd[5]-'0');
+ #endif
+-		else if (!strcmp(cmd,"download"))
++		else if ((!strcmp(cmd,"download") || !strcmp(cmd,"bootloader")))
+ 		{
+ 			pmic_download_register = PMIC_GENERAL_DOWNLOAD_MODE_FUS;
+ 			pmic_register =(pmic_download_register<<4)&0xF0;
+@@ -4520,7 +4520,7 @@
+ 			d2199_extern_reg_write(D2199_GP_ID_0_REG, PMIC_GENERAL_USE_BOOT_BY_DEBUGLEVEL_HIGH);
+ 		else if (!strcmp(cmd, "GlobalActions restart"))
+ 			d2199_extern_reg_write(D2199_GP_ID_0_REG, PMIC_GENERAL_USE_BOOT_BY_INTENDED_RESET);
+-		else if (!strcmp(cmd,"download"))
++		else if ((!strcmp(cmd,"download") || !strcmp(cmd,"bootloader")))
+ 		{
+ 			pr_info("pmic_download_register FUS : %d \n",pmic_download_register);
+ 			pmic_download_register = PMIC_GENERAL_DOWNLOAD_MODE_FUS;

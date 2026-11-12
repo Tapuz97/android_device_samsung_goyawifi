@@ -1,0 +1,68 @@
+--- a/libs/gui/ScreenCaptureResults.cpp
++++ b/libs/gui/ScreenCaptureResults.cpp
+@@ -15,10 +15,32 @@
+  */
+ 
+ #include <gui/ScreenCaptureResults.h>
++#include <android-base/properties.h>
++#include <binder/Binder.h>
+ 
+ #include <private/gui/ParcelUtils.h>
+ 
+ namespace android::gui {
++namespace {
++constexpr int32_t kT110CaptureOwnerTag = 0x5431314f;
++
++// This driver transports memory FDs, but its allocation owner also holds GPU
++// signals needed while registerBuffer imports the handle in another process.
++// Binder retains this object during delivery; the imported GraphicBuffer then
++// retains the token until its own cleanup. No delayed release or global cache.
++class T110CaptureBufferOwner final : public BBinder {
++public:
++    explicit T110CaptureBufferOwner(const sp<GraphicBuffer>& buffer) : mBuffer(buffer) {}
++private:
++    const sp<GraphicBuffer> mBuffer;
++};
++
++bool retainT110CaptureOwner() {
++    static const bool enabled = base::GetBoolProperty("ro.t110.legacy_gpu", false);
++    return enabled;
++}
++} // namespace
++
+ 
+ status_t ScreenCaptureResults::writeToParcel(android::Parcel* parcel) const {
+     if (buffer != nullptr) {
+@@ -39,6 +61,10 @@
+     SAFE_PARCEL(parcel->writeBool, capturedHdrLayers);
+     SAFE_PARCEL(parcel->writeUint32, static_cast<uint32_t>(capturedDataspace));
+     SAFE_PARCEL(parcel->writeInt32, result);
++    if (retainT110CaptureOwner() && buffer != nullptr) {
++        SAFE_PARCEL(parcel->writeInt32, kT110CaptureOwnerTag);
++        SAFE_PARCEL(parcel->writeStrongBinder, sp<T110CaptureBufferOwner>::make(buffer));
++    }
+     return NO_ERROR;
+ }
+ 
+@@ -63,6 +89,21 @@
+     SAFE_PARCEL(parcel->readUint32, &dataspace);
+     capturedDataspace = static_cast<ui::Dataspace>(dataspace);
+     SAFE_PARCEL(parcel->readInt32, &result);
++    if (retainT110CaptureOwner() && buffer != nullptr && parcel->dataAvail() >= sizeof(int32_t)) {
++        // Older capture payloads do not have this device-only extension.
++        const size_t position = parcel->dataPosition();
++        int32_t tag = 0;
++        SAFE_PARCEL(parcel->readInt32, &tag);
++        if (tag == kT110CaptureOwnerTag) {
++            sp<IBinder> owner;
++            SAFE_PARCEL(parcel->readStrongBinder, &owner);
++            if (owner == nullptr) return BAD_VALUE;
++            // GraphicBuffer invokes these callbacks after freeing its handle.
++            buffer->addDeathCallback([owner](void*, uint64_t) { (void)owner; }, nullptr);
++        } else {
++            parcel->setDataPosition(position);
++        }
++    }
+     return NO_ERROR;
+ }
+ 

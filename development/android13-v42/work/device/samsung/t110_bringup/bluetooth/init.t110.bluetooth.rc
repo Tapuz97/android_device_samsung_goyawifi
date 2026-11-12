@@ -1,0 +1,12 @@
+service t110-bluetooth-init /vendor/bin/t110_bt_init
+    class core
+    disabled
+    oneshot
+    user root
+    group bluetooth
+    capabilities SYS_MODULE
+    stdio_to_kmsg
+on post-fs-data
+    mkdir /data/vendor/t110-bluetooth 0750 root bluetooth
+    restorecon_recursive /data/vendor/t110-bluetooth
+

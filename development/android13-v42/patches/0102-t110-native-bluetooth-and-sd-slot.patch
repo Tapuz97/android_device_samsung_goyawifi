@@ -1,0 +1,293 @@
+--- a/Android.bp
++++ b/Android.bp
+@@ -1,3 +1,23 @@
++cc_binary {
++    name: "t110_bt_init",
++    vendor: true,
++    srcs: ["bluetooth/t110_bt_init.c"],
++    init_rc: ["bluetooth/init.t110.bluetooth.rc"],
++    stl: "none",
++    cflags: ["-Wall", "-Wextra", "-Werror"],
++}
++
++cc_library_shared {
++    name: "libbt-vendor.t110",
++    stem: "libbt-vendor",
++    vendor: true,
++    srcs: ["bluetooth/bt_vendor_t110.c"],
++    include_dirs: ["hardware/interfaces/bluetooth/1.0/default"],
++    shared_libs: ["liblog"],
++    stl: "none",
++    cflags: ["-Wall", "-Wextra", "-Werror"],
++}
++
+ cc_binary {
+     name: "t110_radio_init",
+     vendor: true,
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -18,6 +18,7 @@
+ # Linux3.4 still checks file:swapon. Keep the legacy permission device-specific.
+ BOARD_SEPOLICY_M4DEFS += t110_legacy_swapon=true
+ DEVICE_MANIFEST_FILE := device/samsung/t110_bringup/graphics-manifest.xml
++DEVICE_MANIFEST_FILE += device/samsung/t110_bringup/bluetooth/manifest.xml
+ TARGET_USERIMAGES_USE_EXT4 := true
+ # eng normally precompiles only the boot classpath and system-server jars.
+ # Include apps too, particularly PermissionController and the initial UI.
+--- a/t110_system.mk
++++ b/t110_system.mk
+@@ -11,7 +11,7 @@
+ SOONG_CONFIG_NAMESPACES += t110
+ SOONG_CONFIG_t110 += preopt_flattened_apex_apps preopt_apex_name
+ SOONG_CONFIG_t110_preopt_flattened_apex_apps := true
+-SOONG_CONFIG_t110_preopt_apex_name := com.android.permission com.android.tethering
++SOONG_CONFIG_t110_preopt_apex_name := com.android.permission com.android.tethering com.android.btservices
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+ $(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+ $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
+@@ -66,6 +66,7 @@
+ PRODUCT_DEXPREOPT_SPEED_APPS += PermissionController SystemUI TrebuchetQuickStep Settings ThemePicker
+ # These services run during startup and ART cannot use JIT on this kernel.
+ PRODUCT_DEXPREOPT_SPEED_APPS += NetworkStack TetheringNext
++PRODUCT_DEXPREOPT_SPEED_APPS += Bluetooth
+ # The engineering build's extra main-thread diagnostics flash a red frame on
+ # routine disk access. Keep debugging access without enabling those defaults.
+ PRODUCT_SYSTEM_PROPERTIES += persist.sys.strictmode.disable=true
+@@ -90,6 +91,18 @@
+     $(LOCAL_PATH)/wifi/assets/sd8777_uapsta.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/mrvl/sd8777_uapsta.bin \
+     $(LOCAL_PATH)/wifi/assets/cal_data.conf:$(TARGET_COPY_OUT_VENDOR)/firmware/mrvl/cal_data.conf
+ 
++# Use the standard Android Bluetooth HAL/stack over the qualified Marvell H4
++# character transport. The board loader reuses Wi-Fi's active combo firmware.
++PRODUCT_PACKAGES += t110_bt_init libbt-vendor.t110 android.hardware.bluetooth@1.1-service
++PRODUCT_PACKAGES += android.hardware.bluetooth.audio@2.1-impl
++PRODUCT_SYSTEM_PROPERTIES += ro.bt.bdaddr_path=/data/vendor/t110-bluetooth/controller_address
++PRODUCT_SYSTEM_PROPERTIES += ro.bluetooth.a2dp_offload.supported=false
++PRODUCT_COPY_FILES += \
++    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
++    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
++    $(LOCAL_PATH)/bluetooth/assets/mbt8xxx.ko:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/modules/mbt8xxx.ko \
++    $(LOCAL_PATH)/storage/fstab.mrvl:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.mrvl
++
+ # Samsung's Jelly Bean sdcardfs rejects the modern fsuid/fsgid/mask options.
+ # Select Android's existing MediaProvider FUSE path. Keep its access checks;
+ # do not require newer ext4 casefold/project-quota features on existing data.
+--- a/sepolicy/file_contexts
++++ b/sepolicy/file_contexts
+@@ -5,3 +5,7 @@
+ /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software u:object_r:hal_gatekeeper_default_exec:s0
+ /(vendor|system/vendor)/bin/t110_radio_init u:object_r:t110_radio_init_exec:s0
+ /(vendor|system/vendor)/etc/wifi/modules/(mlan|sd8xxx)\.ko u:object_r:t110_radio_module_file:s0
++/(vendor|system/vendor)/bin/t110_bt_init u:object_r:t110_radio_init_exec:s0
++/(vendor|system/vendor)/etc/bluetooth/modules/mbt8xxx\.ko u:object_r:t110_radio_module_file:s0
++/dev/mbtchar[0-9]+ u:object_r:t110_bt_device:s0
++/data/vendor/t110-bluetooth(/.*)? u:object_r:t110_bt_address_file:s0
+--- a/sepolicy/t110_radio_init.te
++++ b/sepolicy/t110_radio_init.te
+@@ -14,3 +14,12 @@
+ allow t110_radio_init sysfs:dir search;
+ allow t110_radio_init sysfs_t110_wifi_rfkill_name:file r_file_perms;
+ allow t110_radio_init sysfs_t110_wifi_rfkill:file rw_file_perms;
++type t110_bt_device, dev_type;
++allow t110_radio_init t110_bt_device:chr_file { getattr setattr };
++type t110_bt_address_file, file_type, data_file_type;
++allow t110_radio_init t110_bt_device:chr_file rw_file_perms;
++allow hal_bluetooth_server t110_bt_device:chr_file rw_file_perms;
++allow t110_radio_init t110_bt_address_file:dir create_dir_perms;
++allow t110_radio_init t110_bt_address_file:file create_file_perms;
++allow hal_bluetooth_server t110_bt_address_file:dir r_dir_perms;
++allow hal_bluetooth_server t110_bt_address_file:file r_file_perms;
+--- /dev/null
++++ b/storage/fstab.mrvl
+@@ -0,0 +1,4 @@
++# Retain the engineering boot mounts and let native vold manage only the SD slot.
++/dev/block/loop0 /system ext4 ro wait
++/dev/block/mmcblk0p16 /data ext4 nosuid,nodev,noatime wait
++/devices/platform/sdhci-pxav3.0/mmc_host/mmc1/* auto auto defaults voldmanaged=sdcard1:auto
+--- /dev/null
++++ b/bluetooth/bt_vendor_t110.c
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: Apache-2.0
++// Marvell SD8777 character transport; shared firmware is initialized by the kernel.
++#define LOG_TAG "bt-vendor-t110"
++#include "bt_vendor_lib.h"
++#include <errno.h>
++#include <fcntl.h>
++#include <log/log.h>
++#include <stddef.h>
++#include <string.h>
++#include <sys/stat.h>
++#include <unistd.h>
++
++static const bt_vendor_callbacks_t* callbacks;
++static int transport_fd=-1;
++static void close_transport(void) {
++    if(transport_fd>=0)close(transport_fd);
++    transport_fd=-1;
++}
++static int init(const bt_vendor_callbacks_t* cb,unsigned char* address) {
++    (void)address; // Preserve the controller's identity; never program a generated address.
++    if(!cb || cb->size<sizeof(*cb) || !cb->fwcfg_cb || !cb->lpm_cb)return -EINVAL;
++    if(callbacks)return -EBUSY;
++    callbacks=cb;return 0;
++}
++static int op(bt_vendor_opcode_t opcode,void* param) {
++    if(!callbacks)return -ENODEV;
++    switch(opcode) {
++    case BT_VND_OP_POWER_CTRL:
++        if(!param)return -EINVAL;
++        if(*(int*)param==BT_VND_PWR_OFF){close_transport();return 0;}
++        // GPIO/firmware power is shared with Wi-Fi and owned by the board driver.
++        return *(int*)param==BT_VND_PWR_ON ? 0 : -EINVAL;
++    case BT_VND_OP_USERIAL_OPEN: {
++        if(!param || transport_fd>=0)return 0;
++        int* fds=param;for(int i=0;i<CH_MAX;++i)fds[i]=-1;
++        int fd=open("/dev/mbtchar0",O_RDWR|O_CLOEXEC|O_NONBLOCK|O_NOFOLLOW);
++        if(fd<0){ALOGE("open Marvell character transport: %s",strerror(errno));return 0;}
++        struct stat st;
++        if(fstat(fd,&st) || !S_ISCHR(st.st_mode) || (st.st_mode&0007)){close(fd);return 0;}
++        transport_fd=fd;fds[CH_CMD]=fd;return 1;
++    }
++    case BT_VND_OP_USERIAL_CLOSE:close_transport();return 0;
++    case BT_VND_OP_FW_CFG:
++        // Kernel module bring-up already completed on the active combo firmware.
++        callbacks->fwcfg_cb(transport_fd>=0?BT_VND_OP_RESULT_SUCCESS:BT_VND_OP_RESULT_FAIL);return 0;
++    case BT_VND_OP_GET_LPM_IDLE_TIMEOUT:
++        if(!param)return -EINVAL;
++        *(uint32_t*)param=1000;return 0;
++    case BT_VND_OP_LPM_SET_MODE:
++        // The SDIO driver owns firmware wake/sleep; there is no UART wake GPIO.
++        if(!param)return -EINVAL;
++        callbacks->lpm_cb(BT_VND_OP_RESULT_SUCCESS);return 0;
++    case BT_VND_OP_LPM_WAKE_SET_STATE:return param?0:-EINVAL;
++    case BT_VND_OP_EPILOG:
++        if(callbacks->epilog_cb)callbacks->epilog_cb(BT_VND_OP_RESULT_SUCCESS);
++        return 0;
++    case BT_VND_OP_SCO_CFG:
++        if(callbacks->scocfg_cb)callbacks->scocfg_cb(BT_VND_OP_RESULT_FAIL);
++        return -ENOTSUP;
++    case BT_VND_OP_SET_AUDIO_STATE:
++        if(callbacks->audio_state_cb)callbacks->audio_state_cb(BT_VND_OP_RESULT_FAIL);
++        return -ENOTSUP;
++    case BT_VND_OP_A2DP_OFFLOAD_START:
++    case BT_VND_OP_A2DP_OFFLOAD_STOP:
++        if(callbacks->a2dp_offload_cb)callbacks->a2dp_offload_cb(BT_VND_OP_RESULT_FAIL,opcode,0);
++        return -ENOTSUP;
++    default:return -ENOTSUP;
++    }
++}
++static void cleanup(void){close_transport();callbacks=NULL;}
++const bt_vendor_interface_t BLUETOOTH_VENDOR_LIB_INTERFACE={sizeof(bt_vendor_interface_t),init,op,cleanup};
+--- /dev/null
++++ b/bluetooth/t110_bt_init.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: Apache-2.0
++// Reuse the active Wi-Fi combo firmware. Never reload it or toggle shared power.
++#include <errno.h>
++#include <fcntl.h>
++#include <poll.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/mman.h>
++#include <sys/stat.h>
++#include <sys/syscall.h>
++#include <time.h>
++#include <unistd.h>
++static long long now_ms(void) {
++    struct timespec t;clock_gettime(CLOCK_MONOTONIC,&t);
++    return (long long)t.tv_sec*1000+t.tv_nsec/1000000;
++}
++static int save_controller_address(void) {
++    int fd=open("/dev/mbtchar0",O_RDWR|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC);
++    if(fd<0){perror("open Bluetooth controller address transport");return 1;}
++    const unsigned char command[]={1,9,16,0};
++    if(write(fd,command,sizeof(command))!=sizeof(command)){close(fd);return 1;}
++    unsigned char bytes[1024];size_t have=0;int result=1;
++    long long deadline=now_ms()+3000;
++    while(now_ms()<deadline) {
++        while(have>=3) {
++            if(bytes[0]!=4)goto done;
++            size_t count=3+bytes[2];if(have<count)break;
++            if(bytes[1]==14 && count==13 && bytes[4]==9 && bytes[5]==16 && bytes[6]==0) {
++                int any=0,all_ff=1;for(int i=7;i<13;++i){any|=bytes[i];all_ff&=bytes[i]==255;}
++                if(!any||all_ff)goto done;
++                char address[19];int length=snprintf(address,sizeof(address),"%02x:%02x:%02x:%02x:%02x:%02x\n",bytes[12],bytes[11],bytes[10],bytes[9],bytes[8],bytes[7]);
++                int out=open("/data/vendor/t110-bluetooth/controller_address.tmp",O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC|O_NOFOLLOW,0640);
++                if(out<0){perror("create controller address file");goto done;}
++                // init's restrictive umask removes the requested group-read bit.
++                // Set the exact root:bluetooth mode before publishing the file.
++                int ok=fchmod(out,0640)==0 && write(out,address,length)==length && fsync(out)==0;close(out);
++                if(ok && !rename("/data/vendor/t110-bluetooth/controller_address.tmp","/data/vendor/t110-bluetooth/controller_address"))result=0;
++                goto done;
++            }
++            memmove(bytes,bytes+count,have-count);have-=count;
++        }
++        long long remaining=deadline-now_ms();if(remaining<=0)break;
++        struct pollfd poller={fd,POLLIN,0};int ready=poll(&poller,1,(int)remaining);
++        if(ready<0&&errno==EINTR)continue;
++        if(ready<=0)continue;
++        if(poller.revents&(POLLERR|POLLHUP|POLLNVAL))break;
++        ssize_t n=read(fd,bytes+have,sizeof(bytes)-have);
++        if(n<0&&(errno==EINTR||errno==EAGAIN))continue;
++        if(n<=0)break;
++        have+=n;if(have==sizeof(bytes))break;
++    }
++done:
++    close(fd);return result;
++}
++int main(void) {
++    if(getuid()!=0)return 2;
++    struct stat st;
++    if(!lstat("/dev/mbtchar0",&st) && S_ISCHR(st.st_mode) && !(st.st_mode&0007))return save_controller_address();
++    if(access("/sys/module/sd8xxx",F_OK)){fputs("Wi-Fi combo firmware not initialized\n",stderr);return 1;}
++    int fd=open("/vendor/etc/bluetooth/modules/mbt8xxx.ko",O_RDONLY|O_NOFOLLOW|O_CLOEXEC);
++    if(fd<0){perror("open Bluetooth module");return 1;}
++    if(fstat(fd,&st)||!S_ISREG(st.st_mode)||st.st_size<64||st.st_size>2*1024*1024){close(fd);return 2;}
++    size_t size=st.st_size;void* bytes=mmap(NULL,size,PROT_READ,MAP_PRIVATE,fd,0);close(fd);
++    if(bytes==MAP_FAILED){perror("map Bluetooth module");return 1;}
++    if(memcmp(bytes,"\177ELF\1\1",6)){munmap(bytes,size);return 2;}
++    long result=syscall(SYS_init_module,bytes,size,"fw=1 drv_mode=1 debug_intf=0 require_fw_ready=1 req_fw_nowait=0");
++    if(result)perror("initialize Bluetooth module");
++    munmap(bytes,size);
++    if(result)return 1;
++    if(lstat("/dev/mbtchar0",&st)||!S_ISCHR(st.st_mode)||(st.st_mode&0007))return 1;
++    return save_controller_address();
++}
+--- /dev/null
++++ b/bluetooth/init.t110.bluetooth.rc
+@@ -0,0 +1,12 @@
++service t110-bluetooth-init /vendor/bin/t110_bt_init
++    class core
++    disabled
++    oneshot
++    user root
++    group bluetooth
++    capabilities SYS_MODULE
++    stdio_to_kmsg
++on post-fs-data
++    mkdir /data/vendor/t110-bluetooth 0750 root bluetooth
++    restorecon_recursive /data/vendor/t110-bluetooth
++
+--- /dev/null
++++ b/bluetooth/manifest.xml
+@@ -0,0 +1,20 @@
++<manifest version="1.0" type="device">
++    <hal format="hidl">
++        <name>android.hardware.bluetooth</name>
++        <transport>hwbinder</transport>
++        <version>1.1</version>
++        <interface>
++            <name>IBluetoothHci</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
++    <hal format="hidl">
++        <name>android.hardware.bluetooth.audio</name>
++        <transport>hwbinder</transport>
++        <version>2.1</version>
++        <interface>
++            <name>IBluetoothAudioProvidersFactory</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
++</manifest>

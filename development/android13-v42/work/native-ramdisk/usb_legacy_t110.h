@@ -1,0 +1,117 @@
+// SPDX-License-Identifier: Apache-2.0
+// Synchronous FunctionFS transport for the explicitly opted-in T110 kernel.
+// Transfer sizing follows AOSP Android 10 daemon/usb_legacy.cpp. Cancellation
+// interrupts in-flight syscalls before closing descriptors, avoiding fd reuse.
+#include <pthread.h>
+#include <signal.h>
+#include <sys/syscall.h>
+
+class T110LegacyUsbConnection final : public BlockingConnection {
+  public:
+    T110LegacyUsbConnection(unique_fd control, unique_fd read, unique_fd write,
+                            std::promise<void> notifier)
+        : control_(std::move(control)), read_(std::move(read)), write_(std::move(write)),
+          notifier_(std::move(notifier)) {
+        static std::once_flag once;
+        std::call_once(once, [] {
+            struct sigaction action = {};
+            action.sa_handler = [](int) {};
+            sigemptyset(&action.sa_mask);
+            CHECK_EQ(sigaction(SIGUSR1, &action, nullptr), 0);
+        });
+        LOG(INFO) << "T110 synchronous FunctionFS transport enabled";
+    }
+
+    ~T110LegacyUsbConnection() override {
+        Close();
+        write_.reset();
+        read_.reset();
+        control_.reset();
+        notifier_.set_value();
+    }
+
+    bool Read(apacket* packet) override {
+        if (!Transfer(false, &packet->msg, sizeof(packet->msg))) return false;
+        if (packet->msg.data_length > MAX_PAYLOAD ||
+            packet->msg.magic != (packet->msg.command ^ 0xffffffffU)) return false;
+        packet->payload.resize(packet->msg.data_length);
+        return Transfer(false, packet->payload.data(), packet->payload.size());
+    }
+
+    bool Write(apacket* packet) override {
+        return Transfer(true, &packet->msg, sizeof(packet->msg)) &&
+               Transfer(true, packet->payload.data(), packet->payload.size());
+    }
+
+    bool DoTlsHandshake(RSA*, std::string*) override { return false; }
+    void Reset() override { Close(); }
+
+    void Close() override {
+        std::unique_lock<std::mutex> lock(io_mutex_);
+        stopped_ = true;
+        while (active_[0] || active_[1]) {
+            for (int i = 0; i < 2; ++i) {
+                if (active_[i]) pthread_kill(threads_[i], SIGUSR1);
+            }
+            lock.unlock();
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            lock.lock();
+        }
+    }
+
+  private:
+    bool Transfer(bool writing, void* buffer, size_t remaining) {
+        if (!remaining) return true;
+        const int index = writing ? 1 : 0;
+        sigset_t signal_set;
+        sigemptyset(&signal_set);
+        sigaddset(&signal_set, SIGUSR1);
+        pthread_sigmask(SIG_UNBLOCK, &signal_set, nullptr);
+        {
+            std::lock_guard<std::mutex> lock(io_mutex_);
+            if (stopped_) return false;
+            CHECK(!active_[index]);
+            active_[index] = true;
+            threads_[index] = pthread_self();
+        }
+        struct Finish {
+            T110LegacyUsbConnection* owner;
+            int index;
+            ~Finish() {
+                std::lock_guard<std::mutex> lock(owner->io_mutex_);
+                owner->active_[index] = false;
+            }
+        } finish{this, index};
+        auto data = static_cast<char*>(buffer);
+        while (remaining) {
+            {
+                std::lock_guard<std::mutex> lock(io_mutex_);
+                if (stopped_) return false;
+            }
+            const size_t amount = std::min(remaining, size_t{16384});
+            // Do not use TEMP_FAILURE_RETRY: Close must cancel EINTR.
+            // adb_read/adb_write retry EINTR internally, preventing cancellation.
+            ssize_t n = writing ? syscall(SYS_write, write_.get(), data, amount)
+                                : syscall(SYS_read, read_.get(), data, amount);
+            if (n < 0) {
+                if (errno == EINTR) continue;
+                PLOG(ERROR) << "T110 FunctionFS " << (writing ? "write" : "read");
+                return false;
+            }
+            if (n == 0) {
+                if (writing) return false;
+                continue; // Consume host USB zero-length packets between messages.
+            }
+            data += n;
+            remaining -= n;
+        }
+        return true;
+    }
+
+    unique_fd control_, read_, write_;
+    std::promise<void> notifier_;
+    std::mutex io_mutex_;
+    bool stopped_ = false;
+    bool active_[2] = {false, false};
+    pthread_t threads_[2] = {};
+};

@@ -1,0 +1,65 @@
+[
+  {
+    "directory": "los13-common",
+    "url": "https://github.com/visyone/android_device_samsung_goya-common.git",
+    "commit": "0008e9e09126fa25bb8b71dc5a8b7b5718784174"
+  },
+  {
+    "directory": "los13-device",
+    "url": "https://github.com/visyone/android_device_samsung_goyawifi.git",
+    "commit": "77bcf94a6f2e6e4497b0ec9a8aecd1915f4fc05c"
+  },
+  {
+    "directory": "los13-manifest",
+    "url": "https://github.com/visyone/android_platform_manifest.git",
+    "commit": "bb2886d836cab6ee77611847054db3fd8eaf9583"
+  },
+  {
+    "directory": "los13-marvell",
+    "url": "https://github.com/visyone/android_device_samsung_marvell-common.git",
+    "commit": "4df0830cc537fe5a346651423e2dc35c0e2ee53a"
+  },
+  {
+    "directory": "t110-cm11-manifest",
+    "url": "https://github.com/samsung-goya/android_platform_manifest.git",
+    "commit": "372d9ce078387f1e8a855d2f9ff20a25fdd027d6"
+  },
+  {
+    "directory": "t210-cm11",
+    "url": "https://github.com/T210-dev/android_device_samsung_lt02wifi.git",
+    "commit": "04023cf7f742e7d03e556822b58c061638c1f9ff"
+  },
+  {
+    "directory": "t210-cm13",
+    "url": "https://github.com/cmlt02/android_device_samsung_lt02wifi.git",
+    "commit": "984ebbc68ab55d00b3ea4d1c87f1772b253009f3"
+  },
+  {
+    "directory": "t210-patches",
+    "url": "https://github.com/cmlt02/Marvell_Patches.git",
+    "commit": "59ad3ef6b1c86de0902014c45f740e85062fef0e"
+  },
+  {
+    "directory": "WSL:/root/t110-build/kernel",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya.git",
+    "commit": "3c50b450af74d42f8c5d360c692f71002b3bb0af"
+  },
+  {
+    "directory": "WSL:/root/t110-build/android-common-3.4",
+    "url": "https://android.googlesource.com/kernel/common",
+    "branch": "deprecated/android-3.4",
+    "commit": "40bb591cb6abaf540bf9a988e3fac0ca86368865"
+  },
+  {
+    "directory": "WSL:/root/t110-build/toolchain",
+    "url": "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6",
+    "commit": "b4ecd7806d8f46cddeacaf9f8de92c191fb266e4"
+  },
+  {
+    "directory": "evidence/binder-donor-3.18-n",
+    "url": "https://android.googlesource.com/kernel/common",
+    "branch": "deprecated/android-3.18-n-release",
+    "commit": "71c88531171e6a1eb49da78e8260475310dc1e81",
+    "scope": "Binder source snapshot only"
+  }
+]

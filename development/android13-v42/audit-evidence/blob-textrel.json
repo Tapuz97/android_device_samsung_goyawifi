@@ -1,0 +1,26 @@
+[
+  {
+    "file": "libGAL.so",
+    "textrel": true
+  },
+  {
+    "file": "libHWComposerGC.so",
+    "textrel": false
+  },
+  {
+    "file": "hw/gralloc.mrvl.so",
+    "textrel": false
+  },
+  {
+    "file": "hw/hwcomposer.mrvl.so",
+    "textrel": false
+  },
+  {
+    "file": "egl/libEGL_MRVL.so",
+    "textrel": false
+  },
+  {
+    "file": "egl/libGLESv2_MRVL.so",
+    "textrel": false
+  }
+]

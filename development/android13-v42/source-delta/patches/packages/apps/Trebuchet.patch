@@ -1,0 +1,51 @@
+diff --git a/quickstep/src/com/android/quickstep/ViewUtils.java b/quickstep/src/com/android/quickstep/ViewUtils.java
+index b132067..ca2699c 100644
+--- a/quickstep/src/com/android/quickstep/ViewUtils.java
++++ b/quickstep/src/com/android/quickstep/ViewUtils.java
+@@ -43,6 +43,10 @@ public class ViewUtils {
+      */
+     public static boolean postFrameDrawn(
+             View view, Runnable onFinishRunnable, BooleanSupplier canceled) {
++        if ("t110_bringup".equals(android.os.Build.DEVICE)
++                && !view.isHardwareAccelerated()) {
++            return new T110SoftwareFrameHandler(view, onFinishRunnable, canceled).schedule();
++        }
+         return new FrameHandler(view, onFinishRunnable, canceled).schedule();
+     }
+ 
+diff --git a/quickstep/src/com/android/quickstep/util/SurfaceTransactionApplier.java b/quickstep/src/com/android/quickstep/util/SurfaceTransactionApplier.java
+index 95473dc..912c38b 100644
+--- a/quickstep/src/com/android/quickstep/util/SurfaceTransactionApplier.java
++++ b/quickstep/src/com/android/quickstep/util/SurfaceTransactionApplier.java
+@@ -44,6 +44,7 @@ public class SurfaceTransactionApplier extends ReleaseCheck {
+     private final Handler mApplyHandler;
+ 
+     private int mLastSequenceNumber = 0;
++    private boolean mSoftwarePathLogged;
+ 
+     /**
+      * @param targetView The view in the surface that acts as synchronization anchor.
+@@ -79,6 +80,23 @@ public class SurfaceTransactionApplier extends ReleaseCheck {
+         mLastSequenceNumber++;
+         final int toApplySeqNo = mLastSequenceNumber;
+         setCanRelease(false);
++        if ("t110_bringup".equals(Build.DEVICE) && !view.isHardwareAccelerated()) {
++            // Software windows have no RenderThread to deliver this callback.
++            // Submit their transform transaction directly, and keep the same
++            // ordered release bookkeeping as the hardware callback below.
++            if (mBarrierSurfaceControl != null && mBarrierSurfaceControl.isValid()) {
++                t.apply();
++            }
++            Message.obtain(mApplyHandler, MSG_UPDATE_SEQUENCE_NUMBER, toApplySeqNo, 0)
++                    .sendToTarget();
++            if (!mSoftwarePathLogged) {
++                android.util.Log.d("T110SoftwareSurface",
++                        "Applying launcher surface transaction without RenderThread");
++                mSoftwarePathLogged = true;
++            }
++            view.invalidate();
++            return;
++        }
+         mTargetViewRootImpl.registerRtFrameCallback(frame -> {
+             if (mBarrierSurfaceControl == null || !mBarrierSurfaceControl.isValid()) {
+                 Message.obtain(mApplyHandler, MSG_UPDATE_SEQUENCE_NUMBER, toApplySeqNo, 0)

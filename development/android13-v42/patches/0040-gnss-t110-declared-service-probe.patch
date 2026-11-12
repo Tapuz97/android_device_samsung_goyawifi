@@ -1,0 +1,95 @@
+diff --git a/services/core/jni/gnss/Android.bp b/services/core/jni/gnss/Android.bp
+index 0531ae2a..5c2a2619 100644
+--- a/services/core/jni/gnss/Android.bp
++++ b/services/core/jni/gnss/Android.bp
+@@ -9,6 +9,7 @@ package {
+ 
+ cc_library_shared {
+     name: "libservices.core-gnss",
++    shared_libs: ["libbase"],
+     defaults: ["libservices.core-gnss-libs"],
+ 
+     cpp_std: "c++2a",
+diff --git a/services/core/jni/gnss/Gnss.cpp b/services/core/jni/gnss/Gnss.cpp
+index 8934c3a6..cc554f6b 100644
+--- a/services/core/jni/gnss/Gnss.cpp
++++ b/services/core/jni/gnss/Gnss.cpp
+@@ -20,6 +20,9 @@
+ #include "Gnss.h"
+ 
+ #include <binder/IServiceManager.h>
++#include <android-base/properties.h>
++#include <android/hidl/manager/1.0/IServiceManager.h>
++#include <hidl/ServiceManagement.h>
+ 
+ #include "Utils.h"
+ 
+@@ -48,6 +51,21 @@ using android::hardware::gnss::IGnssPsds;
+ 
+ namespace {
+ 
++// A legacy product without VINTF enforcement otherwise sleeps for every absent
++// HIDL version and tries to launch it. Do not wait on the system-server main
++// thread for providers this product has not declared or made ready.
++template <typename Interface>
++sp<Interface> getGnssHidlService(bool declaredOnly) {
++    if (!declaredOnly) return Interface::getService();
++    auto manager = hardware::defaultServiceManager();
++    if (manager == nullptr) return nullptr;
++    auto transport = manager->getTransport(Interface::descriptor, "default");
++    using Transport = hidl::manager::V1_0::IServiceManager::Transport;
++    if (!transport.isOk() || transport == Transport::EMPTY) return nullptr;
++    return Interface::tryGetService();
++}
++
++
+ GnssLocationAidl createGnssLocation(jint gnssLocationFlags, jdouble latitudeDegrees,
+                                     jdouble longitudeDegrees, jdouble altitudeMeters,
+                                     jfloat speedMetersPerSec, jfloat bearingDegrees,
+@@ -129,7 +147,10 @@ GnssLocation_V2_0 createGnssLocation_V2_0(jint gnssLocationFlags, jdouble latitu
+ // Implementation of GnssHal, which unifies all versions of GNSS HALs
+ 
+ GnssHal::GnssHal() {
+-    gnssHalAidl = waitForVintfService<IGnssAidl>();
++    const bool declaredOnly = base::GetBoolProperty("ro.t110.optional_hal_probe", false);
++    if (declaredOnly) ALOGI("T110 GNSS probing declared services without waiting");
++    gnssHalAidl = declaredOnly ? checkVintfService<IGnssAidl>()
++                               : waitForVintfService<IGnssAidl>();
+     if (gnssHalAidl != nullptr) {
+         ALOGD("Successfully got GNSS AIDL handle. Version=%d.", gnssHalAidl->getInterfaceVersion());
+         if (gnssHalAidl->getInterfaceVersion() >= 2) {
+@@ -138,7 +159,7 @@ GnssHal::GnssHal() {
+     }
+ 
+     ALOGD("Trying IGnss_V2_1::getService()");
+-    gnssHal_V2_1 = IGnss_V2_1::getService();
++    gnssHal_V2_1 = getGnssHidlService<IGnss_V2_1>(declaredOnly);
+     if (gnssHal_V2_1 != nullptr) {
+         gnssHal_V2_0 = gnssHal_V2_1;
+         gnssHal_V1_1 = gnssHal_V2_1;
+@@ -147,7 +168,7 @@ GnssHal::GnssHal() {
+     }
+ 
+     ALOGD("gnssHal 2.1 was null, trying 2.0");
+-    gnssHal_V2_0 = IGnss_V2_0::getService();
++    gnssHal_V2_0 = getGnssHidlService<IGnss_V2_0>(declaredOnly);
+     if (gnssHal_V2_0 != nullptr) {
+         gnssHal_V1_1 = gnssHal_V2_0;
+         gnssHal = gnssHal_V2_0;
+@@ -155,14 +176,14 @@ GnssHal::GnssHal() {
+     }
+ 
+     ALOGD("gnssHal 2.0 was null, trying 1.1");
+-    gnssHal_V1_1 = IGnss_V1_1::getService();
++    gnssHal_V1_1 = getGnssHidlService<IGnss_V1_1>(declaredOnly);
+     if (gnssHal_V1_1 != nullptr) {
+         gnssHal = gnssHal_V1_1;
+         return;
+     }
+ 
+     ALOGD("gnssHal 1.1 was null, trying 1.0");
+-    gnssHal = IGnss_V1_0::getService();
++    gnssHal = getGnssHidlService<IGnss_V1_0>(declaredOnly);
+ }
+ 
+ jboolean GnssHal::isSupported() {

@@ -1,0 +1,16 @@
+subsystem graphics
+    devname uevent_devname
+    dirname /dev/graphics
+
+/dev/null                 0666 root root
+/dev/zero                 0666 root root
+/dev/random               0666 root root
+/dev/urandom              0666 root root
+/dev/tty                  0666 root root
+/dev/kmsg                 0600 root root
+/dev/binder               0600 root root
+/dev/hwbinder             0600 root root
+/dev/vndbinder            0600 root root
+/dev/usb-ffs/adb/ep0       0660 root shell
+/dev/usb-ffs/adb/ep1       0660 root shell
+/dev/usb-ffs/adb/ep2       0660 root shell

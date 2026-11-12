@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home (1), Back (2), Recents (16), Volume (64). Preserve volume options. -->
+    <integer name="config_deviceHardwareKeys">83</integer>
+    <integer name="config_deviceHardwareWakeKeys">65</integer>
+</resources>

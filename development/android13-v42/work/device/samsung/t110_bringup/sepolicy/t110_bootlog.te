@@ -1,0 +1,13 @@
+# Engineering pre-init logger holds only pre-opened, explicitly labelled files.
+type t110_bootlog_file, file_type, data_file_type, core_data_file_type;
+userdebug_or_eng(`
+  allow kernel self:system syslog_read;
+  allow kernel self:capability2 syslog;
+  allow kernel t110_bootlog_file:file { getattr write setattr };
+')
+# The old kernel retains this named permission; Android init owns RAM swap.
+allow init swap_block_device:blk_file swapon;
+
+# Keep generic proc protected; permit init's existing single-node tuning write.
+type proc_t110_swappiness, fs_type, proc_type;
+allow init proc_t110_swappiness:file rw_file_perms;

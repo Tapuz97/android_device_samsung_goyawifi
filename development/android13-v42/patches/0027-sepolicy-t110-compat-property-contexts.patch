@@ -1,0 +1,12 @@
+--- a/private/property_contexts
++++ b/private/property_contexts
+@@ -1370,3 +1370,9 @@
+ 
+ # Adaptive haptics settings property
+ vibrator.adaptive_haptics.enabled u:object_r:adaptive_haptics_prop:s0 exact string
++
++# T110 engineering compatibility switches must be readable by native services.
++ro.t110.legacy_processgroups u:object_r:exported_default_prop:s0 exact bool
++ro.t110.legacy_usb u:object_r:exported_default_prop:s0 exact bool
++ro.t110.legacy_gpu u:object_r:exported_default_prop:s0 exact bool
++ro.t110.legacy_bpf u:object_r:exported_default_prop:s0 exact bool

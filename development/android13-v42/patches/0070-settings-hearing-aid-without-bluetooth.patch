@@ -1,0 +1,28 @@
+--- a/src/com/android/settings/accessibility/AccessibilityHearingAidPreferenceController.java
++++ b/src/com/android/settings/accessibility/AccessibilityHearingAidPreferenceController.java
+@@ -106,6 +106,7 @@
+ 
+     @Override
+     public void onStart() {
++        if (mLocalBluetoothManager == null) return;
+         IntentFilter filter = new IntentFilter();
+         filter.addAction(BluetoothHearingAid.ACTION_CONNECTION_STATE_CHANGED);
+         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+@@ -115,6 +116,7 @@
+ 
+     @Override
+     public void onStop() {
++        if (mLocalBluetoothManager == null) return;
+         mContext.unregisterReceiver(mHearingAidChangedReceiver);
+         mLocalBluetoothManager.getEventManager().unregisterCallback(this);
+     }
+@@ -212,7 +214,8 @@
+     }
+ 
+     private boolean isHearingAidProfileSupported() {
+-        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
++        if (mLocalBluetoothManager == null || mBluetoothAdapter == null
++                || !mBluetoothAdapter.isEnabled()) {
+             return false;
+         }
+         final List<Integer> supportedList = mBluetoothAdapter.getSupportedProfiles();

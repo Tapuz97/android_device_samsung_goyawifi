@@ -1,0 +1,17 @@
+--- a/bpfloader/BpfLoader.cpp
++++ b/bpfloader/BpfLoader.cpp
+@@ -178,6 +178,14 @@
+     (void)argc;
+     android::base::InitLogging(argv, &android::base::KernelLogger);
+ 
++    // T110 engineering compatibility: no eBPF syscall exists on this kernel.
++    // This completes loader startup; it does not claim BPF programs are available.
++    if (android::base::GetBoolProperty("ro.t110.legacy_bpf", false) &&
++        !android::bpf::isAtLeastKernelVersion(3, 18, 0)) {
++        ALOGW("T110 legacy network mode: BPF accounting/offload/filtering unavailable");
++        return android::base::SetProperty("bpf.progs_loaded", "1") ? 0 : 1;
++    }
++
+     // Create all the pin subdirectories
+     // (this must be done first to allow selinux_context and pin_subdir functionality,
+     //  which could otherwise fail with ENOENT during object pinning or renaming,

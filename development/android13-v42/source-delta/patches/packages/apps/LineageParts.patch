@@ -1,0 +1,15 @@
+diff --git a/src/org/lineageos/lineageparts/input/ButtonSettings.java b/src/org/lineageos/lineageparts/input/ButtonSettings.java
+index 1a54349..18a65f1 100644
+--- a/src/org/lineageos/lineageparts/input/ButtonSettings.java
++++ b/src/org/lineageos/lineageparts/input/ButtonSettings.java
+@@ -796,7 +796,9 @@ public class ButtonSettings extends SettingsPreferenceFragment
+ 
+     private static boolean isKeyDisablerSupported(Context context) {
+         final LineageHardwareManager hardware = LineageHardwareManager.getInstance(context);
+-        return hardware.isSupported(LineageHardwareManager.FEATURE_KEY_DISABLE);
++        // T110 implements key suppression in PhoneWindowManager instead of a HAL.
++        return "t110_bringup".equals(android.os.Build.DEVICE)
++                || hardware.isSupported(LineageHardwareManager.FEATURE_KEY_DISABLE);
+     }
+ 
+     private static boolean isKeySwapperSupported(Context context) {

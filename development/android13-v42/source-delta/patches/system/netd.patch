@@ -1,0 +1,130 @@
+diff --git a/server/Android.bp b/server/Android.bp
+index 06ea0ba..6026bfc 100644
+--- a/server/Android.bp
++++ b/server/Android.bp
+@@ -247,3 +247,10 @@ cc_test {
+     ],
+     // tidy: false,  // cuts test build time by almost 1 minute
+ }
++
++cc_test {
++    name: "netd_idletimer_event_test",
++    srcs: ["IdletimerEventTest.cpp"],
++    shared_libs: ["libbase", "liblog", "libsysutils"],
++    test_suites: ["device-tests"],
++}
+diff --git a/server/BandwidthController.cpp b/server/BandwidthController.cpp
+index 8dba75a..60b113f 100644
+--- a/server/BandwidthController.cpp
++++ b/server/BandwidthController.cpp
+@@ -586,7 +586,10 @@ int BandwidthController::setGlobalAlert(int64_t bytes) {
+             res = -EREMOTEIO;
+         }
+     }
+-    mGlobalAlertBytes = bytes;
++    // A failed iptables insertion did not create the quota node. Preserve
++    // the prior state so the next registration retries insertion, rather
++    // than trying to update a nonexistent /proc/net/xt_quota/globalAlert.
++    if (res == 0) mGlobalAlertBytes = bytes;
+     return res;
+ }
+ 
+diff --git a/server/Controllers.cpp b/server/Controllers.cpp
+index 00ee186..652995d 100644
+--- a/server/Controllers.cpp
++++ b/server/Controllers.cpp
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <cinttypes>
++#include <android-base/properties.h>
+ #include <regex>
+ #include <set>
+ #include <string>
+@@ -284,9 +285,10 @@ void Controllers::init() {
+         // As such simply exit netd.  This may crash loop the system, but by failing
+         // to bootup we will trigger rollback and thus this offers us protection against
+         // a mainline update breaking things.
+-        exit(1);
++        if (!android::base::GetBoolProperty("ro.t110.legacy_bpf", false)) exit(1);
++        gLog.error("T110 legacy mode: bandwidth accounting is unavailable");
+     }
+-    gLog.info("Enabling bandwidth control: %" PRId64 "us", s.getTimeAndResetUs());
++    gLog.info("Attempted bandwidth control setup: %" PRId64 "us", s.getTimeAndResetUs());
+ 
+     if (int ret = RouteController::Init(NetworkController::LOCAL_NET_ID)) {
+         gLog.error("Failed to initialize RouteController (%s)", strerror(-ret));
+diff --git a/server/NetlinkHandler.cpp b/server/NetlinkHandler.cpp
+index a4e05b0..93b7738 100644
+--- a/server/NetlinkHandler.cpp
++++ b/server/NetlinkHandler.cpp
+@@ -30,6 +30,7 @@
+ #include <sysutils/NetlinkEvent.h>
+ #include "Controllers.h"
+ #include "NetlinkHandler.h"
++#include "IdletimerEvent.h"
+ #include "NetlinkManager.h"
+ #include "SockDiag.h"
+ 
+@@ -198,22 +199,9 @@ void NetlinkHandler::onEvent(NetlinkEvent *evt) {
+         }
+ 
+     } else if (!strcmp(subsys, "xt_idletimer")) {
+-        const char *label = evt->findParam("INTERFACE");
+-        const char *state = evt->findParam("STATE");
+-        const char *timestamp = evt->findParam("TIME_NS");
+-        const char *uid = evt->findParam("UID");
+-        if (state) {
+-            bool isActive = !strcmp("active", state);
+-            int64_t processTimestamp = (timestamp == nullptr) ? 0 : strtoll(timestamp, nullptr, 10);
+-            int intLabel;
+-            // NMS only accepts interface class activity changes with integer labels, and only ever
+-            // creates idletimers with integer labels.
+-            if (android::base::ParseInt(label, &intLabel)) {
+-                const long reportedUid =
+-                        (uid != nullptr && isActive) ? strtol(uid, nullptr, 10) : -1;
+-                notifyInterfaceClassActivityChanged(intLabel, isActive, processTimestamp,
+-                                                    reportedUid);
+-            }
++        if (const auto activity = parseIdletimerActivity(*evt)) {
++            notifyInterfaceClassActivityChanged(activity->label, activity->active,
++                                                activity->timestamp, activity->uid);
+         }
+ 
+ #if !LOG_NDEBUG
+diff --git a/server/main.cpp b/server/main.cpp
+index 0e81d4e..87e5ec2 100644
+--- a/server/main.cpp
++++ b/server/main.cpp
+@@ -26,6 +26,7 @@
+ #include <sys/wait.h>
+ #include <chrono>
+ #include <cinttypes>
++#include <android-base/properties.h>
+ #include <mutex>
+ 
+ #define LOG_TAG "Netd"
+@@ -126,17 +127,20 @@ int main() {
+         gLog.info("setCloseOnExec(%s)", sock);
+     }
+ 
++    const bool legacy_bpf = android::base::GetBoolProperty("ro.t110.legacy_bpf", false);
+     std::string cg2_path;
+     if (!CgroupGetControllerPath(CGROUPV2_CONTROLLER_NAME, &cg2_path)) {
+         ALOGE("Failed to find cgroup v2 root %s", strerror(errno));
+-        exit(1);
++        if (!legacy_bpf) exit(1);
+     }
+ 
+     if (libnetd_updatable_init(cg2_path.c_str())) {
+         ALOGE("libnetd_updatable_init failed");
+-        exit(1);
++        if (!legacy_bpf) exit(1);
++        ALOGW("T110 legacy mode: BPF service unavailable; returning errors for BPF operations");
++    } else {
++        gLog.info("libnetd_updatable_init success");
+     }
+-    gLog.info("libnetd_updatable_init success");
+ 
+     NetlinkManager *nm = NetlinkManager::Instance();
+     if (nm == nullptr) {

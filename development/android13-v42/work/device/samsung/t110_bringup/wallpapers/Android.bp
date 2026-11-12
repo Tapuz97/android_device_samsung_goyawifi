@@ -1,0 +1,9 @@
+android_app {
+    name: "T110Wallpapers",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    asset_dirs: ["assets"],
+    sdk_version: "current",
+    min_sdk_version: "26",
+    certificate: "platform",
+}

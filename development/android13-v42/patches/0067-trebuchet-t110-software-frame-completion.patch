@@ -1,0 +1,103 @@
+--- a/quickstep/src/com/android/quickstep/ViewUtils.java
++++ b/quickstep/src/com/android/quickstep/ViewUtils.java
+@@ -43,6 +43,10 @@
+      */
+     public static boolean postFrameDrawn(
+             View view, Runnable onFinishRunnable, BooleanSupplier canceled) {
++        if ("t110_bringup".equals(android.os.Build.DEVICE)
++                && !view.isHardwareAccelerated()) {
++            return new T110SoftwareFrameHandler(view, onFinishRunnable, canceled).schedule();
++        }
+         return new FrameHandler(view, onFinishRunnable, canceled).schedule();
+     }
+ 
+--- /dev/null
++++ b/quickstep/src/com/android/quickstep/T110SoftwareFrameHandler.java
+@@ -0,0 +1,87 @@
++package com.android.quickstep;
++
++import android.os.Handler;
++import android.util.Log;
++import android.view.SurfaceControl;
++import android.view.View;
++import android.view.ViewRootImpl;
++import android.view.ViewTreeObserver;
++import java.util.function.BooleanSupplier;
++
++/** Completes transitions after software Canvas has posted two actual window draws. */
++final class T110SoftwareFrameHandler implements ViewTreeObserver.OnDrawListener,
++        ViewRootImpl.SurfaceChangedCallback {
++    private final ViewRootImpl mRoot;
++    private final Runnable mCallback;
++    private final BooleanSupplier mCancelled;
++    private final Handler mHandler = new Handler();
++    private ViewTreeObserver mObserver;
++    private boolean mSurfaceRegistered;
++    private boolean mPosted;
++    private boolean mFinished;
++    private int mFramesRemaining = 2;
++
++    T110SoftwareFrameHandler(View view, Runnable callback, BooleanSupplier cancelled) {
++        mRoot = view.getViewRootImpl();
++        mCallback = callback;
++        mCancelled = cancelled;
++    }
++
++    boolean schedule() {
++        if (mFinished || mRoot == null || mRoot.getView() == null) return false;
++        View rootView = mRoot.getView();
++        ViewTreeObserver observer = rootView.getViewTreeObserver();
++        if (!observer.isAlive()) return false;
++        if (!mSurfaceRegistered) {
++            mRoot.addSurfaceChangedCallback(this);
++            mSurfaceRegistered = true;
++            Log.d("T110SoftwareFrame", "Using software draw completion for launcher transition");
++        }
++        mObserver = observer;
++        mObserver.addOnDrawListener(this);
++        rootView.invalidate();
++        return true;
++    }
++
++    @Override
++    public void onDraw() {
++        if (mPosted || mFinished) return;
++        mPosted = true;
++        // A normal Handler post runs after this traversal returns, including the
++        // software Canvas unlock/post. Never remove listeners during onDraw.
++        mHandler.post(() -> {
++            removeDrawListener();
++            mPosted = false;
++            if (mFinished) return;
++            if (mCancelled.getAsBoolean()) {
++                finish(false);
++            } else if (--mFramesRemaining == 0 || !schedule()) {
++                finish(true);
++            }
++        });
++    }
++
++    private void removeDrawListener() {
++        if (mObserver != null) {
++            if (mObserver.isAlive()) mObserver.removeOnDrawListener(this);
++            mObserver = null;
++        }
++    }
++
++    private void finish(boolean invokeCallback) {
++        if (mFinished) return;
++        mFinished = true;
++        removeDrawListener();
++        if (mSurfaceRegistered) {
++            mRoot.removeSurfaceChangedCallback(this);
++            mSurfaceRegistered = false;
++        }
++        if (invokeCallback && !mCancelled.getAsBoolean() && mCallback != null) {
++            mCallback.run();
++        }
++    }
++
++    @Override public void surfaceCreated(SurfaceControl.Transaction transaction) { }
++    @Override public void surfaceReplaced(SurfaceControl.Transaction transaction) { }
++    @Override public void surfaceDestroyed() { finish(true); }
++}

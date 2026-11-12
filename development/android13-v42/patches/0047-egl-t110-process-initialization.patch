@@ -1,0 +1,26 @@
+diff --git a/opengl/libs/EGL/Loader.cpp b/opengl/libs/EGL/Loader.cpp
+index 65c3c49..ecbf096 100644
+--- a/opengl/libs/EGL/Loader.cpp
++++ b/opengl/libs/EGL/Loader.cpp
+@@ -472,6 +472,21 @@ static void* load_system_driver(const char* kind, const char* suffix, const bool
+         return nullptr;
+     }
+ 
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false) &&
++            (!strcmp(kind, "EGL") || !strcmp(kind, "GLES"))) {
++        // This stock libGAL has no DT_INIT/DT_INIT_ARRAY. Resolve through
++        // the EGL handle so initialization uses its own linker namespace.
++        // The vendor constructor checks the PID, including after fork.
++        auto initialize = reinterpret_cast<int (*)()>(
++                dlsym(dso, "gcoOS_ModuleConstructor"));
++        const int status = initialize ? initialize() : -1;
++        if (status < 0) {
++            ALOGE("T110 EGL: Vivante process initialization failed: %d", status);
++            do_android_unload_sphal_library(dso);
++            return nullptr;
++        }
++        ALOGI("T110 EGL: Vivante process initialized before entrypoint lookup");
++    }
+     ALOGD("loaded %s", driver_absolute_path);
+ 
+     return dso;

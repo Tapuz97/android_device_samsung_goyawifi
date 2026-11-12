@@ -1,0 +1,3 @@
+/dev/galcore 0666 system graphics
+/dev/ion 0666 system graphics
+/dev/mbtchar* 0660 system bluetooth

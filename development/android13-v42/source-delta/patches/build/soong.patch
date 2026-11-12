@@ -1,0 +1,162 @@
+diff --git a/android/variable.go b/android/variable.go
+index e56fd77..457712b 100644
+--- a/android/variable.go
++++ b/android/variable.go
+@@ -1036,6 +1036,11 @@ func VariableMutator(mctx BottomUpMutatorContext) {
+ 	for i := 0; i < variableValues.NumField(); i++ {
+ 		variableValue := variableValues.Field(i)
+ 		name := variableValues.Type().Field(i).Name
++		// Binder32bit selects the device kernel ABI. Native host tools must
++		// retain their own pointer width even for a 32-bit Binder product.
++		if name == "Binder32bit" && mctx.Os() != Android {
++			continue
++		}
+ 		property := "product_variables." + proptools.PropertyNameForField(name)
+ 
+ 		// Check that the variable was set for the product
+diff --git a/apex/apex.go b/apex/apex.go
+index f12c517..9a2c2df 100644
+--- a/apex/apex.go
++++ b/apex/apex.go
+@@ -1682,6 +1682,11 @@ func apexFileForAndroidApp(ctx android.BaseModuleContext, aapp androidApp) apexF
+ 	fileToCopy := aapp.OutputFile()
+ 
+ 	af := newApexFile(ctx, fileToCopy, aapp.BaseModuleName(), dirInApex, app, aapp)
++	if dexpreopter, ok := aapp.(java.DexpreopterInterface); ok {
++		for _, install := range dexpreopter.DexpreoptBuiltInstalledForApex() {
++			af.requiredModuleNames = append(af.requiredModuleNames, install.FullModuleName())
++		}
++	}
+ 	af.jacocoReportClassesFile = aapp.JacocoReportClassesFile()
+ 	af.lintDepSets = aapp.LintDepSets()
+ 	af.certificate = aapp.Certificate()
+diff --git a/java/androidmk.go b/java/androidmk.go
+index 49ca176..8e8d509 100644
+--- a/java/androidmk.go
++++ b/java/androidmk.go
+@@ -314,7 +314,11 @@ func (binary *Binary) AndroidMkEntries() []android.AndroidMkEntries {
+ }
+ 
+ func (app *AndroidApp) AndroidMkEntries() []android.AndroidMkEntries {
+-	if app.hideApexVariantFromMake || app.IsHideFromMake() {
++	if app.hideApexVariantFromMake {
++		entries := app.dexpreopter.AndroidMkEntriesForApex()
++		return append(entries, android.AndroidMkEntries{Disabled: true})
++	}
++	if app.IsHideFromMake() {
+ 		return []android.AndroidMkEntries{android.AndroidMkEntries{
+ 			Disabled: true,
+ 		}}
+diff --git a/java/app.go b/java/app.go
+index b46f2b1..8fe2acf 100755
+--- a/java/app.go
++++ b/java/app.go
+@@ -462,7 +462,7 @@ func (a *AndroidApp) installPath(ctx android.ModuleContext) android.InstallPath
+ }
+ 
+ func (a *AndroidApp) dexBuildActions(ctx android.ModuleContext) android.Path {
+-	a.dexpreopter.installPath = a.installPath(ctx)
++	a.dexpreopter.installPath = a.dexpreopter.getInstallPath(ctx, a.installPath(ctx))
+ 	a.dexpreopter.isApp = true
+ 	if a.dexProperties.Uncompress_dex == nil {
+ 		// If the value was not force-set by the user, use reasonable default based on the module.
+diff --git a/java/dexpreopt.go b/java/dexpreopt.go
+index 7c5f055..0308124 100644
+--- a/java/dexpreopt.go
++++ b/java/dexpreopt.go
+@@ -145,6 +145,28 @@ func moduleName(ctx android.BaseModuleContext) string {
+ 	return android.RemoveOptionalPrebuiltPrefix(ctx.ModuleName())
+ }
+ 
++// The T110 cannot JIT. Opt only selected startup apps in flattened APEXes into
++// precompilation. Ordinary/updatable APEX builds keep their existing behavior.
++func (d *dexpreopter) preoptFlattenedApexApp(ctx android.BaseModuleContext) bool {
++	return d.flattenedApexAppName(ctx) != ""
++}
++
++func (d *dexpreopter) flattenedApexAppName(ctx android.BaseModuleContext) string {
++	if !ctx.Config().FlattenApex() || !ctx.Config().VendorConfig("t110").Bool("preopt_flattened_apex_apps") || !isApexVariant(ctx) {
++		return ""
++	}
++	if _, ok := ctx.Module().(*AndroidApp); !ok || !inList(moduleName(ctx), dexpreopt.GetGlobalConfig(ctx).SpeedApps) {
++		return ""
++	}
++	info := ctx.Provider(android.ApexInfoProvider).(android.ApexInfo)
++	for _, name := range strings.Fields(ctx.Config().VendorConfig("t110").String("preopt_apex_name")) {
++		if inList(name, info.InApexVariants) {
++			return name
++		}
++	}
++	return ""
++}
++
+ func (d *dexpreopter) dexpreoptDisabled(ctx android.BaseModuleContext) bool {
+ 	if !ctx.Device() {
+ 		return true
+@@ -182,7 +204,7 @@ func (d *dexpreopter) dexpreoptDisabled(ctx android.BaseModuleContext) bool {
+ 	if isApexVariant(ctx) {
+ 		// Don't preopt APEX variant module unless the module is an APEX system server jar and we are
+ 		// building the entire system image.
+-		if !isApexSystemServerJar || ctx.Config().UnbundledBuild() {
++		if (!isApexSystemServerJar && !d.preoptFlattenedApexApp(ctx)) || ctx.Config().UnbundledBuild() {
+ 			return true
+ 		}
+ 	} else {
+@@ -217,6 +239,17 @@ func (d *dexpreopter) odexOnSystemOther(ctx android.ModuleContext, installPath a
+ // system server jar, which is fine because we currently only preopt system server jars for APEXes.
+ func (d *dexpreopter) getInstallPath(
+ 	ctx android.ModuleContext, defaultInstallPath android.InstallPath) android.InstallPath {
++	if selected := d.flattenedApexAppName(ctx); selected != "" {
++		app := ctx.Module().(*AndroidApp)
++		dir := "app"
++		if app.Privileged() {
++			dir = "priv-app"
++		}
++		name := app.InstallApkName()
++		// Match apexFileForAndroidApp's versioned directory and runtime /apex path.
++		return android.PathForModuleInPartitionInstall(ctx, "", "apex", selected,
++			dir, name+"@"+ctx.Config().BuildId(), name+".apk")
++	}
+ 	global := dexpreopt.GetGlobalConfig(ctx)
+ 	if global.AllApexSystemServerJars(ctx).ContainsJar(moduleName(ctx)) {
+ 		dexLocation := dexpreopt.GetSystemServerDexLocation(ctx, global, moduleName(ctx))
+@@ -363,6 +396,7 @@ func (d *dexpreopter) dexpreopt(ctx android.ModuleContext, dexJarFile android.Wr
+ 	dexpreoptRule.Build("dexpreopt", "dexpreopt")
+ 
+ 	isApexSystemServerJar := global.AllApexSystemServerJars(ctx).ContainsJar(moduleName(ctx))
++	hasApexInstalls := isApexSystemServerJar || d.preoptFlattenedApexApp(ctx)
+ 
+ 	for _, install := range dexpreoptRule.Installs() {
+ 		// Remove the "/" prefix because the path should be relative to $ANDROID_PRODUCT_OUT.
+@@ -371,7 +405,7 @@ func (d *dexpreopter) dexpreopt(ctx android.ModuleContext, dexJarFile android.Wr
+ 		arch := filepath.Base(installDir)
+ 		installPath := android.PathForModuleInPartitionInstall(ctx, "", installDir)
+ 
+-		if isApexSystemServerJar {
++		if hasApexInstalls {
+ 			// APEX variants of java libraries are hidden from Make, so their dexpreopt
+ 			// outputs need special handling. Currently, for APEX variants of java
+ 			// libraries, only those in the system server classpath are handled here.
+@@ -390,7 +424,7 @@ func (d *dexpreopter) dexpreopt(ctx android.ModuleContext, dexJarFile android.Wr
+ 		}
+ 	}
+ 
+-	if !isApexSystemServerJar {
++	if !hasApexInstalls {
+ 		d.builtInstalled = dexpreoptRule.Installs().String()
+ 	}
+ }
+diff --git a/ui/build/soong.go b/ui/build/soong.go
+index a0ab1cc..df158d8 100644
+--- a/ui/build/soong.go
++++ b/ui/build/soong.go
+@@ -167,6 +167,9 @@ func primaryBuilderInvocation(
+ 
+ 	commonArgs = append(commonArgs, "-l", filepath.Join(config.FileListDir(), "Android.bp.list"))
+ 	invocationEnv := make(map[string]string)
++	if gc := os.Getenv("T110_SOONG_GOGC"); gc != "" {
++		invocationEnv["GOGC"] = gc
++	}
+ 	debugMode := os.Getenv("SOONG_DELVE") != ""
+ 
+ 	if debugMode {

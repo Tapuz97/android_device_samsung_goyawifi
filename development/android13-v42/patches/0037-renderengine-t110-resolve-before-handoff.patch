@@ -1,0 +1,35 @@
+diff --git a/libs/renderengine/gl/GLESRenderEngine.cpp b/libs/renderengine/gl/GLESRenderEngine.cpp
+index 6dc01b9..5c8d4e0 100644
+--- a/libs/renderengine/gl/GLESRenderEngine.cpp
++++ b/libs/renderengine/gl/GLESRenderEngine.cpp
+@@ -1298,6 +1298,30 @@ void GLESRenderEngine::drawLayersInternal(
+         }
+     }
+ 
++    // This legacy driver has no native fences. Detaching the EGLImage-backed
++    // FBO can enqueue the tile-to-linear resolve, so complete it BEFORE the
++    // client target is published to the CPU framebuffer presenter.
++    static const bool legacyT110 = property_get_bool("ro.t110.legacy_gpu", false);
++    if (legacyT110) {
++        fbo.reset();
++        glFinish();
++        const GLenum error = glGetError();
++        if (error != GL_NO_ERROR) {
++            ALOGE("T110 GLES resolve failed: %#x", error);
++            resultPromise->set_value({INVALID_OPERATION, base::unique_fd()});
++            return;
++        }
++        static bool logged = false;
++        if (!logged) {
++            ALOGI("T110 resolved GLES frame before handoff");
++            logged = true;
++        }
++        mLastDrawFence = nullptr;
++        mPriorResourcesCleaned = false;
++        resultPromise->set_value({NO_ERROR, base::unique_fd()});
++        return;
++    }
++
+     base::unique_fd drawFence = flush();
+ 
+     // If flush failed or we don't support native fences, we need to force the

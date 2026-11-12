@@ -1,0 +1,19 @@
+--- a/packages/SystemUI/src/com/android/systemui/wallpapers/ImageWallpaper.java
++++ b/packages/SystemUI/src/com/android/systemui/wallpapers/ImageWallpaper.java
+@@ -233,9 +233,13 @@
+             Surface surface = mSurfaceHolder.getSurface();
+             Canvas canvas = null;
+             try {
+-                canvas = mWideColorGamut
+-                        ? surface.lockHardwareWideColorGamutCanvas()
+-                        : surface.lockHardwareCanvas();
++                if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++                    canvas = surface.lockCanvas(null);
++                } else {
++                    canvas = mWideColorGamut
++                            ? surface.lockHardwareWideColorGamutCanvas()
++                            : surface.lockHardwareCanvas();
++                }
+             } catch (IllegalStateException e) {
+                 Log.w(TAG, "Unable to lock canvas", e);
+             }

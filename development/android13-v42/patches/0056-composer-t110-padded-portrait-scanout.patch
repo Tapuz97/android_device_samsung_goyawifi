@@ -1,0 +1,397 @@
+diff --git a/graphics/composer/2.1/default/Android.bp b/graphics/composer/2.1/default/Android.bp
+--- a/graphics/composer/2.1/default/Android.bp
++++ b/graphics/composer/2.1/default/Android.bp
+@@ -12,7 +12,7 @@
+     defaults: ["hidl_defaults"],
+     vendor: true,
+     relative_install_path: "hw",
+-    srcs: ["service.cpp"],
++    srcs: ["service.cpp", "T110Framebuffer.cpp"],
+     init_rc: ["android.hardware.graphics.composer@2.1-service.rc"],
+     header_libs: [
+         "android.hardware.graphics.composer@2.1-passthrough",
+@@ -21,6 +21,7 @@
+         "android.hardware.graphics.composer@2.1",
+         "android.hardware.graphics.composer@2.1-resources",
+         "libbase",
++        "libdl",
+         "libbinder",
+         "libcutils",
+         "libfmq",
+diff --git a/graphics/composer/2.1/default/service.cpp b/graphics/composer/2.1/default/service.cpp
+--- a/graphics/composer/2.1/default/service.cpp
++++ b/graphics/composer/2.1/default/service.cpp
+@@ -17,6 +17,9 @@
+ #define LOG_TAG "android.hardware.graphics.composer@2.1-service"
+ 
+ #include <sched.h>
++#include "T110Framebuffer.h"
++#include <dlfcn.h>
++#include <android-base/properties.h>
+ 
+ #include <android/hardware/graphics/composer/2.1/IComposer.h>
+ 
+@@ -43,7 +46,34 @@
+ 
+     android::hardware::configureRpcThreadpool(4, true /* will join */);
+ 
+-    android::sp<IComposer> composer = HwcLoader::load();
++    // Stock T110 HWC calls gcoHAL_Get2DEngine before gralloc has allocated
++    // any buffers. Unlike old SurfaceFlinger, this standalone service has
++    // not loaded EGL, so Vivante's explicit per-process initialization has
++    // never run. The verified stock constructor is PID-guarded/idempotent.
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        void* gal = dlopen("libGAL.so", RTLD_NOW | RTLD_LOCAL);
++        auto initialize = gal ? reinterpret_cast<int (*)()>(
++                dlsym(gal, "gcoOS_ModuleConstructor")) : nullptr;
++        if (!initialize || initialize() < 0) {
++            ALOGE("T110: Vivante process initialization failed before HWC");
++            return 1;
++        }
++        // Keep the driver loaded for the lifetime of its HAL objects.
++        ALOGI("T110: Vivante process state initialized before HWC");
++    }
++
++    android::sp<IComposer> composer;
++    if (android::base::GetBoolProperty("ro.t110.legacy_gpu", false)) {
++        // Stock HWC depends on eglGetNativeWindowVIV in the caller process.
++        // Android 13's separate composer receives only imported buffer handles.
++        auto* fb = openT110Framebuffer();
++        if (!fb) return 1;
++        auto hal = std::make_unique<android::hardware::graphics::composer::V2_1::passthrough::HwcHal>();
++        if (!hal->initWithDevice(new android::HWC2OnFbAdapter(fb), false)) return 1;
++        composer = HwcLoader::createComposer(std::move(hal));
++    } else {
++        composer = HwcLoader::load();
++    }
+     if (composer == nullptr) {
+         return 1;
+     }
+diff --git a/graphics/composer/2.1/default/T110Framebuffer.cpp b/graphics/composer/2.1/default/T110Framebuffer.cpp
+new file mode 100644
+--- /dev/null
++++ b/graphics/composer/2.1/default/T110Framebuffer.cpp
+@@ -0,0 +1,151 @@
++// Present shareable Vivante client targets without the stock in-process EGL HWC.
++#define LOG_TAG "T110Framebuffer"
++#include "T110Framebuffer.h"
++#include <initializer_list>
++#include "T110Scanout.h"
++#include <hardware/gralloc.h>
++#include <log/log.h>
++#include <cerrno>
++#include <cstdio>
++#include <fcntl.h>
++#include <mutex>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <unistd.h>
++
++namespace {
++// SM-T110's PXA ION ABI differs from modern ion_fd_data. The five 32-bit
++// fields and command number come from this kernel's linux/pxa_ion.h.
++struct IonCacheRegion {
++    int32_t fd;
++    uint32_t handle, offset, length, direction;
++};
++static_assert(sizeof(IonCacheRegion) == 20);
++constexpr unsigned long kIonSync = _IOWR('I', 7, IonCacheRegion);
++static_assert(kIonSync == 0xc0144907);
++struct Device {
++    framebuffer_device_t fb{}; // First member, as required by the HAL ABI.
++    const gralloc_module_t* gralloc = nullptr;
++    int fd = -1;
++    void* pixels = MAP_FAILED;
++    fb_fix_screeninfo fixed{};
++    fb_var_screeninfo mode{};
++    uint64_t frames = 0;
++    int lastError = 0;
++    bool blanked = false;
++    std::mutex mutex;
++    ~Device() {
++        if (pixels != MAP_FAILED) munmap(pixels, fixed.smem_len);
++        if (fd >= 0) ::close(fd);
++    }
++};
++
++int post(framebuffer_device_t* fb, buffer_handle_t buffer) {
++    auto* d = reinterpret_cast<Device*>(fb);
++    std::lock_guard<std::mutex> guard(d->mutex);
++    auto fail = [&](int error) {
++        if (d->lastError != error) ALOGE("T110 scanout failed: %d", error);
++        d->lastError = error;
++        return error;
++    };
++    // Exact stock gralloc ABI, derived from gc_gralloc_alloc/register/lock.
++    // Only ION-backed, linear RGBA/RGBX allocations requested by our libui
++    // client-target path are accepted. Never dereference a transported pointer.
++    if (!buffer || buffer->version != sizeof(native_handle_t) ||
++        buffer->numFds != 2 || buffer->numInts != 34) return fail(-EINVAL);
++    const auto* words = reinterpret_cast<const uint32_t*>(buffer);
++    if (!t110::validPortraitAllocation(words)) return fail(-EINVAL);
++
++    void* source = nullptr;
++    int error = d->gralloc->lock(d->gralloc, buffer, GRALLOC_USAGE_SW_READ_OFTEN,
++                                 0, 0, t110::kLogicalWidth, t110::kLogicalHeight, &source);
++    if (error) return fail(error);
++    // gc_gralloc_lock only waits on the legacy GPU signal; its cache flush is
++    // in unlock, AFTER a CPU reader has already consumed the old cache lines.
++    // Invalidate the shared allocation before reading completed GPU writes.
++    IonCacheRegion region{static_cast<int32_t>(words[3]), 0, 0, words[7], 2};
++    if (ioctl(static_cast<int>(words[4]), kIonSync, &region) < 0) {
++        const int syncError = -errno;
++        d->gralloc->unlock(d->gralloc, buffer);
++        return fail(syncError);
++    }
++    // Two pages suffice; choose the page that is not currently scanned out.
++    const uint32_t page = d->mode.yoffset == 0 ? d->mode.yres : 0;
++    bool copied = t110::copyPortraitFrame(d->pixels, d->fixed.smem_len, d->fixed, d->mode,
++                                  page, source, words[7], words[16]);
++    int unlockError = d->gralloc->unlock(d->gralloc, buffer);
++    if (!copied) return fail(-EINVAL);
++    if (unlockError) return fail(unlockError);
++    __sync_synchronize();
++    fb_var_screeninfo next = d->mode;
++    next.yoffset = page;
++    next.activate = FB_ACTIVATE_VBL;
++    if (ioctl(d->fd, FBIOPAN_DISPLAY, &next) < 0) return fail(-errno);
++    d->mode = next;
++    ++d->frames;
++    d->lastError = 0;
++    if (d->frames == 1) ALOGI("T110 first client frame copied and panned to fb0");
++    return 0;
++}
++int enableScreen(framebuffer_device_t* fb, int enable) {
++    auto* d = reinterpret_cast<Device*>(fb);
++    std::lock_guard<std::mutex> guard(d->mutex);
++    if (enable != 0 && enable != 1) return -EINVAL;
++    // FBIOBLANK takes the blank level directly, not a pointer. This is the
++    // checked PXA fb driver's runtime-PM blank/unblank entrypoint.
++    const int level = enable ? FB_BLANK_UNBLANK : FB_BLANK_POWERDOWN;
++    if (ioctl(d->fd, FBIOBLANK, level) < 0) {
++        const int error = -errno;
++        ALOGE("T110 framebuffer power transition failed: enable=%d error=%d", enable, error);
++        return error;
++    }
++    d->blanked = !enable;
++    ALOGI("T110 framebuffer power: %s", enable ? "on" : "off");
++    return 0;
++}
++int closeDevice(hw_device_t* device) {
++    delete reinterpret_cast<Device*>(device);
++    return 0;
++}
++void dump(framebuffer_device_t* fb, char* text, int size) {
++    auto* d = reinterpret_cast<Device*>(fb);
++    std::lock_guard<std::mutex> guard(d->mutex);
++    if (size > 0) snprintf(text, size, "T110 direct fb0 scanout: frames=%llu yoffset=%u error=%d blanked=%d\n",
++                          static_cast<unsigned long long>(d->frames), d->mode.yoffset, d->lastError,
++                          static_cast<int>(d->blanked));
++}
++} // namespace
++
++framebuffer_device_t* openT110Framebuffer() {
++    auto* d = new Device;
++    const hw_module_t* module = nullptr;
++    if (hw_get_module(GRALLOC_HARDWARE_MODULE_ID, &module)) { delete d; return nullptr; }
++    d->gralloc = reinterpret_cast<const gralloc_module_t*>(module);
++    d->fd = open("/dev/graphics/fb0", O_RDWR | O_CLOEXEC);
++    if (d->fd < 0 || ioctl(d->fd, FBIOGET_FSCREENINFO, &d->fixed) < 0 ||
++        ioctl(d->fd, FBIOGET_VSCREENINFO, &d->mode) < 0 ||
++        !t110::validFramebuffer(d->fixed, d->mode)) {
++        ALOGE("T110 framebuffer open/geometry check failed"); delete d; return nullptr;
++    }
++    d->pixels = mmap(nullptr, d->fixed.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, d->fd, 0);
++    if (d->pixels == MAP_FAILED) { delete d; return nullptr; }
++    d->fb.common.tag = HARDWARE_DEVICE_TAG;
++    d->fb.common.version = 1;
++    d->fb.common.module = const_cast<hw_module_t*>(module);
++    d->fb.common.close = closeDevice;
++    const_cast<uint32_t&>(d->fb.width) = t110::kLogicalWidth;
++    const_cast<uint32_t&>(d->fb.height) = t110::kLogicalHeight;
++    const_cast<int&>(d->fb.stride) = t110::kLogicalWidth;
++    const_cast<int&>(d->fb.format) = HAL_PIXEL_FORMAT_RGBA_8888;
++    const_cast<float&>(d->fb.xdpi) = 160.0f;
++    const_cast<float&>(d->fb.ydpi) = 160.0f;
++    const_cast<float&>(d->fb.fps) = 60.0f;
++    const_cast<int&>(d->fb.minSwapInterval) = 1;
++    const_cast<int&>(d->fb.maxSwapInterval) = 1;
++    const_cast<int&>(d->fb.numFramebuffers) = 2;
++    d->fb.post = post;
++    d->fb.enableScreen = enableScreen;
++    d->fb.dump = dump;
++    ALOGI("T110 natural portrait presenter ready; final panel rotation=270; PXA ION sync enabled");
++    return &d->fb;
++}
+diff --git a/graphics/composer/2.1/default/T110Framebuffer.h b/graphics/composer/2.1/default/T110Framebuffer.h
+new file mode 100644
+--- /dev/null
++++ b/graphics/composer/2.1/default/T110Framebuffer.h
+@@ -0,0 +1,3 @@
++#pragma once
++#include <hardware/fb.h>
++framebuffer_device_t* openT110Framebuffer();
+diff --git a/graphics/composer/2.1/default/T110Scanout.h b/graphics/composer/2.1/default/T110Scanout.h
+new file mode 100644
+--- /dev/null
++++ b/graphics/composer/2.1/default/T110Scanout.h
+@@ -0,0 +1,101 @@
++// T110 CPU scanout: bounds-checked RGBA/RGBX to the measured fbdev layout.
++#pragma once
++#include <cstddef>
++#include <cstdint>
++#include <cstring>
++#include <initializer_list>
++#include <linux/fb.h>
++
++namespace t110 {
++inline bool validFramebuffer(const fb_fix_screeninfo& f, const fb_var_screeninfo& v) {
++    if (v.xres != 1024 || v.yres != 600 || v.bits_per_pixel != 32 ||
++        v.xoffset != 0 || v.xres_virtual < v.xres || v.yres_virtual < 1200 ||
++        f.type != FB_TYPE_PACKED_PIXELS || f.visual != FB_VISUAL_TRUECOLOR ||
++        f.line_length < v.xres * 4 || f.line_length % 4 ||
++        !f.ypanstep || v.yres % f.ypanstep ||
++        uint64_t(f.line_length) * v.yres_virtual > f.smem_len) return false;
++    uint32_t mask = 0;
++    for (auto c : {v.red, v.green, v.blue, v.transp}) {
++        if (c.length == 0) continue;
++        if (c.length != 8 || c.offset > 24 || c.msb_right) return false;
++        uint32_t m = 255u << c.offset;
++        if (mask & m) return false;
++        mask |= m;
++    }
++    return v.red.length == 8 && v.green.length == 8 && v.blue.length == 8;
++}
++
++inline bool copyFrame(void* destination, size_t destinationBytes,
++                      const fb_fix_screeninfo& f, const fb_var_screeninfo& v,
++                      uint32_t pageY, const void* source, size_t sourceBytes,
++                      uint32_t sourceStridePixels) {
++    if (!destination || !source || !validFramebuffer(f, v) ||
++        pageY % v.yres || uint64_t(pageY) + v.yres > v.yres_virtual ||
++        sourceStridePixels < v.xres ||
++        uint64_t(sourceStridePixels) * 4 * v.yres > sourceBytes ||
++        uint64_t(f.line_length) * (pageY + v.yres) > destinationBytes) return false;
++    auto* dst = static_cast<uint8_t*>(destination) + size_t(pageY) * f.line_length;
++    const auto* src = static_cast<const uint8_t*>(source);
++    const uint32_t alpha = v.transp.length ? (255u << v.transp.offset) : 0;
++    for (uint32_t y = 0; y < v.yres; ++y) {
++        for (uint32_t x = 0; x < v.xres; ++x) {
++            const auto* pixel = src + x * 4;
++            uint32_t packed = (uint32_t(pixel[0]) << v.red.offset) |
++                              (uint32_t(pixel[1]) << v.green.offset) |
++                              (uint32_t(pixel[2]) << v.blue.offset) | alpha;
++            memcpy(dst + x * 4, &packed, sizeof(packed));
++        }
++        src += size_t(sourceStridePixels) * 4;
++        dst += f.line_length;
++    }
++    return true;
++}
++// Android renders natural portrait. The PXA panel is wired 270 degrees
++// from it: logical (x,y) maps to native (y,599-x). Rotate once here,
++// after EGL has resolved the complete frame; keep fbdev in its native mode.
++constexpr uint32_t kLogicalWidth = 600;
++constexpr uint32_t kLogicalHeight = 1024;
++// Called only after validating native_handle's version, FD and integer counts.
++// These legacy fields hold PADDED allocation dimensions (608 for width600),
++// not the logical GraphicBuffer dimensions advertised to Android.
++inline bool validPortraitAllocation(const uint32_t* words) {
++    return words && words[5] == 0x03141592 && (words[6] & 2) && !(words[6] & 1) &&
++           (words[29] & 0x80000000u) && (words[12] == 1 || words[12] == 2) &&
++           words[13] >= kLogicalWidth && words[14] >= kLogicalHeight &&
++           words[16] >= kLogicalWidth && words[17] >= kLogicalHeight &&
++           uint64_t(words[16]) * 4 * kLogicalHeight <= words[7];
++}
++
++inline bool copyPortraitFrame(void* destination, size_t destinationBytes,
++                              const fb_fix_screeninfo& f, const fb_var_screeninfo& v,
++                              uint32_t pageY, const void* source, size_t sourceBytes,
++                              uint32_t sourceStridePixels) {
++    if (!destination || !source || !validFramebuffer(f, v) ||
++        pageY % v.yres || uint64_t(pageY) + v.yres > v.yres_virtual ||
++        sourceStridePixels < kLogicalWidth ||
++        uint64_t(sourceStridePixels) * 4 * kLogicalHeight > sourceBytes ||
++        uint64_t(f.line_length) * (uint64_t(pageY) + v.yres) > destinationBytes) return false;
++    auto* dst = static_cast<uint8_t*>(destination) + size_t(pageY) * f.line_length;
++    const auto* src = static_cast<const uint8_t*>(source);
++    const uint32_t alpha = v.transp.length ? (255u << v.transp.offset) : 0;
++    // Small tiles keep both transposed source rows and destination rows hot.
++    constexpr uint32_t tile = 32;
++    for (uint32_t by = 0; by < v.yres; by += tile) {
++        const uint32_t ey = by + tile < v.yres ? by + tile : v.yres;
++        for (uint32_t bx = 0; bx < v.xres; bx += tile) {
++            const uint32_t ex = bx + tile < v.xres ? bx + tile : v.xres;
++            for (uint32_t y = by; y < ey; ++y) {
++                auto* row = dst + size_t(y) * f.line_length;
++                for (uint32_t x = bx; x < ex; ++x) {
++                    const auto* pixel = src + (size_t(x) * sourceStridePixels + kLogicalWidth - 1 - y) * 4;
++                    const uint32_t packed = (uint32_t(pixel[0]) << v.red.offset) |
++                                            (uint32_t(pixel[1]) << v.green.offset) |
++                                            (uint32_t(pixel[2]) << v.blue.offset) | alpha;
++                    memcpy(row + size_t(x) * 4, &packed, sizeof(packed));
++                }
++            }
++        }
++    }
++    return true;
++}
++} // namespace t110
+diff --git a/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp b/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp
+--- a/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp
++++ b/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp
+@@ -137,14 +137,13 @@
+     return HWC2_ERROR_NONE;
+ }
+ 
+-int32_t setPowerModeHook(hwc2_device_t* device, hwc2_display_t display, int32_t /*mode*/) {
+-    auto& adapter = HWC2OnFbAdapter::cast(device);
+-    if (adapter.getDisplayId() != display) {
+-        return HWC2_ERROR_BAD_DISPLAY;
+-    }
+-
+-    // pretend that it works
+-    return HWC2_ERROR_NONE;
++int32_t setPowerModeHook(hwc2_device_t* device, hwc2_display_t display, int32_t mode) {
++    auto& adapter = HWC2OnFbAdapter::cast(device);
++    if (adapter.getDisplayId() != display) {
++        return HWC2_ERROR_BAD_DISPLAY;
++    }
++
++    return adapter.setPowerMode(mode);
+ }
+ 
+ int32_t setVsyncEnabledHook(hwc2_device_t* device, hwc2_display_t display, int32_t enabled) {
+@@ -781,6 +780,21 @@
+     mBuffer = buffer;
+ }
+ 
++int32_t HWC2OnFbAdapter::setPowerMode(int32_t mode) {
++    // Preserve the old adapter contract for framebuffer HALs without this hook.
++    if (!mFbDevice->enableScreen) return HWC2_ERROR_NONE;
++    int enable;
++    switch (mode) {
++        case HWC2_POWER_MODE_OFF: enable = 0; break;
++        case HWC2_POWER_MODE_ON: enable = 1; break;
++        case HWC2_POWER_MODE_DOZE:
++        case HWC2_POWER_MODE_DOZE_SUSPEND: return HWC2_ERROR_UNSUPPORTED;
++        default: return HWC2_ERROR_BAD_PARAMETER;
++    }
++    return mFbDevice->enableScreen(mFbDevice, enable) == 0
++            ? HWC2_ERROR_NONE : HWC2_ERROR_UNSUPPORTED;
++}
++
+ bool HWC2OnFbAdapter::postBuffer() {
+     int error = 0;
+     if (mBuffer) {
+diff --git a/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h b/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h
+--- a/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h
++++ b/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h
+@@ -76,6 +76,7 @@
+ 
+     void setBuffer(buffer_handle_t buffer);
+     bool postBuffer();
++    int32_t setPowerMode(int32_t mode);
+ 
+     void setVsyncCallback(HWC2_PFN_VSYNC callback, hwc2_callback_data_t data);
+     void enableVsync(bool enable);

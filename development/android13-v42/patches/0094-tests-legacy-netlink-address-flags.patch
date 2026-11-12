@@ -1,0 +1,62 @@
+--- a/common/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkAddressMessageTest.java
++++ b/common/tests/unit/src/com/android/net/module/util/netlink/RtNetlinkAddressMessageTest.java
+@@ -89,6 +89,59 @@
+         assertEquals(0x80, addrMsg.getFlags());
+     }
+ 
++    @Test
++    public void testLegacyIpv4AddressWithoutFlagsAttribute() {
++        // Captured Linux 3.4 RTM_NEWADDR layout with anonymized addresses.
++        final ByteBuffer buffer = toByteBuffer(
++                "3C0000001400000000000000F7EFFFFF0218800004000000"
++                + "08000100C000026C08000200C000026C08000400C00002FF"
++                + "0A000300776C616E30000000");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        final RtNetlinkAddressMessage msg =
++                (RtNetlinkAddressMessage) NetlinkMessage.parse(buffer, NETLINK_ROUTE);
++        assertNotNull(msg);
++        assertEquals(InetAddresses.parseNumericAddress("192.0.2.108"), msg.getIpAddress());
++        assertEquals(24, msg.getIfaddrHeader().prefixLen);
++        assertEquals(4, msg.getIfaddrHeader().index);
++        assertEquals(0x80, msg.getFlags());
++        assertNull(msg.getIfacacheInfo());
++    }
++
++    @Test
++    public void testLegacyIpv6AddressWithoutFlagsAttribute() {
++        final ByteBuffer buffer = toByteBuffer(
++                "400000001400000000000000000000000A4080FD04000000"
++                + "14000100FE8000000000000002005EFFFE100001"
++                + "14000600FFFFFFFFFFFFFFFF43EF070043EF0700");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        final RtNetlinkAddressMessage msg =
++                (RtNetlinkAddressMessage) NetlinkMessage.parse(buffer, NETLINK_ROUTE);
++        assertNotNull(msg);
++        assertEquals(InetAddresses.parseNumericAddress("fe80::200:5eff:fe10:1"),
++                msg.getIpAddress());
++        assertEquals(0x80, msg.getFlags());
++        assertNotNull(msg.getIfacacheInfo());
++    }
++
++    @Test
++    public void testExtendedAddressFlagsOverrideHeader() {
++        final ByteBuffer buffer = toByteBuffer(RTM_NEWADDR_HEX.substring(0,
++                RTM_NEWADDR_HEX.length() - 8) + "80010000");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        final RtNetlinkAddressMessage msg =
++                (RtNetlinkAddressMessage) NetlinkMessage.parse(buffer, NETLINK_ROUTE);
++        assertNotNull(msg);
++        assertEquals(0x180, msg.getFlags());
++    }
++
++    @Test
++    public void testMalformedPresentFlagsAttributeRejected() {
++        final ByteBuffer buffer = toByteBuffer(RTM_NEWADDR_HEX.substring(0,
++                RTM_NEWADDR_HEX.length() - 16) + "0600080080000000");
++        buffer.order(ByteOrder.LITTLE_ENDIAN);
++        assertNull(NetlinkMessage.parse(buffer, NETLINK_ROUTE));
++    }
++
+     private static final String RTM_NEWADDR_PACK_HEX =
+             "48000000140000000000000000000000"             // struct nlmsghr
+             + "0A4080FD1E000000"                           // struct ifaddrmsg

@@ -1,0 +1,410 @@
+diff --git a/core/java/android/view/ViewRootImpl.java b/core/java/android/view/ViewRootImpl.java
+index f6211fd4..9afb732b 100644
+--- a/core/java/android/view/ViewRootImpl.java
++++ b/core/java/android/view/ViewRootImpl.java
+@@ -1599,6 +1599,19 @@ public final class ViewRootImpl implements ViewParent,
+         mAttachInfo.mHardwareAccelerated = false;
+         mAttachInfo.mHardwareAccelerationRequested = false;
+ 
++        // Native HWUI now resolves the T110's legacy Vivante window before
++        // presenting it. Keep the validated software path available for diagnosis
++        // while using normal accelerated rendering by default.
++        if (SystemProperties.getBoolean("ro.t110.legacy_gpu", false)
++                && !SystemProperties.getBoolean("debug.hwui.t110_window_gpu", true)) {
++            if (mAttachInfo.mThreadedRenderer != null) {
++                mAttachInfo.mThreadedRenderer.destroy();
++                mAttachInfo.mThreadedRenderer = null;
++            }
++            Log.i(mTag, "T110 window rendering: software Canvas for " + attrs.getTitle());
++            return;
++        }
++
+         // Don't enable hardware acceleration when the application is in compatibility mode
+         if (mTranslator != null) return;
+ 
+diff --git a/core/java/com/android/internal/colorextraction/types/Tonal.java b/core/java/com/android/internal/colorextraction/types/Tonal.java
+index 88bdb66a..1e2f4365 100644
+--- a/core/java/com/android/internal/colorextraction/types/Tonal.java
++++ b/core/java/com/android/internal/colorextraction/types/Tonal.java
+@@ -556,7 +556,7 @@ public class Tonal implements ExtractionType {
+ 
+         private float[] readFloatArray(String attributeValue)
+                 throws IOException, XmlPullParserException {
+-            String[] tokens = attributeValue.replaceAll(" ", "").replaceAll("\n", "").split(",");
++            String[] tokens = attributeValue.replace(" ", "").replace("\n", "").split(",");
+             float[] numbers = new float[tokens.length];
+             for (int i = 0; i < tokens.length; i++) {
+                 numbers[i] = Float.parseFloat(tokens[i]);
+diff --git a/core/res/res/values/strings.xml b/core/res/res/values/strings.xml
+index 2091c050..3eac4d3e 100644
+--- a/core/res/res/values/strings.xml
++++ b/core/res/res/values/strings.xml
+@@ -661,6 +661,10 @@
+ 
+     <!-- label for item that restarts phone in phone options dialog [CHAR LIMIT=24]-->
+     <string name="global_action_restart">Restart</string>
++    <!-- Power menu action to restart into device recovery. -->
++    <string name="global_action_restart_to_recovery">Restart to recovery</string>
++    <!-- Power menu action to restart into the bootloader. -->
++    <string name="global_action_restart_to_bootloader">Restart to bootloader</string>
+ 
+     <!-- label for item that opens emergency features in the phone options dialog [CHAR LIMIT=24]-->
+     <string name="global_action_emergency">Emergency</string>
+diff --git a/core/res/res/values/symbols.xml b/core/res/res/values/symbols.xml
+index f8d500cd..319dcf43 100644
+--- a/core/res/res/values/symbols.xml
++++ b/core/res/res/values/symbols.xml
+@@ -1874,6 +1874,8 @@
+   <java-symbol type="string" name="global_action_power_off" />
+   <java-symbol type="string" name="global_action_power_options" />
+   <java-symbol type="string" name="global_action_restart" />
++  <java-symbol type="string" name="global_action_restart_to_recovery" />
++  <java-symbol type="string" name="global_action_restart_to_bootloader" />
+   <java-symbol type="string" name="global_actions_airplane_mode_off_status" />
+   <java-symbol type="string" name="global_actions_airplane_mode_on_status" />
+   <java-symbol type="string" name="global_actions_toggle_airplane_mode" />
+diff --git a/libs/hwui/renderthread/EglManager.cpp b/libs/hwui/renderthread/EglManager.cpp
+index 02257db9..3a767b96 100644
+--- a/libs/hwui/renderthread/EglManager.cpp
++++ b/libs/hwui/renderthread/EglManager.cpp
+@@ -595,6 +595,16 @@ bool EglManager::swapBuffers(const Frame& frame, const SkRect& screenDirty) {
+         fence();
+     }
+ 
++    // The stock T110 Vivante driver leaves window geometry in an unresolved
++    // render target across swap, even after glFinish. A one-pixel read forces
++    // its legacy window resolve without reading the full frame. Full-panel
++    // geometry, clipping, texture and surface-recreation fixtures validate it.
++    static const bool legacyT110 = property_get_bool("ro.t110.legacy_gpu", false);
++    if (legacyT110) {
++        GLubyte pixel[4];
++        glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
++    }
++
+     EGLint rects[4];
+     frame.map(screenDirty, rects);
+     eglSwapBuffersWithDamageKHR(mEglDisplay, frame.mSurface, rects, screenDirty.isEmpty() ? 0 : 1);
+diff --git a/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java b/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java
+index 0b0df833..4d972f52 100644
+--- a/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java
++++ b/packages/SystemUI/shared/src/com/android/systemui/shared/recents/model/ThumbnailData.java
+@@ -26,6 +26,7 @@ import android.graphics.Color;
+ import android.graphics.Point;
+ import android.graphics.Rect;
+ import android.hardware.HardwareBuffer;
++import android.os.Build;
+ import android.util.Log;
+ import android.view.WindowInsetsController.Appearance;
+ import android.window.TaskSnapshot;
+@@ -81,6 +82,14 @@ public class ThumbnailData {
+             Log.e("ThumbnailData", "Unexpected snapshot without USAGE_GPU_SAMPLED_IMAGE: "
+                     + snapshot.getHardwareBuffer(), ex);
+         }
++        // This device's ViewRoot windows use software Canvas. Convert the
++        // owned snapshot wrapper before publishing it to Recents consumers.
++        if (thumbnail != null && "t110_bringup".equals(Build.DEVICE)
++                && thumbnail.getConfig() == Bitmap.Config.HARDWARE) {
++            Bitmap hardwareThumbnail = thumbnail;
++            thumbnail = hardwareThumbnail.copy(ARGB_8888, false);
++            hardwareThumbnail.recycle();
++        }
+         if (thumbnail == null) {
+             Point taskSize = snapshot.getTaskSize();
+             thumbnail = Bitmap.createBitmap(taskSize.x, taskSize.y, ARGB_8888);
+diff --git a/packages/SystemUI/src/com/android/systemui/DejankUtils.java b/packages/SystemUI/src/com/android/systemui/DejankUtils.java
+index 3fce55f6..057cc79b 100644
+--- a/packages/SystemUI/src/com/android/systemui/DejankUtils.java
++++ b/packages/SystemUI/src/com/android/systemui/DejankUtils.java
+@@ -44,8 +44,11 @@ import java.util.function.Supplier;
+  */
+ public class DejankUtils {
+ 
+-    public static final boolean STRICT_MODE_ENABLED = Build.IS_ENG
+-            || SystemProperties.getBoolean("persist.sysui.strictmode", false);
++    // Respect the system diagnostic opt-out on engineering devices. An explicit
++    // SystemUI override can still enable diagnostics when a developer needs them.
++    public static final boolean STRICT_MODE_ENABLED = SystemProperties.getBoolean(
++            "persist.sysui.strictmode", Build.IS_ENG
++                    && !SystemProperties.getBoolean(StrictMode.DISABLE_PROPERTY, false));
+     private static final Choreographer sChoreographer = Choreographer.getInstance();
+     private static final Handler sHandler = new Handler();
+     private static final ArrayList<Runnable> sPendingRunnables = new ArrayList<>();
+diff --git a/packages/SystemUI/src/com/android/systemui/appops/AppOpsControllerImpl.java b/packages/SystemUI/src/com/android/systemui/appops/AppOpsControllerImpl.java
+index 1876786b..00b126d1 100644
+--- a/packages/SystemUI/src/com/android/systemui/appops/AppOpsControllerImpl.java
++++ b/packages/SystemUI/src/com/android/systemui/appops/AppOpsControllerImpl.java
+@@ -183,6 +183,11 @@ public class AppOpsControllerImpl extends BroadcastReceiver implements AppOpsCon
+ 
+     private void fetchCurrentActiveOps() {
+         List<AppOpsManager.PackageOps> packageOps = mAppOps.getPackagesForOps(OPS);
++        // AppOpsService returns null when there are no recorded matching operations.
++        // Live callbacks are already registered and must remain active on a fresh boot.
++        if (packageOps == null) {
++            return;
++        }
+         for (AppOpsManager.PackageOps op : packageOps) {
+             for (AppOpsManager.OpEntry entry : op.getOps()) {
+                 for (Map.Entry<String, AppOpsManager.AttributedOpEntry> attributedOpEntry :
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ExpandableView.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ExpandableView.java
+index 9df6ba99..ce32e986 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ExpandableView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ExpandableView.java
+@@ -453,7 +453,18 @@ public abstract class ExpandableView extends FrameLayout implements Dumpable, Ro
+             int top = getClipTopAmount();
+             int bottom = Math.max(Math.max(getActualHeight()
+                     - mClipBottomAmount, top), mMinimumHeightForClipping);
+-            mClipRect.set(Integer.MIN_VALUE, top, Integer.MAX_VALUE, bottom);
++            if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++                // The raster Canvas can drop this row when an INT_MIN/MAX clip intersects
++                // the shade's rounded path. Keep a full viewport of horizontal overflow
++                // on each side for shadows, groups and swipe/expansion translations.
++                android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
++                int overflow = Math.max(getWidth(),
++                        Math.max(metrics.widthPixels, metrics.heightPixels));
++                overflow += (int) Math.ceil(Math.max(0f, mExtraWidthForClipping));
++                mClipRect.set(-overflow, top, getWidth() + overflow, bottom);
++            } else {
++                mClipRect.set(Integer.MIN_VALUE, top, Integer.MAX_VALUE, bottom);
++            }
+             setClipBounds(mClipRect);
+         } else {
+             setClipBounds(null);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/LockscreenWallpaper.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/LockscreenWallpaper.java
+index b3b66a76..2c986368 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/LockscreenWallpaper.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/LockscreenWallpaper.java
+@@ -137,7 +137,8 @@ public class LockscreenWallpaper extends IWallpaperManagerCallback.Stub implemen
+         if (fd != null) {
+             try {
+                 BitmapFactory.Options options = new BitmapFactory.Options();
+-                options.inPreferredConfig = Bitmap.Config.HARDWARE;
++                options.inPreferredConfig = "t110_bringup".equals(android.os.Build.DEVICE)
++                        ? Bitmap.Config.ARGB_8888 : Bitmap.Config.HARDWARE;
+                 return LoaderResult.success(BitmapFactory.decodeFileDescriptor(
+                         fd.getFileDescriptor(), null, options));
+             } catch (OutOfMemoryError e) {
+@@ -150,7 +151,7 @@ public class LockscreenWallpaper extends IWallpaperManagerCallback.Stub implemen
+             if (selectedUser != null) {
+                 // Show the selected user's static wallpaper.
+                 return LoaderResult.success(mWallpaperManager.getBitmapAsUser(
+-                        selectedUser.getIdentifier(), true /* hardware */));
++                        selectedUser.getIdentifier(), !"t110_bringup".equals(android.os.Build.DEVICE) /* hardware */));
+ 
+             } else {
+                 // When there is no selected user, show the system wallpaper
+diff --git a/packages/SystemUI/src/com/android/systemui/wallpapers/ImageWallpaper.java b/packages/SystemUI/src/com/android/systemui/wallpapers/ImageWallpaper.java
+index b962148b..ce6c83ce 100644
+--- a/packages/SystemUI/src/com/android/systemui/wallpapers/ImageWallpaper.java
++++ b/packages/SystemUI/src/com/android/systemui/wallpapers/ImageWallpaper.java
+@@ -233,9 +233,13 @@ public class ImageWallpaper extends WallpaperService {
+             Surface surface = mSurfaceHolder.getSurface();
+             Canvas canvas = null;
+             try {
+-                canvas = mWideColorGamut
+-                        ? surface.lockHardwareWideColorGamutCanvas()
+-                        : surface.lockHardwareCanvas();
++                if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++                    canvas = surface.lockCanvas(null);
++                } else {
++                    canvas = mWideColorGamut
++                            ? surface.lockHardwareWideColorGamutCanvas()
++                            : surface.lockHardwareCanvas();
++                }
+             } catch (IllegalStateException e) {
+                 Log.w(TAG, "Unable to lock canvas", e);
+             }
+diff --git a/services/core/java/com/android/server/policy/LegacyGlobalActions.java b/services/core/java/com/android/server/policy/LegacyGlobalActions.java
+index 54ece738..ac471a53 100644
+--- a/services/core/java/com/android/server/policy/LegacyGlobalActions.java
++++ b/services/core/java/com/android/server/policy/LegacyGlobalActions.java
+@@ -68,6 +68,8 @@ import com.android.internal.util.EmergencyAffordanceManager;
+ import com.android.internal.widget.LockPatternUtils;
+ import com.android.server.policy.WindowManagerPolicy.WindowManagerFuncs;
+ 
++import org.lineageos.internal.util.PowerMenuUtils;
++
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+@@ -304,6 +306,12 @@ class LegacyGlobalActions implements DialogInterface.OnDismissListener, DialogIn
+                 mItems.add(getAssistAction());
+             } else if (GLOBAL_ACTION_KEY_RESTART.equals(actionKey)) {
+                 mItems.add(new RestartAction(mContext, mWindowManagerFuncs));
++                if (canShowAdvancedRestart()) {
++                    mItems.add(new RestartToAction(R.string.global_action_restart_to_recovery,
++                            "recovery"));
++                    mItems.add(new RestartToAction(R.string.global_action_restart_to_bootloader,
++                            "bootloader"));
++                }
+             } else {
+                 Log.e(TAG, "Invalid global action key " + actionKey);
+             }
+@@ -349,6 +357,37 @@ class LegacyGlobalActions implements DialogInterface.OnDismissListener, DialogIn
+         return dialog;
+     }
+ 
++    private boolean canShowAdvancedRestart() {
++        return ActivityManager.getCurrentUser() == UserHandle.USER_SYSTEM
++                && PowerMenuUtils.isAdvancedRestartPossible(mContext);
++    }
++
++    private final class RestartToAction extends SinglePressAction {
++        private final String mReason;
++
++        RestartToAction(int label, String reason) {
++            super(R.drawable.ic_restart, label);
++            mReason = reason;
++        }
++
++        @Override
++        public void onPress() {
++            if (canShowAdvancedRestart()) {
++                mWindowManagerFuncs.reboot(true /* confirm */, mReason);
++            }
++        }
++
++        @Override
++        public boolean showDuringKeyguard() {
++            return true;
++        }
++
++        @Override
++        public boolean showBeforeProvisioning() {
++            return true;
++        }
++    }
++
+     private class BugReportAction extends SinglePressAction implements LongPressAction {
+ 
+         public BugReportAction() {
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index 0af746ee..def55fde 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -4339,6 +4339,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+     @Override
+     public int interceptKeyBeforeQueueing(KeyEvent event, int policyFlags) {
+         final int keyCode = event.getKeyCode();
++        // This board has no key-disable HAL. Filter its physical navigation
++        // keys before wake/gesture handling while Lineage's touch navbar is on.
++        // Virtual navbar events, external keyboards, power and volume pass through.
++        if ("t110_bringup".equals(android.os.Build.DEVICE) && mForceNavbar == 1) {
++            final InputDevice device = event.getDevice();
++            if (device != null && T110NavigationKeys.shouldSuppress(true,
++                    device.getName(), device.isVirtual(), keyCode)) {
++                return 0;
++            }
++        }
+         final boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
+         boolean isWakeKey = (policyFlags & WindowManagerPolicy.FLAG_WAKE) != 0
+                 || event.isWakeKey();
+diff --git a/services/core/java/com/android/server/wallpaper/WallpaperManagerService.java b/services/core/java/com/android/server/wallpaper/WallpaperManagerService.java
+index 57299eaa..d5679153 100644
+--- a/services/core/java/com/android/server/wallpaper/WallpaperManagerService.java
++++ b/services/core/java/com/android/server/wallpaper/WallpaperManagerService.java
+@@ -772,6 +772,10 @@ public class WallpaperManagerService extends IWallpaperManager.Stub
+                             ImageDecoder.createSource(wallpaper.wallpaperFile);
+                     final int sampleSize = scale;
+                     Bitmap cropped = ImageDecoder.decodeBitmap(srcData, (decoder, info, src) -> {
++                        // Keep crop scaling on the CPU for the legacy T110 renderer.
++                        if ("t110_bringup".equals(android.os.Build.DEVICE)) {
++                            decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
++                        }
+                         decoder.setTargetSampleSize(sampleSize);
+                         decoder.setCrop(estimateCrop);
+                     });
+diff --git a/services/core/jni/gnss/Android.bp b/services/core/jni/gnss/Android.bp
+index 0531ae2a..5c2a2619 100644
+--- a/services/core/jni/gnss/Android.bp
++++ b/services/core/jni/gnss/Android.bp
+@@ -9,6 +9,7 @@ package {
+ 
+ cc_library_shared {
+     name: "libservices.core-gnss",
++    shared_libs: ["libbase"],
+     defaults: ["libservices.core-gnss-libs"],
+ 
+     cpp_std: "c++2a",
+diff --git a/services/core/jni/gnss/Gnss.cpp b/services/core/jni/gnss/Gnss.cpp
+index 8934c3a6..cc554f6b 100644
+--- a/services/core/jni/gnss/Gnss.cpp
++++ b/services/core/jni/gnss/Gnss.cpp
+@@ -20,6 +20,9 @@
+ #include "Gnss.h"
+ 
+ #include <binder/IServiceManager.h>
++#include <android-base/properties.h>
++#include <android/hidl/manager/1.0/IServiceManager.h>
++#include <hidl/ServiceManagement.h>
+ 
+ #include "Utils.h"
+ 
+@@ -48,6 +51,21 @@ using android::hardware::gnss::IGnssPsds;
+ 
+ namespace {
+ 
++// A legacy product without VINTF enforcement otherwise sleeps for every absent
++// HIDL version and tries to launch it. Do not wait on the system-server main
++// thread for providers this product has not declared or made ready.
++template <typename Interface>
++sp<Interface> getGnssHidlService(bool declaredOnly) {
++    if (!declaredOnly) return Interface::getService();
++    auto manager = hardware::defaultServiceManager();
++    if (manager == nullptr) return nullptr;
++    auto transport = manager->getTransport(Interface::descriptor, "default");
++    using Transport = hidl::manager::V1_0::IServiceManager::Transport;
++    if (!transport.isOk() || transport == Transport::EMPTY) return nullptr;
++    return Interface::tryGetService();
++}
++
++
+ GnssLocationAidl createGnssLocation(jint gnssLocationFlags, jdouble latitudeDegrees,
+                                     jdouble longitudeDegrees, jdouble altitudeMeters,
+                                     jfloat speedMetersPerSec, jfloat bearingDegrees,
+@@ -129,7 +147,10 @@ GnssLocation_V2_0 createGnssLocation_V2_0(jint gnssLocationFlags, jdouble latitu
+ // Implementation of GnssHal, which unifies all versions of GNSS HALs
+ 
+ GnssHal::GnssHal() {
+-    gnssHalAidl = waitForVintfService<IGnssAidl>();
++    const bool declaredOnly = base::GetBoolProperty("ro.t110.optional_hal_probe", false);
++    if (declaredOnly) ALOGI("T110 GNSS probing declared services without waiting");
++    gnssHalAidl = declaredOnly ? checkVintfService<IGnssAidl>()
++                               : waitForVintfService<IGnssAidl>();
+     if (gnssHalAidl != nullptr) {
+         ALOGD("Successfully got GNSS AIDL handle. Version=%d.", gnssHalAidl->getInterfaceVersion());
+         if (gnssHalAidl->getInterfaceVersion() >= 2) {
+@@ -138,7 +159,7 @@ GnssHal::GnssHal() {
+     }
+ 
+     ALOGD("Trying IGnss_V2_1::getService()");
+-    gnssHal_V2_1 = IGnss_V2_1::getService();
++    gnssHal_V2_1 = getGnssHidlService<IGnss_V2_1>(declaredOnly);
+     if (gnssHal_V2_1 != nullptr) {
+         gnssHal_V2_0 = gnssHal_V2_1;
+         gnssHal_V1_1 = gnssHal_V2_1;
+@@ -147,7 +168,7 @@ GnssHal::GnssHal() {
+     }
+ 
+     ALOGD("gnssHal 2.1 was null, trying 2.0");
+-    gnssHal_V2_0 = IGnss_V2_0::getService();
++    gnssHal_V2_0 = getGnssHidlService<IGnss_V2_0>(declaredOnly);
+     if (gnssHal_V2_0 != nullptr) {
+         gnssHal_V1_1 = gnssHal_V2_0;
+         gnssHal = gnssHal_V2_0;
+@@ -155,14 +176,14 @@ GnssHal::GnssHal() {
+     }
+ 
+     ALOGD("gnssHal 2.0 was null, trying 1.1");
+-    gnssHal_V1_1 = IGnss_V1_1::getService();
++    gnssHal_V1_1 = getGnssHidlService<IGnss_V1_1>(declaredOnly);
+     if (gnssHal_V1_1 != nullptr) {
+         gnssHal = gnssHal_V1_1;
+         return;
+     }
+ 
+     ALOGD("gnssHal 1.1 was null, trying 1.0");
+-    gnssHal = IGnss_V1_0::getService();
++    gnssHal = getGnssHidlService<IGnss_V1_0>(declaredOnly);
+ }
+ 
+ jboolean GnssHal::isSupported() {

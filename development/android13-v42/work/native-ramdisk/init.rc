@@ -1,0 +1,68 @@
+# Diagnostic Android 13 userspace only. No block partition mounts or writes.
+# Installed at /system/etc/init/hw/init.rc in the self-contained ramdisk.
+on early-init
+    copy /system/etc/ld.config.txt /linkerconfig/ld.config.txt
+    chmod 0444 /linkerconfig/ld.config.txt
+    start ueventd
+
+on init
+    export PATH /system/bin
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    symlink /proc/self/fd/0 /dev/stdin
+    symlink /proc/self/fd/1 /dev/stdout
+    symlink /proc/self/fd/2 /dev/stderr
+    mkdir /data 0755 root root
+    mount tmpfs tmpfs /data mode=0755
+    mkdir /tmp 0770 root shell
+    mount tmpfs tmpfs /tmp mode=0770
+    mkdir /dev/usb-ffs 0775 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18D1
+    write /sys/class/android_usb/android0/idProduct D001
+    write /sys/class/android_usb/android0/iManufacturer Samsung
+    write /sys/class/android_usb/android0/iProduct T110-Android13-Diagnostic
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    write /sys/class/android_usb/android0/functions adb
+
+on late-init
+    trigger boot
+
+on boot
+    start recovery
+    start adbd
+    start path-probe
+    start processgroup-probe
+
+on property:sys.usb.ffs.ready=1
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state adb
+
+service ueventd /system/bin/ueventd
+    seclabel u:r:ueventd:s0
+
+service recovery /system/bin/recovery
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service adbd /system/bin/adbd --root_seclabel=u:r:su:s0 --device_banner=recovery
+    disabled
+    stdio_to_kmsg
+    socket adbd stream 0660 system system
+    seclabel u:r:adbd:s0
+
+service path-probe /system/bin/t110_path_probe
+    disabled
+    oneshot
+    stdio_to_kmsg
+    seclabel u:r:recovery:s0
+
+service processgroup-probe /system/bin/t110_processgroup_probe
+    disabled
+    oneshot
+    stdio_to_kmsg
+    seclabel u:r:recovery:s0
