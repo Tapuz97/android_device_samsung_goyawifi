@@ -3097,7 +3097,7 @@
   },
   {
     "path": "scripts/upload_verified_draft_backup.py",
-    "sha256": "719aeb2c83571f9a6aa128ba7749e7ecacd280a954535db40108c9b82866fa10"
+    "sha256": "e6fb280aee0ae476377b7444fe9d7cb370f5f1ffaf203e1af65290f2ba145280"
   },
   {
     "path": "scripts/validate_launcher_frame_candidate.py",

@@ -25,11 +25,17 @@ for filename in sys.argv[1:]:
   release=gh(f'repos/{repo}/releases/{releaseid}')
   existing=next(a for a in release['assets'] if a['name']==p.name)
  assert existing['size']==size and existing['digest']=='sha256:'+digest,existing['name']
- for url in [existing['url'],existing['browser_download_url']]:
+ access_checks={}
+ for label,url in [('api',existing['url']),('browser',existing['browser_download_url'])]:
+  rate_limited=False
   try:
    with urllib.request.urlopen(url,timeout=30) as response:status=response.status
-  except urllib.error.HTTPError as e:status=e.code
-  assert status==404,('Private asset unexpectedly public',p.name,status)
+  except urllib.error.HTTPError as e:
+   status=e.code
+   rate_limited=(label=='api' and status==403 and e.headers.get('X-RateLimit-Remaining')=='0')
+  access_checks[label]={'status':status,'rate_limited':rate_limited}
+  assert status==404 or rate_limited,('Anonymous access check inconclusive or unexpectedly public',p.name,label,status)
+ assert access_checks['browser']['status']==404
  prior=state['assets'].get(p.name)
  if prior and prior['sha256']==digest and prior.get('download_sha256_verified'):
   print('ALREADY_VERIFIED',p.name,flush=True);continue
@@ -44,7 +50,8 @@ for filename in sys.argv[1:]:
  assert rc==0,(p.name,error.decode(errors='replace'))
  assert received==size and h.hexdigest()==digest,(p.name,received,h.hexdigest())
  state['assets'][p.name]={'id':existing['id'],'bytes':size,'sha256':digest,
-  'github_digest_verified':True,'download_sha256_verified':True,'anonymous_access_http':404,'state':existing['state']}
+  'github_digest_verified':True,'download_sha256_verified':True,'anonymous_access_http':404,
+  'anonymous_access_checks':access_checks,'state':existing['state']}
  statefile.write_text(json.dumps(state,indent=2)+'\n')
  print('VERIFIED_ONLINE',p.name,digest,flush=True)
 print('Verified asset count',len(state['assets']),flush=True)
