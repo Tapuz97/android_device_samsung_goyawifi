@@ -1,5 +1,13 @@
 # Current SM-T110 development state
 
+## Development checkpoint and archive work — 2026-11-12
+
+Android7.1/Lineage14.1 source audit completed; no Nougat build, flash or hardware qualification. See LINEAGE14-GPU-AND-SLEEP-AUDIT.md. Current Android13 remains physically unqualified despite its previous persistence checks.
+
+The accumulated device/bootstrap/patch source is pushed to the owner's device fork branch t110/android13-v42-checkpoint. The tested Soong Binder32bit fix is submitted to LineageOS Gerrit change513083, status NEW (not merged). Full kernel checkpoint and private restoration archive verification are tracked separately.
+
+The owner requested a complete online backup followed by removing local T110 development files on C/E, keeping informational Markdown. No final teardown is allowed until every required online asset passes authenticated download hash verification. The unrelated files/drives/projects are excluded.
+
 Updated2026-11-12. **v42-GApps / BOOT48 is installed. Requested logging and memory
 defaults are permanent and verified after a fresh boot, without live overrides.**
 No build, flash or test remains running. The broader ROM port is unfinished.
@@ -70,4 +78,4 @@ Search host preopt and standard swap remain active. Native Bluetooth previously
 failed lookup qualification; camera provider, audio, sensors, key LEDs and MTP
 remain unfinished. Physical microSD/accessory checks remain pending. Radio code
 was retained, not newly functionally qualified. Preserve normal Lineage features.
-No public push, Gerrit submission or public ROM release was made this turn.
+The earlier snapshot made no publication; the development-checkpoint section above records later source and Gerrit publication. No public ROM release has been published.

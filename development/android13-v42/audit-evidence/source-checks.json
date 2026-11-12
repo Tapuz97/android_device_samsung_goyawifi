@@ -1,0 +1,17 @@
+{
+  "source_audit": "PASS_SOURCE_FINDINGS_REPRODUCED",
+  "checks": {
+    "hwc1_build_selection": true,
+    "hwc12_sentinel_incompatibility_present": true,
+    "gralloc0_adapter_present": true,
+    "device_textrel_option_present": true,
+    "autosleep_backend_disabled_in_this_branch": true,
+    "jit_default_ashmem": true,
+    "bt532_runtime_and_system_callbacks_selected_as_alternatives": true
+  },
+  "nougat_hardware_tested": false,
+  "gpu_qualified": false,
+  "sleep_wake_qualified": false,
+  "full_rom_build_started": false,
+  "tablet_modified": false
+}

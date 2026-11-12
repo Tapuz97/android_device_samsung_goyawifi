@@ -4,7 +4,7 @@ import os,subprocess,shutil,re,json,hashlib
 r=Path(__file__).resolve().parents[1];repo=r/'community/device-checkpoint'
 assert json.loads(subprocess.check_output(['gh','api','user'],text=True))['login']=='Tapuz97'
 branch='t110/android13-v42-checkpoint'
-def git(*a):return subprocess.check_output(['git','-C',str(repo),*a],text=True).strip()
+def git(*a):return subprocess.check_output(['git','-C',str(repo),*a],text=True,stderr=subprocess.PIPE).strip()
 if git('branch','--show-current')!=branch:git('switch','-c',branch)
 dest=repo/'development/android13-v42';dest.mkdir(parents=True,exist_ok=True)
 ext={'.c','.cpp','.h','.mk','.bp','.xml','.rc','.te','.kl','.sh','.py','.config','.json','.md','.txt','.kcm','.idc','.prop','.map','.aidl','.java','.gradle','.s','.patch','.gitignore','.bat','.ps1'}
@@ -32,7 +32,7 @@ for name in ['sources.lock.json','BUILD-WORKSPACE.json']:
 delta=r/'backups/android13-before-lineage14-20261112/lineage20-source-delta'
 for p in delta.rglob('*.patch'):add(p,Path('source-delta')/p.relative_to(delta))
 add(delta/'pinned-manifest.xml',Path('pinned-manifest.xml'))
-for name in ['primary-provenance.json','additional-primary-provenance.json','blob-textrel.json']:
+for name in ['primary-provenance.json','additional-primary-provenance.json','ALL-PRIMARY-SOURCES.json','blob-textrel.json','source-checks.json']:
     add(r/'evidence/lineage14-audit'/name,Path('audit-evidence')/name)
 (dest/'README.md').write_text('''# SM-T110 Android13 preservation and Nougat source audit
 

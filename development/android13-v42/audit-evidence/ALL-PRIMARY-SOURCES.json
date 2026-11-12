@@ -1,0 +1,170 @@
+[
+  {
+    "path": "services/surfaceflinger/DisplayHardware/HWComposer.cpp",
+    "git_blob_sha": "c87ba7233e620e2a3291bd056d1ef54f5105b400",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/DisplayHardware/HWComposer.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "include/hardware/hwcomposer.h",
+    "git_blob_sha": "28877e1cbd3e469254b2ca9a0f03adb89bd08bc3",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_hardware_libhardware/blob/cm-14.1/include/hardware/hwcomposer.h",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "linker/linker.cpp",
+    "git_blob_sha": "ef31dae9926ab81567156d17aa437b2fd990d0d0",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_bionic/blob/cm-14.1/linker/linker.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "runtime/jit/jit_code_cache.cc",
+    "git_blob_sha": "d00ca5af61ca95247b64714e47d7cfeb5116c32d",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_art/blob/cm-14.1/runtime/jit/jit_code_cache.cc",
+    "ranged_excerpt": true
+  },
+  {
+    "path": "services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp",
+    "git_blob_sha": "317f948d16b2598008a752479699d848f8dc9619",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "services/surfaceflinger/SurfaceFlinger_hwc1.cpp",
+    "git_blob_sha": "e0b2d55b805d5b273340cf75e5aafbd819cae7dc",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/SurfaceFlinger_hwc1.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libs/ui/GraphicBufferAllocator.cpp",
+    "git_blob_sha": "edfff4d6a5cb62fb530d9e22d589d8b321553c4f",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/libs/ui/GraphicBufferAllocator.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libsuspend/autosuspend.c",
+    "git_blob_sha": "edd100711c7813a472666443ebda8d906ced6289",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libsuspend/autosuspend_earlysuspend.c",
+    "git_blob_sha": "3793a699ede29d81bbad220caf3db8f47546e0d1",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend_earlysuspend.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libsuspend/autosuspend_autosleep.c",
+    "git_blob_sha": "7262cc7e8d9d8d0a1b00ac5c428e47522af4ec85",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend_autosleep.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libs/hwui/Android.mk",
+    "git_blob_sha": "cacfce16ab9ab1ec73259258ce94368a84eed4d6",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_base/blob/cm-14.1/libs/hwui/Android.mk",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "services/surfaceflinger/Android.mk",
+    "git_blob_sha": "18cc946be07be702daf997847748aea3ed74c0da",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/services/surfaceflinger/Android.mk",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libsuspend/autosuspend_wakeup_count.c",
+    "git_blob_sha": "23a02902748cf54416a51cb293f00d82a2349c15",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libsuspend/autosuspend_wakeup_count.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "opengl/libs/EGL/eglApi.cpp",
+    "git_blob_sha": "0cd8b0235e67189286af180d9f33e4ced0f04cb8",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/opengl/libs/EGL/eglApi.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "include/hardware/gralloc.h",
+    "git_blob_sha": "0c87fb0c49fbc83b27f115917a105aa22ffcda57",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_hardware_libhardware/blob/cm-14.1/include/hardware/gralloc.h",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "kernel/arch/arm/mach-mmp/board-goya-input.c",
+    "git_blob_sha": "a206493499b4446cd027d9ad4a247d3a444299f7",
+    "encoding": "utf-8",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya/blob/3c50b450af74d42f8c5d360c692f71002b3bb0af/arch/arm/mach-mmp/board-goya-input.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "kernel/arch/arm/mach-mmp/onboard/Lcd_mipi2lvds_vx5b3d.c",
+    "git_blob_sha": "9883720958d1d93f062f2d05e9590f6382d67754",
+    "encoding": "utf-8",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya/blob/3c50b450af74d42f8c5d360c692f71002b3bb0af/arch/arm/mach-mmp/onboard/Lcd_mipi2lvds_vx5b3d.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "kernel/drivers/video/pxa168fb.c",
+    "git_blob_sha": "b153c9b2e3e418302b961b30cc2083a612bc5f81",
+    "encoding": "utf-8",
+    "url": "https://github.com/visyone/android_kernel_samsung_goya/blob/3c50b450af74d42f8c5d360c692f71002b3bb0af/drivers/video/pxa168fb.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libs/ui/Gralloc1.cpp",
+    "git_blob_sha": "efaa64bca735aeeaeb02f96b00333854f67d8898",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/libs/ui/Gralloc1.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libs/ui/Gralloc1On0Adapter.cpp",
+    "git_blob_sha": "86964f588fbc913977c2ab10aef544d6475cc77f",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_native/blob/cm-14.1/libs/ui/Gralloc1On0Adapter.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libion/ion.c",
+    "git_blob_sha": "d1984bd0638b4eb21f313f2e47c3ee7f98f5a8cd",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_system_core/blob/cm-14.1/libion/ion.c",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "linker/Android.mk",
+    "git_blob_sha": "24ae07044897208e3eb61ac9f487e4bccf74b73b",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_bionic/blob/cm-14.1/linker/Android.mk",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libs/hwui/renderthread/EglManager.cpp",
+    "git_blob_sha": "ac6a28fe6289127e810cc828a0b9ccd54021eaca",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_base/blob/cm-14.1/libs/hwui/renderthread/EglManager.cpp",
+    "ranged_excerpt": false
+  },
+  {
+    "path": "libs/hwui/TextureCache.cpp",
+    "git_blob_sha": "523924af5ef13dbee48cb46ef0293f5226e55c2a",
+    "encoding": "utf-8",
+    "url": "https://github.com/LineageOS/android_frameworks_base/blob/cm-14.1/libs/hwui/TextureCache.cpp",
+    "ranged_excerpt": false
+  }
+]

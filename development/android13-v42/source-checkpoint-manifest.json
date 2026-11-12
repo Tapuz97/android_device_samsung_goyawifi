@@ -992,6 +992,10 @@
     "sha256": "fde28deb74aad837ea2e706edb3bf2889873112e651c11b5029844994f9af58d"
   },
   {
+    "path": "scripts/archive_project_restoration.py",
+    "sha256": "3c549d4b0373334a3f78101458368b49f2b2d6d2953a57cb12bcce1d201510d7"
+  },
+  {
     "path": "scripts/archive_random_kernel.py",
     "sha256": "4ae726b4b17877eb2b831bc1b19e88eec6cce3fb67127057342163716bccf003"
   },
@@ -1002,6 +1006,10 @@
   {
     "path": "scripts/archive_v25_kernel.py",
     "sha256": "b0e06979b7cbf623dc72b4d2c3942fad73c692f6734d888d7d1bc5fa1f47b874"
+  },
+  {
+    "path": "scripts/archive_wsl_fixtures.py",
+    "sha256": "705222b2adb8a266d9a36cf60c1227dc1062c2231035fbabf280210a513cf3f9"
   },
   {
     "path": "scripts/assess_functional_checklist.py",
@@ -1396,6 +1404,10 @@
     "sha256": "3ccc62f0446386bf469b08893d2aab22acf2da6b8e955920099ead3e743ca698"
   },
   {
+    "path": "scripts/checkpoint_kernel_git.py",
+    "sha256": "9097610b7ff8d9cf926973fba3d40ba9335e77473c85d2a0828bb012ec78c68b"
+  },
+  {
     "path": "scripts/checkpoint_persistent_v42.py",
     "sha256": "eac6c8959ec236851a5ab18b489f8746c06369f2e4da9595808200a93a7a4a9d"
   },
@@ -1450,6 +1462,10 @@
   {
     "path": "scripts/collect_v35_ui_threads.py",
     "sha256": "77ceea85f2ffc1c3fe97e504ea16eba1f32a070b06e06a26daa211acc20991b0"
+  },
+  {
+    "path": "scripts/commit_kernel_checkpoint.py",
+    "sha256": "8e655330ec42ef160159861149adb7e10ee5912cd591cc2ffd91a0de10fab6e8"
   },
   {
     "path": "scripts/compare_binder_abi.py",
@@ -2421,7 +2437,7 @@
   },
   {
     "path": "scripts/publish_source_checkpoint.py",
-    "sha256": "dc95d3f835e3dceee566e5cf3361f669916b692209bda6a9ac9dd5c6af080257"
+    "sha256": "522b8b8db121c9cc820afd0398ee2cc20b970284dbacf03084e449ec447fe350"
   },
   {
     "path": "scripts/qualify_boot40_network.py",
@@ -3068,6 +3084,10 @@
     "sha256": "6c27b498695564f1213e453c843493e2a9162b46c876f057e75a14d6148da01a"
   },
   {
+    "path": "scripts/upload_verified_draft_backup.py",
+    "sha256": "719aeb2c83571f9a6aa128ba7749e7ecacd280a954535db40108c9b82866fa10"
+  },
+  {
     "path": "scripts/validate_launcher_frame_candidate.py",
     "sha256": "2e794b5d43f0d4fdfa25ea91b541be94975fbb49764d48b98c33f427b3d0cdf7"
   },
@@ -3296,6 +3316,10 @@
     "sha256": "6e28301834066a60bf93f590196da506fd9b1ef28650417567cfdef1b46dd532"
   },
   {
+    "path": "ACHIEVEMENTS.md",
+    "sha256": "a395832a7de0c1840c492570cbcb7383a83729d60bfc9175ea667aa2db885b18"
+  },
+  {
     "path": "AUDIT.md",
     "sha256": "b564861cc39ef8e7eecdd7cf3e1709ba2f1089dc65881487f31cf45d88c51074"
   },
@@ -3305,7 +3329,7 @@
   },
   {
     "path": "CURRENT-STATUS.md",
-    "sha256": "e33d40c9e9a5f3c498aedfbff2b4c3b9601c35fd7469c54b244aa682183ce5f9"
+    "sha256": "ec93546ad7d9f2ef1f940d0603d0f50f564566069661d9c88f60bbd7675ad311"
   },
   {
     "path": "FEATURE-BACKLOG.md",
@@ -3344,6 +3368,10 @@
     "sha256": "63351f4e346b6506df93ab13a73231462ae620b8623b0572ac6c71efb7667bb6"
   },
   {
+    "path": "LINKS.md",
+    "sha256": "077bfe29a096b672e9a94f7efce4c8d1a61e44c88156a7b43aeec190abc75cc1"
+  },
+  {
     "path": "NATIVE-BOOT.md",
     "sha256": "3ffc0af33dfb7d2e47080f3a94274e19895a770329d99e9ef5c2446cd2b3b642"
   },
@@ -3378,6 +3406,14 @@
   {
     "path": "PERSISTENT-TUNING.md",
     "sha256": "9ce890f1974abc187394202d9631a817179e2dc93a236df0d501f0c086f64c74"
+  },
+  {
+    "path": "REFERENCES.md",
+    "sha256": "5a542a5e58aa6bdf79fca48d91add65e8ab8d3750f501f1041e8b7802e913cb4"
+  },
+  {
+    "path": "RESTORE.md",
+    "sha256": "c4ca98934c3801f91527730670b8660b04842928c4ff09f34bc7ec1f63a9c23e"
   },
   {
     "path": "RESUME-NEXT.md",
@@ -3508,7 +3544,15 @@
     "sha256": "10e55657a9b5e1cb104a8ecf694bf973d0bf782f5c34cbebfe227b28edfc5264"
   },
   {
+    "path": "audit-evidence/ALL-PRIMARY-SOURCES.json",
+    "sha256": "e77f9b37e442e42d25d31c224423eb5854951da699c4c63fde776698b391ab98"
+  },
+  {
     "path": "audit-evidence/blob-textrel.json",
     "sha256": "f534a121107bd1552b172fe39688ef13a7a573d09fdc1020325da282d03dda16"
+  },
+  {
+    "path": "audit-evidence/source-checks.json",
+    "sha256": "5dca2eb0e29f4035418af880cc3b6cdcee5ed6c667858768fc816204e8ba4612"
   }
 ]
