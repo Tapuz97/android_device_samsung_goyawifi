@@ -1,32 +1,29 @@
 # T110 notes to keep
 
-These are the retained information records. Keep this SM-T110-Notes folder.
+Cleanup is complete. Keep this SM-T110-Notes folder; it contains 13 Markdown
+information records. The original disposable SM-T110 directory is absent.
+Its final 8.9 MB remainder is in the Windows Recycle Bin, which was not emptied.
+The large source/build/image payloads were already removed after verified online
+backup. Nothing was moved to D:.
 
-## Single directory for manual deletion
+E: was safely ejected and is currently disconnected. It can remain unplugged.
+The tablet was not flashed or changed during cleanup.
 
-```text
-C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110
-```
-
-Everything remaining in that directory is disposable. Its Markdown files are
-duplicates of these retained records. Required ROM images, original firmware,
-kernel/device source, logs and rollback files are preserved online; all nine
-payloads and the separate proof record passed authenticated download/SHA256
-verification. The complete project archive passed67,743 source-file hashes.
-
-The user chose to delete this one directory manually. Earlier cleanup-script
-instructions in historical records are superseded by this handoff.
-
-E: is already cleared of T110 build payloads; E:\T110-build has only README.md.
-Ubuntu's dedicated T110 tree is removed and its virtual disk compacted. The
-tablet was not flashed or changed during the audit/cleanup task.
-
-## Resume later
+## Online backup and development records
 
 - LINKS.md: source tags, fork branches, Gerrit review and private backup.
-- ONLINE-BACKUP.md and RESTORE.md: payload hashes and restoration steps.
+- ONLINE-BACKUP.md and RESTORE.md: verified payload hashes and restoration steps.
+- CLEANUP.md: final cleanup result and the resolved Windows folder lock.
 - LINEAGE14-GPU-AND-SLEEP-AUDIT.md: Android7.1 compatibility findings and gates.
 - ACHIEVEMENTS.md and FUNCTIONAL-CHECKLIST.md: Android13 results and limitations.
+- CURRENT-STATUS.md and RESUME-NEXT.md: checkpoint and later development steps.
 
-Android7.1 has not been built or hardware-qualified. GPU app rendering and
-physical sleep/wake must be qualified before a complete ROM build.
+All nine restoration payloads and the separate proof record passed authenticated
+online download/SHA256 verification. The complete project archive passed all
+67,743 source-file hashes. Source checkpoints are published in the existing forks;
+suitable Soong work was submitted to Gerrit. The private draft release must stay
+unpublished because it contains firmware, Google binaries and private evidence.
+
+Android7.1 has not been built or hardware-qualified. Restore the sources later,
+then qualify GPU app rendering and physical sleep/wake before a complete ROM build.
+Older pending cleanup scripts and manual-deletion instructions are superseded.

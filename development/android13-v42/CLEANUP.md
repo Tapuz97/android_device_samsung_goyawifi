@@ -1,27 +1,34 @@
 # T110 cleanup result
 
-Status: MANUAL_SINGLE_DIRECTORY_HANDOFF
+Status: COMPLETE_WITH_FINAL_REMAINDER_RECYCLED
 
-The owner chose manual deletion instead of another script. The single folder is:
+<!-- cleanup-live-start -->
+## Cleanup completed — 2026-11-12
 
-```text
-C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110
-```
+All required source, current/rollback images, firmware and evidence were backed
+up online and verified before teardown. The large C: and E: project/build
+payloads are removed. The dedicated T110Build distro is unregistered; Ubuntu's
+T110 build tree is removed and its virtual disk compacted. Ubuntu itself remains.
 
-All required Markdown records were copied out and hash-verified in the sibling
-SM-T110-Notes folder. Everything inside the original SM-T110 directory may now
-be deleted. See README.md in this retained notes folder. Earlier script output
-below records the already-completed cleanup and the remaining file lock.
+The remaining original SM-T110 folder was successfully moved to the Windows
+Recycle Bin after the owner closed the idle WindowsPackageManagerServer.exe
+process holding its empty cleanup subfolder open. Native Windows result:
+HRESULT 0x00000000, Aborted=False. The original SM-T110 path is now absent.
+All 13 separate retained Markdown records passed unchanged SHA256 checks during
+that operation. The final recycled remainder was 889 files / 8,905,498 bytes.
+The Recycle Bin was not emptied; this last small remainder is recoverable there.
 
-All nine restoration payloads were downloaded and SHA256 verified before removal.
-Source tags and restore instructions: LINKS.md, ONLINE-BACKUP.md and RESTORE.md.
+Only the sibling SM-T110-Notes directory is retained for this project on C:.
+It contains 13 Markdown information records and no non-Markdown files. E: was
+safely ejected, is currently absent, and may remain physically disconnected.
+No unrelated projects, D: targets or tablet files were changed in this continuation.
+No Android build, flash or test was started. Cleanup is complete; development
+can resume later by restoring the online sources and following the Android7.1
+GPU and sleep/wake audit gates.
 
-The dedicated E: T110Build distro and obsolete E: build filesystem were removed.
-Ubuntu /root/t110-build was removed, trimmed and its VHD compacted; Ubuntu itself remains.
-This continuation removes only the named C: project payloads. It preserves the
-informative Markdown records and does not follow D: junction targets.
+This result supersedes all older manual-delete/script/pending-lock instructions.
+Permanent deletion had been rejected by automatic approval review; the allowed
+reversible Recycle Bin operation completed after the Windows lock was released.
+<!-- cleanup-live-end -->
 
-C: free before/after this continuation: 127460016128 / 127459975168 bytes.
-
-Pending errors: The process cannot access the file 'C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110\cleanup\lineage14-pivot' because it is being used by another process.
-Remaining non-Markdown entries: backups, cleanup, scripts
+Online locations and hashes: LINKS.md, ONLINE-BACKUP.md and RESTORE.md.
