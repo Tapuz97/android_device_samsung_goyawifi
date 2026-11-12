@@ -12,3 +12,11 @@
 - [Private draft restoration backup](https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/tag/untagged-318e561e76a42ef76b33). Login with the owner's GitHub account. ReleaseID443063640, draft tag t110-development-backup-20261112. Keep it unpublished: it contains private device logs and proprietary firmware/Google binaries.
 
 See RESTORE.md, ONLINE-BACKUP.md and LINEAGE14-GPU-AND-SLEEP-AUDIT.md before resuming. No XDA public ROM package or guide has been published.
+
+## Fixed preservation tags
+
+- [Device source snapshot](https://github.com/Tapuz97/android_device_samsung_goyawifi/tree/t110-android13-v42-20261112): efe363e0f1358c52c678e41406851b811aad0188.
+- [Kernel source snapshot](https://github.com/Tapuz97/android_kernel_samsung_goya/tree/t110-android13-v42-20261112): 3eb98fe728aefa780638a1bb2f487e19ba6fadcb.
+
+Both use tag t110-android13-v42-20261112. The working branch can acquire later
+documentation updates; these tags preserve the source checkpoint itself.

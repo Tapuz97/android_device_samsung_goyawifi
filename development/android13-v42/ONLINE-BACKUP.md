@@ -7,7 +7,11 @@ Anonymous release and asset access returned404. Keep the draft unpublished.
 
 The complete project restoration stream passed all67,743 member hashes.
 All25 changed Android-project base commits were independently verified online.
-The final metadata capsule is being added before final local cleanup.
+The final metadata capsule also passed a complete member readback and an
+authenticated download/SHA256 check. All nine required payloads are verified:
+6,299,404,805 bytes in total. Final source operations are captured by device
+commit efe363e0f1358c52c678e41406851b811aad0188 and kernel commit
+3eb98fe728aefa780638a1bb2f487e19ba6fadcb.
 
 | Asset | Bytes | SHA256 |
 |---|---:|---|
@@ -19,7 +23,18 @@ The final metadata capsule is being added before final local cleanup.
 | project-restoration-private.tar.gz.part000 | 1879048192 | f54552ed268bcdb94ead15c87f894de003a2a140e1739c39b3b36ac6edf64d73 |
 | project-restoration-private.tar.gz.part001 | 1879048192 | 1ca77bb7148c018464941dc22bb195b8a6b59178739a11080c60ff162a0ca493 |
 | project-restoration-private.tar.gz.part002 | 1149151458 | a30a09ec55eb8cf4ed2339f997016a6f519d0a1720f9df9847fbbe478f0ae842 |
+| final-metadata-private.tar.gz | 4188970 | 10ac536e0a94aa2cfb2ba7db592309891e601ba56efb69e1676d1b36b905fa3d |
 
 The numbered parts are one gzip/tar stream. Join them in order before extraction.
 Restore instructions and authenticated download command: RESTORE.md.
 Repository, draft release and review links: LINKS.md.
+
+The final metadata's anonymous API check was rate-limited403 (quota0), not
+counted as a successful privacy test. Its direct anonymous download URL returned404,
+and authenticated server metadata confirmed the release remains an unpublished
+draft. Every payload's downloaded byte count and SHA256 passed independently.
+
+FINAL-ONLINE-VERIFIED.json is the separate machine-readable verification record.
+Its asset list covers these nine payloads, excluding that record itself.
+The record was also uploaded, downloaded and hash-verified:2344 bytes,
+SHA25699b4ca48608d40bdedf5219a4f79c6488d514ed61ecb3cf1f2fdf84e9b13ccd3.
