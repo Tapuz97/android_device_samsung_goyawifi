@@ -1,39 +1,27 @@
-# T110 cleanup checkpoint
+# T110 cleanup result
 
-2026-11-12. Final teardown is pending completion of the online restoration archive.
+Status: MANUAL_SINGLE_DIRECTORY_HANDOFF
 
-The obsolete-image pass is verified in its saved result:36 generated files,
-31,662,051,788 logical bytes removed. C: free increased from20,411,453,440 to
-52,073,504,768 bytes in that pass. Current/rollback pairs and sources were excluded.
-No files were moved to D:.
+The owner chose manual deletion instead of another script. The single folder is:
 
-The current source is pushed to both existing owner forks; the suitable Soong
-fix is submitted to Gerrit. Current ROM, kernel, Android source delta and both
-host-helper archives passed authenticated online download/SHA256 verification.
-The private draft release and its assets were checked anonymously and returned404.
-The remaining full project/firmware/evidence archive must also pass before teardown.
+```text
+C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110
+```
 
-Final authorized scope:
+All required Markdown records were copied out and hash-verified in the sibling
+SM-T110-Notes folder. Everything inside the original SM-T110 directory may now
+be deleted. See README.md in this retained notes folder. Earlier script output
+below records the already-completed cleanup and the remaining file lock.
 
-- C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110: retain informational Markdown only.
-- Ubuntu:/root/t110-build: remove dedicated T110 source/build/output tree after backup; retain Ubuntu itself and unrelated data.
-- E:\T110-build: remove the dedicated T110Build distro/VHD and obsolete raw build filesystem; retain a Markdown pointer only.
+All nine restoration payloads were downloaded and SHA256 verified before removal.
+Source tags and restore instructions: LINKS.md, ONLINE-BACKUP.md and RESTORE.md.
 
-E:\T110-build\lineage20.ext4.img is the OLD UNVERIFIED filesystem, last written
-2026-11-05. BUILD-WORKSPACE.json explicitly says not to reuse it. Active work was
-in T110Build's native E:\T110-build\WSL\ext4.vhdx and its changes are separately
-archived. The old raw filesystem is not the only copy of current source.
+The dedicated E: T110Build distro and obsolete E: build filesystem were removed.
+Ubuntu /root/t110-build was removed, trimmed and its VHD compacted; Ubuntu itself remains.
+This continuation removes only the named C: project payloads. It preserves the
+informative Markdown records and does not follow D: junction targets.
 
-Installed Android SDK/ADB, Windows applications, other projects, Docker, personal
-files and D: targets are excluded. C: junctions to old D: artifacts must be removed
-as links without following/deleting their targets.
+C: free before/after this continuation: 127460016128 / 127459975168 bytes.
 
-Earlier automatic approval review rejected both bulk folder deletion and the
-narrower image-file command with only "blocked by policy". The image cleanup
-result subsequently confirmed removal; final teardown has not yet been attempted.
-If automatic review rejects the verified final cleanup, preserve the backups and
-record the exact remaining action rather than claiming completion.
-
-See LINKS.md, RESTORE.md and ONLINE-BACKUP.md. The pending operational commands
-are in scripts/cleanup_wsl_t110.py and scripts/final_t110_cleanup.ps1 until the
-final cleanup removes those local scripts too; their source is retained online.
+Pending errors: The process cannot access the file 'C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110\cleanup\lineage14-pivot' because it is being used by another process.
+Remaining non-Markdown entries: backups, cleanup, scripts

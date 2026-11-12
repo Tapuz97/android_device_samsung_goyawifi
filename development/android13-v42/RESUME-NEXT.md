@@ -1,4 +1,49 @@
-# Current T110 task resume state — 2026-11-12
+# T110 current checkpoint — 2026-11-12
+
+**Latest instruction:** the owner chose manual deletion of one directory:
+C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110.
+The retained information is copied and verified in sibling SM-T110-Notes.
+Everything in the original directory may be deleted; do not ask the owner to
+rerun cleanup scripts. E: and Ubuntu cleanup are complete. After the owner
+deletes it, verify absence from the parent directory without using the deleted
+directory as a tool working directory. See this notes folder's README.md.
+
+**Latest:** source audit and online preservation are complete. Nine payloads,
+6,299,404,805 bytes, plus the separate proof record were downloaded/hash-verified.
+The complete project archive passed all67,743 member hashes. All25 changed
+Android project bases were independently verified online. Both forks have
+source tag t110-android13-v42-20261112. Soong Gerrit513083 is submitted/unmerged.
+
+Ubuntu:/root/t110-build is removed, trimmed and the VHD compacted. T110Build
+was unregistered and E:/T110-build now contains only README.md. Last measured
+free space: C121,123,577,856 bytes; E491,912,040,448 bytes.
+
+C: cleanup stopped at an empty locked folder. Automatic review rejected the
+subsequent direct empty-folder deletion with "blocked by policy". The owner
+was asked to close old cleanup PowerShell/Explorer windows and run:
+
+```powershell
+& 'C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110\scripts\finish_c_cleanup.ps1'
+```
+
+The continuation is pushed to the device branch, commit000463e. It retrieves
+and verifies the proof, rechecks all nine remote payloads, resets its current
+folder and removes the remaining C: data, keeping12 informational Markdown
+records. If a lock remains, it preserves itself/proof and writes the pending
+result to CLEANUP.md. Verify the filesystem after the owner finishes; do not
+claim C: is fully cleaned based on a message alone. Then update/publish the
+final Markdown records. Other projects/apps, D: targets and tablet storage
+remain outside this cleanup.
+
+No Nougat build, runtime qualification, flash or reboot occurred. Restore
+source via LINKS.md/RESTORE.md before resuming the small graphics/power target
+described in LINEAGE14-GPU-AND-SLEEP-AUDIT.md. The full ROM build waits for
+proper GPU app drawing and physical sleep/wake qualification.
+
+## Superseded archive-progress notes
+
+The notes below describe an earlier point in this task. Their archive jobs
+have finished; their session IDs and pending-export statements are historical.
 
 The owner asked for an Android7.1/Lineage14.1 GPU/sleep source audit, preservation/publication of Android13 work, then COMPLETE C/E T110-development cleanup, keeping informative Markdown only. Do not start a full Nougat build or flash the tablet. The owner authorized use of our existing GitHub repository after Gerrit-only archive proved impossible.
 

@@ -1,6 +1,24 @@
 # Current SM-T110 development state
 
+**Latest handoff:** canonical retained notes are now in the sibling
+SM-T110-Notes folder. The owner will manually delete the whole original
+C:\Users\Gal\Documents\ChatGPT\Electronic Repair\SM-T110 directory.
+Everything left there is disposable; its notes are duplicates. All required
+payloads/source and proof are verified online. E: and Ubuntu build cleanup
+are already complete. This manual handoff supersedes older script instructions
+below. See README.md, LINKS.md and ONLINE-BACKUP.md in this notes folder.
+
 ## Development checkpoint and archive work — 2026-11-12
+
+**Latest host cleanup:** all nine restoration payloads and the separate proof
+record passed online download/SHA256 checks. Both forks have fixed source tag
+t110-android13-v42-20261112. Ubuntu:/root/t110-build is removed/trimmed and its
+VHD compacted. T110Build is unregistered; E:/T110-build has only README.md.
+The C: pass stopped at a locked empty cleanup folder; automatic review rejected
+the subsequent empty-folder command with "blocked by policy". The owner has
+the guarded local continuation scripts/finish_c_cleanup.ps1, pushed in device
+commit000463e. Verify CLEANUP.md and actual root entries before marking C: complete.
+See ONLINE-BACKUP.md, LINKS.md and RESTORE.md. No tablet action occurred here.
 
 Android7.1/Lineage14.1 source audit completed; no Nougat build, flash or hardware qualification. See LINEAGE14-GPU-AND-SLEEP-AUDIT.md. Current Android13 remains physically unqualified despite its previous persistence checks.
 
