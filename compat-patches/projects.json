@@ -10,7 +10,7 @@
     "project": "frameworks/native",
     "head": "a2efd4f088d7e9fb870b56a08b0f831e0b05321a",
     "patch": "frameworks__native.patch",
-    "patch_sha256": "e7cf3b87f3f4a57c231ecb1bf5b921a2649656f1dca9a20f9ca84b442ed7a9ab",
+    "patch_sha256": "08d55f7975d9b23720bfa6e8d213e598de9c37fe3642373cc49108d6a4e93ecf",
     "untracked": [
       {
         "path": "include/ui/T110Vivante.h",
@@ -29,7 +29,7 @@
     "project": "frameworks/base",
     "head": "3ea44fbb9f601f0708fd858cd0e08918e363df34",
     "patch": "frameworks__base.patch",
-    "patch_sha256": "ca601bd2ecb97a878d2f9acd53c975c9198be0ad173516664c2b149104c75bc6",
+    "patch_sha256": "a612fa8e3388a9f1eee60794416b59ba623541ac3f9ca41d9b54c29363c88fe9",
     "untracked": [
       {
         "path": "services/core/java/com/android/server/policy/PhysicalNavigationKeyPolicy.java",

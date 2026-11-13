@@ -49,6 +49,7 @@ assert properties['ro.build.version.sdk']=='25'
 assert properties['ro.product.device']=='goyawifi'
 assert properties['ro.cm.version'].startswith('14.1-')
 subprocess.run(['python3',str(Path(__file__).with_name('verify_lineage14_inputs.py'))],check=True)
+subprocess.run(['python3',str(Path(__file__).with_name('verify_window_contract_build.py'))],check=True)
 subprocess.run(['python3',str(Path(__file__).with_name('verify_vendor_elf.py'))],check=True)
 elf_report=json.loads((BASE/'records/vendor-elf-verification.json').read_text())
 assert elf_report['status']=='PASS' and not elf_report['uses_staged_files']

@@ -14,6 +14,7 @@ PRODUCT_AAPT_CONFIG := normal large mdpi hdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density=160 ro.sf.hwrotation=270 ro.opengles.version=131072
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface=wlan0 ro.zygote.disable_gl_preload=true
+PRODUCT_PROPERTY_OVERRIDES += ro.t110.legacy_gpu=true
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.strictmode.disable=true
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.secure=1 ro.adb.secure=1 persist.sys.usb.config=adb
 # Android7.1 JIT uses ashmem: retain normal runtime and GPU app rendering.

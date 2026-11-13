@@ -83,6 +83,35 @@ index 033066bea3d9f6f6ff014487e5b94315ca7a25ed..1e6ab133836c3b9786f8e1b600458fae
  sp<IMemoryHeap> MemoryBase::getMemory(ssize_t* offset, size_t* size) const
  {
      if (offset) *offset = mOffset;
+diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
+index d423d124a320ddabb09eb44a51103782e0f80821..d779b60f016f885a7ba5d818b42b8cc18c2ce0be 100644
+--- a/libs/gui/Surface.cpp
++++ b/libs/gui/Surface.cpp
+@@ -197,6 +197,24 @@ int Surface::hook_dequeueBuffer_DEPRECATED(ANativeWindow* window,
+     ANativeWindowBuffer* buf;
+     int fenceFd = -1;
+     int result = c->dequeueBuffer(&buf, &fenceFd);
++#ifdef T110_MRVL_LEGACY
++    // Stock EGL queues from a worker after eglSwapBuffers returns. Adapted
++    // from jakaco/lineageos-14.1-goyawifi; never increase the queue bound.
++    if (result == INVALID_OPERATION) {
++        const nsecs_t deadline = systemTime(SYSTEM_TIME_MONOTONIC) + ms2ns(100);
++        do {
++            {
++                Mutex::Autolock lock(c->mMutex);
++                const nsecs_t remaining = deadline - systemTime(SYSTEM_TIME_MONOTONIC);
++                if (remaining <= 0) break;
++                c->mQueueBufferCondition.waitRelative(c->mMutex,
++                        remaining < ms2ns(5) ? remaining : ms2ns(5));
++            }
++            result = c->dequeueBuffer(&buf, &fenceFd);
++        } while (result == INVALID_OPERATION &&
++                systemTime(SYSTEM_TIME_MONOTONIC) < deadline);
++    }
++#endif
+     if (result != OK) {
+         return result;
+     }
 diff --git a/libs/ui/Android.mk b/libs/ui/Android.mk
 index 2b16365c37a2dc5227de831537ee35404ea4d427..647781ee0e800d91c2ee0c7eee34280b8282105d 100644
 --- a/libs/ui/Android.mk

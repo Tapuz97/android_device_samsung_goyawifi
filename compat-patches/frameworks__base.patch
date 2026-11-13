@@ -1,3 +1,55 @@
+diff --git a/core/java/android/os/GraphicsEnvironment.java b/core/java/android/os/GraphicsEnvironment.java
+index e4cdbce09796f1cd21aa9c05e94e2299d462cbd3..adf6c22373d39c40b56d6a41ef4664bda47df4ff 100644
+--- a/core/java/android/os/GraphicsEnvironment.java
++++ b/core/java/android/os/GraphicsEnvironment.java
+@@ -17,6 +17,7 @@
+ package android.os;
+ 
+ import android.content.Context;
++import android.content.Intent;
+ import android.content.pm.ApplicationInfo;
+ import android.content.pm.PackageManager;
+ import android.opengl.EGL14;
+@@ -37,6 +38,18 @@ public final class GraphicsEnvironment {
+     public static void setupGraphicsEnvironment(Context context) {
+         chooseDriver(context);
+ 
++        // goyawifi: devices that can't preload GL in zygote run this early init only for the home
++        // app and persistent processes (SystemUI), which start behind the lock screen and draw
++        // right after unlock. Every app process ran it before, including background ones that
++        // never draw; at boot and unlock that meant ~20 processes setting up the GPU driver at
++        // once, which stalled the UI for up to a minute. Other apps set up EGL with their first
++        // frame instead.
++        if (SystemProperties.getBoolean("ro.t110.legacy_gpu", false)
++                && SystemProperties.getBoolean("ro.zygote.disable_gl_preload", false)
++                && !isHomeOrPersistent(context)) {
++            return;
++        }
++
+         // Now that we've figured out which driver to use for this process, load and initialize it.
+         // This can take multiple frame periods, and it would otherwise happen as part of the first
+         // frame, increasing first-frame latency. Starting it here, as a low-priority background
+@@ -50,6 +63,20 @@ public final class GraphicsEnvironment {
+         eglInitThread.start();
+     }
+ 
++    private static boolean isHomeOrPersistent(Context context) {
++        ApplicationInfo ai = context.getApplicationInfo();
++        if ((ai.flags & ApplicationInfo.FLAG_PERSISTENT) != 0) {
++            return true;
++        }
++        Intent home = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
++                .setPackage(context.getPackageName());
++        try {
++            return !context.getPackageManager().queryIntentActivities(home, 0).isEmpty();
++        } catch (RuntimeException e) {
++            return false;
++        }
++    }
++
+     private static void chooseDriver(Context context) {
+         String driverPackageName = SystemProperties.get(PROPERTY_GFX_DRIVER);
+         if (driverPackageName == null || driverPackageName.isEmpty()) {
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
 index 47674d7e51ffbd2d2133ea90849f1e9cccac3bee..1f0adc184d88df280cd3623721f9b8ede618094a 100755
 --- a/core/res/res/values/config.xml
@@ -26,6 +78,25 @@ index 71e388d48ba7daa6cf016931e795972c9db0da53..8f62925dea234badc4ff2441c641fed4
 +  <java-symbol type="bool" name="config_useFrameworkNavigationKeyDisabler" />
 +  <java-symbol type="bool" name="config_independentButtonBacklight" />
  </resources>
+diff --git a/libs/hwui/renderthread/EglManager.cpp b/libs/hwui/renderthread/EglManager.cpp
+index ac6a28fe6289127e810cc828a0b9ccd54021eaca..8462e35542c39d2ddf41b4a3c5063603a639e9ae 100644
+--- a/libs/hwui/renderthread/EglManager.cpp
++++ b/libs/hwui/renderthread/EglManager.cpp
+@@ -335,6 +335,14 @@ bool EglManager::swapBuffers(const Frame& frame, const SkRect& screenDirty) {
+         fence();
+     }
+ 
++#ifdef T110_MRVL_LEGACY
++    // Android13 patch0098: force this stock driver's window tile resolve.
++    // Focused fixtures passed there; full Nougat app correctness remains
++    // a hardware gate. Do not replace this with glFinish (previously failed).
++    GLubyte pixel[4];
++    glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
++#endif
++
+     EGLint rects[4];
+     frame.map(screenDirty, rects);
+     eglSwapBuffersWithDamageKHR(mEglDisplay, frame.mSurface, rects,
 diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
 index 6a22c505beb3b316902372e3071f09044e630005..146b97a56f8e7bd9db2cf7e286077040e6aced4b 100644
 --- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
