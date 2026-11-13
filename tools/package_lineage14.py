@@ -7,7 +7,12 @@ import shutil
 import stat
 import struct
 import subprocess
+import argparse
 
+args_parser=argparse.ArgumentParser()
+args_parser.add_argument('--reuse-system',type=Path)
+args_parser.add_argument('--reuse-system-sha256')
+args=args_parser.parse_args()
 BASE=Path('/root/t110-lineage14')
 OUT=BASE/'android/out/target/product/goyawifi'
 DEST=BASE/'artifacts/lineage14-first-build'
@@ -62,18 +67,23 @@ for name,(fields,body) in list(items.items()):
     if stat.S_ISLNK(fields[1]) and Path(name).name in ('ueventd','watchdogd'):
         if body in (b'../init',b'/init'):items[name]=(fields,body.replace(b'init',b'init.android'))
 def new_fields(mode):return [0,mode,0,0,1,0,0,0,0,0,0,0,0]
-for name in ('lib','lib/modules','stage-data'):
-    if name not in items:items[name]=(new_fields(stat.S_IFDIR|0o755),b'')
-items['lib/modules/galcore.ko']=(new_fields(stat.S_IFREG|0o644),(DEVICE/'prebuilt/galcore.ko').read_bytes())
+# The loader bind-mounts a private cache; the standard cache symlink would
+# fail its directory check (and bind onto its own target). Use real mountpoints.
+for name in ('lib','lib/modules','stage-data','cache'):
+    if name not in items or not stat.S_ISDIR(items[name][0][1]):items[name]=(new_fields(stat.S_IFDIR|0o755),b'')
+items.pop('lib/modules/galcore.ko',None)
+assert (OUT/'system/vendor/lib/modules/galcore.ko').read_bytes()==(DEVICE/'prebuilt/galcore.ko').read_bytes()
 raw=b''.join(entry(n,f,b) for n,(f,b) in sorted(items.items()))
 raw+=entry('TRAILER!!!',new_fields(0),b'');raw+=bytes(-len(raw)%512)
 # Reparse the actual generated archive; packaging must preserve Android init and daemon dispatch.
 parsed={n:(f,b) for n,f,b in records(raw) if n!='TRAILER!!!'}
 assert parsed['init'][1]==stage and parsed['init.android'][1]==android_init
+for target in ('dev','proc','sys','system','data','cache','stage-data'):
+    assert stat.S_ISDIR(parsed[target][0][1]), 'Bootstrap target must be a real directory: '+target
 for daemon in ('sbin/ueventd','sbin/watchdogd'):
     assert stat.S_ISLNK(parsed[daemon][0][1])
     assert parsed[daemon][1] in (b'../init.android',b'/init.android')
-assert parsed['lib/modules/galcore.ko'][1]==(DEVICE/'prebuilt/galcore.ko').read_bytes()
+assert 'lib/modules/galcore.ko' not in parsed
 assert b'/stage-data/local/tmp/t110-lineage14-system.raw' in stage
 assert b'--second-stage' in stage and b'/init.android' in stage
 packed_ramdisk=gzip.compress(raw,mtime=0)
@@ -83,8 +93,7 @@ page=struct.unpack_from('<I',old,36)[0];assert page==2048
 assert struct.unpack_from('<I',old,24)[0]==0,'Unexpected second boot payload'
 assert struct.unpack_from('<I',old,40)[0]==0,'Unexpected separate device-tree payload'
 header=bytearray(old[:page]);struct.pack_into('<I',header,16,len(packed_ramdisk))
-cmdline=' '.join(x for x in old[64:576].split(b'\0',1)[0].decode().split() if not x.startswith(('androidboot.hardware=','androidboot.selinux=')))
-cmdline+=' androidboot.hardware=mrvl androidboot.selinux=permissive'
+cmdline=old[64:576].split(b'\0',1)[0].decode()
 assert len(cmdline.encode())<512
 header[64:576]=cmdline.encode().ljust(512,b'\0')
 digest=hashlib.sha1()
@@ -101,7 +110,11 @@ system=OUT/'system.img'
 assert system.is_file()
 with system.open('rb') as source:
     sparse_magic=source.read(4)
-if sparse_magic==b'\x3a\xff\x26\xed':
+if args.reuse_system:
+    assert args.reuse_system_sha256 and hashlib.sha256(args.reuse_system.read_bytes()).hexdigest()==args.reuse_system_sha256
+    assert args.reuse_system.stat().st_size==SYSTEM_SIZE
+    if args.reuse_system.resolve()!=(DEST/'system.raw.img').resolve():shutil.copy2(args.reuse_system,DEST/'system.raw.img')
+elif sparse_magic==b'\x3a\xff\x26\xed':
     subprocess.run(['simg2img',str(system),str(DEST/'system.raw.img')],check=True)
 else:shutil.copy2(system,DEST/'system.raw.img')
 assert (DEST/'system.raw.img').stat().st_size==SYSTEM_SIZE
@@ -127,7 +140,7 @@ report={'status':'BUILT_OFFLINE_VERIFIED_NOT_HARDWARE_TESTED','android':'7.1.2',
         'physical_system_write_allowed':False,'system_destination':'/data/local/tmp/t110-lineage14-system.raw',
         'userdata_directory':'/data/local/tmp/t110-lineage14-data','kernel':'preserved BOOT48',
         'selinux':'permissive bring-up; not a production security qualification',
-        'google_apps_included':False,'inode_bitmap_padding_normalized':normalized_padding,'vendor_elfs_verified':len(elf_report['files']),'files':[]}
+        'reused_verified_system':bool(args.reuse_system),'google_apps_included':False,'inode_bitmap_padding_normalized':normalized_padding,'vendor_elfs_verified':len(elf_report['files']),'files':[]}
 for name in ('boot.img','system.raw.img'):
     p=DEST/name
     with p.open('rb') as f:digest=hashlib.file_digest(f,'sha256').hexdigest() if hasattr(hashlib,'file_digest') else None

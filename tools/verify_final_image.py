@@ -7,7 +7,7 @@ inputs=json.loads((ANDROID/'device/samsung/goyawifi/vendor-inputs.json').read_te
 paths={str(Path(x['destination']).relative_to('/system')) for x in inputs}
 paths.update(['build.prop','bin/t110_stage','bin/linker','lib/libEGL.so','lib/libui.so',
  'lib/libutils.so','lib/libbinder.so','lib/libcutils.so','lib/libcamera_client.so',
- 'lib/libandroid_servers.so','lib/libaudioflinger.so','lib/libsurfaceflinger.so',
+ 'lib/libandroid_servers.so','lib/libaudioflinger.so','lib/libsurfaceflinger.so','vendor/lib/modules/galcore.ko',
  'etc/audio_policy.conf','usr/keylayout/gpio-keys.kl','usr/keylayout/sec_touchscreen.kl',
  'priv-app/Settings/Settings.apk','priv-app/CMParts/CMParts.apk','priv-app/SystemUI/SystemUI.apk',
  'priv-app/Trebuchet/Trebuchet.apk','app/LatinIME/LatinIME.apk',

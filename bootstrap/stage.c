@@ -16,7 +16,15 @@
 #include <sys/xattr.h>
 #include <unistd.h>
 
+static int checkpoint_fd=-1;
+static void checkpoint(const char *step) {
+    dprintf(2,"<5>t110-nougat-stage: %s\n",step);
+    if(checkpoint_fd>=0){dprintf(checkpoint_fd,"%s\n",step);fsync(checkpoint_fd);}
+}
 static __attribute__((noreturn)) void failed(const char *step) {
+    int saved_errno=errno;
+    if(checkpoint_fd>=0){dprintf(checkpoint_fd,"FAIL %s: %s\n",step,strerror(saved_errno));fsync(checkpoint_fd);}
+    errno=saved_errno;
     dprintf(2,"<3>t110-nougat-stage: %s: %s\n",step,strerror(errno));
     sync();
     syscall(SYS_reboot,LINUX_REBOOT_MAGIC1,LINUX_REBOOT_MAGIC2,
@@ -35,12 +43,27 @@ static void directory(const char *path,mode_t mode) {
 static void block(const char *name,const char *path) {
     char sys[160];unsigned maj,min;
     snprintf(sys,sizeof(sys),"/sys/class/block/%s/dev",name);
-    FILE *f=fopen(sys,"r");
-    if(!f||fscanf(f,"%u:%u",&maj,&min)!=2) failed(sys);
-    fclose(f);
-    if(mknod(path,S_IFBLK|0600,makedev(maj,min))&&errno!=EEXIST)failed(path);
+    /* eMMC enumeration is asynchronous. Preserve the working loader's
+     * bounded readiness wait; a single early fopen can fail before probing. */
+    for(unsigned attempt=0;attempt<100;++attempt){
+        FILE *f=fopen(sys,"r");
+        if(f){
+            int count=fscanf(f,"%u:%u",&maj,&min);fclose(f);
+            if(count!=2){errno=EINVAL;failed(sys);}
+            if(mknod(path,S_IFBLK|0600,makedev(maj,min))&&errno!=EEXIST)failed(path);
+            return;
+        }
+        if(errno!=ENOENT && errno!=ENODEV)failed(sys);
+        usleep(100000);
+    }
+    errno=ETIMEDOUT;failed(sys);
 }
 static void load_policy(void) {
+    /* Match the proven bring-up order before the new policy restricts kernel
+     * domain operations. This candidate is explicitly permissive. */
+    int enforce=open("/sys/fs/selinux/enforce",O_WRONLY|O_CLOEXEC);
+    if(enforce<0||write(enforce,"0",1)!=1)failed("initial policy mode");
+    close(enforce);
     int fd=open("/sepolicy",O_RDONLY|O_CLOEXEC);struct stat st;
     if(fd<0||fstat(fd,&st)||st.st_size<1024||st.st_size>4*1024*1024)failed("policy input");
     void *bytes=mmap(NULL,st.st_size,PROT_READ,MAP_PRIVATE,fd,0);close(fd);
@@ -56,7 +79,7 @@ static void load_policy(void) {
     close(fd);
 }
 static void load_gpu(void) {
-    int fd=open("/lib/modules/galcore.ko",O_RDONLY|O_CLOEXEC|O_NOFOLLOW);
+    int fd=open("/system/vendor/lib/modules/galcore.ko",O_RDONLY|O_CLOEXEC|O_NOFOLLOW);
     struct stat st;
     if(fd<0||fstat(fd,&st)||!S_ISREG(st.st_mode)||st.st_size<100000||st.st_size>8000000)failed("matched GPU module");
     void *bytes=mmap(NULL,st.st_size,PROT_READ,MAP_PRIVATE,fd,0);close(fd);
@@ -91,11 +114,16 @@ int main(void) {
     fclose(geometry);
     directory("/stage-data",0755);
     mounted("/dev/block/mmcblk0p16","/stage-data","ext4",MS_NOSUID|MS_NODEV|MS_NOATIME,NULL);
+    checkpoint_fd=open("/stage-data/local/tmp/t110-lineage14-last-stage.log",
+                       O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC|O_NOFOLLOW,0600);
+    if(checkpoint_fd<0)failed("one-shot startup record");
+    checkpoint("Physical userdata mounted; new bootstrap active");
     const char *data="/stage-data/local/tmp/t110-lineage14-data";
     directory(data,0771);directory("/data",0771);
     mounted(data,"/data",NULL,MS_BIND,NULL);
     directory("/data/cache",0770);directory("/cache",0770);
     mounted("/data/cache","/cache",NULL,MS_BIND,NULL);
+    checkpoint("Isolated Nougat userdata mounted");
     int image=open("/stage-data/local/tmp/t110-lineage14-system.raw",O_RDONLY|O_CLOEXEC|O_NOFOLLOW);
     struct stat info;
     if(image<0||fstat(image,&info)||!S_ISREG(info.st_mode)||info.st_size!=1594884096)failed("Nougat system geometry");
@@ -105,7 +133,9 @@ int main(void) {
     close(loop);close(image);
     directory("/system",0755);
     mounted("/dev/block/loop0","/system","ext4",MS_RDONLY|MS_NODEV,"noload");
+    checkpoint("Verified system loop mounted read-only");
     load_gpu();
+    checkpoint("Matched GPU module loaded from system");
     dprintf(2,"<5>t110-nougat-stage: system mounted read-only; starting Android7 init\n");
     pid_t watchdog=fork();
     if(watchdog<0)failed("recovery safeguard");
@@ -121,6 +151,7 @@ int main(void) {
     const char init_label[]="u:object_r:init_exec:s0";
     if(lsetxattr("/init.android","security.selinux",init_label,sizeof(init_label),0))
         failed("platform init label");
+    checkpoint("Executing real Android7 init second-stage");
     char *args[]={"/init.android","--second-stage",NULL};
     execv("/init.android",args);
     failed("Android7 init exec");

@@ -33,3 +33,6 @@ PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/etc/audio_swvol_element.xml:syst
 
 # Use the Nougat XML/ICU platform pair, not an old ICU48 vendor shadow.
 PRODUCT_PACKAGES += libxml2
+
+# Load the matched GPU module after the system loop is mounted; keep ramdisk small.
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/prebuilt/galcore.ko:system/vendor/lib/modules/galcore.ko

@@ -1,19 +1,18 @@
-# First complete Nougat candidate
+# Current Nougat candidate
 
-Built Android7.1.2 / LineageOS14.1 from the pinned cm-14.1 manifest. Two complete
-build passes succeeded. Sixteen actual ARM32 graphics-layout assertions match
-old and new headers. All42 selected vendor ELF dependency closures and141 input
-hashes pass. The final raw ext4 image passes e2fsck after normalizing only the
-legacy make_ext4fs inode-bitmap padding.163 files extracted from the actual image
-match the installed build, including original drivers and core platform/apps.
+Android7.1.2 / LineageOS14.1 has built successfully. Sixteen actual ARM32 graphics
+layout assertions,42 selected vendor ELF dependency closures and141 driver-input
+hash checks pass. The clean final ext4 copy has164 critical/vendor files extracted
+and compared to the installed build. The GPU module is also hash-matched.
 
-The candidate has NOT booted on the tablet. It is userdebug/permissive, without
-Google apps. GPS integration and the current-kernel button LED backend remain
-pending. Native Buttons selection and independent backlight UI plumbing are
-implemented, but the T110 LED capability remains hidden until a real backend is
-established. Standard Lineage launcher, settings, keyboard and wallpapers remain.
-This source branch is an experimental bring-up checkpoint, not an official ROM
-release, upstream acceptance or a claim of working hardware.
+The first boot attempts returned to recovery; Android7 startup is NOT confirmed.
+See docs/BOOT-DEBUG.md. A missing storage-readiness wait and the standard cache
+symlink conflict were corrected. The current boot is installed and awaiting a
+physical cold start. These offline results do not establish working hardware.
 
-- boot.img: 16777216 bytes; SHA256 6c66afa96acbe35a31eff324e9927e7465220ee0e6c33ecb5d62c4798bda1bfc
-- system.raw.img: 1594884096 bytes; SHA256 8aa82ad2d3d7816f3ed76729d0292e69c7997764c6417a336757e69f9cad8a0b
+This is permissive/userdebug, without Google apps. GPS integration and the actual
+button LED backend remain pending. Standard Lineage settings/keyboard/launcher/
+wallpapers remain; only native physical navigation needs product customization.
+
+- boot.img: 16777216 bytes; SHA256 b2de57cb6a7f71eaf97c08fff05b3a6e3a6a4d8a0f7739188806cb206d7cdef6
+- system.raw.img: 1594884096 bytes; SHA256 89ef3277c6e059019fbd752c27c57136319c87c65199f7027feb7d7964d527ea
