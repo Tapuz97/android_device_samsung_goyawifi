@@ -50,15 +50,38 @@ Native allocator probe covers cached/uncached allocation, fd lifetime, ashmem an
 fd-leak checks. Firmware/driver replacement was unnecessary for this encoder fault.
 
 Raw logs, network identifiers and captured photos remain local/private.
-Temporary USB stay-awake original value0 must be restored when testing finishes.
+Temporary USB stay-awake restored to original value0. GDB forward removed and
+debugger processes stopped before installation.
 
 ## Packaged candidate
 
 Build and actual-image checks passed; 176 critical files extracted from ext4 match
 the build outputs. Boot packaging checks the camera encoder permission in the
-ramdisk. This candidate has not been flashed or boot-qualified yet.
+ramdisk. The combined pair is now installed with complete readback verification.
 
 - boot.img: 16777216 bytes, SHA256 55df8314699da4ae5b1736100bb798029d023aaf38a4202efb811b6725d8beaf
 - system.raw.img: 1594884096 bytes, SHA256 37896dd65fac195e3d7c9291f0ee411a52ae6ab2011ac61eb3114d687e9bd00a
 - Native build path: /root/t110-lineage14/artifacts/lineage14-first-build
-- Installed physical base remains system611bc2d2 / boot0e226023; live replacements apply this pass's fixes until reboot. No additional full boot was performed.
+- The earlier system611bc2d2 / boot0e226023 pair is preserved as functional-pass-parent.
+
+## Installed-build boot verification
+
+One combined full boot: 00f966eb-0d8c-4a30-b7f8-cc1253091d50. Android reported
+boot completion around49 seconds. This is full startup, not the kernel/ADB time.
+
+- Owner confirmed correct moving camera preview and responsive touch on this boot.
+- Saved IMG_20261113_115544.jpg, fully decoded as1600x1200; cameraserver PID166 remained alive.
+- Settings search returned Bluetooth and Bluetooth scanning results after reboot.
+- Wi-Fi automatically rejoined and ConnectivityService reported VALIDATED. First
+  command-line DNS attempt timed out during startup; a bounded retry resolved the
+  hostname, pinged it and returned certificate-verified HTTPS200. Record that
+  transient delay rather than claiming zero network startup issues.
+- Bluetooth returned ON and retained the owner's phone bond; the successful OPP
+  transfer was on the preceding boot, not repeated after installation.
+- Installed netd/libbinder/libcameraservice hashes match the checked replacements;
+  uio0 now boots with0660 media:camera without a live permission override.
+- Crash buffer empty during these checks; stay-awake value0. No continuous monitor.
+- Recovery unchanged; faulty physical SYSTEM not written; user data preserved.
+
+Remaining qualification includes video, Bluetooth audio/HID/PAN, real suspend and
+Wi-Fi reconnect after sleep, SD/OTG/audio accessories and wider UI stability.
