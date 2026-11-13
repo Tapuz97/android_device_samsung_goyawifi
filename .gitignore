@@ -1,0 +1,5 @@
+/proprietary/
+/prebuilt/
+/*-audit.json
+/vendor-inputs.json
+/abi-verification.json

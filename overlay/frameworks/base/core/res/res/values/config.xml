@@ -1,0 +1,17 @@
+<resources>
+    <bool name="config_showNavigationBar">false</bool>
+    <bool name="config_voice_capable">false</bool>
+    <bool name="config_sms_capable">false</bool>
+    <bool name="config_supportAutoRotation">true</bool>
+    <bool name="config_enableTranslucentDecor">false</bool>
+    <integer name="config_screenBrightnessSettingMinimum">5</integer>
+    <integer name="config_screenBrightnessSettingDefault">128</integer>
+    <!-- HOME + BACK + APP_SWITCH + VOLUME; only physical HOME is a board wake key. -->
+    <integer name="config_deviceHardwareKeys">83</integer>
+    <integer name="config_deviceHardwareWakeKeys">1</integer>
+    <bool name="config_useFrameworkNavigationKeyDisabler">true</bool>
+    <bool name="config_independentButtonBacklight">true</bool>
+    <!-- No physical LED backend has been established. Keep its controls hidden
+         until the lights HAL/kernel can actually provide this capability. -->
+    <integer name="config_buttonBrightnessSettingDefault">0</integer>
+</resources>

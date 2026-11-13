@@ -1,0 +1,372 @@
+diff --git a/include/binder/IPCThreadState.h b/include/binder/IPCThreadState.h
+index 7b826d6dcd253ba7050a0a42b1eb59580e0c056f..d3c8a6900a2aa59025eb5f813960d0b305b24e5f 100644
+--- a/include/binder/IPCThreadState.h
++++ b/include/binder/IPCThreadState.h
+@@ -40,6 +40,9 @@ public:
+             status_t            clearLastError();
+ 
+             pid_t               getCallingPid() const;
++#ifdef T110_MRVL_LEGACY
++            pid_t               getCallingPid();
++#endif
+             uid_t               getCallingUid() const;
+ 
+             void                setStrictModePolicy(int32_t policy);
+diff --git a/include/ui/GraphicBufferMapper.h b/include/ui/GraphicBufferMapper.h
+index 4ccc6fddf97d5477a9e9704b6b5ca46df48ef8fa..c885348b906e6c6ebf5439308484277950951ead 100644
+--- a/include/ui/GraphicBufferMapper.h
++++ b/include/ui/GraphicBufferMapper.h
+@@ -42,6 +42,12 @@ public:
+ 
+     status_t lock(buffer_handle_t handle,
+             uint32_t usage, const Rect& bounds, void** vaddr);
++#if defined(T110_MRVL_LEGACY)
++    // Keep ANI7's signed ABI name without adding an ambiguous source overload.
++    status_t lockLegacy(buffer_handle_t handle,
++            int usage, const Rect& bounds, void** vaddr)
++            __asm__("_ZN7android19GraphicBufferMapper4lockEPK13native_handleiRKNS_4RectEPPv");
++#endif
+ 
+     status_t lockYCbCr(buffer_handle_t handle,
+             uint32_t usage, const Rect& bounds, android_ycbcr *ycbcr);
+diff --git a/libs/binder/IPCThreadState.cpp b/libs/binder/IPCThreadState.cpp
+index fa91055ab045b547dbc48af750190fe753ac848e..3c6771980c2cf477a33a12c18a394db0333c8573 100644
+--- a/libs/binder/IPCThreadState.cpp
++++ b/libs/binder/IPCThreadState.cpp
+@@ -353,6 +353,14 @@ status_t IPCThreadState::clearLastError()
+     return err;
+ }
+ 
++#ifdef T110_MRVL_LEGACY
++// Preserve the stock gralloc ABI while using the platform's calling identity.
++pid_t IPCThreadState::getCallingPid()
++{
++    return static_cast<const IPCThreadState*>(this)->getCallingPid();
++}
++#endif
++
+ pid_t IPCThreadState::getCallingPid() const
+ {
+     return mCallingPid;
+diff --git a/libs/binder/MemoryBase.cpp b/libs/binder/MemoryBase.cpp
+index 033066bea3d9f6f6ff014487e5b94315ca7a25ed..1e6ab133836c3b9786f8e1b600458fae786c2e7b 100644
+--- a/libs/binder/MemoryBase.cpp
++++ b/libs/binder/MemoryBase.cpp
+@@ -31,6 +31,30 @@ MemoryBase::MemoryBase(const sp<IMemoryHeap>& heap,
+ {
+ }
+ 
++#if defined(T110_MRVL_LEGACY) && defined(__arm__) && !defined(__LP64__)
++// ANI7's signed long and Nougat's signed int offsets have identical ARM32
++// representation and calling convention. Alias each genuine constructor entry;
++// a second public constructor would make unsigned source offsets ambiguous.
++static_assert(sizeof(long) == 4 && sizeof(ssize_t) == 4 && sizeof(size_t) == 4,
++        "Legacy constructors require the identical ARM32 argument widths");
++static_assert(static_cast<long>(-1) < 0 && static_cast<ssize_t>(-1) < 0,
++        "Legacy offsets must retain signed representation");
++#if defined(__thumb__)
++#define T110_CTOR_ALIAS_OP ".thumb_set "
++#else
++#define T110_CTOR_ALIAS_OP ".set "
++#endif
++__asm__(".global _ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEElj\n"
++        ".type _ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEElj, %function\n"
++        T110_CTOR_ALIAS_OP "_ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEElj, "
++        "_ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEEij\n"
++        ".global _ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEElj\n"
++        ".type _ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEElj, %function\n"
++        T110_CTOR_ALIAS_OP "_ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEElj, "
++        "_ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEEij\n");
++#undef T110_CTOR_ALIAS_OP
++#endif
++
+ sp<IMemoryHeap> MemoryBase::getMemory(ssize_t* offset, size_t* size) const
+ {
+     if (offset) *offset = mOffset;
+diff --git a/libs/ui/GraphicBufferMapper.cpp b/libs/ui/GraphicBufferMapper.cpp
+index bb860932c02601a295f947bc77aa38cc145f99fc..fe898a34910ff413c3d0f4511d3dd488d93ae43c 100644
+--- a/libs/ui/GraphicBufferMapper.cpp
++++ b/libs/ui/GraphicBufferMapper.cpp
+@@ -97,6 +97,15 @@ status_t GraphicBufferMapper::lock(buffer_handle_t handle, uint32_t usage,
+     return lockAsync(handle, usage, bounds, vaddr, -1);
+ }
+ 
++#if defined(T110_MRVL_LEGACY)
++status_t GraphicBufferMapper::lockLegacy(buffer_handle_t handle, int usage,
++        const Rect& bounds, void** vaddr)
++{
++    static_assert(sizeof(int) == sizeof(uint32_t), "legacy usage mask width");
++    return lock(handle, static_cast<uint32_t>(usage), bounds, vaddr);
++}
++#endif
++
+ status_t GraphicBufferMapper::lockYCbCr(buffer_handle_t handle, uint32_t usage,
+         const Rect& bounds, android_ycbcr *ycbcr)
+ {
+diff --git a/opengl/libs/EGL/eglApi.cpp b/opengl/libs/EGL/eglApi.cpp
+index 0cd8b0235e67189286af180d9f33e4ced0f04cb8..9c65a289035c3610c91eb4cb06bbc46e18aaaf6a 100644
+--- a/opengl/libs/EGL/eglApi.cpp
++++ b/opengl/libs/EGL/eglApi.cpp
+@@ -54,6 +54,9 @@
+ #include "egl_tls.h"
+ #include "egldefs.h"
+ 
++#ifdef T110_MRVL_LEGACY
++extern "C" EGLAPI EGLClientBuffer EGLAPIENTRY eglGetRenderBufferANDROID(EGLDisplay, EGLSurface);
++#endif
+ using namespace android;
+ 
+ // This extension has not been ratified yet, so can't be shipped.
+@@ -97,6 +100,9 @@ extern char const * const gBuiltinExtensionString =
+ #endif
+         ;
+ extern char const * const gExtensionString  =
++#ifdef T110_MRVL_LEGACY
++        "EGL_ANDROID_get_render_buffer "
++#endif
+         "EGL_KHR_image "                        // mandatory
+         "EGL_KHR_image_base "                   // mandatory
+         "EGL_KHR_image_pixmap "
+@@ -144,6 +150,9 @@ extern char const * const gExtensionString  =
+  *
+  */
+ static const extention_map_t sExtensionMap[] = {
++#ifdef T110_MRVL_LEGACY
++    { "eglGetRenderBufferANDROID", (__eglMustCastToProperFunctionPointerType)&eglGetRenderBufferANDROID },
++#endif
+     // EGL_KHR_lock_surface
+     { "eglLockSurfaceKHR",
+             (__eglMustCastToProperFunctionPointerType)&eglLockSurfaceKHR },
+@@ -2137,3 +2146,17 @@ EGLBoolean eglQueryTimestampSupportedANDROID(EGLDisplay dpy, EGLSurface surface,
+             return EGL_FALSE;
+     }
+ }
++
++#ifdef T110_MRVL_LEGACY
++extern "C" EGLAPI EGLClientBuffer EGLAPIENTRY eglGetRenderBufferANDROID(EGLDisplay dpy, EGLSurface draw) {
++    clearError();
++    const egl_display_ptr dp = validate_display(dpy);
++    if (!dp) return nullptr;
++    SurfaceRef ref(dp.get(), draw);
++    if (!ref.get()) return setError(EGL_BAD_SURFACE, static_cast<EGLClientBuffer>(nullptr));
++    const egl_surface_t* surface = get_surface(draw);
++    if (!surface->cnx->egl.eglGetRenderBufferANDROID)
++        return setError(EGL_BAD_ACCESS, static_cast<EGLClientBuffer>(nullptr));
++    return surface->cnx->egl.eglGetRenderBufferANDROID(dp->disp.dpy, surface->surface);
++}
++#endif
+diff --git a/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp b/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp
+index 317f948d16b2598008a752479699d848f8dc9619..cfa605197922ab85929a5185a9f3014354566ce6 100644
+--- a/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp
++++ b/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.cpp
+@@ -119,6 +119,7 @@ HWComposer::HWComposer(
+     int fberr = loadFbHalModule();
+     loadHwcModule();
+ 
++#ifndef T110_MRVL_LEGACY
+     if (mFbDev && mHwc && hwcHasApiVersion(mHwc, HWC_DEVICE_API_VERSION_1_1)) {
+         // close FB HAL if we don't needed it.
+         // FIXME: this is temporary until we're not forced to open FB HAL
+@@ -127,6 +128,7 @@ HWComposer::HWComposer(
+         mFbDev = NULL;
+     }
+ 
++#endif
+     // If we have no HWC, or a pre-1.1 HWC, an FB dev is mandatory.
+     if ((!mHwc || !hwcHasApiVersion(mHwc, HWC_DEVICE_API_VERSION_1_1))
+             && !mFbDev) {
+@@ -351,7 +353,11 @@ static const uint32_t DISPLAY_ATTRIBUTES[] = {
+     HWC_DISPLAY_HEIGHT,
+     HWC_DISPLAY_DPI_X,
+     HWC_DISPLAY_DPI_Y,
++#ifdef T110_MRVL_LEGACY
++    HWC_DISPLAY_FORMAT,
++#else
+     HWC_DISPLAY_COLOR_TRANSFORM,
++#endif
+     HWC_DISPLAY_NO_ATTRIBUTE,
+ };
+ #define NUM_DISPLAY_ATTRIBUTES (sizeof(DISPLAY_ATTRIBUTES) / sizeof(DISPLAY_ATTRIBUTES)[0])
+@@ -417,14 +423,28 @@ status_t HWComposer::queryDisplayProperties(int disp) {
+                     config.height = values[i];
+                     break;
+                 case HWC_DISPLAY_DPI_X:
++#ifdef T110_MRVL_LEGACY
++                    config.xdpi = values[i] < 1000 ? values[i] : values[i] / 1000.0f;
++#else
+                     config.xdpi = values[i] / 1000.0f;
++#endif
+                     break;
+                 case HWC_DISPLAY_DPI_Y:
++#ifdef T110_MRVL_LEGACY
++                    config.ydpi = values[i] < 1000 ? values[i] : values[i] / 1000.0f;
++#else
+                     config.ydpi = values[i] / 1000.0f;
++#endif
++                    break;
++#ifdef T110_MRVL_LEGACY
++                case HWC_DISPLAY_FORMAT:
++                    mDisplayData[disp].format = values[i];
+                     break;
++#else
+                 case HWC_DISPLAY_COLOR_TRANSFORM:
+                     config.colorMode = static_cast<android_color_mode_t>(values[i]);
+                     break;
++#endif
+                 default:
+                     ALOG_ASSERT(false, "unknown display attribute[%zu] %#x",
+                             i, DISPLAY_ATTRIBUTES[i]);
+@@ -445,7 +465,11 @@ status_t HWComposer::queryDisplayProperties(int disp) {
+ #ifdef USE_BGRA_8888
+     mDisplayData[disp].format = HAL_PIXEL_FORMAT_BGRA_8888;
+ #else
++#ifndef T110_MRVL_LEGACY
+     mDisplayData[disp].format = HAL_PIXEL_FORMAT_RGBA_8888;
++#else
++    if (mFbDev) mDisplayData[disp].format = mFbDev->format;
++#endif
+ #endif
+     mDisplayData[disp].connected = true;
+     return NO_ERROR;
+@@ -510,8 +534,12 @@ uint32_t HWComposer::getFormat(int disp) const {
+     if (static_cast<uint32_t>(disp) >= MAX_HWC_DISPLAYS || !mAllocatedDisplayIDs.hasBit(disp)) {
+ #ifdef USE_BGRA_8888
+         return HAL_PIXEL_FORMAT_BGRA_8888;
++#else
++#ifdef T110_MRVL_LEGACY
++        return mDisplayData[HWC_DISPLAY_PRIMARY].format;
+ #else
+         return HAL_PIXEL_FORMAT_RGBA_8888;
++#endif
+ #endif
+     } else {
+         return mDisplayData[disp].format;
+@@ -652,6 +680,9 @@ status_t HWComposer::createWorkList(int32_t id, size_t numLayers) {
+             disp.framebufferTarget->acquireFenceFd = -1;
+             disp.framebufferTarget->releaseFenceFd = -1;
+             disp.framebufferTarget->planeAlpha = 0xFF;
++#ifdef T110_MRVL_LEGACY
++            disp.framebufferTarget->alpha = 0xFF;
++#endif
+         }
+         disp.list->retireFenceFd = -1;
+         disp.list->flags = HWC_GEOMETRY_CHANGED;
+@@ -686,6 +717,15 @@ status_t HWComposer::setFramebufferTarget(int32_t id,
+     return NO_ERROR;
+ }
+ 
++#ifdef T110_MRVL_LEGACY
++void HWComposer::setT110EglSurface(int32_t id, EGLDisplay display, EGLSurface surface) {
++    if (id == HWC_DISPLAY_PRIMARY && mDisplayData[id].list) {
++        mDisplayData[id].list->dpy = display;
++        mDisplayData[id].list->sur = surface;
++    }
++}
++#endif
++
+ status_t HWComposer::prepare() {
+     Mutex::Autolock _l(mDisplayLock);
+     for (size_t i=0 ; i<mNumDisplays ; i++) {
+@@ -704,6 +744,11 @@ status_t HWComposer::prepare() {
+         }
+         mLists[i] = disp.list;
+         if (mLists[i]) {
++#ifdef T110_MRVL_LEGACY
++            if (i == HWC_DISPLAY_PRIMARY) {
++                // Explicit DisplayDevice handles were installed before prepare.
++            } else
++#endif
+             if (hwcHasApiVersion(mHwc, HWC_DEVICE_API_VERSION_1_3)) {
+                 mLists[i]->outbuf = disp.outbufHandle;
+                 mLists[i]->outbufAcquireFenceFd = -1;
+@@ -798,6 +843,9 @@ sp<Fence> HWComposer::getAndResetReleaseFence(int32_t id) {
+ status_t HWComposer::commit() {
+     int err = NO_ERROR;
+     if (mHwc) {
++#ifdef T110_MRVL_LEGACY
++        // Preserve the primary DisplayDevice handoff from prepare through set.
++#endif
+         if (!hwcHasApiVersion(mHwc, HWC_DEVICE_API_VERSION_1_1)) {
+             // On version 1.0, the OpenGL ES target surface is communicated
+             // by the (dpy, sur) fields and we are guaranteed to have only
+@@ -899,8 +947,12 @@ int HWComposer::getVisualID() const {
+         // if we have HWC 1.1
+ #ifdef USE_BGRA_8888
+         return HAL_PIXEL_FORMAT_BGRA_8888;
++#else
++#ifdef T110_MRVL_LEGACY
++        return mDisplayData[HWC_DISPLAY_PRIMARY].format;
+ #else
+         return HAL_PIXEL_FORMAT_RGBA_8888;
++#endif
+ #endif
+         //return HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED;
+     } else {
+@@ -1033,6 +1085,9 @@ public:
+     virtual void setPlaneAlpha(uint8_t alpha) {
+         if (hwcHasApiVersion(mHwc, HWC_DEVICE_API_VERSION_1_2)) {
+             getLayer()->planeAlpha = alpha;
++#ifdef T110_MRVL_LEGACY
++        getLayer()->alpha = alpha;
++#endif
+         } else {
+             if (alpha < 0xFF) {
+                 getLayer()->flags |= HWC_SKIP_LAYER;
+diff --git a/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.h b/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.h
+index 958abf2b00adbda2ab10b68d893accc3ec843353..afde396986e955c18752f93f3a7d43eec3bca904 100644
+--- a/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.h
++++ b/services/surfaceflinger/DisplayHardware/HWComposer_hwc1.h
+@@ -21,6 +21,9 @@
+ #include <sys/types.h>
+ 
+ #include <hardware/hwcomposer_defs.h>
++#ifdef T110_MRVL_LEGACY
++#include <EGL/egl.h>
++#endif
+ 
+ #include <system/graphics.h>
+ 
+@@ -95,6 +98,9 @@ public:
+ 
+     // Asks the HAL what it can do
+     status_t prepare();
++#ifdef T110_MRVL_LEGACY
++    void setT110EglSurface(int32_t id, EGLDisplay display, EGLSurface surface);
++#endif
+ 
+     // commits the list
+     status_t commit();
+diff --git a/services/surfaceflinger/SurfaceFlinger_hwc1.cpp b/services/surfaceflinger/SurfaceFlinger_hwc1.cpp
+index e0b2d55b805d5b273340cf75e5aafbd819cae7dc..d8ed20d59cf64811040b2665a5d93eb973063cb8 100644
+--- a/services/surfaceflinger/SurfaceFlinger_hwc1.cpp
++++ b/services/surfaceflinger/SurfaceFlinger_hwc1.cpp
+@@ -1131,6 +1131,14 @@ void SurfaceFlinger::doDebugFlashRegions()
+ 
+     HWComposer& hwc(getHwComposer());
+     if (hwc.initCheck() == NO_ERROR) {
++#ifdef T110_MRVL_LEGACY
++        {
++            const sp<const DisplayDevice> primary(getDefaultDisplayDevice());
++            if (primary != nullptr) {
++                hwc.setT110EglSurface(HWC_DISPLAY_PRIMARY, mEGLDisplay, primary->getEGLSurface());
++            }
++        }
++#endif
+         status_t err = hwc.prepare();
+         ALOGE_IF(err, "HWComposer::prepare failed (%s)", strerror(-err));
+     }
+@@ -1366,6 +1374,14 @@ void SurfaceFlinger::setUpHWComposer() {
+ 
+         dumpDrawCycle(true);
+ 
++#ifdef T110_MRVL_LEGACY
++        {
++            const sp<const DisplayDevice> primary(getDefaultDisplayDevice());
++            if (primary != nullptr) {
++                hwc.setT110EglSurface(HWC_DISPLAY_PRIMARY, mEGLDisplay, primary->getEGLSurface());
++            }
++        }
++#endif
+         status_t err = hwc.prepare();
+         ALOGE_IF(err, "HWComposer::prepare failed (%s)", strerror(-err));
+ 

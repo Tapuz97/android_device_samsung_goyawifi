@@ -1,0 +1,91 @@
+diff --git a/services/audioflinger/AudioFlinger.cpp b/services/audioflinger/AudioFlinger.cpp
+index d689733b741d8b3ff895789e599a7fb1586ff235..c5346500326b4f1c89605f5eeae9fa90d738e8f5 100644
+--- a/services/audioflinger/AudioFlinger.cpp
++++ b/services/audioflinger/AudioFlinger.cpp
+@@ -63,6 +63,7 @@
+ 
+ #include "AudioMixer.h"
+ #include "AudioFlinger.h"
++#include "T110AudioStreamCompat.h"
+ #include "ServiceUtilities.h"
+ 
+ #include <media/AudioResamplerPublic.h>
+@@ -2080,7 +2081,13 @@ void AudioFlinger::closeOutputFinish(sp<PlaybackThread> thread)
+     AudioStreamOut *out = thread->clearOutput();
+     ALOG_ASSERT(out != NULL, "out shouldn't be NULL");
+     // from now on thread->mOutput is NULL
+-    out->hwDev()->close_output_stream(out->hwDev(), out->stream);
++    audio_stream_out_t* halStream = out->stream;
++#if defined(T110_MRVL_LEGACY)
++    if (t110_audio_compat::needsAdapter(out->hwDev())) {
++        halStream = t110_audio_compat::Output::unwrapAndDestroy(halStream);
++    }
++#endif
++    out->hwDev()->close_output_stream(out->hwDev(), halStream);
+     delete out;
+ }
+ 
+@@ -2204,6 +2211,19 @@ sp<AudioFlinger::RecordThread> AudioFlinger::openInput_l(audio_module_handle_t m
+         // FIXME log this new status; HAL should not propose any further changes
+     }
+ 
++#if defined(T110_MRVL_LEGACY)
++    if (status == NO_ERROR && inStream != NULL &&
++            t110_audio_compat::needsAdapter(inHwHal)) {
++        audio_stream_in_t* compat = t110_audio_compat::Input::wrap(inStream);
++        if (compat == NULL) {
++            inHwHal->close_input_stream(inHwHal, inStream);
++            inStream = NULL;
++            status = NO_MEMORY;
++        } else {
++            inStream = compat;
++        }
++    }
++#endif
+     if (status == NO_ERROR && inStream != NULL) {
+ 
+ #ifdef TEE_SINK
+@@ -2351,7 +2371,13 @@ void AudioFlinger::closeInputFinish(sp<RecordThread> thread)
+     AudioStreamIn *in = thread->clearInput();
+     ALOG_ASSERT(in != NULL, "in shouldn't be NULL");
+     // from now on thread->mInput is NULL
+-    in->hwDev()->close_input_stream(in->hwDev(), in->stream);
++    audio_stream_in_t* halStream = in->stream;
++#if defined(T110_MRVL_LEGACY)
++    if (t110_audio_compat::needsAdapter(in->hwDev())) {
++        halStream = t110_audio_compat::Input::unwrapAndDestroy(halStream);
++    }
++#endif
++    in->hwDev()->close_input_stream(in->hwDev(), halStream);
+     delete in;
+ }
+ 
+diff --git a/services/audioflinger/AudioStreamOut.cpp b/services/audioflinger/AudioStreamOut.cpp
+index 6026bbb538d1a355056db5a40d6698d75b3fcfdc..6dd310e63c8dcd8a448f33129f54dfbd1bf4426f 100644
+--- a/services/audioflinger/AudioStreamOut.cpp
++++ b/services/audioflinger/AudioStreamOut.cpp
+@@ -23,6 +23,7 @@
+ 
+ #include "AudioHwDevice.h"
+ #include "AudioStreamOut.h"
++#include "T110AudioStreamCompat.h"
+ 
+ namespace android {
+ 
+@@ -156,6 +157,16 @@ status_t AudioStreamOut::open(
+     }
+ 
+     if (status == NO_ERROR) {
++#if defined(T110_MRVL_LEGACY)
++        if (t110_audio_compat::needsAdapter(hwDev())) {
++            audio_stream_out_t* compat = t110_audio_compat::Output::wrap(outStream);
++            if (!compat) {
++                hwDev()->close_output_stream(hwDev(), outStream);
++                return NO_MEMORY;
++            }
++            outStream = compat;
++        }
++#endif
+         stream = outStream;
+         mHalFormatHasProportionalFrames = audio_has_proportional_frames(config->format);
+         mHalFrameSize = audio_stream_out_frame_size(stream);

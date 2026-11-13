@@ -1,0 +1,23 @@
+/dev/galcore 0666 system graphics
+/dev/ion 0666 system graphics
+/dev/graphics/fb0 0660 system graphics
+/dev/mbtchar0 0660 bluetooth bluetooth
+/sys/class/backlight/panel brightness 0660 system system
+/dev/snd/* 0660 system audio
+/dev/video0 0660 media camera
+/dev/media0 0660 root camera
+/dev/uio1 0660 root camera
+/dev/video5 0660 root camera
+/dev/video6 0660 root camera
+/dev/video7 0660 root camera
+/dev/video8 0660 root camera
+/dev/v4l-subdev* 0660 root camera
+/dev/bmm 0660 system camera
+/dev/pmem_adsp 0660 system camera
+/dev/cnm 0660 media media
+/dev/uio0 0660 media media
+/dev/mpu 0660 system system
+/dev/mpuirq 0660 system system
+/dev/accelirq 0660 system system
+/sys/devices/virtual/input/input* active 0660 root input
+/sys/devices/virtual/input/input* interval 0660 root input

@@ -1,0 +1,165 @@
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index 47674d7e51ffbd2d2133ea90849f1e9cccac3bee..1f0adc184d88df280cd3623721f9b8ede618094a 100755
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -2958,4 +2958,11 @@
+ 
+     <!-- Enable sms authorization framework-->
+     <bool name="config_sms_authorization_enabled">false</bool>
++
++    <!-- Some boards expose navigation keys through a shared touchscreen input
++         device, so disabling that entire kernel input device would kill touch. -->
++    <bool name="config_useFrameworkNavigationKeyDisabler">false</bool>
++    <!-- Keep button LEDs under their own native brightness/timeout settings,
++         even when hardware key actions are replaced by the touch navbar. -->
++    <bool name="config_independentButtonBacklight">false</bool>
+ </resources>
+diff --git a/core/res/res/values/symbols.xml b/core/res/res/values/symbols.xml
+index 71e388d48ba7daa6cf016931e795972c9db0da53..8f62925dea234badc4ff2441c641fed40f0cfe9f 100755
+--- a/core/res/res/values/symbols.xml
++++ b/core/res/res/values/symbols.xml
+@@ -2856,4 +2856,7 @@
+ 
+   <java-symbol type="integer" name="config_sms_authorization_timeout_ms" />
+   <java-symbol type="bool" name="config_sms_authorization_enabled" />
++
++  <java-symbol type="bool" name="config_useFrameworkNavigationKeyDisabler" />
++  <java-symbol type="bool" name="config_independentButtonBacklight" />
+ </resources>
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index 6a22c505beb3b316902372e3071f09044e630005..146b97a56f8e7bd9db2cf7e286077040e6aced4b 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -565,6 +565,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+     int mBackKillTimeout;
+ 
+     int mDeviceHardwareKeys;
++    boolean mUseFrameworkNavigationKeyDisabler;
+ 
+     // Button wake control flags
+     boolean mHomeWakeScreen;
+@@ -2105,6 +2106,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+ 
+         mUseTvRouting = AudioSystem.getPlatformType(mContext) == AudioSystem.PLATFORM_TELEVISION;
+ 
++        mUseFrameworkNavigationKeyDisabler = mContext.getResources().getBoolean(
++                com.android.internal.R.bool.config_useFrameworkNavigationKeyDisabler);
+         mDeviceHardwareKeys = mContext.getResources().getInteger(
+                 com.android.internal.R.integer.config_deviceHardwareKeys);
+         mBackKillTimeout = mContext.getResources().getInteger(
+@@ -6492,6 +6495,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+ 
+         final boolean isInjected = (policyFlags & WindowManagerPolicy.FLAG_INJECTED) != 0;
+ 
++        if (mUseFrameworkNavigationKeyDisabler && mDevForceNavbar == 1) {
++            final InputDevice device = event.getDevice();
++            if (PhysicalNavigationKeyPolicy.shouldSuppress(
++                    device == null ? null : device.getName(), keyCode,
++                    event.getDeviceId(), isInjected,
++                    (event.getFlags() & KeyEvent.FLAG_VIRTUAL_HARD_KEY) != 0)) {
++                // Do not disable sec_touchscreen itself: it also reports real touch.
++                // Consume both key directions before wake, shortcuts or app dispatch.
++                return 0;
++            }
++        }
++
+         // If screen is off then we treat the case where the keyguard is open but hidden
+         // the same as if it were open and in front.
+         // This will prevent any keys other than the power button from waking the screen
+diff --git a/services/core/java/com/android/server/power/PowerManagerService.java b/services/core/java/com/android/server/power/PowerManagerService.java
+index 55d0809ee4e5567a825d8411b610594cbad51fa2..a5155f837376814a621e2a9362863e1c2d23a641 100644
+--- a/services/core/java/com/android/server/power/PowerManagerService.java
++++ b/services/core/java/com/android/server/power/PowerManagerService.java
+@@ -560,6 +560,7 @@ public final class PowerManagerService extends SystemService
+     private static native int nativeGetFeature(int featureId);
+ 
+     private boolean mForceNavbar;
++    private boolean mIndependentButtonBacklight;
+ 
+     private PerformanceManagerInternal mPerf;
+ 
+@@ -831,6 +832,8 @@ public final class PowerManagerService extends SystemService
+             mProximityWakeLock = ((PowerManager) mContext.getSystemService(Context.POWER_SERVICE))
+                     .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProximityWakeLock");
+         }
++        mIndependentButtonBacklight = resources.getBoolean(
++                com.android.internal.R.bool.config_independentButtonBacklight);
+         mButtonLightOnKeypressOnly = resources.getBoolean(
+                 com.android.internal.R.bool.config_buttonLightOnKeypressOnly);
+     }
+@@ -1872,7 +1875,7 @@ public final class PowerManagerService extends SystemService
+                                 buttonBrightness = mButtonBrightnessOverrideFromWindowManager;
+                                 keyboardBrightness = mButtonBrightnessOverrideFromWindowManager;
+                             } else {
+-                                if (!mForceNavbar) {
++                                if (!mForceNavbar || mIndependentButtonBacklight) {
+                                     buttonBrightness = mButtonBrightness;
+                                 } else {
+                                     buttonBrightness = 0;
+diff --git a/services/core/jni/com_android_server_power_PowerManagerService.cpp b/services/core/jni/com_android_server_power_PowerManagerService.cpp
+index dd5658fdcf48b667e73132c562cdc97e8576bb8e..d8fbc940462e41aa5c7ff539107622db1843e92a 100644
+--- a/services/core/jni/com_android_server_power_PowerManagerService.cpp
++++ b/services/core/jni/com_android_server_power_PowerManagerService.cpp
+@@ -51,6 +51,45 @@ static struct {
+ static jobject gPowerManagerServiceObj;
+ struct power_module* gPowerModule;
+ 
++#if defined(T110_MRVL_LEGACY)
++// ANI7 exports only the API0.2 prefix (140 ARM32 bytes). Never let newer JNI
++// consumers read optional callbacks beyond that object; retain the real module
++// as the receiver of its original operations, and leave unsupported APIs NULL.
++static power_module_t* gT110LegacyPowerModule;
++static power_module_t gT110PowerModuleCompat;
++
++static void t110LegacyPowerInit(power_module_t*) {
++    if (gT110LegacyPowerModule->init)
++        gT110LegacyPowerModule->init(gT110LegacyPowerModule);
++}
++
++static void t110LegacySetInteractive(power_module_t*, int on) {
++    if (gT110LegacyPowerModule->setInteractive)
++        gT110LegacyPowerModule->setInteractive(gT110LegacyPowerModule, on);
++}
++
++static void t110LegacyPowerHint(power_module_t*, power_hint_t hint, void* data) {
++    gT110LegacyPowerModule->powerHint(gT110LegacyPowerModule, hint, data);
++}
++
++static power_module_t* adaptT110LegacyPowerModule(power_module_t* module) {
++    if (!module || module->common.module_api_version > POWER_MODULE_API_VERSION_0_2)
++        return module;
++    gT110LegacyPowerModule = module;
++    gT110PowerModuleCompat = {};
++    // Common metadata keeps the real API version; this does not claim new features.
++    gT110PowerModuleCompat.common = module->common;
++    gT110PowerModuleCompat.init = t110LegacyPowerInit;
++    gT110PowerModuleCompat.setInteractive = t110LegacySetInteractive;
++    if (module->common.module_api_version >= POWER_MODULE_API_VERSION_0_2 &&
++            module->powerHint) {
++        gT110PowerModuleCompat.powerHint = t110LegacyPowerHint;
++    }
++    return &gT110PowerModuleCompat;
++}
++#endif
++
++
+ static nsecs_t gLastEventTime[USER_ACTIVITY_EVENT_LAST + 1];
+ 
+ // Throttling interval for user activity calls.
+@@ -110,9 +149,15 @@ void android_server_PowerManagerService_userActivity(nsecs_t eventTime, int32_t
+ static void nativeInit(JNIEnv* env, jobject obj) {
+     gPowerManagerServiceObj = env->NewGlobalRef(obj);
+ 
++    power_module_t* loadedPowerModule = NULL;
+     status_t err = hw_get_module(POWER_HARDWARE_MODULE_ID,
+-            (hw_module_t const**)&gPowerModule);
++            (hw_module_t const**)&loadedPowerModule);
+     if (!err) {
++#if defined(T110_MRVL_LEGACY)
++        gPowerModule = adaptT110LegacyPowerModule(loadedPowerModule);
++#else
++        gPowerModule = loadedPowerModule;
++#endif
+         gPowerModule->init(gPowerModule);
+     } else {
+         ALOGE("Couldn't load %s module (%s)", POWER_HARDWARE_MODULE_ID, strerror(-err));

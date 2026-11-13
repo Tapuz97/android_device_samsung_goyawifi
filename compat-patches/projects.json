@@ -1,0 +1,66 @@
+[
+  {
+    "project": "bionic",
+    "head": "ed81e37ed7faf9102a1aac604e889f95110e49dd",
+    "patch": "bionic.patch",
+    "patch_sha256": "649ef357ade2ebe1947bd2f82b8dcd4941f1a13cdc3f7a385ded9337f6993ea3",
+    "untracked": []
+  },
+  {
+    "project": "frameworks/native",
+    "head": "a2efd4f088d7e9fb870b56a08b0f831e0b05321a",
+    "patch": "frameworks__native.patch",
+    "patch_sha256": "1eb19657bc1896b5a54f62a158bfc796ca200be4cb08feeb926fabd844cdb3c6",
+    "untracked": []
+  },
+  {
+    "project": "hardware/libhardware",
+    "head": "ef9fc792dec6a5bd4ec5f891d7b13ee6c5470949",
+    "patch": "hardware__libhardware.patch",
+    "patch_sha256": "320d0e8a1a5b4e7cf15d5d726a3c83a70ab207fb87808120f8dd1e3acb2e01eb",
+    "untracked": []
+  },
+  {
+    "project": "frameworks/base",
+    "head": "3ea44fbb9f601f0708fd858cd0e08918e363df34",
+    "patch": "frameworks__base.patch",
+    "patch_sha256": "ca601bd2ecb97a878d2f9acd53c975c9198be0ad173516664c2b149104c75bc6",
+    "untracked": [
+      {
+        "path": "services/core/java/com/android/server/policy/PhysicalNavigationKeyPolicy.java",
+        "sha256": "dd22f6c1cb661b302397a4a148f36a0145f7c788f4e1c9fc188308f96c11e03d"
+      }
+    ]
+  },
+  {
+    "project": "system/core",
+    "head": "ae76011a903092b2dee058fee21f3237f244526c",
+    "patch": "system__core.patch",
+    "patch_sha256": "b7808eb334f21b368b0c1d743c69b01bdd86c14733705f313d6e178dc5df19ae",
+    "untracked": [
+      {
+        "path": "libcutils/t110_legacy_list.c",
+        "sha256": "98b8a30270a2e15f60f9d945db6f10c0f9e51b9b4d1119fea95e20fbc27b821f"
+      }
+    ]
+  },
+  {
+    "project": "packages/apps/CMParts",
+    "head": "e226f6ce61d948088939235ad28929927bc7591b",
+    "patch": "packages__apps__CMParts.patch",
+    "patch_sha256": "ffe7a6adad32ec2f370a2a9d1819f4b79cc99875d46bd3c687cb7b09435bbeae",
+    "untracked": []
+  },
+  {
+    "project": "frameworks/av",
+    "head": "99885127c34ad960efbb6c585c27938f384e6d75",
+    "patch": "frameworks__av.patch",
+    "patch_sha256": "927b1d73c6dbef533736b307bf793669904acd763120bd8f8a1c026a36f6f629",
+    "untracked": [
+      {
+        "path": "services/audioflinger/T110AudioStreamCompat.h",
+        "sha256": "e48710e7509f42d69134516239eb05a74a976e6edb852223b7a8d07773725157"
+      }
+    ]
+  }
+]

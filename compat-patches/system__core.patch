@@ -1,0 +1,162 @@
+diff --git a/include/utils/RefBase.h b/include/utils/RefBase.h
+index 14d9cb12eebf363b9a13723497046a35f075f298..a5f6bdff4c820195b26f955b0df4879dd8cd4bad 100644
+--- a/include/utils/RefBase.h
++++ b/include/utils/RefBase.h
+@@ -53,6 +53,16 @@ inline bool operator _op_ (const U* o) const {                  \
+ 
+ // ---------------------------------------------------------------------------
+ 
++#if defined(T110_MRVL_LEGACY)
++// Original JB MR1 converter vtable used by binary-only Marvell camera code.
++class ReferenceConverterBase {
++public:
++    virtual size_t getReferenceTypeSize() const = 0;
++    virtual void* getReferenceBase(void const*) const = 0;
++    inline virtual ~ReferenceConverterBase() { }
++};
++#endif
++
+ class ReferenceRenamer {
+ protected:
+     // destructor is purposedly not virtual so we avoid code overhead from
+@@ -156,6 +166,10 @@ private:
+ 
+ private:
+     friend class ReferenceMover;
++#if defined(T110_MRVL_LEGACY)
++    static void moveReferences(void* dst, void const* src, size_t n,
++            const ReferenceConverterBase& caster);
++#endif
+ 
+     static void renameRefs(size_t n, const ReferenceRenamer& renamer);
+ 
+diff --git a/include/utils/VectorImpl.h b/include/utils/VectorImpl.h
+index 21ad71ce6075345e6f381283bae1196b7d41f067..3bd0fa723ef20ef6ec54e43ce7bde5ae5a381237 100644
+--- a/include/utils/VectorImpl.h
++++ b/include/utils/VectorImpl.h
+@@ -105,6 +105,20 @@ protected:
+     virtual void            do_splat(void* dest, const void* item, size_t num) const = 0;
+     virtual void            do_move_forward(void* dest, const void* from, size_t num) const = 0;
+     virtual void            do_move_backward(void* dest, const void* from, size_t num) const = 0;
++
++#if defined(T110_MRVL_LEGACY)
++    // Stock ANI7 Vector/SortedVector vtables retain these eight historical slots.
++    // They follow every real do_* operation, preserving their original indices.
++    virtual void            reservedVectorImpl1();
++    virtual void            reservedVectorImpl2();
++    virtual void            reservedVectorImpl3();
++    virtual void            reservedVectorImpl4();
++    virtual void            reservedVectorImpl5();
++    virtual void            reservedVectorImpl6();
++    virtual void            reservedVectorImpl7();
++    virtual void            reservedVectorImpl8();
++#endif
++
+     
+ private:
+         void* _grow(size_t where, size_t amount);
+@@ -156,6 +170,19 @@ public:
+ protected:
+     virtual int             do_compare(const void* lhs, const void* rhs) const = 0;
+ 
++#if defined(T110_MRVL_LEGACY)
++    // Stock SortedVector-derived vtables append these after do_compare.
++    virtual void            reservedSortedVectorImpl1();
++    virtual void            reservedSortedVectorImpl2();
++    virtual void            reservedSortedVectorImpl3();
++    virtual void            reservedSortedVectorImpl4();
++    virtual void            reservedSortedVectorImpl5();
++    virtual void            reservedSortedVectorImpl6();
++    virtual void            reservedSortedVectorImpl7();
++    virtual void            reservedSortedVectorImpl8();
++#endif
++
++
+ private:
+             ssize_t         _indexOrderOf(const void* item, size_t* order = 0) const;
+ 
+diff --git a/libcutils/Android.mk b/libcutils/Android.mk
+index 7a922539fa4b7ee5cf238150287b530405b2f5ce..9b95dac1133f0ea2f31fe0e2f5f7acb15d510b3c 100644
+--- a/libcutils/Android.mk
++++ b/libcutils/Android.mk
+@@ -103,6 +103,10 @@ LOCAL_SRC_FILES := $(libcutils_common_sources) \
+         trace-dev.c \
+         uevent.c \
+ 
++ifeq ($(TARGET_DEVICE),goyawifi)
++LOCAL_SRC_FILES += t110_legacy_list.c
++endif
++
+ LOCAL_SRC_FILES_arm += arch-arm/memset32.S
+ LOCAL_SRC_FILES_arm64 += arch-arm64/android_memset.S
+ 
+diff --git a/libutils/RefBase.cpp b/libutils/RefBase.cpp
+index 4ead19c11929781f553360266770cdfa311a1262..7eee0e3976c20a7b69c6d5caf6afd686800a5653 100644
+--- a/libutils/RefBase.cpp
++++ b/libutils/RefBase.cpp
+@@ -711,6 +711,30 @@ void RefBase::onLastWeakRef(const void* /*id*/)
+ 
+ // ---------------------------------------------------------------------------
+ 
++#if defined(T110_MRVL_LEGACY)
++// The caller has already memmoved the pointer objects. This original JB MR1
++// hook only transfers debug reference IDs; it never moves or retains objects.
++void RefBase::moveReferences(void* dst, void const* src, size_t n,
++        const ReferenceConverterBase& caster)
++{
++#if DEBUG_REFS
++    const size_t itemSize = caster.getReferenceTypeSize();
++    for (size_t i = 0; i < n; i++) {
++        void* d = reinterpret_cast<void*>(intptr_t(dst) + i * itemSize);
++        void const* s = reinterpret_cast<void const*>(intptr_t(src) + i * itemSize);
++        RefBase* ref = reinterpret_cast<RefBase*>(caster.getReferenceBase(d));
++        ref->mRefs->renameStrongRefId(s, d);
++        ref->mRefs->renameWeakRefId(s, d);
++    }
++#else
++    (void)dst;
++    (void)src;
++    (void)n;
++    (void)caster;
++#endif
++}
++#endif
++
+ #if DEBUG_REFS
+ void RefBase::renameRefs(size_t n, const ReferenceRenamer& renamer) {
+     for (size_t i=0 ; i<n ; i++) {
+diff --git a/libutils/VectorImpl.cpp b/libutils/VectorImpl.cpp
+index e8d40ed20cc375ee916316a67912d4d0ad001f6d..cd2112b6a11b7f6a510bf4ea25b06841df56cd17 100644
+--- a/libutils/VectorImpl.cpp
++++ b/libutils/VectorImpl.cpp
+@@ -558,6 +558,30 @@ void VectorImpl::_do_move_backward(void* dest, const void* from, size_t num) con
+ 
+ /*****************************************************************************/
+ 
++#if defined(T110_MRVL_LEGACY)
++// Exact legacy reserved-slot behavior: ANI7 exports all eight as Thumb "bx lr".
++// These are ABI reservations, not implementations of vector operations.
++void VectorImpl::reservedVectorImpl1() { }
++void VectorImpl::reservedVectorImpl2() { }
++void VectorImpl::reservedVectorImpl3() { }
++void VectorImpl::reservedVectorImpl4() { }
++void VectorImpl::reservedVectorImpl5() { }
++void VectorImpl::reservedVectorImpl6() { }
++void VectorImpl::reservedVectorImpl7() { }
++void VectorImpl::reservedVectorImpl8() { }
++#endif
++
++#if defined(T110_MRVL_LEGACY)
++void SortedVectorImpl::reservedSortedVectorImpl1() { }
++void SortedVectorImpl::reservedSortedVectorImpl2() { }
++void SortedVectorImpl::reservedSortedVectorImpl3() { }
++void SortedVectorImpl::reservedSortedVectorImpl4() { }
++void SortedVectorImpl::reservedSortedVectorImpl5() { }
++void SortedVectorImpl::reservedSortedVectorImpl6() { }
++void SortedVectorImpl::reservedSortedVectorImpl7() { }
++void SortedVectorImpl::reservedSortedVectorImpl8() { }
++#endif
++
+ SortedVectorImpl::SortedVectorImpl(size_t itemSize, uint32_t flags)
+     : VectorImpl(itemSize, flags)
+ {

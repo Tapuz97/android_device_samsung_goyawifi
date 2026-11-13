@@ -1,0 +1,85 @@
+diff --git a/include/hardware/hwcomposer.h b/include/hardware/hwcomposer.h
+index 28877e1cbd3e469254b2ca9a0f03adb89bd08bc3..4fb09e14d87a0f0590d9fb5814297e30d68d76bf 100644
+--- a/include/hardware/hwcomposer.h
++++ b/include/hardware/hwcomposer.h
+@@ -153,6 +153,9 @@ typedef struct hwc_layer_1 {
+ 
+             /* blending to apply during composition */
+             int32_t blending;
++#ifdef T110_MRVL_LEGACY
++            int32_t alpha;
++#endif
+ 
+             /* area of the source to consider, the origin is the top-left corner of
+              * the buffer. As of HWC_DEVICE_API_VERSION_1_3, sourceRect uses floats.
+@@ -305,8 +308,12 @@ typedef struct hwc_layer_1 {
+      * For 32-bit mode, this struct is 96 bytes, and needs to be padded as such
+      * to maintain binary compatibility.
+      */
++#ifdef T110_MRVL_LEGACY
++    uint8_t reserved[100 - 88];
++#else
+     uint8_t reserved[96 - 84];
+ #endif
++#endif
+ 
+ } hwc_layer_1_t;
+ 
+@@ -726,6 +733,7 @@ typedef struct hwc_composer_device_1 {
+      * This field is REQUIRED for HWC_DEVICE_API_VERSION_1_4 and later.
+      * It shall be NULL for previous versions.
+      */
++#ifndef T110_MRVL_LEGACY
+     int (*getActiveConfig)(struct hwc_composer_device_1* dev, int disp);
+ 
+     /*
+@@ -780,6 +788,23 @@ typedef struct hwc_composer_device_1 {
+      * Reserved for future use. Must be NULL.
+      */
+     void* reserved_proc[1];
++#else
++    union {
++        struct {
++            int (*fbPrePost)(struct hwc_composer_device_1* dev, buffer_handle_t buffer);
++            int (*stretchBlit)(struct hwc_composer_device_1* dev, buffer_handle_t dst,
++                    buffer_handle_t src, hwc_rect_t* dstRect, hwc_rect_t* srcRect, uint32_t transform);
++            int (*getBackBuffer)(buffer_handle_t* buffer);
++            void* reserved_proc[1];
++        };
++        struct {
++            int (*getActiveConfig)(struct hwc_composer_device_1* dev, int disp);
++            int (*setActiveConfig)(struct hwc_composer_device_1* dev, int disp, int index);
++            int (*setCursorPositionAsync)(struct hwc_composer_device_1* dev, int disp, int x, int y);
++            void* t110_reserved_slot;
++        };
++    };
++#endif
+ 
+ } hwc_composer_device_1_t;
+ 
+diff --git a/include/hardware/hwcomposer_defs.h b/include/hardware/hwcomposer_defs.h
+index dc1ecebaef99d98d00d7371cd97082d20b9a3637..90ff460e876b432a650d46d6342d84e336f03c3b 100644
+--- a/include/hardware/hwcomposer_defs.h
++++ b/include/hardware/hwcomposer_defs.h
+@@ -179,7 +179,11 @@ enum {
+        cursor overlay hardware. hwcomposer will also all async position updates
+        of this layer outside of the normal prepare()/set() loop. Added in
+        HWC_DEVICE_API_VERSION_1_4. */
++#ifdef T110_MRVL_LEGACY
++    HWC_CURSOR_OVERLAY = 7
++#else
+     HWC_CURSOR_OVERLAY =  5
++#endif
+  };
+ /*
+  * hwc_layer_t::blending values
+@@ -239,6 +243,9 @@ enum {
+      */
+     HWC_DISPLAY_DPI_X                       = 4,
+     HWC_DISPLAY_DPI_Y                       = 5,
++#ifdef T110_MRVL_LEGACY
++    HWC_DISPLAY_FORMAT                      = 6,
++#endif
+ 
+     /* Indicates which of the vendor-defined color transforms is provided by
+      * this configuration. */

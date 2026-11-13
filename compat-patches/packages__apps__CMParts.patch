@@ -1,0 +1,197 @@
+diff --git a/res/layout/button_backlight.xml b/res/layout/button_backlight.xml
+index 819675521ab1b7ecb99a2e6d93bf568943a0be0e..956cac12681c2a090bb1012832b5a3f6a981bfe6 100644
+--- a/res/layout/button_backlight.xml
++++ b/res/layout/button_backlight.xml
+@@ -21,6 +21,7 @@
+ 
+     <LinearLayout
+         android:id="@+id/button_container"
++        android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+ 
+diff --git a/src/org/cyanogenmod/cmparts/input/ButtonBacklightBrightness.java b/src/org/cyanogenmod/cmparts/input/ButtonBacklightBrightness.java
+index ca08b22ad9b52d4e06579c12248c6e1503eacb85..6069a587191095458d7b8445360a2b3acfc29492 100644
+--- a/src/org/cyanogenmod/cmparts/input/ButtonBacklightBrightness.java
++++ b/src/org/cyanogenmod/cmparts/input/ButtonBacklightBrightness.java
+@@ -43,6 +43,7 @@ import cyanogenmod.providers.CMSettings;
+ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialog> implements
+         SeekBar.OnSeekBarChangeListener {
+     private static final int DEFAULT_BUTTON_TIMEOUT = 5;
++    private static final String KEY_LAST_BUTTON_BRIGHTNESS = "button_backlight_last_brightness";
+ 
+     public static final String KEY_BUTTON_BACKLIGHT = "pre_navbar_button_backlight";
+ 
+@@ -190,7 +191,7 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+         final SavedState myState = new SavedState(superState);
+         myState.timeout = mTimeoutBar.getProgress();
+         if (mButtonBrightness != null) {
+-            myState.button = mButtonBrightness.getBrightness(false);
++            myState.button = mButtonBrightness.getSavedState();
+         }
+         if (mKeyboardBrightness != null) {
+             myState.keyboard = mKeyboardBrightness.getBrightness(false);
+@@ -212,7 +213,7 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+ 
+         mTimeoutBar.setProgress(myState.timeout);
+         if (mButtonBrightness != null) {
+-            mButtonBrightness.setBrightness(myState.button);
++            mButtonBrightness.restoreSavedState(myState.button);
+         }
+         if (mKeyboardBrightness != null) {
+             mKeyboardBrightness.setBrightness(myState.keyboard);
+@@ -362,6 +363,7 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+             SeekBar.OnSeekBarChangeListener, CheckBox.OnCheckedChangeListener {
+         private String mSetting;
+         private boolean mIsSingleValue;
++        private boolean mIndependentSwitch;
+         private int mDefaultBrightness;
+         private CheckBox mCheckBox;
+         private SeekBar mSeekBar;
+@@ -371,6 +373,10 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+             mSetting = setting;
+             mIsSingleValue = singleValue;
+             mDefaultBrightness = defaultBrightness;
++            mIndependentSwitch = !singleValue
++                    && CMSettings.Secure.BUTTON_BRIGHTNESS.equals(setting)
++                    && getContext().getResources().getBoolean(
++                            com.android.internal.R.bool.config_independentButtonBacklight);
+         }
+ 
+         public BrightnessControl(String setting, boolean singleValue) {
+@@ -380,6 +386,25 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+         public void init(ViewGroup container) {
+             int brightness = getBrightness(true);
+ 
++            if (mIndependentSwitch) {
++                // Both native controls remain visible: Off preserves the selected level.
++                mCheckBox = (CheckBox) container.findViewById(R.id.backlight_switch);
++                mSeekBar = (SeekBar) container.findViewById(R.id.seekbar);
++                mValue = (TextView) container.findViewById(R.id.value);
++                int last = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(
++                        KEY_LAST_BUTTON_BRIGHTNESS, mDefaultBrightness);
++                int level = brightness > 0 ? brightness : last;
++                level = Math.max(1, Math.min(255, level));
++                mSeekBar.setMax(254);
++                mSeekBar.setProgress(level - 1);
++                mCheckBox.setChecked(brightness != 0);
++                mSeekBar.setEnabled(brightness != 0);
++                mValue.setEnabled(brightness != 0);
++                mCheckBox.setOnCheckedChangeListener(this);
++                mSeekBar.setOnSeekBarChangeListener(this);
++                handleBrightnessUpdate(level);
++                return;
++            }
+             if (mIsSingleValue) {
+                 container.findViewById(R.id.seekbar_container).setVisibility(View.GONE);
+                 mCheckBox = (CheckBox) container.findViewById(R.id.backlight_switch);
+@@ -399,7 +424,9 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+         }
+ 
+         public int getBrightness(boolean persisted) {
+-            if (mCheckBox != null && !persisted) {
++            if (mIndependentSwitch && mCheckBox != null && !persisted) {
++                return mCheckBox.isChecked() ? mSeekBar.getProgress() + 1 : 0;
++            } else if (mCheckBox != null && !persisted) {
+                 return mCheckBox.isChecked() ? mDefaultBrightness : 0;
+             } else if (mSeekBar != null && !persisted) {
+                 return mSeekBar.getProgress();
+@@ -407,14 +434,35 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+             return CMSettings.Secure.getInt(mResolver, mSetting, mDefaultBrightness);
+         }
+ 
++        public int getSavedState() {
++            if (mIndependentSwitch) {
++                int level = mSeekBar.getProgress() + 1;
++                return mCheckBox.isChecked() ? level : -level;
++            }
++            return getBrightness(false);
++        }
++
++        public void restoreSavedState(int value) {
++            if (mIndependentSwitch) {
++                mSeekBar.setProgress(Math.max(1, Math.min(255, Math.abs(value))) - 1);
++                mCheckBox.setChecked(value > 0);
++            } else {
++                setBrightness(value);
++            }
++        }
++
+         public void applyBrightness() {
++            if (mIndependentSwitch) {
++                PreferenceManager.getDefaultSharedPreferences(getContext()).edit()
++                        .putInt(KEY_LAST_BUTTON_BRIGHTNESS, mSeekBar.getProgress() + 1).apply();
++            }
+             CMSettings.Secure.putInt(mResolver, mSetting, getBrightness(false));
+         }
+ 
+         /* Behaviors when it's a seekbar */
+         @Override
+         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+-            handleBrightnessUpdate(progress);
++            handleBrightnessUpdate(mIndependentSwitch ? progress + 1 : progress);
+         }
+ 
+         @Override
+@@ -431,12 +479,19 @@ public class ButtonBacklightBrightness extends CustomDialogPreference<AlertDialo
+         @Override
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+             mActiveControl = this;
++            if (mIndependentSwitch) {
++                mSeekBar.setEnabled(isChecked);
++                mValue.setEnabled(isChecked);
++            }
+             updateBrightnessPreview();
+             updateTimeoutEnabledState();
+         }
+ 
+         public void setBrightness(int value) {
+-            if (mIsSingleValue) {
++            if (mIndependentSwitch) {
++                if (value > 0) mSeekBar.setProgress(Math.min(255, value) - 1);
++                mCheckBox.setChecked(value > 0);
++            } else if (mIsSingleValue) {
+                 mCheckBox.setChecked(value != 0);
+             } else {
+                 mSeekBar.setProgress(value);
+diff --git a/src/org/cyanogenmod/cmparts/input/ButtonSettings.java b/src/org/cyanogenmod/cmparts/input/ButtonSettings.java
+index 781fae15508fdcfad1be488f449ca035297344fe..e434914fee4aa24671a24c91c1740ed7f92acaa9 100644
+--- a/src/org/cyanogenmod/cmparts/input/ButtonSettings.java
++++ b/src/org/cyanogenmod/cmparts/input/ButtonSettings.java
+@@ -262,7 +262,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
+         // Only visible on devices that does not have a navigation bar already,
+         // and don't even try unless the existing keys can be disabled
+         boolean needsNavigationBar = false;
+-        if (hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE)) {
++        if (hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE)
++                || supportsFrameworkKeyDisabler(getActivity())) {
+             try {
+                 IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+                 needsNavigationBar = wm.needsNavigationBar();
+@@ -679,7 +680,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
+         /* Toggle backlight control depending on navbar state, force it to
+            off if enabling */
+         if (backlight != null) {
+-            backlight.setEnabled(!navbarEnabled);
++            backlight.setEnabled(!navbarEnabled || getResources().getBoolean(
++                    com.android.internal.R.bool.config_independentButtonBacklight));
+             backlight.updateSummary();
+         }
+ 
+@@ -718,9 +720,15 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
+         }
+     }
+ 
++    private static boolean supportsFrameworkKeyDisabler(Context context) {
++        return context.getResources().getBoolean(
++                com.android.internal.R.bool.config_useFrameworkNavigationKeyDisabler);
++    }
++
+     public static void restoreKeyDisabler(Context context) {
+         CMHardwareManager hardware = CMHardwareManager.getInstance(context);
+-        if (!hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE)) {
++        if (!hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE)
++                && !supportsFrameworkKeyDisabler(context)) {
+             return;
+         }
+ 

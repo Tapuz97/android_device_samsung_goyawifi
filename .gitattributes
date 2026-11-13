@@ -1,0 +1,5 @@
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+compat-patches/*.patch -text -whitespace
+compat-patches/pinned-manifest.xml -whitespace

@@ -1,0 +1,52 @@
+# The stage mounts a distinct Nougat data directory; never mount physical SYSTEM.
+on init
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct 4ee7
+    write /sys/class/android_usb/android0/iManufacturer Samsung
+    write /sys/class/android_usb/android0/iProduct SM-T110
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    write /sys/class/android_usb/android0/functions adb
+    setprop sys.usb.config adb
+    setprop sys.usb.configfs 0
+    chown system system /sys/class/backlight/panel/brightness
+    chmod 0660 /sys/class/backlight/panel/brightness
+on fs
+    setprop ro.crypto.state unencrypted
+on post-fs-data
+    swapon_all /fstab.t110.zram
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/bluedroid 02770 bluetooth bluetooth
+    mkdir /data/vendor 0755 root root
+    mkdir /data/vendor/t110-bluetooth 0770 root bluetooth
+    write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/page-cluster 0
+    start t110-radio-init
+    trigger nonencrypted
+on property:sys.usb.ffs.ready=1
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state adb
+on property:sys.boot_completed=1
+    write /dev/t110-keepalive 1
+service t110-radio-init /system/bin/t110_radio_init
+    class core
+    user root
+    group root wifi inet net_admin
+    disabled
+    oneshot
+service t110-bt-init /system/bin/t110_bt_init
+    class core
+    user root
+    group root bluetooth net_admin
+    disabled
+    oneshot
+on property:init.svc.t110-radio-init=stopped
+    start t110-bt-init
+service wpa_supplicant /system/bin/wpa_supplicant -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -O/data/misc/wifi/sockets
+    class main
+    socket wpa_wlan0 dgram 0660 wifi wifi
+    disabled
+    oneshot

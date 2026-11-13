@@ -1,0 +1,2 @@
+# No physical SYSTEM or userdata mount: the bootstrap owns the read-only loop and isolated data.
+/devices/platform/sdhci-pxav3.0/mmc_host/mmc1/* auto auto defaults voldmanaged=sdcard1:auto
