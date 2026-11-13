@@ -20,3 +20,14 @@ See RESTORE.md, ONLINE-BACKUP.md and LINEAGE14-GPU-AND-SLEEP-AUDIT.md before res
 
 Both use tag t110-android13-v42-20261112. The working branch can acquire later
 documentation updates; these tags preserve the source checkpoint itself.
+
+## Scoped fixes integrated into our forks - 2026-11-13
+
+- [Kernel: shared-I2C fix](https://github.com/Tapuz97/android_kernel_samsung_goya/commit/d1bb20a92ac9ee2707cd8065059fea525fde26dd).
+- [Kernel: ION repair, with shared-I2C ancestor](https://github.com/Tapuz97/android_kernel_samsung_goya/commit/381471a46a9adfed2c447cd925d5a26b9d4e2bf0).
+- [Device: physical keymaps](https://github.com/Tapuz97/android_device_samsung_goyawifi/commit/0190671f1bd988f1d59faa2e499e0723fea2f322).
+
+Integrated on the owner forks' lineage-20.0 branches. The three visyone PRs
+remain open for their maintainer; our account cannot merge or self-approve them.
+See PR-REVIEW-20261113.md for fresh checks and limitations. Preservation tags
+and the Android13 checkpoint code were not modified.
