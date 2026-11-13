@@ -53,3 +53,7 @@ $(t110_egl_stock_links): $(TARGET_OUT)/lib/egl/%: $(TARGET_OUT)/vendor/lib/egl/%
 	$(hide) ln -sf ../../vendor/lib/egl/$(notdir $@) $@
 ALL_DEFAULT_INSTALLED_MODULES += $(t110_egl_stock_links)
 endif
+
+ifeq ($(TARGET_DEVICE),goyawifi)
+include $(LOCAL_PATH)/tests/Android.mk
+endif

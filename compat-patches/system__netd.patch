@@ -1,0 +1,58 @@
+diff --git a/server/RouteController.cpp b/server/RouteController.cpp
+index 4de3c9a97b72aef01ab64b626bcff9859c15650c..95883f4e76b42364c626f36dac6faf893142d673 100644
+--- a/server/RouteController.cpp
++++ b/server/RouteController.cpp
+@@ -78,7 +78,9 @@ const char* const ROUTE_TABLE_NAME_MAIN  = "main";
+ // it upstream, we'll remove this and rely on the kernel header values. For now, add a static assert
+ // that will warn us if upstream has given these values some other meaning.
+ const uint16_t FRA_UID_START = 18;
++#ifndef T110_MRVL_LEGACY
+ const uint16_t FRA_UID_END   = 19;
++#endif
+ static_assert(FRA_UID_START > FRA_MAX,
+              "Android-specific FRA_UID_{START,END} values also assigned in Linux uapi. "
+              "Check that these values match what the kernel does and then update this assertion.");
+@@ -125,8 +127,17 @@ rtattr FRATTR_PRIORITY  = { U16_RTA_LENGTH(sizeof(uint32_t)), FRA_PRIORITY };
+ rtattr FRATTR_TABLE     = { U16_RTA_LENGTH(sizeof(uint32_t)), FRA_TABLE };
+ rtattr FRATTR_FWMARK    = { U16_RTA_LENGTH(sizeof(uint32_t)), FRA_FWMARK };
+ rtattr FRATTR_FWMASK    = { U16_RTA_LENGTH(sizeof(uint32_t)), FRA_FWMASK };
++#ifdef T110_MRVL_LEGACY
++// Our retained kernel implements modern FRA_UID_RANGE (20), not the old
++// Android attributes 18/19. 19 is L3MDEV there and is correctly rejected.
++// Preserve the UID restriction; never drop selectors to make a rule succeed.
++struct T110UidRange { uint32_t start; uint32_t end; };
++static_assert(sizeof(T110UidRange) == 8, "Kernel UID range ABI");
++rtattr FRATTR_UID_RANGE = { U16_RTA_LENGTH(sizeof(T110UidRange)), 20 };
++#else
+ rtattr FRATTR_UID_START = { U16_RTA_LENGTH(sizeof(uid_t)),    FRA_UID_START };
+ rtattr FRATTR_UID_END   = { U16_RTA_LENGTH(sizeof(uid_t)),    FRA_UID_END };
++#endif
+ 
+ rtattr RTATTR_TABLE     = { U16_RTA_LENGTH(sizeof(uint32_t)), RTA_TABLE };
+ rtattr RTATTR_OIF       = { U16_RTA_LENGTH(sizeof(uint32_t)), RTA_OIF };
+@@ -317,6 +328,9 @@ WARN_UNUSED_RESULT int modifyIpRule(uint16_t action, uint32_t priority, uint8_t
+ 
+     rtattr fraIifName = { U16_RTA_LENGTH(iifLength), FRA_IIFNAME };
+     rtattr fraOifName = { U16_RTA_LENGTH(oifLength), FRA_OIFNAME };
++#ifdef T110_MRVL_LEGACY
++    T110UidRange uidRange = { uidStart, uidEnd };
++#endif
+ 
+     iovec iov[] = {
+         { NULL,              0 },
+@@ -329,10 +343,15 @@ WARN_UNUSED_RESULT int modifyIpRule(uint16_t action, uint32_t priority, uint8_t
+         { &fwmark,           mask ? sizeof(fwmark) : 0 },
+         { &FRATTR_FWMASK,    mask ? sizeof(FRATTR_FWMASK) : 0 },
+         { &mask,             mask ? sizeof(mask) : 0 },
++#ifdef T110_MRVL_LEGACY
++        { &FRATTR_UID_RANGE, isUidRule ? sizeof(FRATTR_UID_RANGE) : 0 },
++        { &uidRange,        isUidRule ? sizeof(uidRange) : 0 },
++#else
+         { &FRATTR_UID_START, isUidRule ? sizeof(FRATTR_UID_START) : 0 },
+         { &uidStart,         isUidRule ? sizeof(uidStart) : 0 },
+         { &FRATTR_UID_END,   isUidRule ? sizeof(FRATTR_UID_END) : 0 },
+         { &uidEnd,           isUidRule ? sizeof(uidEnd) : 0 },
++#endif
+         { &fraIifName,       iif != IIF_NONE ? sizeof(fraIifName) : 0 },
+         { iifName,           iifLength },
+         { PADDING_BUFFER,    iifPadding },

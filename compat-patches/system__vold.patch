@@ -1,0 +1,15 @@
+diff --git a/cryptfs.c b/cryptfs.c
+index 0ae9d9fe5998b39ac477e038117601219d209a63..44c207fa397aefeeaed13d0b4ff96224fddc5864 100644
+--- a/cryptfs.c
++++ b/cryptfs.c
+@@ -4232,7 +4232,9 @@ int cryptfs_enable_file()
+ int cryptfs_isConvertibleToFBE()
+ {
+     struct fstab_rec* rec = fs_mgr_get_entry_for_mount_point(fstab, DATA_MNT_POINT);
+-    return fs_mgr_is_convertible_to_fbe(rec) ? 1 : 0;
++    // A bootstrap-mounted /data may have no fstab record. It cannot be
++    // converted through fs_mgr; answer the capability query safely.
++    return rec && fs_mgr_is_convertible_to_fbe(rec) ? 1 : 0;
+ }
+ 
+ int cryptfs_create_default_ftr(struct crypt_mnt_ftr* crypt_ftr, __attribute__((unused))int key_length)

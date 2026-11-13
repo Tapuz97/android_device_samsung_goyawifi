@@ -1,5 +1,8 @@
 # Lineage14 first full-ROM functional checks
 
+Latest measured results: [functional pass, 2026-11-14](FUNCTIONAL-PASS-20261114.md).
+Hardware passes below are limited to the observations stated there.
+
 All hardware results start UNTESTED for this new ROM. Android13 observations and
 offline component checks do not count as Nougat hardware passes.
 
@@ -18,9 +21,9 @@ after an error; do not reflash/reboot after every individual check.
 | Mode persistence | Navigation choice survives a later planned reboot; external/injected navigation remains usable | UNTESTED |
 | Button LEDs | Identify actual backend first; visible on/off and real dimming only if supported; independent of navbar selection | BACKEND_UNESTABLISHED |
 | Panel brightness | Standard slider changes actual panel brightness without corruption | UNTESTED |
-| Wi-Fi | Enable, scan, join the owner's chosen network, transfer data, reconnect after sleep | UNTESTED |
-| Bluetooth | Enable, scan, pair; verify selected peripheral function and coexistence with Wi-Fi | UNTESTED |
-| Camera | Live changing preview, save and decode a real photograph; clean release/reopen | UNTESTED |
+| Wi-Fi | Enable, scan, join the owner's chosen network, transfer data, reconnect after sleep | PASS enable/scan/join/DNS/HTTPS; sleep reconnect pending |
+| Bluetooth | Enable, scan, pair; verify selected peripheral function and coexistence with Wi-Fi | PASS toggle/discovery/pairing/OPP transfer; other profiles unverified |
+| Camera | Live changing preview, save and decode a real photograph; clean release/reopen | PASS owner-confirmed live preview, two decoded stills, release/reopen; video untested |
 | Audio output | Speaker and volume; wired headphones insert/remove route correctly | UNTESTED |
 | Audio input | Record and replay microphone audio; wired microphone if available | UNTESTED |
 | Bluetooth audio | Actual A2DP sound and routing, not pairing alone | UNTESTED |
@@ -33,7 +36,7 @@ after an error; do not reflash/reboot after every individual check.
 | Suspend soak | Repeated real suspend/wake including USB disconnected; no black panel, touch loss or spontaneous reset | UNTESTED |
 | Restart | Native restart/recovery/download actions; physical recovery help required for Download Mode | UNTESTED |
 | Memory/performance | JIT enabled, zram active, no continuous diagnostic writes, no recurring ANR during ordinary interaction | UNTESTED |
-| Keyboard/search | Normal keyboard enters text; Settings search opens/results without a crash | UNTESTED |
+| Keyboard/search | Normal keyboard enters text; Settings search opens/results without a crash | PASS Settings search results and navigation; physical keyboard typing pending |
 | Browser | Network loading, text input and scrolling; separate app compatibility from driver correctness | UNTESTED |
 | Standard Lineage UI | Settings, launcher, Recents/clear-all, notification shade and native wallpaper picker | UNTESTED |
 

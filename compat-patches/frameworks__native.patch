@@ -83,6 +83,97 @@ index 033066bea3d9f6f6ff014487e5b94315ca7a25ed..1e6ab133836c3b9786f8e1b600458fae
  sp<IMemoryHeap> MemoryBase::getMemory(ssize_t* offset, size_t* size) const
  {
      if (offset) *offset = mOffset;
+diff --git a/libs/binder/MemoryHeapBase.cpp b/libs/binder/MemoryHeapBase.cpp
+index 43a01e472cd6e51f0e9f39fa5d77094cdc345fda..8a7279216a3bfc049a661a8b4ab9073c6dfe9185 100644
+--- a/libs/binder/MemoryHeapBase.cpp
++++ b/libs/binder/MemoryHeapBase.cpp
+@@ -31,6 +31,48 @@
+ 
+ #include <binder/MemoryHeapBase.h>
+ 
++#ifdef T110_MRVL_LEGACY
++#include <linux/ion.h>
++#include <string.h>
++
++// Samsung's camera calls MemoryHeapBase("/dev/ion", ...). /dev/ion is
++// an allocator, not a mappable buffer. Export a dma-buf before mapfd().
++// ANI7 libbinder mapion uses carveout mask 4, 4096 alignment and flags 3
++// unless NO_CACHING is requested. Keep the upstream object layout unchanged.
++static int t110AllocateIonBuffer(int client, size_t size, uint32_t flags) {
++    static_assert(sizeof(ion_allocation_data) == 20, "T110 ION allocation ABI");
++    static_assert(sizeof(ion_fd_data) == 8, "T110 ION fd ABI");
++    ion_allocation_data allocation = {};
++    allocation.len = size;
++    allocation.align = 4096;
++    allocation.heap_id_mask = ION_HEAP_CARVEOUT_MASK;
++    allocation.flags = (flags & android::MemoryHeapBase::NO_CACHING) ? 0
++            : ION_FLAG_CACHED | ION_FLAG_CACHED_NEEDS_SYNC;
++    if (size == 0 || ioctl(client, ION_IOC_ALLOC, &allocation) < 0) {
++        const int savedError = size == 0 ? EINVAL : errno;
++        close(client);
++        errno = savedError;
++        return -1;
++    }
++    ion_fd_data shared = {};
++    shared.handle = allocation.handle;
++    shared.fd = -1;
++    const int result = ioctl(client, ION_IOC_SHARE, &shared);
++    const int savedError = errno;
++    ion_handle_data handle = {};
++    handle.handle = allocation.handle;
++    ioctl(client, ION_IOC_FREE, &handle);
++    // The exported dma-buf now owns its reference, including across Binder.
++    close(client);
++    if (result < 0) {
++        errno = savedError;
++        return -1;
++    }
++    fcntl(shared.fd, F_SETFD, FD_CLOEXEC);
++    return shared.fd;
++}
++#endif
++
+ namespace android {
+ 
+ // ---------------------------------------------------------------------------
+@@ -71,6 +113,15 @@ MemoryHeapBase::MemoryHeapBase(const char* device, size_t size, uint32_t flags)
+     if (fd >= 0) {
+         const size_t pagesize = getpagesize();
+         size = ((size + pagesize-1) & ~(pagesize-1));
++#ifdef T110_MRVL_LEGACY
++        if (strcmp(device, "/dev/ion") == 0) {
++            fd = t110AllocateIonBuffer(fd, size, flags);
++            if (fd < 0) {
++                ALOGE("T110 ION allocation failed (%s)", strerror(errno));
++                return;
++            }
++        }
++#endif
+         if (mapfd(fd, size) == NO_ERROR) {
+             mDevice = device;
+         }
+@@ -83,7 +134,20 @@ MemoryHeapBase::MemoryHeapBase(int fd, size_t size, uint32_t flags, uint32_t off
+ {
+     const size_t pagesize = getpagesize();
+     size = ((size + pagesize-1) & ~(pagesize-1));
+-    mapfd(dup(fd), size, offset);
++    int ownedFd = dup(fd);
++#ifdef T110_MRVL_LEGACY
++    struct stat supplied, allocator;
++    if (ownedFd >= 0 && fstat(ownedFd, &supplied) == 0 &&
++            S_ISCHR(supplied.st_mode) && stat("/dev/ion", &allocator) == 0 &&
++            supplied.st_rdev == allocator.st_rdev) {
++        ownedFd = t110AllocateIonBuffer(ownedFd, size, flags);
++        if (ownedFd < 0) {
++            ALOGE("T110 ION fd allocation failed (%s)", strerror(errno));
++            return;
++        }
++    }
++#endif
++    mapfd(ownedFd, size, offset);
+ }
+ 
+ status_t MemoryHeapBase::init(int fd, void *base, int size, int flags, const char* device)
 diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
 index d423d124a320ddabb09eb44a51103782e0f80821..d779b60f016f885a7ba5d818b42b8cc18c2ce0be 100644
 --- a/libs/gui/Surface.cpp

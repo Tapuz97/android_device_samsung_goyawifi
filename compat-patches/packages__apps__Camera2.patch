@@ -1,0 +1,44 @@
+diff --git a/src/com/android/camera/CameraActivity.java b/src/com/android/camera/CameraActivity.java
+index cf5b0cffc3210196f0b6cc93df69d631e47f5949..71adab9d18b546df0569f09215da90eef783e1db 100644
+--- a/src/com/android/camera/CameraActivity.java
++++ b/src/com/android/camera/CameraActivity.java
+@@ -1945,7 +1945,8 @@ public class CameraActivity extends QuickActivity
+             mHasCriticalPermissions = false;
+         }
+ 
+-        if ((checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
++        if ((!isKeyguardLocked() &&
++                checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                 !mSettingsManager.getBoolean(SettingsManager.SCOPE_GLOBAL, Keys.KEY_HAS_SEEN_PERMISSIONS_DIALOGS)) ||
+                 !mHasCriticalPermissions) {
+             Intent intent = new Intent(this, PermissionsActivity.class);
+diff --git a/src/com/android/camera/PermissionsActivity.java b/src/com/android/camera/PermissionsActivity.java
+index 3fda04abb93419e2c8617bb720b26593f868b314..e567aa717c75c3fece55672ecbe85e8d37f8c9ba 100644
+--- a/src/com/android/camera/PermissionsActivity.java
++++ b/src/com/android/camera/PermissionsActivity.java
+@@ -87,6 +87,13 @@ public class PermissionsActivity extends QuickActivity {
+     @Override
+     protected void onResumeTasks() {
+         mNumPermissionsToRequest = 0;
++        mShouldRequestCameraPermission = false;
++        mShouldRequestMicrophonePermission = false;
++        mShouldRequestStoragePermission = false;
++        mShouldRequestLocationPermission = false;
++        mFlagHasCameraPermission = false;
++        mFlagHasMicrophonePermission = false;
++        mFlagHasStoragePermission = false;
+         checkPermissions();
+     }
+ 
+@@ -131,6 +138,11 @@ public class PermissionsActivity extends QuickActivity {
+             if (!isKeyguardLocked() && !mSettingsManager.getBoolean(SettingsManager.SCOPE_GLOBAL,
+                     Keys.KEY_HAS_SEEN_PERMISSIONS_DIALOGS)) {
+                 buildPermissionsRequest();
++            } else if (mFlagHasCameraPermission && mFlagHasMicrophonePermission
++                    && mFlagHasStoragePermission) {
++                // Location is optional, including when its prompt cannot be
++                // shown from the lock screen or was already declined.
++                handlePermissionsSuccess();
+             } else {
+                 // Permissions dialog has already been shown, or we're on
+                 // lockscreen, and we're still missing permissions.

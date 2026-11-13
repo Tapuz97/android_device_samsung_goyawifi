@@ -6,6 +6,9 @@ ART=BASE/'artifacts/lineage14-first-build';IMAGE=ART/'system.raw.img'
 inputs=json.loads((ANDROID/'device/samsung/goyawifi/vendor-inputs.json').read_text())['files']
 paths={str(Path(x['destination']).relative_to('/system')) for x in inputs}
 paths.update(['build.prop','bin/t110_stage','bin/linker','lib/libEGL.so','lib/libui.so',
+ 'bin/vold','bin/netd','app/Camera2/Camera2.apk','app/Camera2/oat/arm/Camera2.odex',
+ 'etc/permissions/android.hardware.usb.accessory.xml',
+ 'etc/permissions/android.hardware.bluetooth_le.xml','lib/libcameraservice.so',
  'lib/libhwui.so','lib/libgui.so','framework/arm/boot-framework.oat','framework/arm/boot-framework.art',
  'lib/libutils.so','lib/libbinder.so','lib/libcutils.so','lib/libcamera_client.so',
  'lib/libandroid_servers.so','lib/libaudioflinger.so','lib/libsurfaceflinger.so','vendor/lib/modules/galcore.ko',

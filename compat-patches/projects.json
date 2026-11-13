@@ -10,7 +10,7 @@
     "project": "frameworks/native",
     "head": "a2efd4f088d7e9fb870b56a08b0f831e0b05321a",
     "patch": "frameworks__native.patch",
-    "patch_sha256": "08d55f7975d9b23720bfa6e8d213e598de9c37fe3642373cc49108d6a4e93ecf",
+    "patch_sha256": "cf8ce13ecafebd5ea4e7174504898f72c187e9b3380b14ce1abf9480c76bbd68",
     "untracked": [
       {
         "path": "include/ui/T110Vivante.h",
@@ -60,12 +60,33 @@
     "project": "frameworks/av",
     "head": "99885127c34ad960efbb6c585c27938f384e6d75",
     "patch": "frameworks__av.patch",
-    "patch_sha256": "927b1d73c6dbef533736b307bf793669904acd763120bd8f8a1c026a36f6f629",
+    "patch_sha256": "b80ad8b17a1facd3e5123ea0521934e769d8f96200d25bc32728bad389465d01",
     "untracked": [
       {
         "path": "services/audioflinger/T110AudioStreamCompat.h",
         "sha256": "e48710e7509f42d69134516239eb05a74a976e6edb852223b7a8d07773725157"
       }
     ]
+  },
+  {
+    "project": "system/vold",
+    "head": "2fc737b0204b921013516e72e867569b24c80b3f",
+    "patch": "system__vold.patch",
+    "patch_sha256": "f1e9b1397618cb86edb3bfd0cfa0ccadcaa925bc9a5bc81607284b2e2c2ec643",
+    "untracked": []
+  },
+  {
+    "project": "packages/apps/Camera2",
+    "head": "a1f88324c6164541a6b49abfdf2b13c0bf3c2695",
+    "patch": "packages__apps__Camera2.patch",
+    "patch_sha256": "74770ae005c8f5b4ea924bccccad05dcdd257f313bc6ff790288ed26d570dd56",
+    "untracked": []
+  },
+  {
+    "project": "system/netd",
+    "head": "b5c3fe8fac846e9e586f2c0454c1036099adaf27",
+    "patch": "system__netd.patch",
+    "patch_sha256": "3b33e00274cdd3f4725f2d78574edf6a0420d1a0c872bbae4578a38ca44960ee",
+    "untracked": []
   }
 ]

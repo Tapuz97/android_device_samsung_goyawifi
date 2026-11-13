@@ -89,3 +89,23 @@ index 6026bbb538d1a355056db5a40d6698d75b3fcfdc..6dd310e63c8dcd8a448f33129f54dfbd
          stream = outStream;
          mHalFormatHasProportionalFrames = audio_has_proportional_frames(config->format);
          mHalFrameSize = audio_stream_out_frame_size(stream);
+diff --git a/services/camera/libcameraservice/device1/CameraHardwareInterface.h b/services/camera/libcameraservice/device1/CameraHardwareInterface.h
+index 1eff60fd05ef950b27b22ac371c98ec59bbe3563..a9936d649c3a7eecc8e9188804325e7c7d4ba75c 100644
+--- a/services/camera/libcameraservice/device1/CameraHardwareInterface.h
++++ b/services/camera/libcameraservice/device1/CameraHardwareInterface.h
+@@ -132,6 +132,15 @@ public:
+     {
+         ALOGV("%s(%s) buf %p", __FUNCTION__, mName.string(), buf.get());
+         if (mDevice->ops->set_preview_window) {
++#ifdef T110_MRVL_LEGACY
++            if (buf == nullptr) {
++                // Marvell stops its display worker inside set_preview_window.
++                // Clearing first lets the worker call dequeue on a null window.
++                const status_t result = mDevice->ops->set_preview_window(mDevice, nullptr);
++                if (result == OK) mPreviewWindow.clear();
++                return result;
++            }
++#endif
+             mPreviewWindow = buf;
+             if (buf != nullptr) {
+                 if (mPreviewScalingMode != NOT_SET) {

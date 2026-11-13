@@ -61,6 +61,7 @@ assert stage[:6]==b'\x7fELF\1\1' and struct.unpack_from('<H',stage,18)[0]==40
 assert not subprocess.check_output(['readelf','-l',str(OUT/'system/bin/t110_stage')],text=True).find('INTERP')>=0
 items={n:(f,b) for n,f,b in records(gzip.decompress(ramdisk.read_bytes())) if n!='TRAILER!!!'}
 assert 'init' in items and 'sepolicy' in items and 'init.mrvl.rc' in items
+assert b'/dev/uio0 0660 media camera' in items['ueventd.mrvl.rc'][1], 'Camera encoder group missing from final ramdisk'
 init_fields,android_init=items['init'];assert android_init[:4]==b'\x7fELF'
 items['init.android']=(init_fields,android_init)
 items['init']=(init_fields,stage)
