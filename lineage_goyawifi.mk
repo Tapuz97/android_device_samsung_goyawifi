@@ -12,7 +12,7 @@ TARGET_SCREEN_WIDTH := 600
 TARGET_SCREEN_HEIGHT := 1024
 PRODUCT_AAPT_CONFIG := normal large mdpi hdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
-PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density=160 ro.sf.hwrotation=270 ro.opengles.version=131072
+PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density=200 ro.sf.hwrotation=270 ro.opengles.version=131072
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface=wlan0 ro.zygote.disable_gl_preload=true
 PRODUCT_PROPERTY_OVERRIDES += ro.t110.legacy_gpu=true
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.strictmode.disable=true

@@ -52,7 +52,7 @@ with tempfile.TemporaryDirectory(prefix='t110-prior-graphics-') as tmp:
     props = extract('build.prop').read_text()
     assert 'ro.zygote.disable_gl_preload=true' in props
     assert 'persist.sys.sdcardfs=force_off' in props
-    assert 'ro.sf.hwrotation=270' in props and 'ro.sf.lcd_density=160' in props
+    assert 'ro.sf.hwrotation=270' in props and 'ro.sf.lcd_density=200' in props
     assert 'ro.opengles.version=131072' in props  # Advertise GLES2, never fake GLES3.
 
 record = {'status': 'PASS', 'scope': 'Actual boot and system images; not hardware graphics certification',
