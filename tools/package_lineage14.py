@@ -88,11 +88,11 @@ assert b'/stage-data/local/tmp/t110-lineage14-system.raw' in stage
 assert b'--second-stage' in stage and b'/init.android' in stage
 packed_ramdisk=gzip.compress(raw,mtime=0)
 old=BOOT48.read_bytes();assert hashlib.sha256(old).hexdigest()=='09da369cd22d09e1b59b70ce273fa305c96cc83bc83bca8a48132737763d3690'
-kernel=(DEVICE/'prebuilt/zImage').read_bytes();assert hashlib.sha256(kernel).hexdigest()=='b9409c55499df551ecd960f38a5f313304c6ca9e4d3f81c77243fda72a2ed8a6'
+kernel=(DEVICE/'prebuilt/zImage').read_bytes();assert hashlib.sha256(kernel).hexdigest()==json.loads((DEVICE/'kernel-source.json').read_text())['kernel_sha256']
 page=struct.unpack_from('<I',old,36)[0];assert page==2048
 assert struct.unpack_from('<I',old,24)[0]==0,'Unexpected second boot payload'
 assert struct.unpack_from('<I',old,40)[0]==0,'Unexpected separate device-tree payload'
-header=bytearray(old[:page]);struct.pack_into('<I',header,16,len(packed_ramdisk))
+header=bytearray(old[:page]);struct.pack_into('<I',header,8,len(kernel));struct.pack_into('<I',header,16,len(packed_ramdisk))
 cmdline=old[64:576].split(b'\0',1)[0].decode()
 assert len(cmdline.encode())<512
 header[64:576]=cmdline.encode().ljust(512,b'\0')
@@ -138,7 +138,7 @@ if check.returncode!=0:
 if check.returncode!=0:raise RuntimeError('Final system filesystem verification failed')
 report={'status':'BUILT_OFFLINE_VERIFIED_NOT_HARDWARE_TESTED','android':'7.1.2','lineage':'14.1',
         'physical_system_write_allowed':False,'system_destination':'/data/local/tmp/t110-lineage14-system.raw',
-        'userdata_directory':'/data/local/tmp/t110-lineage14-data','kernel':'preserved BOOT48',
+        'userdata_directory':'/data/local/tmp/t110-lineage14-data','kernel':'v42 plus GOYA initramfs archive-end fix; original config/module ABI',
         'selinux':'permissive bring-up; not a production security qualification',
         'reused_verified_system':bool(args.reuse_system),'google_apps_included':False,'inode_bitmap_padding_normalized':normalized_padding,'vendor_elfs_verified':len(elf_report['files']),'files':[]}
 for name in ('boot.img','system.raw.img'):

@@ -82,10 +82,13 @@ static void load_gpu(void) {
     int fd=open("/system/vendor/lib/modules/galcore.ko",O_RDONLY|O_CLOEXEC|O_NOFOLLOW);
     struct stat st;
     if(fd<0||fstat(fd,&st)||!S_ISREG(st.st_mode)||st.st_size<100000||st.st_size>8000000)failed("matched GPU module");
-    void *bytes=mmap(NULL,st.st_size,PROT_READ,MAP_PRIVATE,fd,0);close(fd);
+    /* stat.st_size is 64-bit on Nougat ARM32; the raw syscall wants a
+     * 32-bit unsigned long. Passing it directly shifts the parameters slot. */
+    size_t size=(size_t)st.st_size;
+    void *bytes=mmap(NULL,size,PROT_READ,MAP_PRIVATE,fd,0);close(fd);
     if(bytes==MAP_FAILED)failed("GPU module mapping");
-    if(syscall(SYS_init_module,bytes,st.st_size,""))failed("GPU module load");
-    munmap(bytes,st.st_size);
+    if(syscall(SYS_init_module,bytes,size,""))failed("GPU module load");
+    munmap(bytes,size);
 }
 int main(void) {
     if(getpid()!=1)return 1;

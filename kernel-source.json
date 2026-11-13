@@ -1,0 +1,16 @@
+{
+  "kernel_sha256": "df1f3245e750c207e17c0ac1063ac0e13c48f3c468249285bb281f7c5043766a",
+  "release": "3.4.5",
+  "source_commit": "e7d7b1f23e999539c74761216d20f432fd63e052",
+  "source_repository": "https://github.com/Tapuz97/android_kernel_samsung_goya",
+  "baseline_commit": "3eb98fe728aefa780638a1bb2f487e19ba6fadcb",
+  "source_changed_files": [
+    "init/initramfs.c"
+  ],
+  "config_matches_preserved_kernel": true,
+  "config_sha256": "62f20f5d11a347ab3a222437f70c62475be989237232a2bf187d300a7aeaed93",
+  "toolchain_commit": "3d37334606f36c1639a1caf928994c56b360eeb1",
+  "toolchain_version": "GCC4.6.x-google20120106",
+  "adapted_from": "https://github.com/jakaco/lineageos-14.1-goyawifi/blob/main/kernel/patches/0002-goyawifi-boot-ramdisks-of-any-size.patch",
+  "hardware_validation": "Kernel4 boot and userdata/system-loop mounts confirmed; Android7 startup unconfirmed"
+}

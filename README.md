@@ -9,7 +9,7 @@ Marvell PXA986/988, Vivante GC1000, ARMv7-A NEON. Use the matched T110XXUANI7
 stock graphics/camera/audio HALs and their private library closure. The proprietary
 inputs and generated prebuilt kernel/modules are excluded from this source tree.
 Their hashes are in the local vendor-inputs.json and build-verification.json.
-The kernel is the tested Android13 BOOT48 checkpoint, SHA256
+The original kernel baseline is the preserved Android13 BOOT48 checkpoint, SHA256
 b9409c55499df551ecd960f38a5f313304c6ca9e4d3f81c77243fda72a2ed8a6.
 Its complete source is Tapuz97/android_kernel_samsung_goya tag
 t110-android13-v42-20261112 (3eb98fe728aefa780638a1bb2f487e19ba6fadcb).
@@ -70,3 +70,9 @@ tools contains the actual final packaging and verification scripts. Their native
 working root is /root/t110-lineage14. Initial transformation scripts are not the
 canonical source. Use only the final wrapped boot/system pair after verification;
 the ordinary out/.../boot.img does not contain the loop-image bootstrap.
+
+Current kernel provenance is pinned in kernel-source.json. It adds only the GOYA
+initramfs archive-end fix with byte-identical configuration and matching module
+release. The exact installed-recovery exit is /sbin/reboot recovery_done; see
+docs/RECOVERY-HANDOFF.md. Android7 startup remains unconfirmed after the latest
+module-argument correction (Samsung logo, awaiting saved boot logs).

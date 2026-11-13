@@ -43,7 +43,7 @@ for path in sorted((DEVICE/'prebuilt').iterdir()):
             metadata=subprocess.check_output(['readelf','-p','.modinfo',str(path)],text=True)
             item['vermagic']=re.search(r'vermagic=(.*)',metadata).group(1).strip()
         report['modules'].append(item)
-assert next(x for x in report['modules'] if x['name']=='zImage')['sha256']=='b9409c55499df551ecd960f38a5f313304c6ca9e4d3f81c77243fda72a2ed8a6'
+assert next(x for x in report['modules'] if x['name']=='zImage')['sha256']==json.loads((DEVICE/'kernel-source.json').read_text())['kernel_sha256']
 assert len({x['vermagic'] for x in report['modules'] if 'vermagic' in x})==1
 for name,expected in [('gralloc.mrvl.so','da8e8887f877d5de012500cd390127742a68fb8b3b53d39b4560712f0c393c58'),('hwcomposer.mrvl.so','66b02de15b357fb5127846f89288f81aebf5b93701e3d7c999b60922190f1f6f')]:
     assert hashlib.sha256((DEVICE/'proprietary/lib/hw'/name).read_bytes()).hexdigest()==expected
