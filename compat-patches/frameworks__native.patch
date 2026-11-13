@@ -83,6 +83,47 @@ index 033066bea3d9f6f6ff014487e5b94315ca7a25ed..1e6ab133836c3b9786f8e1b600458fae
  sp<IMemoryHeap> MemoryBase::getMemory(ssize_t* offset, size_t* size) const
  {
      if (offset) *offset = mOffset;
+diff --git a/libs/ui/Android.mk b/libs/ui/Android.mk
+index 2b16365c37a2dc5227de831537ee35404ea4d427..647781ee0e800d91c2ee0c7eee34280b8282105d 100644
+--- a/libs/ui/Android.mk
++++ b/libs/ui/Android.mk
+@@ -54,7 +54,8 @@ LOCAL_SHARED_LIBRARIES := \
+ 	libhardware \
+ 	libsync \
+ 	libutils \
+-	liblog
++	liblog \
++	libdl
+ 
+ ifneq ($(BOARD_FRAMEBUFFER_FORCE_FORMAT),)
+ LOCAL_CFLAGS += -DFRAMEBUFFER_FORCE_FORMAT=$(BOARD_FRAMEBUFFER_FORCE_FORMAT)
+diff --git a/libs/ui/Gralloc1.cpp b/libs/ui/Gralloc1.cpp
+index efaa64bca735aeeaeb02f96b00333854f67d8898..c76f272a7e19f10b5e99c541f13555986a274a11 100644
+--- a/libs/ui/Gralloc1.cpp
++++ b/libs/ui/Gralloc1.cpp
+@@ -17,6 +17,9 @@
+ //#define LOG_NDEBUG 0
+ 
+ #include <ui/Gralloc1.h>
++#ifdef T110_MRVL_LEGACY
++#include <ui/T110Vivante.h>
++#endif
+ 
+ #include <vector>
+ 
+@@ -389,6 +392,12 @@ Loader::Loader()
+ {
+     hw_module_t const* module;
+     int err = hw_get_module(GRALLOC_HARDWARE_MODULE_ID, &module);
++#ifdef T110_MRVL_LEGACY
++    LOG_ALWAYS_FATAL_IF(err || !module, "T110 gralloc module unavailable: %d", err);
++    // Covers allocation and import-only clients before any HAL callback.
++    const int status = t110InitializeVivante(module->dso);
++    LOG_ALWAYS_FATAL_IF(status < 0, "T110 gralloc process initialization failed: %d", status);
++#endif
+     uint8_t majorVersion = (module->module_api_version >> 8) & 0xFF;
+     uint8_t minorVersion = module->module_api_version & 0xFF;
+     gralloc1_device_t* device = nullptr;
 diff --git a/libs/ui/GraphicBufferMapper.cpp b/libs/ui/GraphicBufferMapper.cpp
 index bb860932c02601a295f947bc77aa38cc145f99fc..fe898a34910ff413c3d0f4511d3dd488d93ae43c 100644
 --- a/libs/ui/GraphicBufferMapper.cpp
@@ -103,6 +144,38 @@ index bb860932c02601a295f947bc77aa38cc145f99fc..fe898a34910ff413c3d0f4511d3dd488
  status_t GraphicBufferMapper::lockYCbCr(buffer_handle_t handle, uint32_t usage,
          const Rect& bounds, android_ycbcr *ycbcr)
  {
+diff --git a/opengl/libs/EGL/Loader.cpp b/opengl/libs/EGL/Loader.cpp
+index 4234db823925e9a7d5530d78b73f1935ab288f92..d882a38c4799534b21d8f09de280d5a66725010f 100644
+--- a/opengl/libs/EGL/Loader.cpp
++++ b/opengl/libs/EGL/Loader.cpp
+@@ -36,6 +36,9 @@
+ 
+ #include "egldefs.h"
+ #include "Loader.h"
++#ifdef T110_MRVL_LEGACY
++#include <ui/T110Vivante.h>
++#endif
+ 
+ // ----------------------------------------------------------------------------
+ namespace android {
+@@ -472,6 +475,17 @@ static void* load_system_driver(const char* kind) {
+         return 0;
+     }
+ 
++#ifdef T110_MRVL_LEGACY
++    if ((!strcmp(kind, "EGL") || !strcmp(kind, "GLES")) &&
++            strstr(driver_absolute_path, "_MRVL.so")) {
++        const int status = t110InitializeVivante(dso);
++        if (status < 0) {
++            ALOGE("T110 EGL process initialization failed: %d", status);
++            dlclose(dso);
++            return nullptr;
++        }
++    }
++#endif
+     ALOGD("loaded %s", driver_absolute_path);
+ 
+     return dso;
 diff --git a/opengl/libs/EGL/eglApi.cpp b/opengl/libs/EGL/eglApi.cpp
 index 0cd8b0235e67189286af180d9f33e4ced0f04cb8..9c65a289035c3610c91eb4cb06bbc46e18aaaf6a 100644
 --- a/opengl/libs/EGL/eglApi.cpp

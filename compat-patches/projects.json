@@ -10,8 +10,13 @@
     "project": "frameworks/native",
     "head": "a2efd4f088d7e9fb870b56a08b0f831e0b05321a",
     "patch": "frameworks__native.patch",
-    "patch_sha256": "1eb19657bc1896b5a54f62a158bfc796ca200be4cb08feeb926fabd844cdb3c6",
-    "untracked": []
+    "patch_sha256": "e7cf3b87f3f4a57c231ecb1bf5b921a2649656f1dca9a20f9ca84b442ed7a9ab",
+    "untracked": [
+      {
+        "path": "include/ui/T110Vivante.h",
+        "sha256": "0449f9f8aca337b111f742755e66582e6b42d54e8ce0ca2f75b803cdc8e54632"
+      }
+    ]
   },
   {
     "project": "hardware/libhardware",

@@ -43,3 +43,13 @@ $(t110_egl_driver_links): $(TARGET_OUT)/vendor/lib/%: $(TARGET_OUT)/vendor/lib/e
 	$(hide) ln -sf egl/$(notdir $@) $@
 ALL_DEFAULT_INSTALLED_MODULES += $(t110_egl_driver_links)
 endif
+
+# Stock EGL internally opens these absolute paths (Android13 path-fix evidence).
+# Alias the original locations to the same vendor inodes, never duplicate drivers.
+ifeq ($(TARGET_DEVICE),goyawifi)
+t110_egl_stock_links := $(addprefix $(TARGET_OUT)/lib/egl/,$(t110_egl_driver_names))
+$(t110_egl_stock_links): $(TARGET_OUT)/lib/egl/%: $(TARGET_OUT)/vendor/lib/egl/%
+	@mkdir -p $(dir $@)
+	$(hide) ln -sf ../../vendor/lib/egl/$(notdir $@) $@
+ALL_DEFAULT_INSTALLED_MODULES += $(t110_egl_stock_links)
+endif

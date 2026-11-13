@@ -53,7 +53,8 @@ Full hardware/UI/sleep/wake and enforcing-policy qualification remain required.
 ## Current verification and limitations
 
 See OFFLINE-VERIFICATION.md and docs/FUNCTIONAL-TESTS-LINEAGE14.md. The complete
-candidate passed offline checks and has not been tested on the T110. Native
+candidate passed offline checks; hardware boot has reached native services and ADB,
+but SurfaceFlinger failed to create an EGL context in the preceding test. Native
 Buttons settings preserve physical navigation and allow touch navigation to
 suppress only the built-in Home/Back/Recents inputs. Independent LED controls
 are implemented for a genuine backend, but remain hidden on this kernel until
@@ -74,5 +75,7 @@ the ordinary out/.../boot.img does not contain the loop-image bootstrap.
 Current kernel provenance is pinned in kernel-source.json. It adds only the GOYA
 initramfs archive-end fix with byte-identical configuration and matching module
 release. The exact installed-recovery exit is /sbin/reboot recovery_done; see
-docs/RECOVERY-HANDOFF.md. Android7 startup remains unconfirmed after the latest
-module-argument correction (Samsung logo, awaiting saved boot logs).
+docs/RECOVERY-HANDOFF.md. The saved Android13 EGL-path, process-initialization, display-permission and USB
+startup fixes are now adapted to Nougat. See docs/PRIOR-WORK-CARRYOVER.md and run
+tools/verify_prior_graphics_fixes.py against the actual artifacts before flashing.
+A usable Android screen and completed startup are not yet confirmed.

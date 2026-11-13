@@ -12,10 +12,17 @@ on init
     write /sys/class/android_usb/android0/idProduct 4ee7
     write /sys/class/android_usb/android0/iManufacturer Samsung
     write /sys/class/android_usb/android0/iProduct SM-T110
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/f_ffs/aliases adb
     write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
     setprop sys.usb.config adb
     setprop sys.usb.configfs 0
+    # Retain the actual display timing permissions from the Android13 port.
+    chown system graphics /sys/devices/platform/pxa168-fb.0/vsync
+    chmod 0660 /sys/devices/platform/pxa168-fb.0/vsync
+    restorecon /sys/devices/platform/pxa168-fb.0/vsync
     chown system system /sys/class/backlight/panel/brightness
     chmod 0660 /sys/class/backlight/panel/brightness
 on fs
