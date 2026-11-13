@@ -4,6 +4,8 @@ import /system/etc/init
 
 # The stage mounts a distinct Nougat data directory; never mount physical SYSTEM.
 on init
+    # Nougat ueventd places this graphics-subsystem node below /dev/graphics.
+    symlink /dev/graphics/galcore /dev/galcore
     mkdir /dev/usb-ffs 0770 shell shell
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000

@@ -16,6 +16,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/proprietary/lib/hw/power.mrvl.so:system/vendor/lib/hw/power.mrvl.so \
     $(LOCAL_PATH)/proprietary/lib/hw/sensors.mrvl.so:system/vendor/lib/hw/sensors.mrvl.so \
     $(LOCAL_PATH)/proprietary/lib/libGAL.so:system/vendor/lib/libGAL.so \
+    $(LOCAL_PATH)/proprietary/lib/libGLESv2SC.so:system/vendor/lib/libGLESv2SC.so \
     $(LOCAL_PATH)/proprietary/lib/libHWComposerGC.so:system/vendor/lib/libHWComposerGC.so \
     $(LOCAL_PATH)/proprietary/lib/libMarvellWireless.so:system/vendor/lib/libMarvellWireless.so \
     $(LOCAL_PATH)/proprietary/lib/lib_SamsungRec_V03011b.so:system/vendor/lib/lib_SamsungRec_V03011b.so \

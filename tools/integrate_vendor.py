@@ -20,6 +20,10 @@ roots=['lib/egl/libEGL_MRVL.so','lib/egl/libGLESv1_CM_MRVL.so','lib/egl/libGLESv
        'lib/hw/gralloc.mrvl.so','lib/hw/hwcomposer.mrvl.so','lib/hw/camera.mrvl.so',
        'lib/hw/audio.primary.mrvl.so','lib/hw/sensors.mrvl.so','lib/hw/power.mrvl.so']
 roots += [str(p.relative_to(STOCK)) for p in sorted((STOCK/'lib/hw').glob('audio_path.*.mrvl.so'))]
+# Proven Android13 dynamic dependency: not declared in DT_NEEDED.
+roots += ['lib/libGLESv2SC.so']
+assert hashlib.sha256((STOCK/'lib/libGLESv2SC.so').read_bytes()).hexdigest() == 'ad6e492a98834b34079eb32024fc70e77b8df543b5118e762a4fe8d96c64706f'
+
 seen={};queue=list(roots);missing=[]
 while queue:
     name=queue.pop(0)

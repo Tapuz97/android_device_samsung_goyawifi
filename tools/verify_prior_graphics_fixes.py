@@ -8,11 +8,13 @@ scope = runpy.run_path(str(Path(__file__).with_name('verify_init_service_imports
 boot_files = scope['files']
 rc = boot_files['/init.mrvl.rc']
 for command in (b'iSerial ${ro.serialno}', b'    start adbd\n',
+                b'symlink /dev/graphics/galcore /dev/galcore',
                 b'chown system graphics /sys/devices/platform/pxa168-fb.0/vsync',
                 b'chmod 0660 /sys/devices/platform/pxa168-fb.0/vsync'):
     assert command in rc, command
 assert rc.index(b'    start adbd\n') < rc.index(b'on post-fs-data\n')
 assert b'0666 system graphics' in boot_files['/ueventd.mrvl.rc']
+assert b'/dev/graphics/galcore 0666 system graphics' in boot_files['/ueventd.mrvl.rc']
 
 checks = []
 with tempfile.TemporaryDirectory(prefix='t110-prior-graphics-') as tmp:
@@ -37,6 +39,8 @@ with tempfile.TemporaryDirectory(prefix='t110-prior-graphics-') as tmp:
                        'canonical_target': '/system/vendor/lib/egl/'+name,
                        'sha256': hashlib.sha256(target.read_bytes()).hexdigest()})
     gal = extract('vendor/lib/libGAL.so')
+    compiler = extract('vendor/lib/libGLESv2SC.so')
+    assert hashlib.sha256(compiler.read_bytes()).hexdigest() == 'ad6e492a98834b34079eb32024fc70e77b8df543b5118e762a4fe8d96c64706f'
     dynamic = subprocess.check_output(['readelf', '-d', str(gal)], text=True)
     assert '(INIT)' not in dynamic and '(INIT_ARRAY)' not in dynamic
     symbols = subprocess.check_output(['readelf', '-Ws', str(gal)], text=True)
@@ -53,7 +57,8 @@ with tempfile.TemporaryDirectory(prefix='t110-prior-graphics-') as tmp:
 
 record = {'status': 'PASS', 'scope': 'Actual boot and system images; not hardware graphics certification',
           'boot_sha256': hashlib.sha256((ART/'boot.img').read_bytes()).hexdigest(),
-          'restored': ['absolute EGL driver paths', 'EGL and gralloc process initialization',
+          'restored': ['absolute EGL driver paths', 'stock dynamic shader compiler',
+                       'actual Nougat GPU node permissions and alias', 'EGL and gralloc process initialization',
                        'vsync permissions', 'early authenticated ADB', 'original USB serial'],
           'driver_paths': checks}
 (ART/'prior-graphics-verification.json').write_text(json.dumps(record, indent=2)+'\n')

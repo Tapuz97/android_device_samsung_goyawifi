@@ -42,3 +42,41 @@ driver aliases, explicit constructor calls in libEGL/libui, display permissions,
 early USB/serial settings,164 critical file comparisons and clean ext4.
 Both full original proprietary drivers and matched kernel/module hashes remain.
 Full ARM rebuild completed successfully. Hardware validation remains pending.
+
+## Follow-up: runtime-only compiler and Nougat device-node placement
+
+The next hardware boot retained SurfaceFlinger PID145 and started bootanimation,
+Zygote and system_server. It did not complete startup or establish usable graphics.
+Logs are in tests/lineage14-restored-prior-fixes. Shader compilation failed, and
+camera/app processes failed GPU access. Actual device listing proved that N7
+ueventd creates /dev/graphics/galcore (0660 system:graphics), not /dev/galcore.
+The previous permission rule named the missing path. This distinction must be
+checked on the actual Android version, not inferred from the old init script.
+
+The shader compiler was explicitly documented in Android13 LEGACY-GRAPHICS.md
+and scripts/extract_shader_compiler.py, but the initial N7 vendor integration
+followed only DT_NEEDED and omitted that runtime dependency. This omission is fixed:
+libGLESv2SC.so527012bytes, SHAad6e492a98834b34079eb32024fc70e77b8df543b5118e762a4fe8d96c64706f.
+A scan of literal shared-library names in all selected private drivers found this
+as the only missing library also present in the exact stock extraction. This scan
+does not establish all dynamically generated paths or all hardware functionality.
+
+The final combined correction explicitly roots this compiler in vendor extraction,
+labels and grants0666 system:graphics on the actual /dev/graphics/galcore node,
+and creates the legacy /dev/galcore alias after coldboot. Both early and actual
+paths are now checked in the packed ramdisk.43 ELF closures and165 extracted
+image-file comparisons pass, along with fsck and the existing GPU ABI checks.
+
+Full rebuild passed. The export uses the prior verified image plus one added
+compiler inode with explicit uid/gid/mode and SELinux label. Read-only fsck passes.
+Reversible4KiB delta557056bytes preserves the remainder byte-for-byte, following
+our Android13 update method. Ordinary build output contains the same selected files.
+
+Boot0e226023c53ec8c50edbb1a207b72b4ec7c728889dc68fb7ef1d840aede5fad5
+System64a39bd58b1aabc6bf670b7ce1a517d6e96334447454a156be7b4a9fc5f9698c
+Rollback for the preceding pair: artifacts/prior-graphics-parent in native root.
+Delta and reverse chunks: artifacts/shader-gpu-node-delta.
+
+On the owner's engineering userdata only, standard Lineage persist.sys.root_access
+was set to2 and adb root was enabled for diagnostics. ROM defaults still require
+ADB authentication and do not enable root access for apps.

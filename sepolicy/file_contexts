@@ -1,3 +1,4 @@
+/dev/graphics/galcore u:object_r:gpu_device:s0
 /dev/galcore u:object_r:gpu_device:s0
 /dev/mbtchar[0-9]* u:object_r:hci_attach_dev:s0
 /init.android u:object_r:init_exec:s0
