@@ -136,6 +136,11 @@ if check.returncode!=0:
     normalized_padding=True
 (DEST/'filesystem-check.txt').write_text(fslog)
 if check.returncode!=0:raise RuntimeError('Final system filesystem verification failed')
+# Keep the recovered startup/graphics lessons in the mandatory packaging gate.
+# This checks the actual packed ramdisk and ext4, including dynamic driver paths
+# that a DT_NEEDED-only dependency check cannot see.
+subprocess.run(['python3',str(Path(__file__).with_name('verify_prior_graphics_fixes.py'))],check=True)
+subprocess.run(['python3',str(Path(__file__).with_name('verify_final_image.py'))],check=True)
 report={'status':'BUILT_OFFLINE_VERIFIED_NOT_HARDWARE_TESTED','android':'7.1.2','lineage':'14.1',
         'physical_system_write_allowed':False,'system_destination':'/data/local/tmp/t110-lineage14-system.raw',
         'userdata_directory':'/data/local/tmp/t110-lineage14-data','kernel':'v42 plus GOYA initramfs archive-end fix; original config/module ABI',

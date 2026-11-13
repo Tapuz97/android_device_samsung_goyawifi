@@ -31,3 +31,20 @@ System unchanged: 60a0f45f77076d8b72a64d82cbb0159cf6f6a7bb0e4dca40ccb67e86069899
 Installation proof and subsequent boot observations are in tests/lineage14-service-import-fix.
 Never write physical SYSTEM p15. Use canonical recovery_transport.py, not shell stdin.
 Normal recovery exit remains exactly `/sbin/reboot recovery_done`.
+
+## Service-import boot outcome
+
+Hardware serial3004523270272200 appeared on USB as0123456789ABCDEF because the
+new device RC omitted iSerial. Its ro.serialno and ro.boot.serialno both matched
+3004523270272200, and Android release was7.1.2. The old observer's fixed USB serial
+missed it; the new observer checks the placeholder only after verifying identity.
+The user correctly reported enumeration. This was not continued failure to reach init.
+
+The service import fixed the storage wait: vold, SurfaceFlinger, Zygote and other
+native services started. SurfaceFlinger then aborted repeatedly because the stock
+EGL library could not load its hard-coded /system/lib/egl GLES2 path. Actual logs
+also reproduced the old vsync permission failure. Both fixes were already in the
+Android13 archive. See PRIOR-WORK-CARRYOVER.md for their combined Nougat adaptation.
+All available live logs and the failed boot's last_kmsg were saved before returning
+the tablet to TWRP through ADB. The tombstone files were empty; do not claim a
+complete native backtrace. No completed Android/UI boot was observed in this test.
