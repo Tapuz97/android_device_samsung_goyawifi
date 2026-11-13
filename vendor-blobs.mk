@@ -21,6 +21,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/proprietary/lib/libMarvellWireless.so:system/vendor/lib/libMarvellWireless.so \
     $(LOCAL_PATH)/proprietary/lib/lib_SamsungRec_V03011b.so:system/vendor/lib/lib_SamsungRec_V03011b.so \
     $(LOCAL_PATH)/proprietary/lib/lib_Samsung_SB_AM_for_ICS_v04004.so:system/vendor/lib/lib_Samsung_SB_AM_for_ICS_v04004.so \
+    $(LOCAL_PATH)/proprietary/lib/libacm.so:system/vendor/lib/libacm.so \
     $(LOCAL_PATH)/proprietary/lib/libacoustic.so:system/vendor/lib/libacoustic.so \
     $(LOCAL_PATH)/proprietary/lib/libasound.so:system/vendor/lib/libasound.so \
     $(LOCAL_PATH)/proprietary/lib/libaudiodebugtool.so:system/vendor/lib/libaudiodebugtool.so \
@@ -43,6 +44,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/proprietary/lib/libsecnativefeature.so:system/vendor/lib/libsecnativefeature.so \
     $(LOCAL_PATH)/proprietary/lib/libsocketsvr.so:system/vendor/lib/libsocketsvr.so \
     $(LOCAL_PATH)/proprietary/lib/libstlport.so:system/vendor/lib/libstlport.so \
+    $(LOCAL_PATH)/proprietary/usr/lib/alsa-lib/libasound_module_ctl_codec.so:system/vendor/usr/lib/alsa-lib/libasound_module_ctl_codec.so \
+    $(LOCAL_PATH)/proprietary/usr/lib/alsa-lib/libasound_module_ctl_phone.so:system/vendor/usr/lib/alsa-lib/libasound_module_ctl_phone.so \
+    $(LOCAL_PATH)/proprietary/usr/lib/alsa-lib/libasound_module_pcm_phone.so:system/vendor/usr/lib/alsa-lib/libasound_module_pcm_phone.so \
     $(LOCAL_PATH)/proprietary/etc/audio/LVVEFS_Rx_Configuration.txt:system/vendor/etc/audio/LVVEFS_Rx_Configuration.txt \
     $(LOCAL_PATH)/proprietary/etc/audio/LVVEFS_Tx_Configuration.txt:system/vendor/etc/audio/LVVEFS_Tx_Configuration.txt \
     $(LOCAL_PATH)/proprietary/etc/audio/Rx_ControlParams_BLUETOOTH_HEADSET.txt:system/vendor/etc/audio/Rx_ControlParams_BLUETOOTH_HEADSET.txt \
@@ -128,6 +132,23 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/proprietary/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_8.yuv420p:system/vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_8.yuv420p \
     $(LOCAL_PATH)/proprietary/cameradata/datapattern_420sp.yuv:system/vendor/cameradata/datapattern_420sp.yuv \
     $(LOCAL_PATH)/proprietary/cameradata/datapattern_front_420sp.yuv:system/vendor/cameradata/datapattern_front_420sp.yuv \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/alsa.conf:system/vendor/usr/share/alsa/alsa.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/cards/aliases.conf:system/vendor/usr/share/alsa/cards/aliases.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/centor_lfe.conf:system/vendor/usr/share/alsa/pcm/centor_lfe.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/default.conf:system/vendor/usr/share/alsa/pcm/default.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/dmix.conf:system/vendor/usr/share/alsa/pcm/dmix.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/dpl.conf:system/vendor/usr/share/alsa/pcm/dpl.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/dsnoop.conf:system/vendor/usr/share/alsa/pcm/dsnoop.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/front.conf:system/vendor/usr/share/alsa/pcm/front.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/iec958.conf:system/vendor/usr/share/alsa/pcm/iec958.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/modem.conf:system/vendor/usr/share/alsa/pcm/modem.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/rear.conf:system/vendor/usr/share/alsa/pcm/rear.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/side.conf:system/vendor/usr/share/alsa/pcm/side.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround40.conf:system/vendor/usr/share/alsa/pcm/surround40.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround41.conf:system/vendor/usr/share/alsa/pcm/surround41.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround50.conf:system/vendor/usr/share/alsa/pcm/surround50.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround51.conf:system/vendor/usr/share/alsa/pcm/surround51.conf \
+    $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround71.conf:system/vendor/usr/share/alsa/pcm/surround71.conf \
     $(LOCAL_PATH)/proprietary/etc/asound.conf:system/vendor/etc/asound.conf \
     $(LOCAL_PATH)/proprietary/etc/camera_profiles.xml:system/vendor/etc/camera_profiles.xml \
     $(LOCAL_PATH)/proprietary/etc/audio_basic_element.xml:system/vendor/etc/audio_basic_element.xml \
@@ -229,3 +250,23 @@ PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/etc/audio_path_config.xml:system
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/etc/audio_swvol_calibration_def.xml:system/etc/audio_swvol_calibration_def.xml
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/etc/audio_swvol_config.xml:system/etc/audio_swvol_config.xml
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/etc/audio_swvol_element.xml:system/etc/audio_swvol_element.xml
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/alsa.conf:system/usr/share/alsa/alsa.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/cards/aliases.conf:system/usr/share/alsa/cards/aliases.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/centor_lfe.conf:system/usr/share/alsa/pcm/centor_lfe.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/default.conf:system/usr/share/alsa/pcm/default.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/dmix.conf:system/usr/share/alsa/pcm/dmix.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/dpl.conf:system/usr/share/alsa/pcm/dpl.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/dsnoop.conf:system/usr/share/alsa/pcm/dsnoop.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/front.conf:system/usr/share/alsa/pcm/front.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/iec958.conf:system/usr/share/alsa/pcm/iec958.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/modem.conf:system/usr/share/alsa/pcm/modem.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/rear.conf:system/usr/share/alsa/pcm/rear.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/side.conf:system/usr/share/alsa/pcm/side.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround40.conf:system/usr/share/alsa/pcm/surround40.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround41.conf:system/usr/share/alsa/pcm/surround41.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround50.conf:system/usr/share/alsa/pcm/surround50.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround51.conf:system/usr/share/alsa/pcm/surround51.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/share/alsa/pcm/surround71.conf:system/usr/share/alsa/pcm/surround71.conf
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/lib/alsa-lib/libasound_module_ctl_codec.so:system/usr/lib/alsa-lib/libasound_module_ctl_codec.so
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/lib/alsa-lib/libasound_module_ctl_phone.so:system/usr/lib/alsa-lib/libasound_module_ctl_phone.so
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/usr/lib/alsa-lib/libasound_module_pcm_phone.so:system/usr/lib/alsa-lib/libasound_module_pcm_phone.so

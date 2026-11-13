@@ -40,3 +40,7 @@ TARGET_SPECIFIC_HEADER_PATH := device/samsung/goyawifi/include
 
 # combo/select.mk resets TARGET_GLOBAL_CFLAGS; evaluate only in the target combo.
 BOARD_GLOBAL_CFLAGS += $(if $(filter TARGET_,$(combo_target)),-DT110_MRVL_LEGACY)
+
+# Stock libacm references MD5_Init/Update/Final without a DT_NEEDED provider.
+# Only this blob receives the platform crypto dependency; no crypto replacement.
+LINKER_FORCED_SHIM_LIBS += /system/vendor/lib/libacm.so|libcrypto.so

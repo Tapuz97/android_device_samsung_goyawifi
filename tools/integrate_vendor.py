@@ -22,6 +22,7 @@ roots=['lib/egl/libEGL_MRVL.so','lib/egl/libGLESv1_CM_MRVL.so','lib/egl/libGLESv
 roots += [str(p.relative_to(STOCK)) for p in sorted((STOCK/'lib/hw').glob('audio_path.*.mrvl.so'))]
 # Proven Android13 dynamic dependency: not declared in DT_NEEDED.
 roots += ['lib/libGLESv2SC.so']
+roots += [str(p.relative_to(STOCK)) for p in sorted((STOCK/'usr/lib/alsa-lib').glob('*.so'))]
 assert hashlib.sha256((STOCK/'lib/libGLESv2SC.so').read_bytes()).hexdigest() == 'ad6e492a98834b34079eb32024fc70e77b8df543b5118e762a4fe8d96c64706f'
 
 seen={};queue=list(roots);missing=[]
@@ -50,7 +51,7 @@ def install(source,relative):
 for name,deps in sorted(seen.items()):
     relative=name.removeprefix('vendor/')
     install(STOCK/name,relative)
-for directory in ['etc/audio','etc/audio_VR','etc/sensor','etc/firmware/mrvl','cameradata']:
+for directory in ['etc/audio','etc/audio_VR','etc/sensor','etc/firmware/mrvl','cameradata','usr/share/alsa']:
     p=STOCK/directory
     if p.is_dir():
         for source in sorted(p.rglob('*')):
@@ -76,6 +77,12 @@ for source in sorted((DEST/'cameradata').rglob('*')):
     if source.is_file():manifest+='PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/'+str(source.relative_to(DEST))+':system/'+str(source.relative_to(DEST))+'\n'
 for source in sorted((DEST/'etc').glob('audio_*.xml')):
     manifest+='PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/etc/'+source.name+':system/etc/'+source.name+'\n'
+# libasound uses these absolute runtime paths, not the vendor mirror.
+for directory in ('usr/share/alsa','usr/lib/alsa-lib'):
+    for source in sorted((DEST/directory).rglob('*')):
+        if source.is_file():
+            relative=str(source.relative_to(DEST))
+            manifest+='PRODUCT_COPY_FILES += $(LOCAL_PATH)/proprietary/'+relative+':system/'+relative+'\n'
 (DEVICE/'vendor-blobs.mk').write_text(manifest)
 (DEVICE/'vendor-inputs.json').write_text(json.dumps({'files':records,'dependencies':seen,'platform_dependencies':sorted(CORE)},indent=2)+'\n')
 print('Selected',len(seen),'stock HAL/private libraries and',len(records),'total driver inputs.')

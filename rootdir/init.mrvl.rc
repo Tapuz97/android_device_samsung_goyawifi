@@ -63,3 +63,14 @@ service wpa_supplicant /system/bin/wpa_supplicant -iwlan0 -Dnl80211 -c/data/misc
     socket wpa_wlan0 dgram 0660 wifi wifi
     disabled
     oneshot
+
+# Stock ANI7 selects AP-master audio clocks before the audio HAL starts.
+# Nougat runs the HAL in audioserver, which is a member of the audio group.
+on post-fs-data
+    chown system audio /proc/driver/ssp_master
+    chmod 0660 /proc/driver/ssp_master
+    chown system audio /proc/driver/gssp_master
+    chmod 0660 /proc/driver/gssp_master
+    setprop persist.audio.apmaster 1
+    setprop persist.audio.gsspmaster 1
+    setprop persist.audio.codecmaster 0

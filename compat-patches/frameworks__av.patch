@@ -1,3 +1,22 @@
+diff --git a/media/libstagefright/CameraSource.cpp b/media/libstagefright/CameraSource.cpp
+index 8707d967bd90075684fc0383800ca1bd27ebcd0b..b81c836c9aa3f05645c3aa4d11cd2bc66025bf9f 100644
+--- a/media/libstagefright/CameraSource.cpp
++++ b/media/libstagefright/CameraSource.cpp
+@@ -118,6 +118,14 @@ static int32_t getColorFormat(const char* colorFormat) {
+         return -1;
+     }
+ 
++#ifdef T110_MRVL_LEGACY
++    // The stock Marvell HAL names planar Y/U/V 4:2:0 explicitly as I420.
++    // It is a pixel buffer, not an opaque metadata/native-handle format.
++    if (!strcmp(colorFormat, "yuv420p-i420")) {
++        return OMX_COLOR_FormatYUV420Planar;
++    }
++#endif
++
+     if (!strcmp(colorFormat, CameraParameters::PIXEL_FORMAT_YUV420P)) {
+        return OMX_COLOR_FormatYUV420Planar;
+     }
 diff --git a/services/audioflinger/AudioFlinger.cpp b/services/audioflinger/AudioFlinger.cpp
 index d689733b741d8b3ff895789e599a7fb1586ff235..c5346500326b4f1c89605f5eeae9fa90d738e8f5 100644
 --- a/services/audioflinger/AudioFlinger.cpp
@@ -90,7 +109,7 @@ index 6026bbb538d1a355056db5a40d6698d75b3fcfdc..6dd310e63c8dcd8a448f33129f54dfbd
          mHalFormatHasProportionalFrames = audio_has_proportional_frames(config->format);
          mHalFrameSize = audio_stream_out_frame_size(stream);
 diff --git a/services/camera/libcameraservice/device1/CameraHardwareInterface.h b/services/camera/libcameraservice/device1/CameraHardwareInterface.h
-index 1eff60fd05ef950b27b22ac371c98ec59bbe3563..a9936d649c3a7eecc8e9188804325e7c7d4ba75c 100644
+index 1eff60fd05ef950b27b22ac371c98ec59bbe3563..369e31f3ee367aae9472de9f8d18083f274597ab 100644
 --- a/services/camera/libcameraservice/device1/CameraHardwareInterface.h
 +++ b/services/camera/libcameraservice/device1/CameraHardwareInterface.h
 @@ -132,6 +132,15 @@ public:
@@ -109,3 +128,26 @@ index 1eff60fd05ef950b27b22ac371c98ec59bbe3563..a9936d649c3a7eecc8e9188804325e7c
              mPreviewWindow = buf;
              if (buf != nullptr) {
                  if (mPreviewScalingMode != NOT_SET) {
+@@ -307,8 +316,20 @@ public:
+     status_t storeMetaDataInBuffers(int enable)
+     {
+         ALOGV("%s(%s)", __FUNCTION__, mName.string());
+-        if (mDevice->ops->store_meta_data_in_buffers)
+-            return mDevice->ops->store_meta_data_in_buffers(mDevice, enable);
++        if (mDevice->ops->store_meta_data_in_buffers) {
++            const status_t result = mDevice->ops->store_meta_data_in_buffers(mDevice, enable);
++#ifdef T110_MRVL_LEGACY
++            // ANI7's callback is a six-byte unconditional return -1 stub.
++            // Its I420 recording mode already returns actual YUV data. Only
++            // tolerate disabling metadata for that known mode, never enabling it.
++            if (!enable && result == -1) {
++                const CameraParameters parameters = getParameters();
++                const char* format = parameters.get(CameraParameters::KEY_VIDEO_FRAME_FORMAT);
++                if (format && !strcmp(format, "yuv420p-i420")) return OK;
++            }
++#endif
++            return result;
++        }
+         return enable ? INVALID_OPERATION: OK;
+     }
+ 

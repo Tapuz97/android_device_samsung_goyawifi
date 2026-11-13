@@ -62,6 +62,14 @@ assert not subprocess.check_output(['readelf','-l',str(OUT/'system/bin/t110_stag
 items={n:(f,b) for n,f,b in records(gzip.decompress(ramdisk.read_bytes())) if n!='TRAILER!!!'}
 assert 'init' in items and 'sepolicy' in items and 'init.mrvl.rc' in items
 assert b'/dev/uio0 0660 media camera' in items['ueventd.mrvl.rc'][1], 'Camera encoder group missing from final ramdisk'
+for audio_setting in (b'chown system audio /proc/driver/ssp_master',
+                      b'chmod 0660 /proc/driver/ssp_master',
+                      b'chown system audio /proc/driver/gssp_master',
+                      b'chmod 0660 /proc/driver/gssp_master',
+                      b'setprop persist.audio.apmaster 1',
+                      b'setprop persist.audio.gsspmaster 1',
+                      b'setprop persist.audio.codecmaster 0'):
+    assert audio_setting in items['init.mrvl.rc'][1], 'Audio clock setup missing from final ramdisk'
 init_fields,android_init=items['init'];assert android_init[:4]==b'\x7fELF'
 items['init.android']=(init_fields,android_init)
 items['init']=(init_fields,stage)

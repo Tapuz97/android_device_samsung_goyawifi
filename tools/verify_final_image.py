@@ -12,9 +12,14 @@ paths.update(['build.prop','bin/t110_stage','bin/linker','lib/libEGL.so','lib/li
  'lib/libhwui.so','lib/libgui.so','framework/arm/boot-framework.oat','framework/arm/boot-framework.art',
  'lib/libutils.so','lib/libbinder.so','lib/libcutils.so','lib/libcamera_client.so',
  'lib/libandroid_servers.so','lib/libaudioflinger.so','lib/libsurfaceflinger.so','vendor/lib/modules/galcore.ko',
- 'etc/audio_policy.conf','usr/keylayout/gpio-keys.kl','usr/keylayout/sec_touchscreen.kl',
+ 'etc/audio_policy.conf','etc/media_codecs.xml','etc/media_codecs_google_audio.xml',
+ 'etc/media_codecs_google_video.xml','etc/media_codecs_google_telephony.xml','lib/libstagefright.so',
+ 'usr/share/alsa/alsa.conf','usr/lib/alsa-lib/libasound_module_ctl_codec.so',
+ 'usr/lib/alsa-lib/libasound_module_ctl_phone.so','usr/lib/alsa-lib/libasound_module_pcm_phone.so',
+ 'usr/keylayout/gpio-keys.kl','usr/keylayout/sec_touchscreen.kl',
  'priv-app/Settings/Settings.apk','priv-app/CMParts/CMParts.apk','priv-app/SystemUI/SystemUI.apk',
  'priv-app/Trebuchet/Trebuchet.apk','app/LatinIME/LatinIME.apk',
+ 'priv-app/Recorder/Recorder.apk','priv-app/Recorder/oat/arm/Recorder.odex',
  'priv-app/WallpaperCropper/WallpaperCropper.apk','app/LiveWallpapersPicker/LiveWallpapersPicker.apk'])
 report=[]
 with tempfile.TemporaryDirectory(prefix='t110-final-ext4-') as tmp:

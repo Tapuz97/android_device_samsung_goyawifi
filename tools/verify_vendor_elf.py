@@ -7,6 +7,11 @@ SYSTEM=BASE/'android/out/target/product/goyawifi/system'
 INPUTS=BASE/'android/device/samsung/goyawifi/vendor-inputs.json'
 STAGED='--staged' in sys.argv
 entries=json.loads(INPUTS.read_text())['files']
+board=(BASE/'android/device/samsung/goyawifi/BoardConfig.mk').read_text()
+shim='/system/vendor/lib/libacm.so|libcrypto.so'
+assert 'LINKER_FORCED_SHIM_LIBS += '+shim in board
+if not STAGED:
+    assert shim.encode() in (SYSTEM/'bin/linker').read_bytes(), 'Built linker lacks libacm dependency'
 staged={Path(x['destination']).name:Path(x['stock_source']) for x in entries if x['destination'].endswith('.so')}
 @lru_cache(None)
 def elf(path):
@@ -62,6 +67,8 @@ for item in entries:
         if p in seen:return
         seen.add(p)
         needed,defined,_=elf(p);available.update(defined)
+        if p == (SYSTEM/'vendor/lib/libacm.so').resolve():
+            needed=needed+['libcrypto.so']
         for name in needed:
             dep=locate(name)
             if dep:visit(dep)
@@ -71,7 +78,7 @@ for item in entries:
     results.append({'path':label,'missing_libraries':sorted(missing),
                     'missing_symbols':sorted(imports-available),'closure_count':len(seen)})
 report={'status':'PASS' if results and not file_errors and all(not x['missing_libraries'] and not x['missing_symbols'] for x in results) else 'UNRESOLVED',
-        'uses_staged_files':STAGED,'file_errors':file_errors,'scope':'Selected original vendor ELFs against per-file installed DT_NEEDED closure; no runtime execution claim',
+        'uses_staged_files':STAGED,'file_errors':file_errors,'scope':'Selected original vendor ELFs against per-file installed DT_NEEDED closure plus verified exact-path libacm linker dependency; no runtime execution claim',
         'files':results}
 (BASE/'records'/('vendor-elf-precheck.json' if STAGED else 'vendor-elf-verification.json')).write_text(json.dumps(report,indent=2)+'\n')
 for error in file_errors:print(json.dumps(error))

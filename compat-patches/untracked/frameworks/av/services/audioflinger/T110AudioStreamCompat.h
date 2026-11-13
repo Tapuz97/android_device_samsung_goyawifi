@@ -6,6 +6,7 @@
 #define T110_AUDIO_STREAM_COMPAT_H
 #if defined(T110_MRVL_LEGACY)
 #include <hardware/audio.h>
+#include <media/AudioParameter.h>
 #include <new>
 #include <stddef.h>
 #include <string.h>
@@ -33,6 +34,14 @@ static inline bool needsAdapter(const audio_hw_device* device) {
 template<typename Stream> struct Proxy {
     Stream stream;
     Stream* original;
+};
+
+// The old input HAL opens/closes PCM via STREAM_IN_ACTIVE, not read/standby.
+template<> struct Proxy<audio_stream_in> {
+    audio_stream_in stream;
+    audio_stream_in* original;
+    audio_devices_t routing;
+    bool active;
 };
 
 template<typename Stream> struct Common {
@@ -100,6 +109,26 @@ template<typename Stream> struct Common {
 };
 
 struct Output {
+    static int set_parameters(audio_stream* common, const char* pairs) {
+        audio_stream_out* s = reinterpret_cast<audio_stream_out*>(common);
+        AudioParameter parameters{String8(pairs)};
+        int route;
+        const audio_devices_t local = AUDIO_DEVICE_OUT_SPEAKER |
+                AUDIO_DEVICE_OUT_WIRED_HEADSET | AUDIO_DEVICE_OUT_WIRED_HEADPHONE;
+        if (parameters.getInt(String8(AUDIO_PARAMETER_STREAM_ROUTING), route) == NO_ERROR &&
+                ((audio_devices_t)route & ~local) == 0) {
+            // ANI7 out_set_parameters skips routing unless BOTH keys exist.
+            // Its path table maps 0 to hifi. Stock policy uses phone_volume=230
+            // outside calls; stream attenuation remains AudioFlinger's job.
+            int existing;
+            if (parameters.getInt(String8("path_handler"), existing) != NO_ERROR)
+                parameters.addInt(String8("path_handler"), 0);
+            if (parameters.getInt(String8("phone_volume"), existing) != NO_ERROR)
+                parameters.addInt(String8("phone_volume"), 230);
+        }
+        return original(s)->common.set_parameters(
+                &original(s)->common, parameters.toString().string());
+    }
     static audio_stream_out* original(const audio_stream_out* s) {
         return reinterpret_cast<const Proxy<audio_stream_out>*>(s)->original;
     }
@@ -124,6 +153,7 @@ struct Output {
         if (!p) return NULL;
         p->original = originalStream;
         Common<audio_stream_out>::initialize(p);
+        p->stream.common.set_parameters = set_parameters;
         if (originalStream->get_latency) p->stream.get_latency = get_latency;
         if (originalStream->set_volume) p->stream.set_volume = set_volume;
         if (originalStream->write) p->stream.write = write;
@@ -148,7 +178,49 @@ struct Input {
     static int set_gain(audio_stream_in* s, float gain) {
         return original(s)->set_gain(original(s), gain);
     }
+    static int setActive(audio_stream_in* s, bool active) {
+        Proxy<audio_stream_in>* p = reinterpret_cast<Proxy<audio_stream_in>*>(s);
+        AudioParameter parameters;
+        parameters.addInt(String8(AUDIO_PARAMETER_STREAM_ROUTING), (int)p->routing);
+        parameters.addInt(String8("STREAM_IN_ACTIVE"), active ? 1 : 0);
+        const int result = original(s)->common.set_parameters(
+                &original(s)->common, parameters.toString().string());
+        if (result == 0) p->active = active;
+        return result;
+    }
+    static int standby(audio_stream* common) {
+        audio_stream_in* s = reinterpret_cast<audio_stream_in*>(common);
+        Proxy<audio_stream_in>* p = reinterpret_cast<Proxy<audio_stream_in>*>(s);
+        if (p->active) {
+            const int result = setActive(s, false);
+            if (result != 0) return result;
+        }
+        return original(s)->common.standby(&original(s)->common);
+    }
+    static int set_parameters(audio_stream* common, const char* pairs) {
+        audio_stream_in* s = reinterpret_cast<audio_stream_in*>(common);
+        Proxy<audio_stream_in>* p = reinterpret_cast<Proxy<audio_stream_in>*>(s);
+        AudioParameter parameters{String8(pairs)};
+        int routing;
+        const bool hasRoute = parameters.getInt(
+                String8(AUDIO_PARAMETER_STREAM_ROUTING), routing) == NO_ERROR;
+        if (hasRoute && routing == 0 && p->active) {
+            const int result = setActive(s, false);
+            if (result != 0) return result;
+        }
+        if (hasRoute && p->active) parameters.addInt(String8("STREAM_IN_ACTIVE"), 1);
+        const int result = original(s)->common.set_parameters(
+                &original(s)->common, parameters.toString().string());
+        if (result == 0 && hasRoute) p->routing = (audio_devices_t)routing;
+        return result;
+    }
     static ssize_t read(audio_stream_in* s, void* buffer, size_t bytes) {
+        Proxy<audio_stream_in>* p = reinterpret_cast<Proxy<audio_stream_in>*>(s);
+        if (!p->active) {
+            if (p->routing == AUDIO_DEVICE_NONE) return -ENODEV;
+            const int result = setActive(s, true);
+            if (result != 0) return result;
+        }
         return original(s)->read(original(s), buffer, bytes);
     }
     static uint32_t get_input_frames_lost(audio_stream_in* s) {
@@ -160,6 +232,8 @@ struct Input {
         if (!p) return NULL;
         p->original = originalStream;
         Common<audio_stream_in>::initialize(p);
+        p->stream.common.standby = standby;
+        p->stream.common.set_parameters = set_parameters;
         if (originalStream->set_gain) p->stream.set_gain = set_gain;
         if (originalStream->read) p->stream.read = read;
         if (originalStream->get_input_frames_lost) p->stream.get_input_frames_lost = get_input_frames_lost;

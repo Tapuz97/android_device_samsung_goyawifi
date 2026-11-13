@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Register the codecs actually built from this Nougat source tree.
+     Legacy hardware OMX must be qualified before it is advertised here. -->
+<MediaCodecs>
+    <Include href="media_codecs_google_audio.xml" />
+    <Include href="media_codecs_google_video.xml" />
+    <Include href="media_codecs_google_telephony.xml" />
+</MediaCodecs>
