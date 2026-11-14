@@ -29,7 +29,7 @@
   },
   "frameworks/base/packages/SystemUI/res/layout/qs_tile_label.xml": {
     "before_sha256": "9f4095e0bf3a7cc53d0ded1860d20d90d5ceba086d2b2a92698949ed217adac4",
-    "sha256": "3e5c71361b72d75eefce30e5dcb525125c028ad28de408bdceab10e07b6d57ea"
+    "sha256": "f88fee7c2f116d06aebcfcd9e5f0fbf59f83f7edec744a2cb2a8b97a40c935d4"
   },
   "frameworks/base/packages/SystemUI/res/values/dimens.xml": {
     "before_sha256": "87518fe1e61f86f300975eb141dff6a0c69493bf7577eb69947a20dbb4cc0b96",
@@ -45,7 +45,7 @@
   },
   "frameworks/base/packages/SystemUI/res/values/config.xml": {
     "before_sha256": "d87a2fc458bb07df9c816543a36decc9f79b301f06db6423b8883ff893e8cd46",
-    "sha256": "7c6f50c4af17af323797910d647bd1389fada30c28a95af8ae73736fd7bb6412"
+    "sha256": "f1d04563b1cf51dc9810bc92c8c0906d6be074b58ae839c4bb3e27c18884d373"
   },
   "frameworks/base/packages/SystemUI/res/values-w550dp-land/config.xml": {
     "before_sha256": "ea40895ca0c5c8d8641d27bb275dd718d4733a15b5cb81e4ae4d97361b56225f",
@@ -145,7 +145,7 @@
   },
   "packages/apps/Trebuchet/res/values/preferences_defaults.xml": {
     "before_sha256": "58b7e0cab05858c0aab4715b271f7410ea853d5e56eec24564ab00977f6f2f48",
-    "sha256": "c0f2eb9994f66a3c3c7fde781a056349415116f6e83414e048a4e75a39c46e69"
+    "sha256": "d33cc8bb5e3fbf83b840e4b6fcebd2eae0d6be669962f4ed9e4eb1cf49b2c52f"
   },
   "frameworks/base/core/res/res/drawable/t110_power_icon_background.xml": {
     "before_sha256": null,
@@ -205,7 +205,7 @@
   },
   "frameworks/base/packages/SystemUI/res/values-sw600dp-land/t110_modern.xml": {
     "before_sha256": null,
-    "sha256": "5b83c376ccb73704e774973274bdd3faa96c566de952a5f990797236449dee71"
+    "sha256": "e78b4b9d9b626680bdd2fbeed196cd1e52968b07f129dc166df70ec4f30dae53"
   },
   "packages/apps/Trebuchet/WallpaperPicker/res/drawable-nodpi/lineage_current.png": {
     "before_sha256": null,
@@ -218,5 +218,17 @@
   "packages/apps/Trebuchet/WallpaperPicker/res/values-nodpi/wallpapers.xml": {
     "before_sha256": "919580aa5534847d60931da266ccb04ed560b4ec0a7b6fdb8227a192230b1f91",
     "sha256": "fac62df0bdb3b1ecdde1096601136891bbe5f918a4a57d45c49b11b67a95aad8"
+  },
+  "device/samsung/goyawifi/device.mk": {
+    "before_sha256": "93eeda3d5588ffbeda0e149a13c09f361793963723c4a25a467e849e5997cf75",
+    "sha256": "4ccfdc0cb7e721243d3ab151dbac5b48b1ab720f81b50a09563277b7bb1a39aa"
+  },
+  "frameworks/native/libs/gui/SurfaceComposerClient.cpp": {
+    "before_sha256": "ab191fbbf935c38cf68d4817e6fb73f8032acea80f5a7c295c6affaa7cb19985",
+    "sha256": "927db5ed7f08dddb067631187e1c239ae7409a0153f77b243c56db6c8b2ebf8d"
+  },
+  "frameworks/base/packages/SystemUI/res/values-w550dp-land/dimens.xml": {
+    "before_sha256": "152460862aa2b8ac67c67cc8cf55e0e478cc0f1acec2fe590dbb5ca47727547a",
+    "sha256": "4d21cd447504a67741855be2d42af6493b9591b334e77e03a12b9ad6ef519781"
   }
 }

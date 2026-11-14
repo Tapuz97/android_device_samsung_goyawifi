@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
     <TextView android:id="@+id/tile_label" android:layout_width="0dp" android:layout_weight="1"
         android:layout_height="wrap_content" android:gravity="start|center_vertical" android:minLines="1" android:maxLines="2"
-        android:ellipsize="end" android:textColor="@color/t110_qs_inactive_text" android:fontFamily="sans-serif-medium"
+        android:ellipsize="end" android:breakStrategy="simple" android:hyphenationFrequency="none" android:textColor="@color/t110_qs_inactive_text" android:fontFamily="sans-serif-medium"
         android:textAppearance="@style/TextAppearance.QS.TileLabel" android:clickable="false"/>
     <ImageView android:id="@+id/restricted_padlock" android:layout_width="16dp" android:layout_height="16dp"
         android:layout_marginStart="4dp" android:src="@drawable/ic_info" android:scaleType="centerInside" android:visibility="gone"/>

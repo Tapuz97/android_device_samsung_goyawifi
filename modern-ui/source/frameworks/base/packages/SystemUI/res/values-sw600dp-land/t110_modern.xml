@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><integer name="quick_settings_num_rows">2</integer></resources>
+<resources><integer name="quick_settings_num_rows">2</integer><dimen name="notification_panel_width">@dimen/match_parent</dimen></resources>

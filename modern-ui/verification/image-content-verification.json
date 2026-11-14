@@ -44,8 +44,8 @@
     },
     {
       "path": "build.prop",
-      "sha256": "af2524943bbc91428101c6ff1a2034011d42f59883848b882824f91948df542f",
-      "bytes": 2999
+      "sha256": "9aa3dabbd8752f4895a992065e58d666e3688498d710bd7e0e7ccd0ea7fb8615",
+      "bytes": 3045
     },
     {
       "path": "etc/audio_policy.conf",
@@ -129,7 +129,7 @@
     },
     {
       "path": "lib/libgui.so",
-      "sha256": "9ab28cf26a4503670e3f4a458cca05249f82ae95b849f120dc7940a665096af7",
+      "sha256": "212736d920243ae7e00e94a770412f201da4f9cbed102565bcb79644705347f4",
       "bytes": 411468
     },
     {
@@ -179,12 +179,12 @@
     },
     {
       "path": "priv-app/SystemUI/SystemUI.apk",
-      "sha256": "656196086409a703c35ef946fa3a1ca7328c0c39ce96c0cf49a8e93ca3ecbd1b",
-      "bytes": 10550788
+      "sha256": "8223c744d03cc6fc3334adc77e49bbc8dd12b82349454cb647f09f7af7feb68f",
+      "bytes": 10550839
     },
     {
       "path": "priv-app/Trebuchet/Trebuchet.apk",
-      "sha256": "7ac6751dcdf6f5856af3a2f16afbcdc63fdf34ad8174dfc2688c6a9d3b24bbf7",
+      "sha256": "9c9bea7356619c66d27216b842e6a35419e0f43755aee9946ba6f86337b416e5",
       "bytes": 2246694
     },
     {

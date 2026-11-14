@@ -207,7 +207,7 @@
 +    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
 +    <TextView android:id="@+id/tile_label" android:layout_width="0dp" android:layout_weight="1"
 +        android:layout_height="wrap_content" android:gravity="start|center_vertical" android:minLines="1" android:maxLines="2"
-+        android:ellipsize="end" android:textColor="@color/t110_qs_inactive_text" android:fontFamily="sans-serif-medium"
++        android:ellipsize="end" android:breakStrategy="simple" android:hyphenationFrequency="none" android:textColor="@color/t110_qs_inactive_text" android:fontFamily="sans-serif-medium"
 +        android:textAppearance="@style/TextAppearance.QS.TileLabel" android:clickable="false"/>
 +    <ImageView android:id="@+id/restricted_padlock" android:layout_width="16dp" android:layout_height="16dp"
 +        android:layout_marginStart="4dp" android:src="@drawable/ic_info" android:scaleType="centerInside" android:visibility="gone"/>
@@ -261,6 +261,15 @@
 -    <integer name="quick_settings_num_columns">3</integer>
 +    <integer name="quick_settings_num_columns">4</integer>
  </resources>
+--- a/frameworks/base/packages/SystemUI/res/values-w550dp-land/dimens.xml
++++ b/frameworks/base/packages/SystemUI/res/values-w550dp-land/dimens.xml
+@@ -17,5 +17,5 @@
+ -->
+ <resources>
+     <!-- Standard notification width + gravity -->
+-    <dimen name="notification_panel_width">544dp</dimen>
++    <dimen name="notification_panel_width">@dimen/match_parent</dimen>
+ </resources>
 --- a/frameworks/base/packages/SystemUI/res/values/colors.xml
 +++ b/frameworks/base/packages/SystemUI/res/values/colors.xml
 @@ -20,9 +20,9 @@
@@ -298,7 +307,7 @@
      <color name="notification_ripple_untinted_color">#28000000</color>
 --- a/frameworks/base/packages/SystemUI/res/values/config.xml
 +++ b/frameworks/base/packages/SystemUI/res/values/config.xml
-@@ -90,10 +90,10 @@
+@@ -90,17 +90,17 @@
      <bool name="quick_settings_wide">false</bool>
  
      <!-- The number of columns in the QuickSettings -->
@@ -311,6 +320,14 @@
  
      <!-- The number of columns that the top level tiles span in the QuickSettings -->
      <integer name="quick_settings_user_time_settings_tile_span">1</integer>
+ 
+     <!-- The default tiles to display in QuickSettings -->
+     <string name="quick_settings_tiles_default" translatable="false">
+-        wifi,cell,battery,dnd,flashlight,rotation,bt,airplane
++        wifi,battery,dnd,rotation,bt,airplane
+     </string>
+ 
+     <!-- Tiles native to System UI. Order should match "quick_settings_tiles_default" -->
 --- a/frameworks/base/packages/SystemUI/res/values/dimens.xml
 +++ b/frameworks/base/packages/SystemUI/res/values/dimens.xml
 @@ -170,16 +170,16 @@
@@ -793,9 +810,12 @@
  
 --- a/packages/apps/Trebuchet/res/values/preferences_defaults.xml
 +++ b/packages/apps/Trebuchet/res/values/preferences_defaults.xml
-@@ -6,7 +6,7 @@
+@@ -4,9 +4,9 @@
+     <bool name="preferences_interface_homescreen_scrolling_wallpaper_scroll_default">true</bool>
+     <bool name="preferences_interface_homescreen_hide_icon_labels_default">false</bool>
      <bool name="preferences_interface_drawer_hide_icon_labels_default">false</bool>
-     <bool name="preferences_interface_drawer_compact_default">false</bool>
+-    <bool name="preferences_interface_drawer_compact_default">false</bool>
++    <bool name="preferences_interface_drawer_compact_default">true</bool>
      <bool name="preferences_interface_drawer_dark_default">true</bool>
 -    <bool name="preferences_interface_general_icons_large_default">false</bool>
 +    <bool name="preferences_interface_general_icons_large_default">true</bool>

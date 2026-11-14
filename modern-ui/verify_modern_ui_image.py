@@ -18,7 +18,9 @@ assert digest(ORIGINAL/'boot.img')=='93aa73c2cd75efee0441513967a878eb9b92161109d
 assert (OUT/'system.img').is_file()
 properties=dict(line.split('=',1) for line in (OUT/'system/build.prop').read_text().splitlines()
                 if '=' in line and not line.startswith('#'))
-assert properties['ro.build.version.incremental']=='T110_UI_20261114',properties['ro.build.version.incremental']
+assert properties['ro.build.version.incremental']=='T110_UI_20261114_R2',properties['ro.build.version.incremental']
+assert properties['ro.bq.gpu_to_cpu_unsupported']=='1'
+assert b'ro.bq.gpu_to_cpu_unsupported' in (OUT/'system/lib/libgui.so').read_bytes()
 shutil.copy2(ORIGINAL/'boot.img',ART/'boot.img')
 with (OUT/'system.img').open('rb') as stream:sparse=stream.read(4)==b'\x3a\xff\x26\xed'
 if sparse:subprocess.run(['simg2img',str(OUT/'system.img'),str(ART/'system.raw.img')],check=True)

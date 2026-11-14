@@ -29,7 +29,7 @@ def edit(name,old,new):
     assert text.count(old)==1,(name,old)
     save(name,text.replace(old,new))
 def resource(name,kind,key,value):
-    text=read(name);pattern=rf'(<{kind} name="{re.escape(key)}">).*?(</{kind}>)'
+    text=read(name);pattern=rf'(<{kind}\b[^>]*\bname="{re.escape(key)}"[^>]*>).*?(</{kind}>)'
     text,count=re.subn(pattern,lambda m:m[1]+value+m[2],text,flags=re.S)
     assert count==1,(name,key,count)
     save(name,text)

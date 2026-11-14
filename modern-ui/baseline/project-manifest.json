@@ -30,6 +30,17 @@
       "upstream_head": "b4da5d3a99ba1590f6df4aa262b79e0398f6f05c",
       "baseline_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "additions": []
+    },
+    {
+      "project": "frameworks/native",
+      "upstream_head": "a2efd4f088d7e9fb870b56a08b0f831e0b05321a",
+      "baseline_patch_sha256": "94fb74b0efc584354509fe7add7c41eb4f47406971e7604413ebc24f409b40f9",
+      "additions": [
+        {
+          "path": "include/ui/T110Vivante.h",
+          "sha256": "0449f9f8aca337b111f742755e66582e6b42d54e8ce0ca2f75b803cdc8e54632"
+        }
+      ]
     }
   ]
 }

@@ -4,8 +4,8 @@
   "api": 25,
   "lineage": "14.1",
   "ui_branch": "t110/lineage14-modern-ui-20261114",
-  "build_fingerprint": "samsung/lineage_goyawifi/goyawifi:7.1.2/NJH47F/T110_UI_20261114:userdebug/test-keys",
-  "ui_source_manifest_sha256": "15d003505bdd058f3011b3d493a704c3b358500a1e875d1d57a5bec37b668f3c",
+  "build_fingerprint": "samsung/lineage_goyawifi/goyawifi:7.1.2/NJH47F/T110_UI_20261114_R2:userdebug/test-keys",
+  "ui_source_manifest_sha256": "f50c597f0b115907d84e4c178fb226d13f8221d64fa66f27b2994116d4ed359f",
   "boot_reused_unchanged": true,
   "physical_system_write_allowed": false,
   "inode_bitmap_padding_normalized": true,
@@ -19,12 +19,12 @@
     {
       "name": "system.raw.img",
       "bytes": 1594884096,
-      "sha256": "b9f9266db419ed790a0d975eb237369b9e803fc3c4fe7405558033b4483231cb"
+      "sha256": "2778300b359e54c35966390e47c779c14cd11da1f5fb4ae0af3bddad1f49b400"
     },
     {
       "name": "system.raw.img.gz",
-      "bytes": 354936510,
-      "sha256": "7605b778ec38156d13c0bbd8aa07f68740b0d4568bd14b855e79ba7545bcf385"
+      "bytes": 354936542,
+      "sha256": "ecf3ca9efd794ac5b8a8d7aea9838593e00c09dd20f844689999059c7474e4de"
     }
   ]
 }

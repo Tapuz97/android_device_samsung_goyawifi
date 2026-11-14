@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,subprocess,tempfile
 WORK=Path(r'\\wsl.localhost\Ubuntu\root\t110-lineage14-ui');ART=WORK/'artifacts'
 REPO='Tapuz97/android_device_samsung_goyawifi'
-TAG='t110-lineage14-modern-ui-20261114'
+TAG='t110-lineage14-modern-ui-r2-20261114'
 def run(*args,**kwargs):return subprocess.check_output(list(map(str,args)),text=True,**kwargs).strip()
 def digest(path):
     h=hashlib.sha256()

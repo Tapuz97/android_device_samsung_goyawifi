@@ -32,6 +32,32 @@ assert adb('get-state').strip()=='recovery','Recovery has not connected; no inst
 assert remote_hash('/dev/block/mmcblk0p10')==entries['boot.img']['sha256']
 recovery='f7f0bcf8a0cee4ecf265a2e1d75de028e97e9401c640e8cbc29d4b256d39452e'
 assert remote_hash('/dev/block/mmcblk0p9')==recovery
+normalized=False
+rollback='/data/local/tmp/t110-lineage14-system.raw.pre-modern-ui'
+if '__ROLLBACK_PRESENT__' in adb('shell','[ -f '+rollback+' ] && echo __ROLLBACK_PRESENT__'):
+    # R1 is itself backed up online. Reclaim only its verified device copy;
+    # keep the original working image throughout the replacement transaction.
+    previous=WORK/'artifacts-r1'
+    previous_report=json.loads((previous/'ui-image-verification.json').read_text(encoding='utf-8'))
+    previous_files={entry['name']:entry for entry in previous_report['files']}
+    previous_receipt=json.loads((previous/'online-backup-verification.json').read_text(encoding='utf-8'))
+    assert previous_receipt['status']=='PASS_ONLINE_DOWNLOAD_HASH_READBACK'
+    assert previous_receipt['system_gzip_sha256']==previous_files['system.raw.img.gz']['sha256']
+    assert digest(previous/'system.raw.img')==previous_files['system.raw.img']['sha256']
+    shell('''grep -q '^/dev/block/mmcblk0p16 /data ext4 ' /proc/mounts
+[ ! -e /sys/block/loop0/loop/backing_file ]
+[ ! -L /data/local/tmp/t110-lineage14-system.raw ]
+[ ! -L /data/local/tmp/t110-lineage14-system.raw.pre-modern-ui ]
+''')
+    assert remote_hash('/data/local/tmp/t110-lineage14-system.raw',timeout=900)==previous_files['system.raw.img']['sha256']
+    assert remote_hash(rollback,timeout=900)=='01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea'
+    say('R1 and original rollback readbacks match their intact online/PC backups. Reclaiming only the redundant R1 device image.')
+    shell('''[ ! -e /sys/block/loop0/loop/backing_file ]
+rm /data/local/tmp/t110-lineage14-system.raw
+mv /data/local/tmp/t110-lineage14-system.raw.pre-modern-ui /data/local/tmp/t110-lineage14-system.raw
+sync
+''')
+    normalized=True
 shell('''[ "$(cat /sys/class/block/mmcblk0p16/size)" = 10760192 ]
 grep -q '^/dev/block/mmcblk0p16 /data ext4 ' /proc/mounts
 [ ! -e /sys/block/loop0/loop/backing_file ]
@@ -41,7 +67,8 @@ grep -q '^/dev/block/mmcblk0p16 /data ext4 ' /proc/mounts
 [ ! -e /data/local/tmp/t110-lineage14-system.raw.modern-ui-new ]
 [ ! -e /data/local/tmp/t110-lineage14-system.raw.pre-modern-ui ]
 ''')
-assert remote_hash('/data/local/tmp/t110-lineage14-system.raw',timeout=900)=='01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea'
+if not normalized:
+    assert remote_hash('/data/local/tmp/t110-lineage14-system.raw',timeout=900)=='01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea'
 say('Working boot/recovery/system readbacks match. Backing up the retained14.1 data privately.')
 backup=DEST/'pre-ui-userdata-PRIVATE.tar.gz'
 remote_backup='/data/local/tmp/t110-pre-ui-userdata.PRIVATE.tar.gz'

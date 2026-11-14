@@ -29,7 +29,7 @@ The original single-line clock and stacked Recents behavior remain.
 
 ## Isolation and rollback
 
-- Source: `/root/t110-lineage14/android` (the four UI projects only).
+- Source: `/root/t110-lineage14/android` (native UI projects, device defaults and a device-gated libgui capture opt-in).
 - Device checkpoint branch: `t110/lineage14-modern-ui-20261114`.
 - Separate build output: `/root/t110-lineage14-ui/out`.
 - Original source deltas, hashes and new files are saved before UI changes.
@@ -67,9 +67,38 @@ vendor dependencies. The compiled HWUI resolve-before-swap and legacy queue
 deadline checks passed. Filesystem verification passed after normalizing only the
 known unused inode-bitmap padding in the generated candidate copy.
 
-- Build identity: `T110_UI_20261114` (Android7.1.2/API25).
+- Build identity: `T110_UI_20261114_R2` (Android7.1.2/API25).
 - System bytes: `1594884096`, within the existing container size.
-- System SHA256: `b9f9266db419ed790a0d975eb237369b9e803fc3c4fe7405558033b4483231cb`.
-- Transfer gzip SHA256: `7605b778ec38156d13c0bbd8aa07f68740b0d4568bd14b855e79ba7545bcf385`.
+- System SHA256: `2778300b359e54c35966390e47c779c14cd11da1f5fb4ae0af3bddad1f49b400`.
+- Transfer gzip SHA256: `ecf3ca9efd794ac5b8a8d7aea9838593e00c09dd20f844689999059c7474e4de`.
 - The original boot image is reused without modification.
 - Physical screen, touch and menu acceptance remain pending installation.
+
+## Capture and responsive-layout follow-up
+
+Normal screenshot capture and new Settings task previews were black on the first
+UI image, while the actual display buffer contained the correct rendered UI.
+Nougat already has a renderbuffer/readPixels fallback selected by
+`ro.bq.gpu_to_cpu_unsupported=1`. A controlled interface restart on the installed
+R1 image verified that this existing path returns the rendered screen and fixes
+new task previews. The GC1000 advertises the required `GL_OES_rgb8_rgba8` support.
+
+R2 makes that configuration permanent. Bitmap captures already request the CPU
+consumer path; the device-gated libgui change makes surface-consuming captures
+request it too. The original SurfaceFlinger permission and secure-layer checks
+remain unchanged. Production capture continues through the native capture API;
+the read-only framebuffer utility is a development diagnostic only.
+
+The earlier Android13 capture-owner patch is not directly applicable: Nougat's
+Bitmap already retains its ScreenshotClient/CpuConsumer owner. Keep these
+different mechanisms separate when continuing Android10/13 work.
+
+R2 also uses the native match-parent landscape shade width, disables tile-label
+hyphenation, selects the existing compact launcher default and removes unsupported
+cellular/flashlight entries only from this Wi-Fi tablet's default tile list. The
+stock tile catalog and launcher preferences remain available.
+
+R1 images and private pre-UI data are preserved in `artifacts-r1` and
+`hardware-test-r1`; the original working14.1 images remain in their original
+artifact directory. The known baseline BootAnimation native crash still needs a
+separate audit; it did not prevent the inspected R1 Home/Settings/shade sessions.
