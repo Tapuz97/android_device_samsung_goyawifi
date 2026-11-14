@@ -14,6 +14,8 @@ if not uevent.exists() or uevent.read_text()!=text:uevent.write_text(text)
 mk=device/'graphics.mk';current=mk.read_text()
 line='PRODUCT_COPY_FILES += device/samsung/t110_bringup/graphics/ueventd.t110.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc'
 if line not in current:mk.write_text(current+'\n# Canonical Android13 ueventd import; retain the legacy ramdisk rules too.\n'+line+'\n')
+current=mk.read_text();line='PRODUCT_SYSTEM_PROPERTIES += ro.opengles.version=131072'
+if line not in current:mk.write_text(current+'\n# GC1000/stock MRVL advertises GLES2 only, as in the working14.1 build.\n'+line+'\n')
 contexts=device/'sepolicy/file_contexts';current=contexts.read_text()
 line='/dev/graphics/galcore u:object_r:gpu_device:s0'
 if line not in current:contexts.write_text(current+'\n# Actual node, not graphics_device (ordinary apps are forbidden that type).\n'+line+'\n')

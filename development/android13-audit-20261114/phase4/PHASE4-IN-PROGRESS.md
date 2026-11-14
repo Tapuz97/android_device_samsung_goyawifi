@@ -5,11 +5,19 @@ Its complete component builds,122 ARM helper checks,16 strict stock-audio ELF
 checks and136 output hashes passed. The separately verified component archive
 and both working/rollback14.1 ROM pairs are preserved.
 
-Full systemimage compilation is running at12 jobs, with high-memory jobs limited
-to one. The first8-job invocation was stopped cleanly to apply the supported
+Full systemimage compilation is now running at2 jobs, with high-memory jobs
+limited to one. The first8-job invocation was stopped cleanly to apply the supported
 2047 MiB loop-file geometry and use observed spare build-host capacity. All
 completed outputs are retained. No failed/interrupted run counts as PASS.
 This is a userdata loop file; no physical SYSTEM write is intended or performed.
+
+The12-job run reached95% before the15 GiB WSL guest plus4 GiB swap exhausted
+memory with multiple Java heaps. The Linux OOM log explicitly identifies Ninja
+as the victim (exit137). The final2-job invocation reuses the completed outputs
+and has approximately3005 actions remaining, rather than restarting compilation.
+No compiler/type/policy check is disabled to address this host resource failure.
+The final source also advertises the verified GLES2 version131072 explicitly;
+that capability declaration was missing from the source product's properties.
 
 The source product has no vendor VNDK version and uses Android's actual legacy
 namespace configuration, with normal isolated APEX namespaces. Host linkerconfig

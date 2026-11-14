@@ -13,7 +13,7 @@
     },
     {
       "path": "PHASE4-IN-PROGRESS.md",
-      "sha256": "561de16d08fe476e9eb181e92ccfffba569ad6a945f06b9d8c7980c9708e22b9"
+      "sha256": "bb113feefcecc20f9b792433536c30d2ed4db950794883e81981013b820bd685"
     },
     {
       "path": "ProductionAudioProbe.c",
@@ -21,11 +21,11 @@
     },
     {
       "path": "backup_complete_candidate.py",
-      "sha256": "6f9a55101131534e689fe5ae63f41886aca5339540cc1e972e26eae75e64b40a"
+      "sha256": "a3a45d38bf6c9486d1373460cd23b9ee0fe520fdc76d853bda1941b704070e05"
     },
     {
       "path": "build_complete_image.sh",
-      "sha256": "932c7348d274b7a5fce93e2e00db920624143dbc74809ec198655a71e25ac3b5"
+      "sha256": "99053dfe80e6800fd5daa8e779599ab216e863e84b3f4165202e3a4245fb59f1"
     },
     {
       "path": "build_namespace_tools.py",
@@ -33,7 +33,7 @@
     },
     {
       "path": "carry_gpu_node_fix.py",
-      "sha256": "e9909fb0076006f9e8dcfa729c6e58b72fe90a3a7f9cf700e1aa185871dcd857"
+      "sha256": "6cad960896c4358eecadd37c86c788921ef8e10776f8a268ca36af401c561005"
     },
     {
       "path": "check_complete_image_policy.py",
@@ -85,7 +85,7 @@
     },
     {
       "path": "product/graphics.mk",
-      "sha256": "edf98b808514c25bb5e2f7c45d54f1bbc68271d2abe516321462651cee09cbb4"
+      "sha256": "03cb8c9696cbdad53d96807f0ab518d5fac5d07a57dd61eda52ff86debaa4f8e"
     },
     {
       "path": "product/sepolicy/file_contexts",
@@ -97,7 +97,7 @@
     },
     {
       "path": "verify_complete_image.py",
-      "sha256": "4234c8f245cb889233cf409b6cdc3f6d1a203d131dfebb7c7af249a322a338ca"
+      "sha256": "8b8ebc2a801d48b0d75be904d7ff9f0896f8cdf56bb43f74f5eb6dff2fe517f1"
     },
     {
       "path": "verify_kernel_carryover.py",

@@ -30,3 +30,6 @@ PRODUCT_SYSTEM_PROPERTIES += ro.zygote.disable_gl_preload=true
 
 # Canonical Android13 ueventd import; retain the legacy ramdisk rules too.
 PRODUCT_COPY_FILES += device/samsung/t110_bringup/graphics/ueventd.t110.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
+
+# GC1000/stock MRVL advertises GLES2 only, as in the working14.1 build.
+PRODUCT_SYSTEM_PROPERTIES += ro.opengles.version=131072

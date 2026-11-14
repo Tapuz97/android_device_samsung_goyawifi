@@ -11,5 +11,7 @@ source build/envsetup.sh
 lunch lineage_t110_system-eng
 # Preserve the already-tested component build identity and cached artifacts.
 # Build the host generator too, to inspect the actual candidate's namespaces.
-m -j12 systemimage "$OUT_DIR/host/linux-x86/bin/linkerconfig"
+# Java/API generation can consume several GiB per job. Two concurrent jobs
+# keep the15 GiB WSL guest plus the large Ninja graph within its memory budget.
+m -j2 systemimage "$OUT_DIR/host/linux-x86/bin/linkerconfig"
 printf '\nT110_COMPLETE_SYSTEMIMAGE_BUILD_PASS\n'

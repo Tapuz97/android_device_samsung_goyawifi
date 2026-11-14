@@ -76,6 +76,7 @@ assert props['ro.build.version.sdk']=='33'
 model=props.get('ro.product.model',props.get('ro.product.system.model'))
 assert model=='SM-T110',model
 assert props['ro.sf.lcd_density']=='200'
+assert props['ro.opengles.version']=='131072'
 assert props['ro.t110.legacy_audio']=='true' and props['ro.t110.legacy_gpu']=='true'
 assert props.get('dalvik.vm.usejit')=='false'
 assert props.get('persist.sys.strictmode.disable')=='true'

@@ -44,6 +44,8 @@ with zipfile.ZipFile(verification,'w',compression=zipfile.ZIP_DEFLATED,compressl
         z.write(image_dir/name,name)
     for path in sorted(Path('/root/t110-android13/logs').glob('complete-image-*.log')):
         z.write(path,'logs/'+path.name)
+    for path in sorted(Path('/root/t110-android13/logs').glob('complete-image-*-oom.txt')):
+        z.write(path,'logs/'+path.name)
     fixture=Path(ns['fixture'])
     z.write(fixture/'namespace-run.log','logs/production-namespace.log')
     for path in sorted((fixture/'generated-linkerconfig').rglob('*')):
@@ -62,7 +64,7 @@ faulty physical SYSTEM partition. It is not a standard recovery-install ZIP.
 
 Both image hashes, ext4 compatibility, actual namespace/library loading, audio
 module/config selection and compiled policy passed offline checks. The boot
-uses the qualified14 kernel's archive fix with identical13 configuration and GPU
+uses the working14.1 kernel's archive fix with identical13 configuration and GPU
 module, new policy, exact GPU-node access/alias, retained memory/logging fixes,
 and the corrected accelerated window path. The Canvas fallback remains available.
 
