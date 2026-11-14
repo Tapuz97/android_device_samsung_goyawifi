@@ -1,0 +1,236 @@
+diff --git a/core/java/android/os/GraphicsEnvironment.java b/core/java/android/os/GraphicsEnvironment.java
+index e4cdbce0..adf6c223 100644
+--- a/core/java/android/os/GraphicsEnvironment.java
++++ b/core/java/android/os/GraphicsEnvironment.java
+@@ -17,6 +17,7 @@
+ package android.os;
+ 
+ import android.content.Context;
++import android.content.Intent;
+ import android.content.pm.ApplicationInfo;
+ import android.content.pm.PackageManager;
+ import android.opengl.EGL14;
+@@ -37,6 +38,18 @@ public final class GraphicsEnvironment {
+     public static void setupGraphicsEnvironment(Context context) {
+         chooseDriver(context);
+ 
++        // goyawifi: devices that can't preload GL in zygote run this early init only for the home
++        // app and persistent processes (SystemUI), which start behind the lock screen and draw
++        // right after unlock. Every app process ran it before, including background ones that
++        // never draw; at boot and unlock that meant ~20 processes setting up the GPU driver at
++        // once, which stalled the UI for up to a minute. Other apps set up EGL with their first
++        // frame instead.
++        if (SystemProperties.getBoolean("ro.t110.legacy_gpu", false)
++                && SystemProperties.getBoolean("ro.zygote.disable_gl_preload", false)
++                && !isHomeOrPersistent(context)) {
++            return;
++        }
++
+         // Now that we've figured out which driver to use for this process, load and initialize it.
+         // This can take multiple frame periods, and it would otherwise happen as part of the first
+         // frame, increasing first-frame latency. Starting it here, as a low-priority background
+@@ -50,6 +63,20 @@ public final class GraphicsEnvironment {
+         eglInitThread.start();
+     }
+ 
++    private static boolean isHomeOrPersistent(Context context) {
++        ApplicationInfo ai = context.getApplicationInfo();
++        if ((ai.flags & ApplicationInfo.FLAG_PERSISTENT) != 0) {
++            return true;
++        }
++        Intent home = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
++                .setPackage(context.getPackageName());
++        try {
++            return !context.getPackageManager().queryIntentActivities(home, 0).isEmpty();
++        } catch (RuntimeException e) {
++            return false;
++        }
++    }
++
+     private static void chooseDriver(Context context) {
+         String driverPackageName = SystemProperties.get(PROPERTY_GFX_DRIVER);
+         if (driverPackageName == null || driverPackageName.isEmpty()) {
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index 47674d7e..1f0adc18 100755
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -2958,4 +2958,11 @@
+ 
+     <!-- Enable sms authorization framework-->
+     <bool name="config_sms_authorization_enabled">false</bool>
++
++    <!-- Some boards expose navigation keys through a shared touchscreen input
++         device, so disabling that entire kernel input device would kill touch. -->
++    <bool name="config_useFrameworkNavigationKeyDisabler">false</bool>
++    <!-- Keep button LEDs under their own native brightness/timeout settings,
++         even when hardware key actions are replaced by the touch navbar. -->
++    <bool name="config_independentButtonBacklight">false</bool>
+ </resources>
+diff --git a/core/res/res/values/symbols.xml b/core/res/res/values/symbols.xml
+index 71e388d4..8f62925d 100755
+--- a/core/res/res/values/symbols.xml
++++ b/core/res/res/values/symbols.xml
+@@ -2856,4 +2856,7 @@
+ 
+   <java-symbol type="integer" name="config_sms_authorization_timeout_ms" />
+   <java-symbol type="bool" name="config_sms_authorization_enabled" />
++
++  <java-symbol type="bool" name="config_useFrameworkNavigationKeyDisabler" />
++  <java-symbol type="bool" name="config_independentButtonBacklight" />
+ </resources>
+diff --git a/libs/hwui/renderthread/EglManager.cpp b/libs/hwui/renderthread/EglManager.cpp
+index ac6a28fe..8462e355 100644
+--- a/libs/hwui/renderthread/EglManager.cpp
++++ b/libs/hwui/renderthread/EglManager.cpp
+@@ -335,6 +335,14 @@ bool EglManager::swapBuffers(const Frame& frame, const SkRect& screenDirty) {
+         fence();
+     }
+ 
++#ifdef T110_MRVL_LEGACY
++    // Android13 patch0098: force this stock driver's window tile resolve.
++    // Focused fixtures passed there; full Nougat app correctness remains
++    // a hardware gate. Do not replace this with glFinish (previously failed).
++    GLubyte pixel[4];
++    glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
++#endif
++
+     EGLint rects[4];
+     frame.map(screenDirty, rects);
+     eglSwapBuffersWithDamageKHR(mEglDisplay, frame.mSurface, rects,
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index 6a22c505..146b97a5 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -565,6 +565,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+     int mBackKillTimeout;
+ 
+     int mDeviceHardwareKeys;
++    boolean mUseFrameworkNavigationKeyDisabler;
+ 
+     // Button wake control flags
+     boolean mHomeWakeScreen;
+@@ -2105,6 +2106,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+ 
+         mUseTvRouting = AudioSystem.getPlatformType(mContext) == AudioSystem.PLATFORM_TELEVISION;
+ 
++        mUseFrameworkNavigationKeyDisabler = mContext.getResources().getBoolean(
++                com.android.internal.R.bool.config_useFrameworkNavigationKeyDisabler);
+         mDeviceHardwareKeys = mContext.getResources().getInteger(
+                 com.android.internal.R.integer.config_deviceHardwareKeys);
+         mBackKillTimeout = mContext.getResources().getInteger(
+@@ -6492,6 +6495,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+ 
+         final boolean isInjected = (policyFlags & WindowManagerPolicy.FLAG_INJECTED) != 0;
+ 
++        if (mUseFrameworkNavigationKeyDisabler && mDevForceNavbar == 1) {
++            final InputDevice device = event.getDevice();
++            if (PhysicalNavigationKeyPolicy.shouldSuppress(
++                    device == null ? null : device.getName(), keyCode,
++                    event.getDeviceId(), isInjected,
++                    (event.getFlags() & KeyEvent.FLAG_VIRTUAL_HARD_KEY) != 0)) {
++                // Do not disable sec_touchscreen itself: it also reports real touch.
++                // Consume both key directions before wake, shortcuts or app dispatch.
++                return 0;
++            }
++        }
++
+         // If screen is off then we treat the case where the keyguard is open but hidden
+         // the same as if it were open and in front.
+         // This will prevent any keys other than the power button from waking the screen
+diff --git a/services/core/java/com/android/server/power/PowerManagerService.java b/services/core/java/com/android/server/power/PowerManagerService.java
+index 55d0809e..a5155f83 100644
+--- a/services/core/java/com/android/server/power/PowerManagerService.java
++++ b/services/core/java/com/android/server/power/PowerManagerService.java
+@@ -560,6 +560,7 @@ public final class PowerManagerService extends SystemService
+     private static native int nativeGetFeature(int featureId);
+ 
+     private boolean mForceNavbar;
++    private boolean mIndependentButtonBacklight;
+ 
+     private PerformanceManagerInternal mPerf;
+ 
+@@ -831,6 +832,8 @@ public final class PowerManagerService extends SystemService
+             mProximityWakeLock = ((PowerManager) mContext.getSystemService(Context.POWER_SERVICE))
+                     .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProximityWakeLock");
+         }
++        mIndependentButtonBacklight = resources.getBoolean(
++                com.android.internal.R.bool.config_independentButtonBacklight);
+         mButtonLightOnKeypressOnly = resources.getBoolean(
+                 com.android.internal.R.bool.config_buttonLightOnKeypressOnly);
+     }
+@@ -1872,7 +1875,7 @@ public final class PowerManagerService extends SystemService
+                                 buttonBrightness = mButtonBrightnessOverrideFromWindowManager;
+                                 keyboardBrightness = mButtonBrightnessOverrideFromWindowManager;
+                             } else {
+-                                if (!mForceNavbar) {
++                                if (!mForceNavbar || mIndependentButtonBacklight) {
+                                     buttonBrightness = mButtonBrightness;
+                                 } else {
+                                     buttonBrightness = 0;
+diff --git a/services/core/jni/com_android_server_power_PowerManagerService.cpp b/services/core/jni/com_android_server_power_PowerManagerService.cpp
+index dd5658fd..d8fbc940 100644
+--- a/services/core/jni/com_android_server_power_PowerManagerService.cpp
++++ b/services/core/jni/com_android_server_power_PowerManagerService.cpp
+@@ -51,6 +51,45 @@ static struct {
+ static jobject gPowerManagerServiceObj;
+ struct power_module* gPowerModule;
+ 
++#if defined(T110_MRVL_LEGACY)
++// ANI7 exports only the API0.2 prefix (140 ARM32 bytes). Never let newer JNI
++// consumers read optional callbacks beyond that object; retain the real module
++// as the receiver of its original operations, and leave unsupported APIs NULL.
++static power_module_t* gT110LegacyPowerModule;
++static power_module_t gT110PowerModuleCompat;
++
++static void t110LegacyPowerInit(power_module_t*) {
++    if (gT110LegacyPowerModule->init)
++        gT110LegacyPowerModule->init(gT110LegacyPowerModule);
++}
++
++static void t110LegacySetInteractive(power_module_t*, int on) {
++    if (gT110LegacyPowerModule->setInteractive)
++        gT110LegacyPowerModule->setInteractive(gT110LegacyPowerModule, on);
++}
++
++static void t110LegacyPowerHint(power_module_t*, power_hint_t hint, void* data) {
++    gT110LegacyPowerModule->powerHint(gT110LegacyPowerModule, hint, data);
++}
++
++static power_module_t* adaptT110LegacyPowerModule(power_module_t* module) {
++    if (!module || module->common.module_api_version > POWER_MODULE_API_VERSION_0_2)
++        return module;
++    gT110LegacyPowerModule = module;
++    gT110PowerModuleCompat = {};
++    // Common metadata keeps the real API version; this does not claim new features.
++    gT110PowerModuleCompat.common = module->common;
++    gT110PowerModuleCompat.init = t110LegacyPowerInit;
++    gT110PowerModuleCompat.setInteractive = t110LegacySetInteractive;
++    if (module->common.module_api_version >= POWER_MODULE_API_VERSION_0_2 &&
++            module->powerHint) {
++        gT110PowerModuleCompat.powerHint = t110LegacyPowerHint;
++    }
++    return &gT110PowerModuleCompat;
++}
++#endif
++
++
+ static nsecs_t gLastEventTime[USER_ACTIVITY_EVENT_LAST + 1];
+ 
+ // Throttling interval for user activity calls.
+@@ -110,9 +149,15 @@ void android_server_PowerManagerService_userActivity(nsecs_t eventTime, int32_t
+ static void nativeInit(JNIEnv* env, jobject obj) {
+     gPowerManagerServiceObj = env->NewGlobalRef(obj);
+ 
++    power_module_t* loadedPowerModule = NULL;
+     status_t err = hw_get_module(POWER_HARDWARE_MODULE_ID,
+-            (hw_module_t const**)&gPowerModule);
++            (hw_module_t const**)&loadedPowerModule);
+     if (!err) {
++#if defined(T110_MRVL_LEGACY)
++        gPowerModule = adaptT110LegacyPowerModule(loadedPowerModule);
++#else
++        gPowerModule = loadedPowerModule;
++#endif
+         gPowerModule->init(gPowerModule);
+     } else {
+         ALOGE("Couldn't load %s module (%s)", POWER_HARDWARE_MODULE_ID, strerror(-err));

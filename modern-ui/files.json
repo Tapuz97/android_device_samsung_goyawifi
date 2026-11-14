@@ -1,0 +1,178 @@
+{
+  "frameworks/base/core/res/res/values/colors_device_defaults.xml": {
+    "before_sha256": "07795d5d2ef7e0ff918365a5072558c996dc96ce772ae96dbbe648c6a4c59160",
+    "sha256": "a82ab8f715ad3b275af58ef39e3a425d7105322ef6c62674ba6962b5e7e9a1d0"
+  },
+  "frameworks/base/core/res/res/drawable/dialog_background_material.xml": {
+    "before_sha256": "d2e554b9f455c6051a735b500eb8a3cc91b4f09faee6943fabc365440f42e330",
+    "sha256": "9d2a8abcfd7c7e147672640867c44be7a0adef155285edac3ccdf27d9bffffaf"
+  },
+  "frameworks/base/core/res/res/drawable/popup_background_material.xml": {
+    "before_sha256": "a96949df27bc26d94ce2e79a782284d59a3139dc1de65874e331c0d67bd04b7a",
+    "sha256": "0553ce311174f75dddac71855a6fb17dc435782ffea1ff104e2fbb4b79a53025"
+  },
+  "frameworks/base/packages/SystemUI/res/values/t110_modern.xml": {
+    "before_sha256": null,
+    "sha256": "b16aebc5616a116f4463b5eaace2805446ca8f0a60b5cfcb0c04c085dd1032c2"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/t110_qs_tile_background.xml": {
+    "before_sha256": null,
+    "sha256": "014bb26b7be8cef67b0d59879cceb1361e3e4456c4dd25513f90bea55aa132b6"
+  },
+  "frameworks/base/packages/SystemUI/src/com/android/systemui/qs/QSTileBaseView.java": {
+    "before_sha256": "ec3022caaf077697ee454861b3e9355579ade9af80c7130b116d97d4de6a06b2",
+    "sha256": "b9d33516576e6a390b04f5b53a36cd7ce2bd605b524afbd4176bf4b54482ee4d"
+  },
+  "frameworks/base/packages/SystemUI/src/com/android/systemui/qs/QSTileView.java": {
+    "before_sha256": "1037aba55d94c402b2f60965bea6fd1f336a767e729558573a20830b7b570012",
+    "sha256": "0faba79a1b25d1fc0558976ea0b561492522d9f7fe7d7846aac9dcb2fb6d48fd"
+  },
+  "frameworks/base/packages/SystemUI/res/layout/qs_tile_label.xml": {
+    "before_sha256": "9f4095e0bf3a7cc53d0ded1860d20d90d5ceba086d2b2a92698949ed217adac4",
+    "sha256": "3e5c71361b72d75eefce30e5dcb525125c028ad28de408bdceab10e07b6d57ea"
+  },
+  "frameworks/base/packages/SystemUI/res/values/dimens.xml": {
+    "before_sha256": "87518fe1e61f86f300975eb141dff6a0c69493bf7577eb69947a20dbb4cc0b96",
+    "sha256": "568b3f7c723b0991732917863a1fa208d8faca2ffe9a4ac260272281734a9ca5"
+  },
+  "frameworks/base/packages/SystemUI/res/values-sw600dp-land/config.xml": {
+    "before_sha256": "ffbcd8b8d5ec39f3f8720ce75b9bcf948f315e45c953e66bfb61e2463e2e5037",
+    "sha256": "670cc56a58b048722914e9cfb6fafb3297095cb58070b6cfc1326e97fc9fe569"
+  },
+  "frameworks/base/packages/SystemUI/res/values-sw410dp/config.xml": {
+    "before_sha256": "392a352c568074b96474bb5859d587f4f18db08175ae71ae7a500073d9f8aa90",
+    "sha256": "1f323415952faa60cc1159af5b7bcc8f324db596f2cbb4f08b5c54f32d22d75f"
+  },
+  "frameworks/base/packages/SystemUI/res/values/config.xml": {
+    "before_sha256": "d87a2fc458bb07df9c816543a36decc9f79b301f06db6423b8883ff893e8cd46",
+    "sha256": "7c6f50c4af17af323797910d647bd1389fada30c28a95af8ae73736fd7bb6412"
+  },
+  "frameworks/base/packages/SystemUI/res/values-w550dp-land/config.xml": {
+    "before_sha256": "ea40895ca0c5c8d8641d27bb275dd718d4733a15b5cb81e4ae4d97361b56225f",
+    "sha256": "ea40895ca0c5c8d8641d27bb275dd718d4733a15b5cb81e4ae4d97361b56225f"
+  },
+  "frameworks/base/packages/SystemUI/res/values-sw540dp/config.xml": {
+    "before_sha256": "a86cffb119258b1bce5d5f64460ff5d02cdbba2b97380a3eac45ef1e12ab0827",
+    "sha256": "a86cffb119258b1bce5d5f64460ff5d02cdbba2b97380a3eac45ef1e12ab0827"
+  },
+  "frameworks/base/packages/SystemUI/res/values/colors.xml": {
+    "before_sha256": "2f70af0233a89b2e974d656286ec0cf8d4752b0a22f80f462e9f185aff21d94b",
+    "sha256": "b43879a3254cef9b0994e718280e95d2386150cbe04a4771a9b0fc8b8d9331ec"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/qs_background_primary.xml": {
+    "before_sha256": "4555815162703bb90a6040f1566557db972574840cf7918f981ab054ef26cc36",
+    "sha256": "af25fe01bbc8ccbe0003fccba8950b4b930e0620fbdeb2ce9f53062aab40c6d8"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/notification_material_bg.xml": {
+    "before_sha256": "b71bc252431efcdf13d4521702522a45889d03d73a5c7c82fddf66fe2d60bcf5",
+    "sha256": "bafa09f604ed59cccccdc0d4a64373e9d4638dc859240fdc27162a9a0f97ac37"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/notification_material_bg_dim.xml": {
+    "before_sha256": "992d290332f490e675e548d2ac8544fc0dafa3f88e8677eccd9a111f6d19dc3f",
+    "sha256": "065b04d8dc983cd8e144e62aeb62d1b64e403dc913f2e1a9b50d6ab7b98325ce"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/volume_dialog_background.xml": {
+    "before_sha256": "e7445ba5981ebd181d5db1aaf59e8ef9a1f1cb89f6225d711e87801bc5024d7f",
+    "sha256": "cf7f5b4f5cea09907f737129ee4c93ca6ff49736cf32c6a5a9a733392068fd23"
+  },
+  "frameworks/base/packages/SystemUI/res/layout/recents_stack_action_button.xml": {
+    "before_sha256": "10ef0d3ec9ddc26c1fca9f45d9c3a8f72437d60d5b846de606c367aad24e7e52",
+    "sha256": "382399831bfcff4ceae09ed24e98ac86a90ab3c85d7b78face74dc4373ea8c59"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/ic_t110_clear_all.xml": {
+    "before_sha256": null,
+    "sha256": "0710574da47e536ff83eb2c9dcd2c5302eb54f4639f8abbbd11f9d1e2cc79bdc"
+  },
+  "frameworks/base/packages/SystemUI/res/drawable/recents_stack_action_background.xml": {
+    "before_sha256": "aa77cb125fe406fc04fdf1f5d1d8264116fece30c9814e5a5a18b539394104a5",
+    "sha256": "0bc01efdc2a36a73fe7209a42f57b3b0a6172837db0fc51c8a929b0a6921f0be"
+  },
+  "packages/apps/Settings/res/values/themes.xml": {
+    "before_sha256": "4e901773ca46363fd1d79160d8d37fbd7eeb6317d531c044d0e9841b3aac515b",
+    "sha256": "1dfbba728f3fee49be1074ff8792a3faa7eb517917181236bd95ef10632d64a9"
+  },
+  "packages/apps/Settings/res/values/colors.xml": {
+    "before_sha256": "200a76b38192858d3eafabe2b061c72ad6baf2bb7c59717528072b2125bef9d9",
+    "sha256": "47aa053926b113b6a6d9083ac7d16755f3ee5054ae7d12bb8460bafe921962c5"
+  },
+  "packages/apps/Settings/res/values/dimens.xml": {
+    "before_sha256": "3e84fde25a25fb1de0d7fe1eab6a7d97cc82d919082f58f19b98ce6f313efa1b",
+    "sha256": "79b1c36bb37122ce3aaa0ab4c158000a74365ed66249d3a23f9e21080e2a4d8a"
+  },
+  "packages/apps/Settings/res/layout/settings_main_dashboard.xml": {
+    "before_sha256": "a7cd5e6bf67c22e87f068c6501d180a4492596e8fb28a837d8ba7913518229a1",
+    "sha256": "4c0cbfa45cbf8e589ec7ab76633585e9f20f0feb5e7d1c4b64feb09887bee95f"
+  },
+  "packages/apps/Settings/res/drawable/selectable_card.xml": {
+    "before_sha256": "ea10c6223c3cd9b599c81fddff04ca1af217d7bd9bfd878e9918fbb104cac803",
+    "sha256": "3e2c6142460b409318b2b11b6f827564b70536272d486f1be74b581599edaf41"
+  },
+  "packages/apps/Settings/res/drawable/t110_settings_icon_background.xml": {
+    "before_sha256": null,
+    "sha256": "8cf43902d8e5b2fd48dabb0c1fdaf77831e6c6998d1e9053e10a31388e0d1a31"
+  },
+  "packages/apps/Settings/res/layout/dashboard_tile.xml": {
+    "before_sha256": "ecd0f22ffdab5ae87bbc3bb96c08a7d510d6790a6eb1886b34ecdd1e7bfbe0cb",
+    "sha256": "166ed82ce846c3c12dd0fd1684e0274a172f9186acb73fb905eb0130cc9c89a3"
+  },
+  "packages/apps/Settings/res/layout/dashboard_category.xml": {
+    "before_sha256": "2dd422c3d2fe99ba8d7014d932dc0c7c32a6eabdd407bef35e748c2bd32476c3",
+    "sha256": "d6682f5faeecafffc38bad86ee8214cd1128042da1bd39245d9b1672228bd513"
+  },
+  "packages/apps/Settings/res/drawable/t110_search_background.xml": {
+    "before_sha256": null,
+    "sha256": "9fb73dc01d190c68c4e4ae136fbb27c3b94075a0fd6fea3259b98779b26c64e0"
+  },
+  "packages/apps/Settings/res/drawable/ic_t110_search.xml": {
+    "before_sha256": null,
+    "sha256": "be63120a5c72e9e85c09eb730aae8fed3d817c294105b00ddca1533e0a554003"
+  },
+  "packages/apps/Settings/res/values/t110_modern.xml": {
+    "before_sha256": null,
+    "sha256": "5e6f312f13f24ddc7695b998781f6a34ec2183f220676fa2c148af0208b14eb7"
+  },
+  "packages/apps/Settings/res/layout/dashboard.xml": {
+    "before_sha256": "fdd3732c7310292fd945f6230a2c4c3dd1ff0b9203b0915f37b162f0266adb6a",
+    "sha256": "78cddb7cb56c63ad705dc6245d7e27f7bf3c57b954985be6ae615361ecf19f01"
+  },
+  "packages/apps/Settings/src/com/android/settings/SettingsActivity.java": {
+    "before_sha256": "41b358e26e12792626211ac27608e2b496c45980ce4e69d6321318a06389b865",
+    "sha256": "996abea34516dc77cb9ce44d4ac461b6ef844ffa718b4eb55538634453848a25"
+  },
+  "packages/apps/Settings/src/com/android/settings/dashboard/DashboardSummary.java": {
+    "before_sha256": "fe3085bc9dbc9ba41325fbfb18bf2f31bf92ce46b13aec506eba77ad08060f29",
+    "sha256": "c9d6f11918507dfab7545a6aa7916d1d53e91cc88491a1f0a2030cdae39cf813"
+  },
+  "packages/apps/Trebuchet/res/values/preferences_defaults.xml": {
+    "before_sha256": "58b7e0cab05858c0aab4715b271f7410ea853d5e56eec24564ab00977f6f2f48",
+    "sha256": "c0f2eb9994f66a3c3c7fde781a056349415116f6e83414e048a4e75a39c46e69"
+  },
+  "frameworks/base/core/res/res/drawable/t110_power_icon_background.xml": {
+    "before_sha256": null,
+    "sha256": "1e40c8117c9b5db3689466a82e3509091715d9dbb09a94e7139391e082007786"
+  },
+  "frameworks/base/core/res/res/layout/global_actions_item.xml": {
+    "before_sha256": "76ebf3b7f4a5ffe5cfc3fd4977940ca8ec4959e19e97d629b73fe983c906c878",
+    "sha256": "d24034dd4bcda011d5b8870d60e01978efa910a339c1a2a17074a88464f06b99"
+  },
+  "frameworks/base/packages/Keyguard/res/values/styles.xml": {
+    "before_sha256": "145c65890274fac6349f05af0d8c2edd5d3184669a7e46b6069d25cd0fbc95f7",
+    "sha256": "a7bda29281bee18ff560030c52727ae49ae195c4f059c25117052ca60800730a"
+  },
+  "packages/apps/Trebuchet/res/drawable/quantum_panel.xml": {
+    "before_sha256": "3f3a41ba22969beca02a9ee08f6286f3f80f064b5e88ebd7b27400266379d6e8",
+    "sha256": "3bf24e52dd3beb79346b60af608963b14696269b719e4d9094f6a1fcff9a5668"
+  },
+  "packages/apps/WallpaperPicker/res/drawable-nodpi/lineage_current.png": {
+    "before_sha256": null,
+    "sha256": "ae3e5e7754300922dd499e969cf2fa892b2f0a429502ccf750289338cc18374d"
+  },
+  "packages/apps/WallpaperPicker/res/drawable-nodpi/lineage_current_small.png": {
+    "before_sha256": null,
+    "sha256": "ac07c6734129c66c8773a7e55c83440deb08f45377db6e0fc84d9d444fa30d40"
+  },
+  "packages/apps/WallpaperPicker/res/values-nodpi/wallpapers.xml": {
+    "before_sha256": "b86934254c4a333c4876fcec0f66dd8217c1eb18c58c8332ceb1f514b2970b33",
+    "sha256": "cd48919014671965ca246d4aa52171fb0dc7017894333a9616667be67e37d3a7"
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#F5F8F5">
+    <TextView android:id="@+id/t110_search_settings" android:layout_width="match_parent" android:layout_height="48dp"
+        android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:layout_marginTop="8dp" android:layout_marginBottom="12dp"
+        android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center_vertical" android:background="@drawable/t110_search_background"
+        android:drawableStart="@drawable/ic_t110_search" android:drawablePadding="12dp" android:text="@string/t110_search_settings" android:textColor="#355446"
+        android:textSize="16sp" android:fontFamily="sans-serif" android:clickable="true" android:focusable="true"/>
+    <com.android.settings.dashboard.conditional.FocusRecyclerView android:id="@+id/dashboard_container"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:clipChildren="false"
+        android:clipToPadding="false" android:focusable="false" android:paddingStart="@dimen/dashboard_padding_start"
+        android:paddingEnd="@dimen/dashboard_padding_end" android:paddingTop="@dimen/dashboard_padding_top"
+        android:paddingBottom="@dimen/dashboard_padding_bottom" android:scrollbars="vertical"/>
+</LinearLayout>

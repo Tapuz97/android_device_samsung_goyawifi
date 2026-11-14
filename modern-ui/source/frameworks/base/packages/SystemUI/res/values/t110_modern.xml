@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="t110_qs_active">#AFE5CE</color>
+    <color name="t110_qs_active_text">#0C3525</color>
+    <color name="t110_qs_inactive">#2C3B33</color>
+    <color name="t110_qs_inactive_text">#E5EFE8</color>
+    <color name="t110_qs_disabled_text">#99B8C4BB</color>
+</resources>

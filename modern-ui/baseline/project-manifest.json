@@ -1,0 +1,35 @@
+{
+  "status": "PRE_UI_BRINGUP_SOURCE_PRESERVED",
+  "device_baseline": "ceebd0c9a6c3298765757522f88d75d0bd47b4eb",
+  "projects": [
+    {
+      "project": "frameworks/base",
+      "upstream_head": "3ea44fbb9f601f0708fd858cd0e08918e363df34",
+      "baseline_patch_sha256": "e8816c9ba5e7a59408eef858bdc9997d8b6ef265e9213a6fcb4d6888dbe8e4a8",
+      "additions": [
+        {
+          "path": "services/core/java/com/android/server/policy/PhysicalNavigationKeyPolicy.java",
+          "sha256": "dd22f6c1cb661b302397a4a148f36a0145f7c788f4e1c9fc188308f96c11e03d"
+        }
+      ]
+    },
+    {
+      "project": "packages/apps/Settings",
+      "upstream_head": "5f4a7353072b2dc569e3d09d09d74e1836ee7380",
+      "baseline_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "additions": []
+    },
+    {
+      "project": "packages/apps/Trebuchet",
+      "upstream_head": "97e1ae086b11f806e55e6259972f87208ae6550b",
+      "baseline_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "additions": []
+    },
+    {
+      "project": "packages/apps/WallpaperPicker",
+      "upstream_head": "b4da5d3a99ba1590f6df4aa262b79e0398f6f05c",
+      "baseline_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "additions": []
+    }
+  ]
+}

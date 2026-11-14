@@ -1,0 +1,24 @@
+{
+  "frameworks_base": {
+    "branch": "lineage-24.0",
+    "commit": "4b252a1f5f128f24ea29b03457e8f903a6f19740"
+  },
+  "settings": {
+    "branch": "lineage-24.0",
+    "commit": "31b1a9f1cab9638bc6af9f4e6412fbf3b3a7947a"
+  },
+  "artwork_commit": "5a1814d916321aecb72d60d13b5e52bc719251bd",
+  "assets": [
+    {
+      "source": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/5a1814d916321aecb72d60d13b5e52bc719251bd/overlay/common/frameworks/base/core/res/res/drawable-sw720dp-nodpi/default_wallpaper.png",
+      "file": "packages/apps/WallpaperPicker/res/drawable-nodpi/lineage_current.png",
+      "sha256": "ae3e5e7754300922dd499e969cf2fa892b2f0a429502ccf750289338cc18374d"
+    },
+    {
+      "source": "https://raw.githubusercontent.com/LineageOS/android_vendor_lineage/5a1814d916321aecb72d60d13b5e52bc719251bd/overlay/common/frameworks/base/core/res/res/drawable-hdpi/default_wallpaper.png",
+      "file": "packages/apps/WallpaperPicker/res/drawable-nodpi/lineage_current_small.png",
+      "sha256": "ac07c6734129c66c8773a7e55c83440deb08f45377db6e0fc84d9d444fa30d40"
+    }
+  ],
+  "scope": "Visual backport to native API25 views; no newer Android APIs or dynamic color engine."
+}
