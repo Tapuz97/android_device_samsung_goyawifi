@@ -24,8 +24,9 @@
   {
     "name": "lib_SamsungRec_V03011b.so",
     "source_sha256": "004668f5971e6987607f3e2052d676b41763557f3e549cb7d0bf812cf18e79d3",
-    "packaged_sha256": "004668f5971e6987607f3e2052d676b41763557f3e549cb7d0bf812cf18e79d3",
+    "packaged_sha256": "932b661dc6d4656453e6b176ec053360bcb266a42db54fc49bb62b84c21cdb02",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "liblog.so",
       "libutils.so",
       "libc.so",
@@ -37,8 +38,9 @@
   {
     "name": "lib_Samsung_SB_AM_for_ICS_v04004.so",
     "source_sha256": "aaa9c6bab03b0545c3af86b17eb038ec9204f209045a837b28852d1fe8cf9448",
-    "packaged_sha256": "aaa9c6bab03b0545c3af86b17eb038ec9204f209045a837b28852d1fe8cf9448",
+    "packaged_sha256": "999e7d75b9b0546c9f4cae55ac97f0e14ffa221c9663fadccc947d25c8f80e99",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "liblog.so",
       "libutils.so",
       "libc.so",
@@ -83,8 +85,9 @@
   {
     "name": "libasound.so",
     "source_sha256": "d16ec5e947ead4de212ce75f62be2be4fb7b9061da5cefff98d0c5dbf1174baa",
-    "packaged_sha256": "d16ec5e947ead4de212ce75f62be2be4fb7b9061da5cefff98d0c5dbf1174baa",
+    "packaged_sha256": "d77dde66d5d55ba2dcff227d456451d87059fd327ffab3d56e77c52b31efd9e3",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "libdl.so",
       "libc.so",
       "libstdc++.so",
@@ -127,8 +130,9 @@
   {
     "name": "libasound_module_pcm_phone.so",
     "source_sha256": "39d5cd8bdca145763c09f5fcda4588aec23d83ab7f2e9ae5d6a6d673ccb8682b",
-    "packaged_sha256": "39d5cd8bdca145763c09f5fcda4588aec23d83ab7f2e9ae5d6a6d673ccb8682b",
+    "packaged_sha256": "e01c6eac07e5f6c0a796b8aa5a83f01db510525c843ab4d3d8aee46efe3e1120",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "libasound.so",
       "libutils.so",
       "liblog.so",
@@ -142,8 +146,9 @@
   {
     "name": "libaudiodebugtool.so",
     "source_sha256": "3a3b8ebe4fde60015621433f02b1695fb458f3449d0050682be4647814d5d229",
-    "packaged_sha256": "3a3b8ebe4fde60015621433f02b1695fb458f3449d0050682be4647814d5d229",
+    "packaged_sha256": "637c095fa232dd316e47389110f6f380d60b48090ad5825d222fd70f1bef7da8",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "liblog.so",
       "libcutils.so",
       "libm.so",
@@ -156,8 +161,9 @@
   {
     "name": "libippsp.so",
     "source_sha256": "cb20a8730e4ed8ca0f177f648cba53bce011200f95bd9c216924bca9a832463e",
-    "packaged_sha256": "cb20a8730e4ed8ca0f177f648cba53bce011200f95bd9c216924bca9a832463e",
+    "packaged_sha256": "f6163a79c79fd4c33ba143bf0837c8e1cfec3083f9ee4786471709e783464b53",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "libmiscgen.so",
       "libc.so",
       "libstdc++.so",
@@ -168,8 +174,9 @@
   {
     "name": "libippvp.so",
     "source_sha256": "aef614e654f83b1ee094b775ebb6984093edc2e3b229aa39eda950106bf43648",
-    "packaged_sha256": "aef614e654f83b1ee094b775ebb6984093edc2e3b229aa39eda950106bf43648",
+    "packaged_sha256": "0c9a767ba86cd346da49536bf9b227526ebdc3db96b1850984bc7b2266ebe69f",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "libmiscgen.so",
       "libippsp.so",
       "libc.so",
@@ -181,8 +188,9 @@
   {
     "name": "libmiscgen.so",
     "source_sha256": "c36235603a6b60bee0c7e4fd6cabaf1266e3997f967797b95d4cea7f8552f735",
-    "packaged_sha256": "c36235603a6b60bee0c7e4fd6cabaf1266e3997f967797b95d4cea7f8552f735",
+    "packaged_sha256": "1b0dc623a390e74f23b99901bc3c283ae9c195228687e89711518a19238baada",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "liblog.so",
       "libcutils.so",
       "libc.so",
@@ -222,8 +230,9 @@
   {
     "name": "libspeexresampler.so",
     "source_sha256": "af34196be5a31f06caf1ea79b7641dc217adb2c47d3536b3a4fc16f25159475d",
-    "packaged_sha256": "af34196be5a31f06caf1ea79b7641dc217adb2c47d3536b3a4fc16f25159475d",
+    "packaged_sha256": "701a572376624fe7c334ccdc21246287f02510ed52e28a128cc1b91579864a86",
     "needed": [
+      "libt110_audio_legacy_compat.so",
       "libc.so",
       "libstdc++.so",
       "libm.so"

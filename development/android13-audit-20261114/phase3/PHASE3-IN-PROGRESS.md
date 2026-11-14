@@ -50,5 +50,16 @@ LOCAL_PATH or a custom variable stripped by product import. The 16 packaged
 binary hashes remain identical across regeneration. All60 configuration copy
 targets and the primary policy/service files are requested explicitly.
 
+Strict vendor ELF checks then exposed26 imported ARM/compiler-runtime and stdio
+helpers that Bionic retains under LIBC_PRIVATE but omits from LLNDK stubs. A
+device-private shim now exports exact PIC ARM tail trampolines to the actual
+libc implementations; it does not reimplement math or FILE layout. Multi-register
+division results, original arguments, caller SP and LR are preserved. Only10
+stock libraries importing these helpers receive the explicit shim dependency.
+No undefined-symbol checks are disabled. A full Soong ARM probe exercises every
+helper through the explicit shim handle, cold and warm, including integer64
+divmod and buffered file IO. Probe results are still pending in this checkpoint.
+The assembly and C++ files use distinct basenames to avoid Soong object collision.
+
 Working14.1 images, source, online backups and tablet remain untouched. No ADB
 command, boot, transfer or flash has been performed during this integration.

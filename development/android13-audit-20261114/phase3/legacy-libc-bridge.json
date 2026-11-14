@@ -1,0 +1,102 @@
+{
+  "symbols": [
+    "__aeabi_d2f",
+    "__aeabi_d2iz",
+    "__aeabi_dadd",
+    "__aeabi_dmul",
+    "__aeabi_f2d",
+    "__aeabi_f2iz",
+    "__aeabi_fadd",
+    "__aeabi_fcmpeq",
+    "__aeabi_fcmpgt",
+    "__aeabi_fcmplt",
+    "__aeabi_fdiv",
+    "__aeabi_fmul",
+    "__aeabi_fsub",
+    "__aeabi_i2d",
+    "__aeabi_i2f",
+    "__aeabi_idiv",
+    "__aeabi_idivmod",
+    "__aeabi_l2d",
+    "__aeabi_ldivmod",
+    "__aeabi_llsl",
+    "__aeabi_uidiv",
+    "__aeabi_uidivmod",
+    "__aeabi_uldivmod",
+    "__popcountsi2",
+    "__srget",
+    "__swbuf"
+  ],
+  "usage": {
+    "audio.primary.mrvl.so": [
+      "__aeabi_ldivmod",
+      "__aeabi_uidiv",
+      "__aeabi_uldivmod",
+      "__popcountsi2"
+    ],
+    "lib_SamsungRec_V03011b.so": [
+      "__aeabi_d2f",
+      "__aeabi_d2iz",
+      "__aeabi_dadd",
+      "__aeabi_dmul",
+      "__aeabi_f2d",
+      "__aeabi_f2iz",
+      "__aeabi_fadd",
+      "__aeabi_fcmpeq",
+      "__aeabi_fcmpgt",
+      "__aeabi_fcmplt",
+      "__aeabi_fdiv",
+      "__aeabi_fmul",
+      "__aeabi_fsub",
+      "__aeabi_i2d",
+      "__aeabi_i2f"
+    ],
+    "lib_Samsung_SB_AM_for_ICS_v04004.so": [
+      "__aeabi_d2iz",
+      "__aeabi_dadd",
+      "__aeabi_dmul",
+      "__aeabi_i2d",
+      "__aeabi_idiv"
+    ],
+    "libasound.so": [
+      "__aeabi_idiv",
+      "__aeabi_idivmod",
+      "__aeabi_l2d",
+      "__aeabi_ldivmod",
+      "__aeabi_uidiv",
+      "__aeabi_uidivmod",
+      "__aeabi_uldivmod",
+      "__srget",
+      "__swbuf"
+    ],
+    "libasound_module_pcm_phone.so": [
+      "__aeabi_idivmod",
+      "__aeabi_uidivmod"
+    ],
+    "libaudiodebugtool.so": [
+      "__aeabi_uidiv"
+    ],
+    "libippsp.so": [
+      "__aeabi_idiv",
+      "__aeabi_ldivmod",
+      "__aeabi_llsl"
+    ],
+    "libippvp.so": [
+      "__aeabi_idiv",
+      "__aeabi_idivmod",
+      "__aeabi_ldivmod",
+      "__aeabi_uidiv"
+    ],
+    "libmiscgen.so": [
+      "__aeabi_idiv",
+      "__aeabi_uldivmod",
+      "__srget"
+    ],
+    "libspeexresampler.so": [
+      "__aeabi_uidiv",
+      "__aeabi_uidivmod"
+    ]
+  },
+  "provider": "Android13 Bionic libc LIBC_PRIVATE compatibility exports",
+  "strategy": "PIC ARM tail trampoline; exact base AAPCS; no reimplementation"
+}

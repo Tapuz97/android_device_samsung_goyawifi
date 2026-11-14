@@ -10,6 +10,7 @@ for name in names:
  patch=subprocess.check_output(['git','-C',str(p),'diff','--binary','--full-index','HEAD'])
  subprocess.run(['git','-C',str(p),'diff','--check'],check=True)
  dest=patchdir/(name.replace('/','__')+'.patch');dest.write_bytes(patch)
+ subprocess.run(['git','-C',str(p),'apply','--reverse','--check',str(dest)],check=True)
  additions=[]
  for relative in subprocess.check_output(['git','-C',str(p),'ls-files','--others','--exclude-standard','-z']).decode().split('\0'):
   if not relative:continue
@@ -27,13 +28,13 @@ for name in ('t110_system.mk','sepolicy/t110_audio.te','sepolicy/file_contexts',
  p=product/name;p.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(device/name,p)
 audio=product/'audio';audio.mkdir(exist_ok=True)
 for p in (device/'audio').iterdir():
- if p.is_file() and p.suffix in ('.h','.cpp','.md','.rc','.mk','.bp','.xml','.json'):shutil.copy2(p,audio/p.name)
+ if p.is_file() and p.suffix in ('.h','.cpp','.S','.md','.rc','.mk','.bp','.xml','.json'):shutil.copy2(p,audio/p.name)
 shutil.copy2(audit/'vendor-audio-packaging.json',out/'vendor-audio-inputs.json')
 shutil.copy2(audit/'audio-load-probe.json',out/'loader-diagnostic.json')
 tools=Path('/mnt/c/Users/Gal/Documents/ChatGPT/Electronic Repair/SM-T110/android13-audit')
-for name in ('restore_full_android13.py','integrate_full_source.py','package_vendor_audio.py','prepare_audio_loader_root.py','run_audio_load_probe.py','AudioLoadProbe.c','build_full_components.sh','build_vendor_audio.sh','check_textrel_scope.py','check_audio_policy.py','verify_full_components.py','verify_preserved_roms.py','backup_full_components.py','export_phase3_source.py'):
+for name in ('restore_full_android13.py','integrate_full_source.py','package_vendor_audio.py','prepare_legacy_libc_bridge.py','LegacyLibcProbe.cpp','run_legacy_libc_probe.py','prepare_audio_loader_root.py','run_audio_load_probe.py','AudioLoadProbe.c','build_full_components.sh','build_vendor_audio.sh','check_textrel_scope.py','check_audio_policy.py','verify_full_components.py','verify_preserved_roms.py','backup_full_components.py','export_phase3_source.py'):
  shutil.copy2(tools/name,out/name)
-for name in ('audio-loader-closure.json','compiled-audio-policy.json','full-build-verification.json','preserved-rom-verification.json'):
+for name in ('audio-loader-closure.json','legacy-libc-bridge.json','legacy-libc-probe.json','compiled-audio-policy.json','full-build-verification.json','preserved-rom-verification.json'):
  if (audit/name).is_file():shutil.copy2(audit/name,out/name)
 (out/'RESTORE-NOTES.md').write_text('''# Full build integration checkpoint
 

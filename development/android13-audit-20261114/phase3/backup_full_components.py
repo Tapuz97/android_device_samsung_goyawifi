@@ -34,11 +34,12 @@ with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslev
         path = root / item['path']
         assert hashlib.sha256(path.read_bytes()).hexdigest() == item['sha256'], path
         z.write(path, 'build/' + str(path.relative_to(root)))
-    for name in ('full-build-verification.json', 'compiled-audio-policy.json',
+    for name in ('full-build-verification.json', 'compiled-audio-policy.json', 'legacy-libc-bridge.json', 'legacy-libc-probe.json',
                  'vendor-audio-packaging.json', 'audio-load-probe.json'):
         z.write(audit / name, 'verification/' + name)
-    for name in ('full-components-5.log', 'vendor-audio.log', 'vendor-audio-1.log', 'vendor-audio-2.log'):
-        z.write(root / 'logs' / name, 'logs/' + name)
+    for path in sorted((root / 'logs').glob('vendor-audio*.log')):
+        z.write(path, 'logs/' + path.name)
+    z.write(root / 'logs/full-components-5.log', 'logs/full-components-5.log')
 with zipfile.ZipFile(archive) as z:
     assert z.testzip() is None
     for item in report['outputs']:

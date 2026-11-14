@@ -15,7 +15,18 @@ cc_library_shared {
     name: "libt110_audio_legacy_compat",
     vendor: true,
     compile_multilib: "32",
-    srcs: ["LegacyList.cpp"],
+    srcs: ["LegacyList.cpp", "LegacyLibc.cpp", "LegacyLibcTrampolines.S"],
+    shared_libs: ["libdl"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+// Offline-only ARM ABI probe. Not included in PRODUCT_PACKAGES.
+cc_binary {
+    name: "t110_legacy_libc_probe",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: ["LegacyLibcProbe.cpp"],
+    shared_libs: ["libdl"],
     cflags: ["-Wall", "-Wextra", "-Werror"],
 }
 
@@ -63,6 +74,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "liblog",
         "libutils",
         "libc",
@@ -84,6 +96,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "liblog",
         "libutils",
         "libc",
@@ -154,6 +167,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "libdl",
         "libc",
         "t110_libstdcpp",
@@ -224,6 +238,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "t110_ani7_libasound",
         "libutils",
         "liblog",
@@ -248,6 +263,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "liblog",
         "libcutils",
         "libm",
@@ -270,6 +286,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "t110_ani7_libmiscgen",
         "libc",
         "t110_libstdcpp",
@@ -290,6 +307,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "t110_ani7_libmiscgen",
         "t110_ani7_libippsp",
         "libc",
@@ -311,6 +329,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "liblog",
         "libcutils",
         "libc",
@@ -376,6 +395,7 @@ cc_prebuilt_library_shared {
         none: true
     },
     shared_libs: [
+        "libt110_audio_legacy_compat",
         "libc",
         "t110_libstdcpp",
         "libm"

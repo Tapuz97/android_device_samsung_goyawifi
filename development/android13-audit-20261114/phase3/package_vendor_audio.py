@@ -7,6 +7,9 @@ names={name:item for name,item in closure['libraries'].items() if item['source']
 mapping={name:'t110_ani7_'+name.removesuffix('.so').replace('.','_').replace('+','p') for name in names}
 mapping['libstdc++.so']='t110_libstdcpp' # Already supplied by the graphics product.
 records=[];packages=[];definitions=[]
+bridge=json.loads((r/'legacy-libc-bridge.json').read_text()) if (r/'legacy-libc-bridge.json').exists() else {'usage':{}}
+def write_if_changed(path,text):
+ if not path.is_file() or path.read_text()!=text:path.write_text(text)
 for name,item in sorted(names.items()):
  if name=='libstdc++.so':continue
  relative=item['path'].removeprefix('vendor/')
@@ -16,7 +19,7 @@ for name,item in sorted(names.items()):
  target=dest/relative
  target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
  original=hashlib.sha256(source.read_bytes()).hexdigest()
- if name=='audio.primary.mrvl.so':subprocess.run(['patchelf','--add-needed','libt110_audio_legacy_compat.so',str(target)],check=True)
+ if name=='audio.primary.mrvl.so' or name in bridge['usage']:subprocess.run(['patchelf','--add-needed','libt110_audio_legacy_compat.so',str(target)],check=True)
  if name=='libacm.so':subprocess.run(['patchelf','--add-needed','libcrypto.so',str(target)],check=True)
  soname=subprocess.check_output(['patchelf','--print-soname',str(target)],text=True).strip()
  if not soname:subprocess.run(['patchelf','--set-soname',name,str(target)],check=True)
@@ -29,7 +32,22 @@ for name,item in sorted(names.items()):
  definitions.append('cc_prebuilt_library_shared '+json.dumps(definition,indent=4).replace('"name":','name:').replace('"stem":','stem:').replace('"vendor":','vendor:').replace('"compile_multilib":','compile_multilib:').replace('"srcs":','srcs:').replace('"strip":','strip:').replace('"none":','none:').replace('"shared_libs":','shared_libs:').replace('"check_elf_files":','check_elf_files:').replace('"relative_install_path":','relative_install_path:'))
  packages.append(mapping[name]);records.append(dict(name=name,source_sha256=original,packaged_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),needed=needed,path=str(target.relative_to(audio))))
 base=(r/'device/development/android13-audit-20261114/implementation/audio/Android.bp').read_text()
-(audio/'Android.bp').write_text(base+'\n\n'+'\n\n'.join(definitions)+'\n')
+if bridge['usage']:
+ old='srcs: ["LegacyList.cpp"],'
+ assert old in base
+ base=base.replace(old,'srcs: ["LegacyList.cpp", "LegacyLibc.cpp", "LegacyLibcTrampolines.S"],\n    shared_libs: ["libdl"],')
+ base+='''
+// Offline-only ARM ABI probe. Not included in PRODUCT_PACKAGES.
+cc_binary {
+    name: "t110_legacy_libc_probe",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: ["LegacyLibcProbe.cpp"],
+    shared_libs: ["libdl"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+'''
+write_if_changed(audio/'Android.bp',base+'\n\n'+'\n\n'.join(definitions)+'\n')
 copies=[]
 def copy(source,relative,target):
  p=audio/relative;p.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,p)
@@ -51,7 +69,7 @@ for folder in ('audio','audio_VR'):
  for source in sorted((stock/'etc'/folder).rglob('*')):
   if source.is_file():
    rel=str(source.relative_to(stock/'etc'));copy(source,'config/'+rel,'$(TARGET_COPY_OUT_SYSTEM)/etc/'+rel)
-(audio/'vendor-audio.mk').write_text('# Exact ANI7 dependencies; retain modern platform providers.\n# Explicit source-root paths survive product inheritance/import expansion.\nPRODUCT_PACKAGES += '+' '.join(packages)+'\nPRODUCT_COPY_FILES += \\\n'+' \\\n'.join(copies)+'\n')
+write_if_changed(audio/'vendor-audio.mk','# Exact ANI7 dependencies; retain modern platform providers.\n# Explicit source-root paths survive product inheritance/import expansion.\nPRODUCT_PACKAGES += '+' '.join(packages)+'\nPRODUCT_COPY_FILES += \\\n'+' \\\n'.join(copies)+'\n')
 (r/'vendor-audio-packaging.json').write_text(json.dumps(records,indent=2)+'\n')
 (r/'vendor-audio-targets.json').write_text(json.dumps(packages,indent=2)+'\n')
 print('Packaged',len(records),'vendor audio binaries with ELF checks enabled,',len(copies),'configuration/data files.')
