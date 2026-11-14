@@ -1,3 +1,5 @@
+> Publication update: finish and test the14.1 UI and Google-apps edition before posting. This remains an engineering draft. See [the owner-requested release plan](release/docs/PUBLICATION-PLAN.md).
+
 # Suggested thread title
 
 [ROM][UNOFFICIAL][7.1.2][SM-T110/goyawifi] LineageOS 14.1 — experimental hardware bring-up

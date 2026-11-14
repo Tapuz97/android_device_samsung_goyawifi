@@ -27,6 +27,11 @@ rights for Samsung/Odin/vendor binaries. Public instructions link upstream.
 
 ## Google apps
 
+The owner now requests a tested Google-apps-enabled edition after the UI work.
+See PUBLICATION-PLAN.md for that work and the final public delivery decision.
+The candidate and constraints below remain unqualified; no GApps were installed
+or bundled by recording this request.
+
 Lineage's historical table maps 14.1/Android 7.1 to **Open GApps**:
 https://lineageos.github.io/lineage_wiki/gapps/old/
 
