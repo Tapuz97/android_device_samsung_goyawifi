@@ -1,0 +1,291 @@
+{
+  "path": "/root/t110-lineage14/reference/current-private/artifacts/android13-boot-v48/KERNEL.img",
+  "sha256": "09da369cd22d09e1b59b70ce273fa305c96cc83bc83bca8a48132737763d3690",
+  "kernel_sha256": "b9409c55499df551ecd960f38a5f313304c6ca9e4d3f81c77243fda72a2ed8a6",
+  "kernel_bytes": 3945440,
+  "page": 2048,
+  "ramdisk_bytes": 1475348,
+  "files": [
+    {
+      "name": "acct",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "apex",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "bin",
+      "mode": "0o120777",
+      "bytes": 11,
+      "sha256": "5a846af391ce716f19f139f6a930063ccec52406e5600593cc832993f0ae494a"
+    },
+    {
+      "name": "cache",
+      "mode": "0o120777",
+      "bytes": 11,
+      "sha256": "ba1120d97da097ddb9ffa4adf733dec4e3e3a51dd24d37f536d5278f7d6dc260"
+    },
+    {
+      "name": "config",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "data",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "data_mirror",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "debug_ramdisk",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "dev",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "etc",
+      "mode": "0o120777",
+      "bytes": 11,
+      "sha256": "fa7072dfb48cf30b766df0ad439ba27d362f4abe061d99c65fb52f0800f14190"
+    },
+    {
+      "name": "fstab.mrvl",
+      "mode": "0o100644",
+      "bytes": 271,
+      "sha256": "ac70eaa495bb43d2fe5fd8d3fb94079fffd6d7380291fc4fc6ac0aa712a30340"
+    },
+    {
+      "name": "init",
+      "mode": "0o100755",
+      "bytes": 668776,
+      "sha256": "43c11d8cf9b255afd072646983824722e9b922aa1176c9466c428f1f47304bb3"
+    },
+    {
+      "name": "init.environ.rc",
+      "mode": "0o100644",
+      "bytes": 463,
+      "sha256": "cb612c1ab9a5edf2a70664a881e6f80aa3b97088c98ef7a8dca69d569c1a8b14"
+    },
+    {
+      "name": "init.mrvl.rc",
+      "mode": "0o100644",
+      "bytes": 3885,
+      "sha256": "cc1e18e073e4e87c9f39ff8d939929162399dda359cc3c8321597aae5133d312"
+    },
+    {
+      "name": "init.t110-core.rc",
+      "mode": "0o100644",
+      "bytes": 2702,
+      "sha256": "8c76e37bf515c19000007c39fc5b8f7770cb6aaec56f7d27b12d09f51f37fd5e"
+    },
+    {
+      "name": "lib",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lib/modules",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lib/modules/galcore.ko",
+      "mode": "0o100644",
+      "bytes": 2674971,
+      "sha256": "0d93682f6a54f51aabfd7c91ab77af0b26c61c86aa8e8519c487c70d7f5c3900"
+    },
+    {
+      "name": "linkerconfig",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "mnt",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "odm",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "odm_dlkm",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "oem",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "postinstall",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "proc",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "product",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sdcard",
+      "mode": "0o120777",
+      "bytes": 21,
+      "sha256": "3c52a31296303ea9cca68e43d888a3dcf0e5ad7276c183ef68fae7f30815045c"
+    },
+    {
+      "name": "second_stage_resources",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "second_stage_resources/system",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "second_stage_resources/system/etc",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "second_stage_resources/system/etc/ramdisk",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "second_stage_resources/system/etc/ramdisk/build.prop",
+      "mode": "0o100644",
+      "bytes": 124,
+      "sha256": "9eb62dca47ad03bcbbdbb1baee8112c8d9df923e6a7aafbefd8beb34a3924fce"
+    },
+    {
+      "name": "stage-config",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "stage-data",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "stage-system",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "storage",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "sys",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "system",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "system_dlkm",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "system_ext",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "t110-cgroups.json",
+      "mode": "0o100644",
+      "bytes": 330,
+      "sha256": "8016cf3bb9face65f034450e0c39248715792f548d20bb34a8f1f2bd33e16c4b"
+    },
+    {
+      "name": "t110-preload-policy",
+      "mode": "0o100644",
+      "bytes": 647139,
+      "sha256": "5475f135b9ba02358c36962a48cb726a397569c3e7ee94ec53b916a6f30841ab"
+    },
+    {
+      "name": "ueventd.mrvl.rc",
+      "mode": "0o100644",
+      "bytes": 100,
+      "sha256": "1e0e1ee5683bf00df41fe53a69e97afc1c9817243011828210325cd5139f14db"
+    },
+    {
+      "name": "vendor",
+      "mode": "0o120777",
+      "bytes": 14,
+      "sha256": "ebc95e6449b8e8489447f30b3aa99c224f274a16951076dc9aa59c2317f0da6c"
+    },
+    {
+      "name": "vendor_dlkm",
+      "mode": "0o40755",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fstab.t110.zram",
+      "mode": "0o100644",
+      "bytes": 229,
+      "sha256": "d9762fc9a160ceb95cdb3fe267af534051e56507ed01fcb27ce1ee2b6b3ea8da"
+    }
+  ],
+  "init_files": {
+    "init.environ.rc": "# set up the global environment\non early-init\n    export ANDROID_BOOTLOGO 1\n    export ANDROID_ROOT /system\n    export ANDROID_ASSETS /system/app\n    export ANDROID_DATA /data\n    export ANDROID_STORAGE /storage\n    export ANDROID_ART_ROOT /apex/com.android.art\n    export ANDROID_I18N_ROOT /apex/com.android.i18n\n    export ANDROID_TZDATA_ROOT /apex/com.android.tzdata\n    export EXTERNAL_STORAGE /sdcard\n    export ASEC_MOUNTPOINT /mnt/asec\n    \n    \n    \n    \n",
+    "init.mrvl.rc": "# Device startup for the full Android image.\n# Keep USB debugging available while the full APEX/framework boot is tested.\n# The platform's updatable service is otherwise delayed until APEX config ends.\nservice adbd /apex/com.android.adbd/bin/adbd --root_seclabel=u:r:su:s0\n    override\n    class core\n    disabled\n    stdio_to_kmsg\n    socket adbd seqpacket 0660 system system\n    seclabel u:r:adbd:s0\n\nservice t110-logcat /system/bin/logcat -b all -f /data/local/tmp/t110-logcat.txt -r 4096 -n 2 snet_event_log:S *:V\n    class core\n    disabled\n    user root\n    group root log readproc\n    seclabel u:r:su:s0\n\non early-init\n    # stage.c loads the matched galcore using the legacy init_module syscall.\n    # Flattened APEX uses one mount namespace on this kernel.\n    umount /linkerconfig\n    update_linker_config\n\non init\n    # Keep normal windows on the validated path while GPU presentation is repaired.\n    setprop debug.hwui.t110_window_gpu false\n    mkdir /data/local 0751 root root\n    mkdir /data/local/tmp 0771 shell shell\n    restorecon /data /data/local /data/local/tmp\n    # Optional diagnostic file capture: start explicitly through init when needed.\n    # Normal Android logd remains available without continuous disk writes.\n    mkdir /dev/usb-ffs 0775 shell shell\n    mkdir /dev/usb-ffs/adb 0770 shell shell\n    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000\n    write /sys/class/android_usb/android0/enable 0\n    write /sys/class/android_usb/android0/idVendor 18d1\n    write /sys/class/android_usb/android0/idProduct 4EE7\n    write /sys/class/android_usb/android0/iManufacturer Samsung\n    write /sys/class/android_usb/android0/iProduct SM-T110\n    write /sys/class/android_usb/android0/iSerial ${ro.serialno}\n    write /sys/class/android_usb/android0/f_ffs/aliases adb\n    # Start debug USB before post-fs-data; later property actions retain control.\n    write /sys/class/android_usb/android0/functions adb\n    write /sys/class/android_usb/android0/enable 1\n    start adbd\n    setprop sys.usb.config adb\n    chown system graphics /dev/galcore\n    chmod 0666 /dev/galcore\n    restorecon /dev/galcore\n    chown system graphics /dev/ion\n    chmod 0666 /dev/ion\n    restorecon /dev/ion\n    chown system graphics /sys/devices/platform/pxa168-fb.0/vsync\n    chmod 0660 /sys/devices/platform/pxa168-fb.0/vsync\n    restorecon /sys/devices/platform/pxa168-fb.0/vsync\n    restorecon /sys/devices/platform/pxa168-fb.0/vsync_ts\n\non fs\n    setprop ro.crypto.state unencrypted\n\non post-fs-data\n    # The kernel exposes zram0 but it was left at disksize=0. Use Android's\n    # standard swap setup before zygote/main services to relieve boot pressure.\n    restorecon /dev/block/zram0\n    swapon_all /fstab.t110.zram\n    # This is RAM-backed swap, not a disk: reclaim cold anonymous pages before\n    # thrashing hot APK pages, and avoid disk-oriented swap read-ahead.\n    write /proc/sys/vm/swappiness 100\n    write /proc/sys/vm/page-cluster 0\n    setprop sys.usb.config adb\n\n# stage.c mounts the unencrypted dedicated data directory before Android init.\n# There is no mount_all to queue this event. Queue it after data preparation;\n# platform init then starts main (including installd) and late_start services.\non post-fs-data && property:ro.crypto.state=unencrypted\n    trigger nonencrypted\n\non property:sys.usb.ffs.ready=1\n    write /sys/class/android_usb/android0/enable 1\n    setprop sys.usb.state adb\n\non property:sys.boot_completed=1\n    write /dev/t110-keepalive 1\n    # Early diagnostic ADB starts before derive_classpath/load_exports. Refresh\n    # it after startup so Java shell tools inherit Android's final classpaths.\n    restart adbd\n\n# init.svc is a platform-only trigger on Android13. Keep the cross-service\n# dependency in the platform boot script, not a vendor property action.\non property:init.svc.t110-radio-init=stopped\n    start t110-bluetooth-init\n\n",
+    "init.t110-core.rc": "import /init.environ.rc\n\non early-init\n    start ueventd\n\non init\n    mount tmpfs tmpfs /data nosuid nodev mode=0771,size=128m\n    restorecon /data\n    mkdir /data/misc 01771 system misc\n    mkdir /data/local 0751 root root\n    mkdir /data/local/tmp 0771 shell shell\n    mkdir /dev/socket 0755 root root\n    mkdir /linkerconfig/bootstrap 0755\n    mkdir /linkerconfig/default 0755\n    exec -- /system/bin/bootstrap/linkerconfig --target /linkerconfig/bootstrap\n    chmod 0644 /linkerconfig/bootstrap/ld.config.txt\n    copy /linkerconfig/bootstrap/ld.config.txt /linkerconfig/default/ld.config.txt\n    mount none /linkerconfig/bootstrap /linkerconfig bind rec\n    exec_start apexd-bootstrap\n    umount /linkerconfig\n    update_linker_config\n\non late-init\n    start logd\n    start servicemanager\n    start hwservicemanager\n\non property:ro.boot.t110_usb=1\n    mkdir /dev/usb-ffs 0775 shell shell\n    mkdir /dev/usb-ffs/adb 0770 shell shell\n    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000\n    write /sys/class/android_usb/android0/enable 0\n    write /sys/class/android_usb/android0/idVendor 18D1\n    write /sys/class/android_usb/android0/idProduct D001\n    write /sys/class/android_usb/android0/iManufacturer Samsung\n    write /sys/class/android_usb/android0/iProduct T110-Android13-Core\n    write /sys/class/android_usb/android0/iSerial ${ro.serialno}\n    write /sys/class/android_usb/android0/f_ffs/aliases adb\n    write /sys/class/android_usb/android0/functions adb\n    start adbd\n\non property:sys.usb.ffs.ready=1\n    write /sys/class/android_usb/android0/enable 1\n    setprop sys.usb.state adb\n\nservice ueventd /system/bin/ueventd\n    stdio_to_kmsg\n    seclabel u:r:ueventd:s0\n\nservice apexd-bootstrap /system/bin/apexd --bootstrap\n    user root\n    group system\n    disabled\n    oneshot\n    stdio_to_kmsg\n\nservice logd /system/bin/logd\n    socket logd stream 0666 logd logd\n    socket logdr seqpacket 0666 logd logd\n    socket logdw dgram+passcred 0222 logd logd\n    file /proc/kmsg r\n    file /dev/kmsg w\n    user root\n    group logd system package_info readproc\n    priority 10\n    stdio_to_kmsg\n\nservice servicemanager /system/bin/servicemanager\n    user system\n    group system readproc\n    stdio_to_kmsg\n\nservice hwservicemanager /system/bin/hwservicemanager\n    user system\n    group system readproc\n    onrestart setprop hwservicemanager.ready false\n    stdio_to_kmsg\n\nservice adbd /apex/com.android.adbd/bin/adbd --root_seclabel=u:r:su:s0\n    disabled\n    stdio_to_kmsg\n    socket adbd stream 0660 system system\n    seclabel u:r:adbd:s0\n\nservice surfaceflinger /system/bin/surfaceflinger\n    disabled\n    oneshot\n    user system\n    group graphics drmrpc readproc\n    stdio_to_kmsg\n"
+  }
+}

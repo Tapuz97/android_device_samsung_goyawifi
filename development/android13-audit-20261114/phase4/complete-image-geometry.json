@@ -1,0 +1,9 @@
+{
+  "bytes": 2146435072,
+  "block_size": 4096,
+  "blocks": 524032,
+  "backing": "userdata read-only loop file",
+  "physical_system_write": false,
+  "boot_stage_size_supported": true,
+  "hardware_tested": false
+}

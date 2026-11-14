@@ -1,0 +1,56 @@
+{
+  "base": "ce73cdbb2644e1919645068853657a5b9c3efa3c",
+  "prerequisites": "phase3 complete-project-deltas, project-additions and original private restoration capsule",
+  "status": "FULL_IMAGE_AND_PRODUCTION_NAMESPACE_PENDING",
+  "files": [
+    {
+      "path": "BuildCandidatePropertyInfo.cpp",
+      "sha256": "1dbe537460760936811bd5c5ed967ec95b285e2f08c8ab743ed9e30fa4da0fbc"
+    },
+    {
+      "path": "CandidateNamespaceProbe.c",
+      "sha256": "e9b331346a237e2a5a3b72c33568e7a0d053f8f437e424bc9dad6ce066964b70"
+    },
+    {
+      "path": "PHASE4-IN-PROGRESS.md",
+      "sha256": "63dc3365f86f8471061181c1cf57c355d44b66483ebe78c90be424a95245dc0a"
+    },
+    {
+      "path": "build_complete_image.sh",
+      "sha256": "932c7348d274b7a5fce93e2e00db920624143dbc74809ec198655a71e25ac3b5"
+    },
+    {
+      "path": "build_namespace_tools.py",
+      "sha256": "826a7441530b4c8f55e295a8eec7d253e5fcfb76fa0f3e95ac25b0b7707dadf5"
+    },
+    {
+      "path": "complete-image-geometry.json",
+      "sha256": "29215bbacec895c4fb997265efcaa2e3f4101f25b08507ff7ad3bde4d44401e3"
+    },
+    {
+      "path": "export_phase4_source.py",
+      "sha256": "e4a64e01e5fb6c626867710642b526393f99c0b0376666f7b06c592cb5edbf56"
+    },
+    {
+      "path": "inspect_android13_boot.py",
+      "sha256": "2c5e1ed19886a89c857e43072e209b8756b2acfcf33e8dc94d18a13146733e46"
+    },
+    {
+      "path": "namespace-toolchain.json",
+      "sha256": "0d4c050b0bd8669c89847f2e9f257f529e387c76254e03ea2a651a21656d1e78"
+    },
+    {
+      "path": "prepare_complete_image_geometry.py",
+      "sha256": "9c952f2e370720ede62adf5cdcd9163c477251bfbe16d76bb730b5908e919c0c"
+    },
+    {
+      "path": "preserved-android13-boot.json",
+      "sha256": "883402d779e28537f3e24ca02c34f10f914ea5e2ebd3d53c252c463bb89dc6c9"
+    },
+    {
+      "path": "product/BoardConfig.mk",
+      "sha256": "6054acdb536dce947b3acbabe50ca14b0a4b6acb3c4fa5190e89fbf826c2691f"
+    }
+  ],
+  "flashed": false
+}

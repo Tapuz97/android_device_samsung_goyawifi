@@ -1,0 +1,90 @@
+{
+  "host_sources": [
+    {
+      "path": "/mnt/c/Users/Gal/Documents/ChatGPT/Electronic Repair/SM-T110/android13-audit/BuildCandidatePropertyInfo.cpp",
+      "sha256": "1dbe537460760936811bd5c5ed967ec95b285e2f08c8ab743ed9e30fa4da0fbc"
+    },
+    {
+      "path": "/root/t110-android13/android/system/core/property_service/libpropertyinfoserializer/property_info_file.cpp",
+      "sha256": "905b17cb2c243fc7d8c599b5f90a8afec665fc9d3f2faa00ad6a4456781163ec"
+    },
+    {
+      "path": "/root/t110-android13/android/system/core/property_service/libpropertyinfoserializer/property_info_serializer.cpp",
+      "sha256": "437b15d25c3c0c67cc81b46619058e8ffdee3aa4d988d07a46fafe4313740377"
+    },
+    {
+      "path": "/root/t110-android13/android/system/core/property_service/libpropertyinfoserializer/trie_builder.cpp",
+      "sha256": "342e0988158416e7362c340afd7d7e178d4181824282ed9f3c4710f5aac4a757"
+    },
+    {
+      "path": "/root/t110-android13/android/system/core/property_service/libpropertyinfoserializer/trie_serializer.cpp",
+      "sha256": "00c84cb6ec531f706e975c55cf981bcaee48d0d763521864031147c1e3e4ade3"
+    },
+    {
+      "path": "/root/t110-android13/android/system/core/property_service/libpropertyinfoparser/property_info_parser.cpp",
+      "sha256": "cd340fdd555b42d056d01fb489d619a26782886d577cc8b2837eebfad63ad54c"
+    },
+    {
+      "path": "/root/t110-android13/android/system/libbase/strings.cpp",
+      "sha256": "1e60decf121d8f795c2414b9caf12c489a7e03528097b4667da00eaee3b1ce5c"
+    },
+    {
+      "path": "/root/t110-android13/android/system/libbase/stringprintf.cpp",
+      "sha256": "0ac350c5e3223eb714aa6a2a165541710bfd08f018c15e01fe5bbccb72d198ea"
+    }
+  ],
+  "host_flags": [
+    "g++",
+    "-std=c++17",
+    "-O2",
+    "-include",
+    "algorithm",
+    "-include",
+    "cstring",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-Wl,--gc-sections",
+    "-I/root/t110-android13/android/system/core/property_service/libpropertyinfoserializer/include",
+    "-I/root/t110-android13/android/system/core/property_service/libpropertyinfoparser/include",
+    "-I/root/t110-android13/android/system/libbase/include"
+  ],
+  "arm_compile_flags": [
+    "clang",
+    "--target=armv7a-linux-androideabi",
+    "-std=c11",
+    "-fno-builtin",
+    "-fPIE",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/root/t110-android13-audit/arm-headers",
+    "-isystem",
+    "/root/t110-lineage14/android/bionic/libc/include",
+    "-isystem",
+    "/root/t110-lineage14/android/bionic/libc/arch-arm/include",
+    "-isystem",
+    "/root/t110-lineage14/android/bionic/libc/kernel/uapi",
+    "-isystem",
+    "/root/t110-lineage14/android/bionic/libc/kernel/uapi/asm-arm"
+  ],
+  "arm_link": [
+    "clang",
+    "--target=armv7a-linux-androideabi",
+    "-fuse-ld=lld",
+    "-pie",
+    "-nostdlib",
+    "-Wl,--no-undefined",
+    "-Wl,-dynamic-linker,/system/bin/linker",
+    "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtbegin_dynamic.o",
+    "/root/t110-android13-audit/namespace-tools/CandidateNamespaceProbe.o",
+    "-L/root/t110-android13/out/target/product/t110_bringup/system/lib/bootstrap",
+    "-lc",
+    "-lm",
+    "-ldl",
+    "/root/t110-lineage14/toolchains/arm-linux-androideabi-4.6/lib/gcc/arm-linux-androideabi/4.6.x-google/libgcc.a",
+    "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtend_android.o",
+    "-o",
+    "/root/t110-android13-audit/namespace-tools/candidate-namespace-probe"
+  ],
+  "production_payload": false
+}
