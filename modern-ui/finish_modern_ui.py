@@ -19,10 +19,13 @@ edit(SET+'src/com/android/settings/dashboard/DashboardSummary.java',
                     }
                 });''')
 
-# Keep native dark-actionbar applications readable. Settings has its own
-# light surface override and dark actionbar icons.
-resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_device_default_light','#326B57')
-resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_dark_device_default_light','#245B49')
+# Honor each native parent theme's foreground contract. Plain Light uses dark
+# icons; Settings/DarkActionBar variants use light icons. Main Settings has
+# its own explicit light-surface override.
+resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_device_default_light','#F5F8F5')
+resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_dark_device_default_light','#EAF1EC')
+resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_device_default_settings','#1B3028')
+resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_dark_device_default_settings','#101B16')
 edit(SET+'res/values/themes.xml','@*android:drawable/ic_menu_moreoverflow_holo_dark',
      '@*android:drawable/ic_menu_moreoverflow_material')
 
@@ -49,6 +52,16 @@ save(LAUNCH+'res/drawable/quantum_panel.xml',xml('''<shape xmlns:android="http:/
     <solid android:color="#F5F8F5"/><corners android:radius="24dp"/>
     <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
 </shape>'''))
+save(LAUNCH+'res/drawable/quantum_panel_dark.xml',xml('''<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#26382E"/><corners android:radius="24dp"/>
+    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
+</shape>'''))
+for name in ('quantum_panel_shape.xml','quantum_panel_shape_dark.xml'):
+    edit(LAUNCH+'res/drawable/'+name,'android:radius="2dp"','android:radius="24dp"')
+for key,value in {'quantum_panel_text_color':'#17251E',
+    'quantum_panel_text_color_dark':'#E5EFE8','quantum_panel_bg_color':'#F5F8F5',
+    'quantum_panel_bg_color_dark':'#1B3028'}.items():
+    resource(LAUNCH+'res/values/colors.xml','color',key,value)
 
 # Pin official artwork and its upstream license. No third-party wallpaper app.
 pin='5a1814d916321aecb72d60d13b5e52bc719251bd'

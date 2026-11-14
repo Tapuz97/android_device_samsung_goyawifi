@@ -56,11 +56,11 @@
 -    <color name="primary_dark_device_default_light">@color/primary_dark_material_light</color>
 -    <color name="primary_dark_device_default_settings">@color/primary_dark_material_settings</color>
 +    <color name="primary_device_default_dark">#1B3028</color>
-+    <color name="primary_device_default_light">#326B57</color>
-+    <color name="primary_device_default_settings">#F5F8F5</color>
++    <color name="primary_device_default_light">#F5F8F5</color>
++    <color name="primary_device_default_settings">#1B3028</color>
 +    <color name="primary_dark_device_default_dark">#101B16</color>
-+    <color name="primary_dark_device_default_light">#245B49</color>
-+    <color name="primary_dark_device_default_settings">#EAF1EC</color>
++    <color name="primary_dark_device_default_light">#EAF1EC</color>
++    <color name="primary_dark_device_default_settings">#101B16</color>
  
      <color name="secondary_device_default_settings">@color/secondary_material_settings</color>
      <color name="tertiary_device_default_settings">@color/tertiary_material_settings</color>
@@ -724,6 +724,64 @@
 +    <solid android:color="#F5F8F5"/><corners android:radius="24dp"/>
 +    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
 +</shape>
+--- a/packages/apps/Trebuchet/res/drawable/quantum_panel_dark.xml
++++ b/packages/apps/Trebuchet/res/drawable/quantum_panel_dark.xml
+@@ -1,18 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     Copyright (C) 2015 The Android Open Source Project
+-
+-     Licensed under the Apache License, Version 2.0 (the "License");
+-     you may not use this file except in compliance with the License.
+-     You may obtain a copy of the License at
+-
+-          http://www.apache.org/licenses/LICENSE-2.0
+-
+-     Unless required by applicable law or agreed to in writing, software
+-     distributed under the License is distributed on an "AS IS" BASIS,
+-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-     See the License for the specific language governing permissions and
+-     limitations under the License.
+--->
+-<nine-patch xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:src="@drawable/quantum_panel_dark_bitmap" />
++<shape xmlns:android="http://schemas.android.com/apk/res/android">
++    <solid android:color="#26382E"/><corners android:radius="24dp"/>
++    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
++</shape>
+--- a/packages/apps/Trebuchet/res/drawable/quantum_panel_shape.xml
++++ b/packages/apps/Trebuchet/res/drawable/quantum_panel_shape.xml
+@@ -18,5 +18,5 @@
+        android:shape="rectangle">
+     <solid android:color="@color/quantum_panel_bg_color" />
+     <corners
+-        android:radius="2dp" />
++        android:radius="24dp" />
+ </shape>--- a/packages/apps/Trebuchet/res/drawable/quantum_panel_shape_dark.xml
++++ b/packages/apps/Trebuchet/res/drawable/quantum_panel_shape_dark.xml
+@@ -18,5 +18,5 @@
+        android:shape="rectangle">
+     <solid android:color="@color/quantum_panel_bg_color_dark" />
+     <corners
+-        android:radius="2dp" />
++        android:radius="24dp" />
+ </shape>--- a/packages/apps/Trebuchet/res/values/colors.xml
++++ b/packages/apps/Trebuchet/res/values/colors.xml
+@@ -32,10 +32,10 @@
+     <color name="workspace_edge_effect_color">#FFFFFFFF</color>
+     <color name="folder_edge_effect_color">#FF757575</color>
+ 
+-    <color name="quantum_panel_text_color">#FF666666</color>
+-    <color name="quantum_panel_text_color_dark">#FFF</color>
+-    <color name="quantum_panel_bg_color">#FFF5F5F5</color>
+-    <color name="quantum_panel_bg_color_dark">#76000000</color>
++    <color name="quantum_panel_text_color">#17251E</color>
++    <color name="quantum_panel_text_color_dark">#E5EFE8</color>
++    <color name="quantum_panel_bg_color">#F5F8F5</color>
++    <color name="quantum_panel_bg_color_dark">#1B3028</color>
+ 
+     <color name="outline_color">#FFFFFFFF</color>
+ 
 --- a/packages/apps/Trebuchet/res/values/preferences_defaults.xml
 +++ b/packages/apps/Trebuchet/res/values/preferences_defaults.xml
 @@ -6,7 +6,7 @@

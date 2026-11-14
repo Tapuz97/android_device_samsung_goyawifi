@@ -1,7 +1,7 @@
 {
   "frameworks/base/core/res/res/values/colors_device_defaults.xml": {
     "before_sha256": "07795d5d2ef7e0ff918365a5072558c996dc96ce772ae96dbbe648c6a4c59160",
-    "sha256": "a82ab8f715ad3b275af58ef39e3a425d7105322ef6c62674ba6962b5e7e9a1d0"
+    "sha256": "008951d60bf85318d767b62a52c77b43bcbd3c9b577e72877692a28d941f69ce"
   },
   "frameworks/base/core/res/res/drawable/dialog_background_material.xml": {
     "before_sha256": "d2e554b9f455c6051a735b500eb8a3cc91b4f09faee6943fabc365440f42e330",
@@ -174,5 +174,21 @@
   "packages/apps/WallpaperPicker/res/values-nodpi/wallpapers.xml": {
     "before_sha256": "b86934254c4a333c4876fcec0f66dd8217c1eb18c58c8332ceb1f514b2970b33",
     "sha256": "cd48919014671965ca246d4aa52171fb0dc7017894333a9616667be67e37d3a7"
+  },
+  "packages/apps/Trebuchet/res/drawable/quantum_panel_dark.xml": {
+    "before_sha256": "5d265f0750e8f9e127ec05c986be7683b32eedd789e846ee43ed5ae33db3317f",
+    "sha256": "2e4fc08398f297f65e7c4d5e5bfa19cf090fa3f47ba9d117ba4325edbd1a389a"
+  },
+  "packages/apps/Trebuchet/res/drawable/quantum_panel_shape.xml": {
+    "before_sha256": "7cd5a8e9039a2f8c0b649b3fdb2caa9b60281cc1e7d75116c801060cecab98c4",
+    "sha256": "ee07d895826a604c4735d010ab87c635dda435df42c8ff939221ca91c846f0dd"
+  },
+  "packages/apps/Trebuchet/res/drawable/quantum_panel_shape_dark.xml": {
+    "before_sha256": "3404d8f7dc856859bbd613c177b07f9695ed0d91de030afcf9309381a9486439",
+    "sha256": "b258a790426d8e32d78642a04f0b4a36186bd4bc077d825d798813ef66736a6f"
+  },
+  "packages/apps/Trebuchet/res/values/colors.xml": {
+    "before_sha256": "b336a721e6e46821935a31bb07ba9a52ed61634bf0e346c863712ac8d975a72f",
+    "sha256": "3154337de6a8d358c1e2b9d9a15d48baf25c57f40bfb12b6a027a9087bd1fc43"
   }
 }

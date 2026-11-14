@@ -18,11 +18,11 @@
      overlaying new theme colors. -->
 <resources>
     <color name="primary_device_default_dark">#1B3028</color>
-    <color name="primary_device_default_light">#326B57</color>
-    <color name="primary_device_default_settings">#F5F8F5</color>
+    <color name="primary_device_default_light">#F5F8F5</color>
+    <color name="primary_device_default_settings">#1B3028</color>
     <color name="primary_dark_device_default_dark">#101B16</color>
-    <color name="primary_dark_device_default_light">#245B49</color>
-    <color name="primary_dark_device_default_settings">#EAF1EC</color>
+    <color name="primary_dark_device_default_light">#EAF1EC</color>
+    <color name="primary_dark_device_default_settings">#101B16</color>
 
     <color name="secondary_device_default_settings">@color/secondary_material_settings</color>
     <color name="tertiary_device_default_settings">@color/tertiary_material_settings</color>
