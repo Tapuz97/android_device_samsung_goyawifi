@@ -46,8 +46,10 @@ removal used to hide bugs. Compare Settings scrolling, notification shade, touch
 and launcher frame behavior against the working14.1 baseline. Do not claim smooth
 performance solely because compilation succeeds.
 
-Rooting, compatible Google apps and the final social/XDA guide remain separate
-work items. Existing14.1 qualification limitations (including video-with-audio
+After the UI pass, the owner requested a tested Google-apps-enabled edition and
+actual XDA publication with the ROM, correct TWRP and Odin downloads. See
+[publication plan](release/PUBLICATION-PLAN.md). Rooting remains separately
+qualified before being advertised. Existing14.1 limitations (including video-with-audio
 and Bluetooth audio) remain recorded; returning to14.1 is not a new claim that
 every hardware feature has passed. The owner's current decision prioritizes UI
 work on the working base over further Android13 compatibility experiments.
