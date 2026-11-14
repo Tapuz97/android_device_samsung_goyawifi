@@ -3,30 +3,70 @@
     "project": "bionic",
     "base": "998f94cdcddfd9b5134bbdaf4b0752156fd89ab4",
     "patch": "bionic.patch",
-    "sha256": "32e0f91582b3f8fcde3a9993e3136efaa53a57b67d7cc6d582bf3a61bcc97a04"
+    "sha256": "32e0f91582b3f8fcde3a9993e3136efaa53a57b67d7cc6d582bf3a61bcc97a04",
+    "additions": []
   },
   {
     "project": "frameworks/native",
     "base": "915ad642e331e0f8ea107b5f5519f2c6f1e7e01c",
     "patch": "frameworks__native.patch",
-    "sha256": "6b71dbab82c117981afa6e75bf64ecbeffbda29558d11d5faf5328f9ed6d0a71"
+    "sha256": "6b71dbab82c117981afa6e75bf64ecbeffbda29558d11d5faf5328f9ed6d0a71",
+    "additions": [
+      {
+        "path": "libs/renderengine/gl/T110EglWindow.cpp",
+        "sha256": "d9deafaf13e73012fbc2b5e54fe2bf0422f7e312f45a5647a41e051aa72a2700"
+      },
+      {
+        "path": "libs/renderengine/gl/T110EglWindow.h",
+        "sha256": "2441d61c589c77a16438a7a17f0601b983f63574405f9301d577dc2841fc4d73"
+      },
+      {
+        "path": "libs/renderengine/gl/T110WindowSlots.h",
+        "sha256": "baf8e3d550b25bf6787edd7d8f82a99cbd31702fed7b987a8b213aee9e8b0ef1"
+      }
+    ]
   },
   {
     "project": "frameworks/base",
     "base": "3a5c19c7b673b0d5f1f811629750ae6d1526ce09",
     "patch": "frameworks__base.patch",
-    "sha256": "1f4b92ba3aac26c62661c8f6e941bd970f7709d5474cd705f3967ec0e0849e99"
+    "sha256": "1f4b92ba3aac26c62661c8f6e941bd970f7709d5474cd705f3967ec0e0849e99",
+    "additions": [
+      {
+        "path": "services/core/java/com/android/server/policy/T110NavigationKeys.java",
+        "sha256": "bd8772469610e4da478c90bc722bfb0dc1a99031f2af6c48c2a7a87cc68968da"
+      }
+    ]
   },
   {
     "project": "hardware/interfaces",
     "base": "2f83e1bda9536aaf406352c868a8192cc3526a69",
     "patch": "hardware__interfaces.patch",
-    "sha256": "1149bbab200f94f775cda0a1659915bea633b5d725632c1c02014b0e16e169ba"
+    "sha256": "1149bbab200f94f775cda0a1659915bea633b5d725632c1c02014b0e16e169ba",
+    "additions": [
+      {
+        "path": "graphics/composer/2.1/default/T110Framebuffer.cpp",
+        "sha256": "5b0a053aba8605f29defa158171c3ad36050670b2e07718584305cf3fe0d9c84"
+      },
+      {
+        "path": "graphics/composer/2.1/default/T110Framebuffer.h",
+        "sha256": "6d52132bd6e2a9fd9788e5e971fa108b6204e37176d9793434e8818ad09c0fda"
+      },
+      {
+        "path": "graphics/composer/2.1/default/T110Scanout.h",
+        "sha256": "1306b23699730f2019be3d4f55612d7f9e3f2e7b998174877222dc2f7028e771"
+      },
+      {
+        "path": "graphics/composer/2.1/default/T110ScanoutNeon.h",
+        "sha256": "3c2eae0859002b6947a2db3ad299ab618f18ce31ed988f50fbeeea817ce3b24c"
+      }
+    ]
   },
   {
     "project": "system/sepolicy",
     "base": "60f5720f939213f8e20ec4eaab49d5348576c70d",
     "patch": "system__sepolicy.patch",
-    "sha256": "2b8f2596836fc5fb8acce7929add081b21633c4adbf8a078e8d2c99e3c9dab16"
+    "sha256": "2b8f2596836fc5fb8acce7929add081b21633c4adbf8a078e8d2c99e3c9dab16",
+    "additions": []
   }
 ]

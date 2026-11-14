@@ -10,7 +10,15 @@ for name in names:
  patch=subprocess.check_output(['git','-C',str(p),'diff','--binary','--full-index','HEAD'])
  subprocess.run(['git','-C',str(p),'diff','--check'],check=True)
  dest=patchdir/(name.replace('/','__')+'.patch');dest.write_bytes(patch)
- records.append(dict(project=name,base=subprocess.check_output(['git','-C',str(p),'rev-parse','HEAD'],text=True).strip(),patch=dest.name,sha256=hashlib.sha256(patch).hexdigest()))
+ additions=[]
+ for relative in subprocess.check_output(['git','-C',str(p),'ls-files','--others','--exclude-standard','-z']).decode().split('\0'):
+  if not relative:continue
+  path=p/relative
+  assert path.suffix in ('.cpp','.cc','.c','.h','.hpp','.bp','.mk','.rc','.xml','.java'),path
+  target=out/'project-additions'/name/relative
+  target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,target)
+  additions.append(dict(path=relative,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+ records.append(dict(project=name,base=subprocess.check_output(['git','-C',str(p),'rev-parse','HEAD'],text=True).strip(),patch=dest.name,sha256=hashlib.sha256(patch).hexdigest(),additions=additions))
 (out/'projects.json').write_text(json.dumps(records,indent=2)+'\n')
 device=android/'device/samsung/t110_bringup'
 # The original product is in the private source capsule; these are the changed source inputs.
@@ -34,7 +42,12 @@ patches when restoring from the exact pinned upstream HEADs in projects.json.
 They include the old source changes plus the phase1/2 graphics fixes and phase3
 linker/policy changes. Do not apply them after the old patches, or apply the
 earlier incremental patches again. All other capsule project deltas and original
-untracked files remain prerequisites.
+untracked files remain prerequisites. After restoring the capsule, overwrite its
+matching files with project-additions/ at the Android checkout root. These are
+the actual current custom framebuffer/EGL sources, including changes to files
+which upstream Git considers untracked and therefore excludes from git diff.
+Their complete hashes are recorded in projects.json. Preserve other capsule
+untracked files not represented here.
 
 product/ contains changed source/configuration inputs for the original custom
 product. Binary vendor inputs and the stock configuration payload are generated

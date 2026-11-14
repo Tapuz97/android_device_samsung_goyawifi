@@ -5,7 +5,12 @@ patches when restoring from the exact pinned upstream HEADs in projects.json.
 They include the old source changes plus the phase1/2 graphics fixes and phase3
 linker/policy changes. Do not apply them after the old patches, or apply the
 earlier incremental patches again. All other capsule project deltas and original
-untracked files remain prerequisites.
+untracked files remain prerequisites. After restoring the capsule, overwrite its
+matching files with project-additions/ at the Android checkout root. These are
+the actual current custom framebuffer/EGL sources, including changes to files
+which upstream Git considers untracked and therefore excludes from git diff.
+Their complete hashes are recorded in projects.json. Preserve other capsule
+untracked files not represented here.
 
 product/ contains changed source/configuration inputs for the original custom
 product. Binary vendor inputs and the stock configuration payload are generated
