@@ -1,0 +1,6 @@
+# Exact GOYA nodes, matching the qualified14.1 GPU access contract.
+# Android13's graphics subsystem creates the actual node under /dev/graphics.
+/dev/graphics/galcore 0666 system graphics
+/dev/galcore 0666 system graphics
+/dev/ion 0666 system graphics
+/dev/mbtchar* 0660 system bluetooth

@@ -9,14 +9,21 @@ out = audit / 'device/development/android13-audit-20261114/phase4'
 out.mkdir(exist_ok=True)
 names = ('PHASE4-IN-PROGRESS.md', 'build_complete_image.sh', 'prepare_complete_image_geometry.py',
          'BuildCandidatePropertyInfo.cpp', 'CandidateNamespaceProbe.c', 'build_namespace_tools.py',
-         'inspect_android13_boot.py', 'export_phase4_source.py')
+         'inspect_android13_boot.py', 'verify_kernel_carryover.py', 'verify_complete_image.py',
+         'run_production_namespace_checks.py', 'carry_gpu_node_fix.py',
+         'package_android13_candidate_boot.py', 'export_phase4_source.py')
 for name in names:
     shutil.copy2(tools / name, out / name)
 product = Path('/root/t110-android13/android/device/samsung/t110_bringup')
 (out / 'product').mkdir(exist_ok=True)
-shutil.copy2(product / 'BoardConfig.mk', out / 'product/BoardConfig.mk')
-for name in ('complete-image-geometry.json','preserved-android13-boot.json'):
+for name in ('BoardConfig.mk','graphics.mk','graphics/ueventd.t110.rc','sepolicy/file_contexts'):
+    target=out/'product'/name;target.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copy2(product/name,target)
+for name in ('complete-image-geometry.json','preserved-android13-boot.json','kernel-carryover-verification.json',
+             'complete-image-verification.json','production-namespace-verification.json'):
     if (audit / name).is_file(): shutil.copy2(audit / name, out / name)
+for name in ('gpu-node-carryover.json','candidate-boot-verification.json'):
+    if (audit/name).is_file():shutil.copy2(audit/name,out/name)
 if (audit / 'namespace-tools/toolchain.json').is_file():
     shutil.copy2(audit / 'namespace-tools/toolchain.json', out / 'namespace-toolchain.json')
 records=[]

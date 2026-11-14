@@ -24,20 +24,36 @@
       "sha256": "826a7441530b4c8f55e295a8eec7d253e5fcfb76fa0f3e95ac25b0b7707dadf5"
     },
     {
+      "path": "carry_gpu_node_fix.py",
+      "sha256": "e9909fb0076006f9e8dcfa729c6e58b72fe90a3a7f9cf700e1aa185871dcd857"
+    },
+    {
       "path": "complete-image-geometry.json",
       "sha256": "29215bbacec895c4fb997265efcaa2e3f4101f25b08507ff7ad3bde4d44401e3"
     },
     {
       "path": "export_phase4_source.py",
-      "sha256": "e4a64e01e5fb6c626867710642b526393f99c0b0376666f7b06c592cb5edbf56"
+      "sha256": "59eedbfaae66b1f186f20fc8c443c6c97169841753e22a8af1943a9629d32e18"
+    },
+    {
+      "path": "gpu-node-carryover.json",
+      "sha256": "19c344e9e9558326081c64337cb1e1d256b1d4a580d1c4b975f5274b148922b6"
     },
     {
       "path": "inspect_android13_boot.py",
       "sha256": "2c5e1ed19886a89c857e43072e209b8756b2acfcf33e8dc94d18a13146733e46"
     },
     {
+      "path": "kernel-carryover-verification.json",
+      "sha256": "1b73941131d2214931a60c7865b393e31afcb9db06ddd96299da87a01a0d62bc"
+    },
+    {
       "path": "namespace-toolchain.json",
       "sha256": "0d4c050b0bd8669c89847f2e9f257f529e387c76254e03ea2a651a21656d1e78"
+    },
+    {
+      "path": "package_android13_candidate_boot.py",
+      "sha256": "f7faef60c4e18ea33da9a56a6020bf1cb206ea53cb7ef5f5969568cfeeee4ac3"
     },
     {
       "path": "prepare_complete_image_geometry.py",
@@ -50,6 +66,30 @@
     {
       "path": "product/BoardConfig.mk",
       "sha256": "6054acdb536dce947b3acbabe50ca14b0a4b6acb3c4fa5190e89fbf826c2691f"
+    },
+    {
+      "path": "product/graphics/ueventd.t110.rc",
+      "sha256": "6757331409d0405e29942362cc0eaf402af328717dd38e4abacbc4eaeeea4cc8"
+    },
+    {
+      "path": "product/graphics.mk",
+      "sha256": "edf98b808514c25bb5e2f7c45d54f1bbc68271d2abe516321462651cee09cbb4"
+    },
+    {
+      "path": "product/sepolicy/file_contexts",
+      "sha256": "d1e6ed72e7c29149f007072b6952ad46dfcba3547e2da230e01b8f34ec9a5bfc"
+    },
+    {
+      "path": "run_production_namespace_checks.py",
+      "sha256": "ac6702d0ec60ecfceeeeb066e256743ae5384f694ab8b4f7009114885559779d"
+    },
+    {
+      "path": "verify_complete_image.py",
+      "sha256": "4234c8f245cb889233cf409b6cdc3f6d1a203d131dfebb7c7af249a322a338ca"
+    },
+    {
+      "path": "verify_kernel_carryover.py",
+      "sha256": "c06ce169656811825db85ca6058a5fcb5ac3513facad303a8b04f588ec37e5df"
     }
   ],
   "flashed": false

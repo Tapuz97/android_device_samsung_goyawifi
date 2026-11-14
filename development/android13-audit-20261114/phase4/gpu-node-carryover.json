@@ -1,0 +1,10 @@
+{
+  "status": "SOURCE_READY_REBUILD_AND_IMAGE_CHECK_PENDING",
+  "device_node": "/dev/graphics/galcore",
+  "legacy_alias": "/dev/galcore",
+  "label": "gpu_device",
+  "dac": "0666 system graphics",
+  "source": "qualified14.1 exact-node rule; confirmed Android13 ueventd graphics dirname",
+  "broad_graphics_permission_added": false,
+  "hardware_tested": false
+}
