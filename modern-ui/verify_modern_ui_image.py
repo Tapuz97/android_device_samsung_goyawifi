@@ -16,6 +16,9 @@ def digest(path):
 assert digest(ORIGINAL/'system.raw.img')=='01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea'
 assert digest(ORIGINAL/'boot.img')=='93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2'
 assert (OUT/'system.img').is_file()
+properties=dict(line.split('=',1) for line in (OUT/'system/build.prop').read_text().splitlines()
+                if '=' in line and not line.startswith('#'))
+assert properties['ro.build.version.incremental']=='T110_UI_20261114',properties['ro.build.version.incremental']
 shutil.copy2(ORIGINAL/'boot.img',ART/'boot.img')
 with (OUT/'system.img').open('rb') as stream:sparse=stream.read(4)==b'\x3a\xff\x26\xed'
 if sparse:subprocess.run(['simg2img',str(OUT/'system.img'),str(ART/'system.raw.img')],check=True)
@@ -75,6 +78,8 @@ with (ART/'system.raw.img').open('rb') as original,(ART/'system.raw.img.gz').ope
     with gzip.GzipFile(fileobj=output,mode='wb',mtime=0) as compressed:shutil.copyfileobj(original,compressed)
 report={'status':'OFFLINE_COMPLETE_IMAGE_CHECKS_PASSED_NOT_HARDWARE_QUALIFIED',
         'android':'7.1.2','api':25,'lineage':'14.1','ui_branch':'t110/lineage14-modern-ui-20261114',
+        'build_fingerprint':properties['ro.build.fingerprint'],
+        'ui_source_manifest_sha256':digest(WORK/'changed-files.json'),
         'boot_reused_unchanged':True,'physical_system_write_allowed':False,
         'inode_bitmap_padding_normalized':normalized,'google_apps_included':False,
         'files':[{'name':name,'bytes':(ART/name).stat().st_size,'sha256':digest(ART/name)}

@@ -28,7 +28,12 @@ resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_de
 resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_dark_device_default_settings','#101B16')
 edit(SET+'res/values/themes.xml','@*android:drawable/ic_menu_moreoverflow_holo_dark',
      '@*android:drawable/ic_menu_moreoverflow_material')
-save(SET+'res/values/t110_modern.xml',xml('''<resources><string name="t110_search_settings">@string/search_settings</string></resources>'''))
+save(SET+'res/values/t110_modern.xml',xml('''<resources>
+    <string name="t110_search_settings">@string/search_settings</string>
+    <color name="t110_settings_surface">#F5F8F5</color>
+</resources>'''))
+edit(SET+'res/values/themes.xml','<item name="android:windowBackground">#F5F8F5</item>',
+     '<item name="android:windowBackground">@color/t110_settings_surface</item>')
 # Smallest-width resources outrank orientation. Override each inherited row
 # count for landscape so the expanded shade fits the T110's 480dp short side,
 # including when users choose the original 160dpi display density.

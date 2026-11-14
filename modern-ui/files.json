@@ -89,7 +89,7 @@
   },
   "packages/apps/Settings/res/values/themes.xml": {
     "before_sha256": "4e901773ca46363fd1d79160d8d37fbd7eeb6317d531c044d0e9841b3aac515b",
-    "sha256": "1dfbba728f3fee49be1074ff8792a3faa7eb517917181236bd95ef10632d64a9"
+    "sha256": "bf194f8688fb28ba9d75e215393325edaa36ea74304ae485a2f6288929f5e115"
   },
   "packages/apps/Settings/res/values/colors.xml": {
     "before_sha256": "200a76b38192858d3eafabe2b061c72ad6baf2bb7c59717528072b2125bef9d9",
@@ -129,7 +129,7 @@
   },
   "packages/apps/Settings/res/values/t110_modern.xml": {
     "before_sha256": null,
-    "sha256": "1ea5e0c266164fae0ab4ac41283681ed595192eb00698f0a167bf714ec41d111"
+    "sha256": "65b264921f3cff02ed1e04b3160338115334d5874e537154e62f06678b8bf370"
   },
   "packages/apps/Settings/res/layout/dashboard.xml": {
     "before_sha256": "fdd3732c7310292fd945f6230a2c4c3dd1ff0b9203b0915f37b162f0266adb6a",

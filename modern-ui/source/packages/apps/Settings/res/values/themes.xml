@@ -138,7 +138,7 @@
         <item name="android:colorPrimaryDark">#F5F8F5</item>
         <item name="android:colorAccent">#326B57</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">#F5F8F5</item>
+        <item name="android:windowBackground">@color/t110_settings_surface</item>
         <item name="android:textColorPrimary">#17251E</item>
         <item name="android:textColorSecondary">#506258</item>
         <item name="android:colorControlNormal">#355446</item>
