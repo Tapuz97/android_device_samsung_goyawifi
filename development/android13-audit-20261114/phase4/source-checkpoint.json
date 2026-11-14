@@ -93,11 +93,11 @@
     },
     {
       "path": "run_production_namespace_checks.py",
-      "sha256": "fd5801b24ad81d0b133650cd2a65da02464b181bdb8f4409e417195f3e391d69"
+      "sha256": "96b1d8b629e5ae6c5839918c5bf309ea9841713cf025515f8f23b68602204393"
     },
     {
       "path": "verify_complete_image.py",
-      "sha256": "8b8ebc2a801d48b0d75be904d7ff9f0896f8cdf56bb43f74f5eb6dff2fe517f1"
+      "sha256": "1f4dccaf21da623d05b2120934fb58053b94055063073f7e12a239abd0820029"
     },
     {
       "path": "verify_kernel_carryover.py",

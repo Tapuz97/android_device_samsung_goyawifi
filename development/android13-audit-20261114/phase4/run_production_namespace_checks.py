@@ -162,8 +162,15 @@ def child(work):
     assert props.get('ro.build.version.sdk')=='33',props.get('ro.build.version.sdk')
     assert props.get('ro.t110.legacy_audio') in ('true','1')
     assert props.get('ro.t110.legacy_gpu') in ('true','1')
-    assert props.get('ro.apex.updatable')=='false',props.get('ro.apex.updatable')
+    # Android's real default is false when the flattened product omits this
+    # property; do not invent a value in the fixture merely to satisfy a test.
+    assert props.get('ro.apex.updatable','false') in ('false','0'),props.get('ro.apex.updatable')
     assert not props.get('ro.vndk.version'),'Fixture currently expects the actual legacy product'
+    kernel=json.loads((AUDIT/'kernel-carryover-verification.json').read_text())
+    assert 'CONFIG_CMDLINE="androidboot.hardware=mrvl"' in kernel['selected_config_lines']
+    for key in ('ro.boot.hardware','ro.hardware'):
+        assert key not in props or props[key]=='mrvl',(key,props.get(key))
+        props[key]='mrvl'
     propfile=diag/'candidate.properties'
     propfile.write_text(''.join(k+'='+v+'\n' for k,v in sorted(props.items())))
     env=os.environ.copy()
@@ -259,6 +266,7 @@ def child(work):
         fixture=str(work),apexes=apexes,apex_activation=activation,configs=configs,property_inputs=prop_inputs,
         property_count=len(props),native_load_targets=len(targets),failures=failures,commands=commands,
         sdk_lowered=False,ld_overrides=False,constructor_free_checks=True,
+        boot_derived_properties={'ro.boot.hardware':'mrvl','ro.hardware':'mrvl'},
         host_runtime=host_runtime,required_literal_egl_paths=sorted(required_egl),
         hardware_opened=False,selinux_runtime_enforced=False,
         kernel_emulated=False,flashed=False)

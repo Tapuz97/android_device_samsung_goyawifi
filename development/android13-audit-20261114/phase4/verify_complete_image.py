@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 base=Path('/root/t110-android13');audit=Path('/root/t110-android13-audit')
 product=base/'out/target/product/t110_bringup';dest=audit/'complete-image'
 dest.mkdir(exist_ok=True)
-log=Path(sys.argv[1]) if len(sys.argv)>1 else base/'logs/complete-image-2.log'
+log=Path(sys.argv[1]) if len(sys.argv)>1 else base/'logs/complete-image-3.log'
 assert 'T110_COMPLETE_SYSTEMIMAGE_BUILD_PASS' in log.read_text(errors='replace'),log
 image=product/'system.img';raw=dest/'system.raw.img'
 with image.open('rb') as f:magic=f.read(4)
