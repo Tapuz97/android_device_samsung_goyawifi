@@ -1,0 +1,9 @@
+{
+  "status": "HOST_CALLBACK_REGRESSION_PASS_NOT_ARM_BUILD_OR_GPU_TEST",
+  "cases": 6,
+  "patch_sha256": "ab6bcfa8bc6008652c1a0b7e074dc4203b005edc82e13749866242ed604307df",
+  "libgui_dependency_url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/gui/Android.bp",
+  "timeout_ms": 100,
+  "full_android13_build": false,
+  "flashed": false
+}

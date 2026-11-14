@@ -1,0 +1,6 @@
+{
+  "status": "HOST_CALLBACK_REGRESSION_PASS_NOT_HARDWARE_SUSPEND_TEST",
+  "cases": 9,
+  "patch_sha256": "d27b188146dee8143390a85c49bcfb60eba499b636cd61f0e1080c605cefb400",
+  "flashed": false
+}

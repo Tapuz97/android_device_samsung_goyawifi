@@ -1,0 +1,34 @@
+{
+  "images": [
+    {
+      "pair": "lineage14-first-build",
+      "name": "boot.img",
+      "bytes": 16777216,
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2",
+      "verified": true
+    },
+    {
+      "pair": "lineage14-first-build",
+      "name": "system.raw.img",
+      "bytes": 1594884096,
+      "sha256": "01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea",
+      "verified": true
+    },
+    {
+      "pair": "media-suspend-parent",
+      "name": "boot.img",
+      "bytes": 16777216,
+      "sha256": "55df8314699da4ae5b1736100bb798029d023aaf38a4202efb811b6725d8beaf",
+      "verified": true
+    },
+    {
+      "pair": "media-suspend-parent",
+      "name": "system.raw.img",
+      "bytes": 1594884096,
+      "sha256": "37896dd65fac195e3d7c9291f0ee411a52ae6ab2011ac61eb3114d687e9bd00a",
+      "verified": true
+    }
+  ],
+  "remote_release": 444868203,
+  "remote_archive_sha256": "545aeff0b7bf3c76d1f1d7db46fd37f99f59ce5aba73eaa553569c73051b3c1b"
+}

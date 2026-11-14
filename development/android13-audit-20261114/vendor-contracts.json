@@ -1,0 +1,41 @@
+{
+  "audio": {
+    "state": "STUB_NOT_PORTED",
+    "stock_api": "2.0",
+    "primary_rate_hz": 44100,
+    "clock_properties": {
+      "persist.audio.apmaster": "1",
+      "persist.audio.gsspmaster": "1",
+      "persist.audio.codecmaster": "0"
+    },
+    "clock_nodes": [
+      "/proc/driver/ssp_master",
+      "/proc/driver/gssp_master"
+    ],
+    "local_route_parameters": {
+      "path_handler": "0",
+      "phone_volume": "230"
+    },
+    "input_active_parameter": "STREAM_IN_ACTIVE",
+    "dependencies": "ALSA configs/plugins, libacm, exact-path crypto shim; namespace/SELinux integration pending",
+    "nougat_adapter_sha256": "444a2013d53dd1bdcbde134621dae1d5a308978de2ec74dc7938514c8e2d9007"
+  },
+  "wifi": {
+    "kernel_uid_range_attribute": 20,
+    "android13_supplicant": "AIDL",
+    "do_not_transplant_nougat_supplicant_init": true
+  },
+  "bluetooth": {
+    "transport": "SD8777 /dev/mbtchar0 packet H4",
+    "LE_feature_already_declared": true,
+    "a2dp_qualified": false
+  },
+  "navigation": {
+    "keys": {
+      "139": "APP_SWITCH",
+      "158": "BACK",
+      "102": "HOME"
+    },
+    "button_led_backend_established": false
+  }
+}

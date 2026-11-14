@@ -1,0 +1,3 @@
+# Empty unified-diff context records contain one required space. The changed
+# Android source is checked separately with git diff --check in each project.
+patches/*.patch whitespace=-blank-at-eol

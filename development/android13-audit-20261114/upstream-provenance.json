@@ -1,0 +1,128 @@
+[
+  {
+    "project": "frameworks/native",
+    "path": "libs/gui/ScreenCaptureResults.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/gui/ScreenCaptureResults.cpp",
+    "sha256": "f54579ce21ae54767d7ecec8209129024ade7b2c48b94db6817c8daafa7ceea8"
+  },
+  {
+    "project": "frameworks/native",
+    "path": "libs/gui/Surface.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/gui/Surface.cpp",
+    "sha256": "c1949fc06710cbd40f4dbcdcb932363185bd4c42e2cd9883ba60f40c4654b2d0"
+  },
+  {
+    "project": "frameworks/native",
+    "path": "libs/renderengine/Android.bp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/renderengine/Android.bp",
+    "sha256": "2786cfac873b4d80b85eb96f86b958aeeb95ff3b793d96ed6444a32961235be9"
+  },
+  {
+    "project": "frameworks/native",
+    "path": "libs/renderengine/gl/GLESRenderEngine.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/renderengine/gl/GLESRenderEngine.cpp",
+    "sha256": "875d4e1fa6f300f5602186fb5abd0125ff7e9472cbe802bb6fdda3b42afacfe7"
+  },
+  {
+    "project": "frameworks/native",
+    "path": "libs/renderengine/gl/GLESRenderEngine.h",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/renderengine/gl/GLESRenderEngine.h",
+    "sha256": "64efd797c71580bc69feeb7dfbdf7166266e6982be49613b3c7305a40f893efc"
+  },
+  {
+    "project": "frameworks/native",
+    "path": "libs/ui/Gralloc2.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/libs/ui/Gralloc2.cpp",
+    "sha256": "e7fb14962938303d449a4449b745f0cebfa761ed6f890f59cc1784250c3d0c6c"
+  },
+  {
+    "project": "frameworks/native",
+    "path": "opengl/libs/EGL/Loader.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_frameworks_native/915ad642e331e0f8ea107b5f5519f2c6f1e7e01c/opengl/libs/EGL/Loader.cpp",
+    "sha256": "8bbf53f3b408165647d7435fe0a5d042fac266a76b7b5cb472a56a4d522c1661"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "audio/common/all-versions/default/service/service.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/audio/common/all-versions/default/service/service.cpp",
+    "sha256": "cf4e4f0fb62be11b423a1bec233ccb50f1ffbb4fc0a79753c8b3be81775c6752"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "audio/core/all-versions/default/Device.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/audio/core/all-versions/default/Device.cpp",
+    "sha256": "113f55ce7f83e8b374ea9ae904b8d120ec0589f6944e6264f7dcda335e779955"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "audio/core/all-versions/default/DevicesFactory.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/audio/core/all-versions/default/DevicesFactory.cpp",
+    "sha256": "9cbf223d490235707d41b63425241409b9d8c56c26094397057f141c7f62394e"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "audio/core/all-versions/default/StreamIn.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/audio/core/all-versions/default/StreamIn.cpp",
+    "sha256": "4ae75790145536b57a91e9d7e00ede32c3d39b114ef221bed9578f69c27ee844"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "audio/core/all-versions/default/StreamOut.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/audio/core/all-versions/default/StreamOut.cpp",
+    "sha256": "d03e8467d603decb841088aa9e2c7c02f91c42382d4d19faf98af35abf784789"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "bluetooth/1.0/default/h4_protocol.cc",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/bluetooth/1.0/default/h4_protocol.cc",
+    "sha256": "99c86b9cf0e98097849343c94e2e0f8bca7b9d57a48ef0a600d8bc27348d0c64"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "bluetooth/1.0/default/h4_protocol.h",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/bluetooth/1.0/default/h4_protocol.h",
+    "sha256": "87389fa87632e0f8d28deca7f23cda4249e6f1e5943178bc593d1f793a529fd9"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "bluetooth/1.0/default/test/h4_protocol_unittest.cc",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/bluetooth/1.0/default/test/h4_protocol_unittest.cc",
+    "sha256": "611d499bf205e3226ab65c9490bf957a5f5597eecca7be4ef40dc63cbae1c383"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "bluetooth/1.0/default/vendor_interface.cc",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/bluetooth/1.0/default/vendor_interface.cc",
+    "sha256": "791dba880a3d397c8019cd4443cc81173849075eec1287326ab30dfa0eac21ac"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "bluetooth/1.1/default/Android.bp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/bluetooth/1.1/default/Android.bp",
+    "sha256": "143cf7ff0f01d534db8275481d6245de0584aecd5c27375ae9723dd3361085b0"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "graphics/composer/2.1/default/Android.bp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/graphics/composer/2.1/default/Android.bp",
+    "sha256": "2518c20b48e15374eea8927dcf862709bd2e008f359bfc46f5193e3ab8ede502"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "graphics/composer/2.1/default/service.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/graphics/composer/2.1/default/service.cpp",
+    "sha256": "b7b02b8d5f58709a5ae61b4885bb16ea8309cecb2cd8221c0cac229dd1f94772"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/graphics/composer/2.1/utils/hwc2onfbadapter/HWC2OnFbAdapter.cpp",
+    "sha256": "ed3af167aec8e75f0b684440f92d8745c399c4c798b3f072699bd9193d8ed6a2"
+  },
+  {
+    "project": "hardware/interfaces",
+    "path": "graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h",
+    "url": "https://raw.githubusercontent.com/LineageOS/android_hardware_interfaces/2f83e1bda9536aaf406352c868a8192cc3526a69/graphics/composer/2.1/utils/hwc2onfbadapter/include/hwc2onfbadapter/HWC2OnFbAdapter.h",
+    "sha256": "fc2caf12e18ba9d7312b00c805a7777c0b5dfdf7d6e20c99ed9f91c2000353e1"
+  }
+]

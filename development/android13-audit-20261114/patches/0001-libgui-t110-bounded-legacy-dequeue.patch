@@ -1,0 +1,36 @@
+diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
+index 4c80792..38176ba 100644
+--- a/libs/gui/Surface.cpp
++++ b/libs/gui/Surface.cpp
+@@ -19,6 +19,7 @@
+ //#define LOG_NDEBUG 0
+ 
+ #include <gui/Surface.h>
++#include <cutils/properties.h>
+ 
+ #include <condition_variable>
+ #include <deque>
+@@ -444,6 +445,23 @@ int Surface::hook_dequeueBuffer_DEPRECATED(ANativeWindow* window,
+     ANativeWindowBuffer* buf;
+     int fenceFd = -1;
+     int result = c->dequeueBuffer(&buf, &fenceFd);
++    // T110 legacy dequeue retry: the stock EGL worker can queue after swap
++    // returns. Match the working Nougat contract, scoped to this device and
++    // this deprecated callback. Preserve the normal fence/cancel path below.
++    if (result == INVALID_OPERATION && property_get_bool("ro.t110.legacy_gpu", false)) {
++        const nsecs_t deadline = systemTime(SYSTEM_TIME_MONOTONIC) + ms2ns(100);
++        do {
++            {
++                Mutex::Autolock lock(c->mMutex);
++                const nsecs_t remaining = deadline - systemTime(SYSTEM_TIME_MONOTONIC);
++                if (remaining <= 0) break;
++                c->mQueueBufferCondition.waitRelative(c->mMutex,
++                        remaining < ms2ns(5) ? remaining : ms2ns(5));
++            }
++            result = c->dequeueBuffer(&buf, &fenceFd);
++        } while (result == INVALID_OPERATION &&
++                systemTime(SYSTEM_TIME_MONOTONIC) < deadline);
++    }
+     if (result != OK) {
+         return result;
+     }

@@ -1,0 +1,33 @@
+diff --git a/graphics/composer/2.1/default/T110Framebuffer.cpp b/graphics/composer/2.1/default/T110Framebuffer.cpp
+index 6a3ffad..0ef4991 100644
+--- a/graphics/composer/2.1/default/T110Framebuffer.cpp
++++ b/graphics/composer/2.1/default/T110Framebuffer.cpp
+@@ -122,6 +122,28 @@ int enableScreen(framebuffer_device_t* fb, int enable) {
+         return error;
+     }
+     d->blanked = !enable;
++    if (enable) {
++        // Suspend may reset the controller's scanned page. Do not select the
++        // next back page using pre-suspend yoffset; refresh the kernel state.
++        fb_var_screeninfo current{};
++        fb_fix_screeninfo fixed{};
++        if (ioctl(d->fd, FBIOGET_VSCREENINFO, &current) < 0 ||
++                ioctl(d->fd, FBIOGET_FSCREENINFO, &fixed) < 0) {
++            return -errno;
++        }
++        // The mapping and cached rotation buffer were sized at open. Reject
++        // a changed layout rather than copying through obsolete dimensions.
++        if (!t110::validFramebuffer(fixed, current) ||
++                fixed.line_length != d->fixed.line_length ||
++                fixed.smem_len != d->fixed.smem_len ||
++                fixed.smem_start != d->fixed.smem_start ||
++                current.yoffset % current.yres ||
++                uint64_t(current.yoffset) + current.yres > current.yres_virtual ||
++                current.xoffset != 0) {
++            return -EINVAL;
++        }
++        d->mode = current;
++    }
+     ALOGI("T110 framebuffer power: %s", enable ? "on" : "off");
+     return 0;
+ }
