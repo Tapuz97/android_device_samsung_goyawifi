@@ -25,7 +25,7 @@ result=dict(status='HARDWARE_QUALIFICATION_FAILED_FUNCTIONAL_GAPS_REMAIN',full_c
     touch=dict(status='PASS_TESTED_FLOW',owner_confirmed_start_and_setup=True,recorded_contacts=contacts),
     speaker=dict(status='FAIL_PLAYBACK_INITIALIZATION',audible_playback_confirmed=False,
                  media_player_error=-19,primary_output_available=False,missing_dynamic_audio_path_modules=6),
-    startup=dict(status='FAIL_ANRS_BEFORE_RECOVERY',system_and_systemui_anrs=True),
+    startup=dict(status='FAIL_STARTUP_ANRS_THEN_SETUP_COMPLETED',system_and_systemui_anrs=True),
     bluetooth=dict(status='FAIL_OBSERVED_HAL_CONTROLLER_TIMEOUT'),
     system_sha256=install['system_sha256'],boot_sha256=install['boot_sha256'],
     recovery_sha256=install['recovery_sha256'],recovery_unchanged=True,physical_system_written=False,
@@ -40,7 +40,8 @@ for dest in (LOCAL,WORK,PUBLIC):write(dest/'hardware-test-verification.json',jso
 shutil.copy2(TOOLS/'HARDWARE-TEST-1.md',PUBLIC/'RESULTS.md')
 shutil.copy2(TOOLS/'HARDWARE-TOOLS-NOTES.md',PUBLIC/'TOOLS-NOTES.md')
 (PUBLIC/'prerequisites').mkdir(exist_ok=True)
-shutil.copy2(BASE/'scripts/recovery_transport.py',PUBLIC/'prerequisites/recovery_transport.py')
+transport=(BASE/'scripts/recovery_transport.py').read_text(encoding='utf-8')
+write(PUBLIC/'prerequisites/recovery_transport.py','\n'.join(line.rstrip() for line in transport.splitlines())+'\n')
 shutil.copy2(WORK/'audio-routing-gap.json',PUBLIC/'audio-routing-gap.json')
 names=('backup_tablet_test_data.py','install_complete_candidate.py','monitor_one_boot.py',
        'capture_boot_snapshot.py','record_touch_once.py','capture_audio_initialization.py',

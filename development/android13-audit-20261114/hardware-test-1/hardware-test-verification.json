@@ -25,7 +25,7 @@
     "missing_dynamic_audio_path_modules": 6
   },
   "startup": {
-    "status": "FAIL_ANRS_BEFORE_RECOVERY",
+    "status": "FAIL_STARTUP_ANRS_THEN_SETUP_COMPLETED",
     "system_and_systemui_anrs": true
   },
   "bluetooth": {
