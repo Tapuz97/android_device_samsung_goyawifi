@@ -69,7 +69,8 @@ aapt=WORK/'out/host/linux-x86/bin/aapt'
 resources={
     'priv-app/SystemUI/SystemUI.apk':['t110_qs_tile_background','t110_qs_active'],
     'priv-app/Settings/Settings.apk':['t110_search_settings','t110_settings_icon_background'],
-    'priv-app/WallpaperCropper/WallpaperCropper.apk':['lineage_current','lineage_current_small']}
+    'app/WallpaperPicker/WallpaperPicker.apk':['lineage_current','lineage_current_small'],
+    'priv-app/Trebuchet/Trebuchet.apk':['lineage_current','lineage_current_small']}
 for path,required in resources.items():
     result=subprocess.check_output([str(aapt),'dump','resources',str(OUT/'system'/path)],text=True)
     for name in required:assert name in result,(path,name)

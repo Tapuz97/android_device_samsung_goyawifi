@@ -699,6 +699,15 @@
          mDashboard = (FocusRecyclerView) view.findViewById(R.id.dashboard_container);
          mLayoutManager = new LinearLayoutManager(getContext());
          mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+--- a/packages/apps/Trebuchet/WallpaperPicker/res/values-nodpi/wallpapers.xml
++++ b/packages/apps/Trebuchet/WallpaperPicker/res/values-nodpi/wallpapers.xml
+@@ -17,5 +17,6 @@
+ 
+ <resources>
+     <string-array name="wallpapers" translatable="false">
++        <item>lineage_current</item>
+     </string-array>
+ </resources>
 --- a/packages/apps/Trebuchet/res/drawable/quantum_panel.xml
 +++ b/packages/apps/Trebuchet/res/drawable/quantum_panel.xml
 @@ -1,18 +1,5 @@

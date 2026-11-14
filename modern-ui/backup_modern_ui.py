@@ -51,6 +51,7 @@ for name in names:
 download_root=WORK/'online-download-check';download_root.mkdir(exist_ok=True)
 verified=[]
 with tempfile.TemporaryDirectory(prefix='candidate-',dir=download_root) as tmp:
+    assert Path(tmp).resolve().is_relative_to(download_root.resolve())
     for name in names:
         print('Verifying online readback: '+name,flush=True)
         run('gh','release','download',TAG,'--repo',REPO,'--pattern',name,'--dir',tmp,timeout=1800)

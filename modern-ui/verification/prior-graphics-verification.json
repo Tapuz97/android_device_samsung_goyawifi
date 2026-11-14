@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "scope": "Actual boot and system images; not hardware graphics certification",
+  "boot_sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2",
+  "restored": [
+    "absolute EGL driver paths",
+    "stock dynamic shader compiler",
+    "actual Nougat GPU node permissions and alias",
+    "EGL and gralloc process initialization",
+    "vsync permissions",
+    "early authenticated ADB",
+    "original USB serial"
+  ],
+  "driver_paths": [
+    {
+      "absolute_driver_path": "/system/lib/egl/libEGL_MRVL.so",
+      "canonical_target": "/system/vendor/lib/egl/libEGL_MRVL.so",
+      "sha256": "0152cddd578d837ae7cd235351ba458fe022d361a6bd99aa7aa7b691c3403716"
+    },
+    {
+      "absolute_driver_path": "/system/lib/egl/libGLESv1_CM_MRVL.so",
+      "canonical_target": "/system/vendor/lib/egl/libGLESv1_CM_MRVL.so",
+      "sha256": "6f922751317000710826deb32e5f6add541f78aad2dec1db67e2dde9ac9b79a8"
+    },
+    {
+      "absolute_driver_path": "/system/lib/egl/libGLESv2_MRVL.so",
+      "canonical_target": "/system/vendor/lib/egl/libGLESv2_MRVL.so",
+      "sha256": "e519f5fc0c7532779d9bbe119f204a305655070dc199c450edad3368453b929f"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ sleep/wake changes and existing LineageOS features remain the base.
 
 | Surface | Change | Hardware qualification |
 | --- | --- | --- |
-| Quick Settings | Large horizontal tiles; active/inactive colors; 2 portrait / 4 landscape columns | Pending complete-image build and device check |
+| Quick Settings | Large horizontal tiles; active/inactive colors; 2 portrait / 4 landscape columns | Device check pending |
 | Settings | Light surfaces, rounded cards, larger icon containers, native-search entry | Pending |
 | Notifications | Rounded card backgrounds and dark shade | Pending |
 | System menus | Rounded dialogs/popups, restyled native power action rows | Pending |
@@ -58,3 +58,18 @@ generated `apply.py` checks the complete baseline before writing any file.
 
 Google-enabled distribution and XDA publication remain gated on their separate
 qualification; this UI build is not a public release or a newer Android version.
+
+## Complete-image offline result
+
+The full ARM build and actual-image gates passed. The checked image includes both
+native wallpaper catalogs, the new Settings/SystemUI resources and all selected
+vendor dependencies. The compiled HWUI resolve-before-swap and legacy queue
+deadline checks passed. Filesystem verification passed after normalizing only the
+known unused inode-bitmap padding in the generated candidate copy.
+
+- Build identity: `T110_UI_20261114` (Android7.1.2/API25).
+- System bytes: `1594884096`, within the existing container size.
+- System SHA256: `b9f9266db419ed790a0d975eb237369b9e803fc3c4fe7405558033b4483231cb`.
+- Transfer gzip SHA256: `7605b778ec38156d13c0bbd8aa07f68740b0d4568bd14b855e79ba7545bcf385`.
+- The original boot image is reused without modification.
+- Physical screen, touch and menu acceptance remain pending installation.

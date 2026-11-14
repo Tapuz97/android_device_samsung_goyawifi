@@ -1,0 +1,1046 @@
+{
+  "status": "PASS",
+  "scope": "Actual final ext4 content matches installed final build; Android7 properties, critical platform/apps, all selected vendor inputs",
+  "files": [
+    {
+      "path": "app/Camera2/Camera2.apk",
+      "sha256": "f342af4df14d86a0c367701ca302dc66ef30156e973bb54277319b007fd5efa1",
+      "bytes": 2861062
+    },
+    {
+      "path": "app/Camera2/oat/arm/Camera2.odex",
+      "sha256": "cde02bad885a842b41baaece33c3139432f2425167e31b8d2d05f2a27e0ea901",
+      "bytes": 5400980
+    },
+    {
+      "path": "app/LatinIME/LatinIME.apk",
+      "sha256": "3aec2cae7036d0474b340e69b3f92aac36152720915ab28eb9cccb352d7a07e2",
+      "bytes": 49350998
+    },
+    {
+      "path": "app/LiveWallpapersPicker/LiveWallpapersPicker.apk",
+      "sha256": "dc3da2789dec17d87134da12fe8f91d19259a3359aa6f803fd483197ccacdb6d",
+      "bytes": 579796
+    },
+    {
+      "path": "bin/linker",
+      "sha256": "b4250941b45d9214fac165413f8689cef9c873842fbc6ed7e6fcd6fb8ca24cc7",
+      "bytes": 636904
+    },
+    {
+      "path": "bin/netd",
+      "sha256": "5c00498d6cd7979300a83300752bee0ca68462fdf540af04987e36b0cbc52c1c",
+      "bytes": 198480
+    },
+    {
+      "path": "bin/t110_stage",
+      "sha256": "a7508c458d525b5b9f138bf9eeccce7c4e4c8223701e52af9ee02ce93984fd87",
+      "bytes": 220136
+    },
+    {
+      "path": "bin/vold",
+      "sha256": "c8088f8e5c9163aed93e6d954962f1165aba93bb472c2878fc5fd30ba6ce5453",
+      "bytes": 541088
+    },
+    {
+      "path": "build.prop",
+      "sha256": "af2524943bbc91428101c6ff1a2034011d42f59883848b882824f91948df542f",
+      "bytes": 2999
+    },
+    {
+      "path": "etc/audio_policy.conf",
+      "sha256": "4caac38a6198c7a9c4e8b6b968059c62a6a421fd0305f835d354d1a4f243785d",
+      "bytes": 2036
+    },
+    {
+      "path": "etc/media_codecs.xml",
+      "sha256": "a9549c1eaff12f2a03fa8ed1a580c1e40c5bb23ee5e797f9dfef70cedd6c432e",
+      "bytes": 378
+    },
+    {
+      "path": "etc/media_codecs_google_audio.xml",
+      "sha256": "0def1dc598872fe1c9761345f18536b9a4bb7ab24f5a4905ebc012ec2559329e",
+      "bytes": 4572
+    },
+    {
+      "path": "etc/media_codecs_google_telephony.xml",
+      "sha256": "d0ebc3f9b6739d22f140e1a3acae6d92874736c89c53f82779e2e754032ed085",
+      "bytes": 973
+    },
+    {
+      "path": "etc/media_codecs_google_video.xml",
+      "sha256": "77297c7fe172f6f2ccb4c18f97853e0a61be55a39c34dc532efaa61e7b2d728a",
+      "bytes": 6112
+    },
+    {
+      "path": "etc/permissions/android.hardware.bluetooth_le.xml",
+      "sha256": "845f59a4e13fbdda3b48c30a3a0510db45a261af15f31d4925c939dc48d8e3e0",
+      "bytes": 830
+    },
+    {
+      "path": "etc/permissions/android.hardware.usb.accessory.xml",
+      "sha256": "67049dcdf068875bb6525966b854764c2c539965768fb02007ca9339c29ebf19",
+      "bytes": 975
+    },
+    {
+      "path": "framework/arm/boot-framework.art",
+      "sha256": "5b840ed92f71eb50c121fae70540bb41097c5e38704a5828367962cd7d67bd6a",
+      "bytes": 6115328
+    },
+    {
+      "path": "framework/arm/boot-framework.oat",
+      "sha256": "074fdb3527c1b930fb4d04c5903988ffdd381bd11ff8ba5128f567bdf9e4ab91",
+      "bytes": 35369592
+    },
+    {
+      "path": "lib/libEGL.so",
+      "sha256": "60f2cba1b022b49988308b2ac0b9c7efb164ac52b6a6de848fd43a2a4c35d21c",
+      "bytes": 108176
+    },
+    {
+      "path": "lib/libandroid_servers.so",
+      "sha256": "5ca22c73a9eacf3d2e6742f4618db0d951c50c98fb7ab2041e04ef674b854625",
+      "bytes": 170632
+    },
+    {
+      "path": "lib/libaudioflinger.so",
+      "sha256": "0685d4fb12473292ee50b7b749070c43a4edc7b40443f7f0e4ea581d66f4f22b",
+      "bytes": 337584
+    },
+    {
+      "path": "lib/libbinder.so",
+      "sha256": "e9ccd9d2aeea2cff05f38679f4821287a42110d19bf154d9ba3157a655fd1124",
+      "bytes": 374420
+    },
+    {
+      "path": "lib/libcamera_client.so",
+      "sha256": "f9d60786623614433cb50c5b28263ebb2c797a4f09f9c0cce31145df9024d73a",
+      "bytes": 243356
+    },
+    {
+      "path": "lib/libcameraservice.so",
+      "sha256": "5bfaee39499e7fd1a27c77e2bcb704d576cd96e331492cefe60b35cb70a5674f",
+      "bytes": 714448
+    },
+    {
+      "path": "lib/libcutils.so",
+      "sha256": "eee19f001a7901821ea17d3c730afbd60637a1c95bdef7c4684e754a4e6c8d52",
+      "bytes": 100412
+    },
+    {
+      "path": "lib/libgui.so",
+      "sha256": "9ab28cf26a4503670e3f4a458cca05249f82ae95b849f120dc7940a665096af7",
+      "bytes": 411468
+    },
+    {
+      "path": "lib/libhwui.so",
+      "sha256": "1e508b907e8b90064307cc5cc01d07b5f8b89b7e28bb3fd7fd8db70e91c0ad26",
+      "bytes": 518348
+    },
+    {
+      "path": "lib/libstagefright.so",
+      "sha256": "5dd892269c1f5e660665cab0ad6b76e6ec4008f9b48b6957e1e24fb737c8a07a",
+      "bytes": 1547448
+    },
+    {
+      "path": "lib/libsurfaceflinger.so",
+      "sha256": "4244337ff683c50c73dee0437861d7bedde1c4747a0387cb5991ecd186a6a1a9",
+      "bytes": 308900
+    },
+    {
+      "path": "lib/libui.so",
+      "sha256": "c1c7d5e4a89eae164ddc6172c521f6ed30d3f43eec3f383e98761083bec70dea",
+      "bytes": 91800
+    },
+    {
+      "path": "lib/libutils.so",
+      "sha256": "80f154a308ed658af8dc3efc6fc0f6ffbe16d2396c7994b52c38f281b4d696b3",
+      "bytes": 104096
+    },
+    {
+      "path": "priv-app/CMParts/CMParts.apk",
+      "sha256": "21138f5369e9241e919969c9b1b86b7be22290a9700ffc2fe40e7bdff76f83d8",
+      "bytes": 4614579
+    },
+    {
+      "path": "priv-app/Recorder/Recorder.apk",
+      "sha256": "e4108012d78763f46850d21d729e15adcef17ef941be51891211263fc5cd2bc0",
+      "bytes": 593300
+    },
+    {
+      "path": "priv-app/Recorder/oat/arm/Recorder.odex",
+      "sha256": "9e1c5dee551dbf6a2819938f976438d88136cecfc2f3b317427621476fdd4d28",
+      "bytes": 3151308
+    },
+    {
+      "path": "priv-app/Settings/Settings.apk",
+      "sha256": "20f1e96e6dcaa3549d4cb22c852d6968e18dcea6d9e5ec62410d685f48d90d9d",
+      "bytes": 28090222
+    },
+    {
+      "path": "priv-app/SystemUI/SystemUI.apk",
+      "sha256": "656196086409a703c35ef946fa3a1ca7328c0c39ce96c0cf49a8e93ca3ecbd1b",
+      "bytes": 10550788
+    },
+    {
+      "path": "priv-app/Trebuchet/Trebuchet.apk",
+      "sha256": "7ac6751dcdf6f5856af3a2f16afbcdc63fdf34ad8174dfc2688c6a9d3b24bbf7",
+      "bytes": 2246694
+    },
+    {
+      "path": "priv-app/WallpaperCropper/WallpaperCropper.apk",
+      "sha256": "2cf30307d614b041c97e8fe24c9d29c1b4d0457cab957801c1082e31f8e31064",
+      "bytes": 25085
+    },
+    {
+      "path": "usr/keylayout/gpio-keys.kl",
+      "sha256": "eceaf5da9faa89a24705b4c2c8938834a36fa0c67a31e2224f69e2cded2c4d75",
+      "bytes": 51
+    },
+    {
+      "path": "usr/keylayout/sec_touchscreen.kl",
+      "sha256": "356727baff5e728876549f1265ce002f76f82fca0dcc53e904634e584ce819f5",
+      "bytes": 32
+    },
+    {
+      "path": "usr/lib/alsa-lib/libasound_module_ctl_codec.so",
+      "sha256": "e9d7075b10d8063d8bb51f682ca194466c367f626b66dd58fccbcf0fc10a2cb5",
+      "bytes": 25796
+    },
+    {
+      "path": "usr/lib/alsa-lib/libasound_module_ctl_phone.so",
+      "sha256": "3be2f1d27d1a8daa914b446b353e207cc205bea77141b9d062ea5a6625dbe7fe",
+      "bytes": 17600
+    },
+    {
+      "path": "usr/lib/alsa-lib/libasound_module_pcm_phone.so",
+      "sha256": "39d5cd8bdca145763c09f5fcda4588aec23d83ab7f2e9ae5d6a6d673ccb8682b",
+      "bytes": 17632
+    },
+    {
+      "path": "usr/share/alsa/alsa.conf",
+      "sha256": "51781716c2a3f289d925fea4a508592a65ab9182b6e6434c643e5d0a5d4e590e",
+      "bytes": 8967
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/MaskInfo_v2.conf",
+      "sha256": "4bd7667c2c426e29104c0cb7d52059891bb5c74c1969d78d652b6c23426eaa68",
+      "bytes": 10641
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_1.yuv420p",
+      "sha256": "6365f00297f93586f810b09430798ea3fba7a4b36a680f560fb98a7f7e09eb41",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_2.yuv420p",
+      "sha256": "f88b5f7f72b2fbe5fbd0349a9a13ddcee2b7890398641b1e933a974434370916",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_3.yuv420p",
+      "sha256": "4424e6726b4c73a424c324a9856f0368e2c6865e3308520066ab7292db70fd35",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_4.yuv420p",
+      "sha256": "39a3a0aff9040b346e0249dfadff32cc964f78499a5a9e10bb2df640621f2c36",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_5.yuv420p",
+      "sha256": "dad1cad060865983930e949df1d3af9d44eff44a8ab602e9b496dfb2227942ea",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_6.yuv420p",
+      "sha256": "109c2e169f514079a31b7e406b8808f68c59a36ecdb7f324f3c5a1cc065d8d0a",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_7.yuv420p",
+      "sha256": "379ad44f27278a17cad0ba5bcf1da64c112540f05555c33d80110ec25c3c1a8a",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_8.yuv420p",
+      "sha256": "9f45998e86a125eeb80e259cdd059c3b0427e19b696f7948838606c64f8e12a9",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/eye/kidscam_v2_eye_9.yuv420p",
+      "sha256": "7be9ba3f2a4fc1eafc9a4ee0093d9fba652eb94ed2aba0c40b272dd0d24f7b20",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_1.yuv420p",
+      "sha256": "76073effbdc4dd4242bdbe58759289cce03d87ae174433044d2dd9c0ab82c3d9",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_2.yuv420p",
+      "sha256": "aa808ae69532f0539545123dcd544ccf646358f732d0ba6795bf38929c2d6951",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_3.yuv420p",
+      "sha256": "4afe8af4be01387017d0054b19535bf009b14b040e124f6583116d0212d5e99d",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_4.yuv420p",
+      "sha256": "878f4c548d663387f4fd58bcd7f2eda9e576b9cf067a509903e1eb032e1f271c",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_5.yuv420p",
+      "sha256": "d8050f489cce06ab144f45fd0e5514e7fbe83e625db8562654f2844de8c71e53",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_6.yuv420p",
+      "sha256": "b4444fd59209f2a158c0fdf83fe6702e960a7d35d9ee719ec5799437aef3686a",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_7.yuv420p",
+      "sha256": "fc7f126e484bb0b676c30f09277e3bbdba7703fbd3ab7e683b2b18d777239a4a",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_8.yuv420p",
+      "sha256": "cda894061898a17fc87ad02ccb956bfd306c5e1567b3e0a248c9dacb3076f408",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/hat/kidscam_v2_hat_9.yuv420p",
+      "sha256": "182d0c6a4d9ac1a9bb8547fd958168d11c4bae4620b0c8a3e6d5ae93d43ded5e",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_1.yuv420p",
+      "sha256": "a27708d94e1096d0c246a5fe1e02592c0691534ef94c2d794cd0f5079ac20a0b",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_2.yuv420p",
+      "sha256": "46e7f170b46ce8a8265d230cb6bf6e2336d848c77285215a071bef3fd3968ad8",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_3.yuv420p",
+      "sha256": "d8546037d1d751cba3d66214a68bea2152150686b6b20590b0ad4675c013ef24",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_4.yuv420p",
+      "sha256": "1c550183b796fb517c0313568b405764e69b75691786dac87397688211ec7456",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_5.yuv420p",
+      "sha256": "28495137511b844bc84727719de49dd65bd874401e82235d366f0883eecccdab",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_6.yuv420p",
+      "sha256": "bdf7a5a5a0dfb35c689a46dbdb63f087fe69874e87462d24701eb4265913619b",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/mouth/kidscam_v2_mouth_7.yuv420p",
+      "sha256": "8b24a22bb641c4f3617cf1b5ef256c2b95a8981bd16544a2e1225abe421fd15d",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_1.yuv420p",
+      "sha256": "f38595312e2c9ee29bc7755e2eb0fa2085bb411e0585a901f67d2a862c5c0e55",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_2.yuv420p",
+      "sha256": "8b1073886c5a448d39793836d392c7eef7bde7c4d1760f0d1c74f6af50e34e04",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_3.yuv420p",
+      "sha256": "0306414a840f7ef91fcced25a6754811bd66c7c980de124066c3ad6dee4cf30c",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_4.yuv420p",
+      "sha256": "132c0384a1f12a46eeba6cf272a7d7e191caebbbcef42b1399885077ea8f3bf3",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_5.yuv420p",
+      "sha256": "979b172756a66b3c9de5b47568563202be8a6d79204fa536bf8ca317e6a32a68",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_6.yuv420p",
+      "sha256": "959e02e1b384b6725f4cc0279cb56baa21be6a727727dc26e2fba8f6b9c2962c",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/nose/kidscam_v2_nose_7.yuv420p",
+      "sha256": "618cf06642b11a6aaaea02207f9e22d16772f24069b20c1acfd305b3ea02a00f",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_1.yuv420p",
+      "sha256": "df0995e481428a070718c9cb8191060fbfe6e6ab04c77a1e2b4a28ba5dc10980",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_2.yuv420p",
+      "sha256": "7152894265ea341b05384260db37d8610c170b580950d0a11c270f68f182bd3d",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_3.yuv420p",
+      "sha256": "0a25fe6e0f372651673bac5ec492c713af9c9f89eabbb3aef977746093c37d47",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_4.yuv420p",
+      "sha256": "16882c5a7d557760216b1d69c7d24b3ca20fe22211b703543e10bd987f25d094",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_5.yuv420p",
+      "sha256": "dfdb6b0dff668364f216430085ad9a834dc630f79f19432f4aac777fba1c6e6b",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_6.yuv420p",
+      "sha256": "7b9ea60c74684128aa81cdfa76515d9b23eea5da59d0881926862b31f2670dd2",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_7.yuv420p",
+      "sha256": "194c69dea12c0fd409f16a3d8f81b18661c5e78cff3651ac23845586dfc56753",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/ThemeShot/categories_v2/other/kidscam_v2_other_8.yuv420p",
+      "sha256": "fad036d9c7c5de3fbe5312441571fe93de3bffbcd0adab4c147ab0d8d794cea3",
+      "bytes": 900000
+    },
+    {
+      "path": "vendor/cameradata/datapattern_420sp.yuv",
+      "sha256": "6bcddf97428b5c3afa82047b92e85a8dedc485840ed1098d7403532fdf07799c",
+      "bytes": 460800
+    },
+    {
+      "path": "vendor/cameradata/datapattern_front_420sp.yuv",
+      "sha256": "f3481b9416d049115ec7f7cc5b9b01f5d35f075c7c2599cd96c7ab6045d64827",
+      "bytes": 259200
+    },
+    {
+      "path": "vendor/etc/asound.conf",
+      "sha256": "10a7c0ac21cefc24ca9667aeb606c9911ae07dee1fc530e794ee8db2a9946b94",
+      "bytes": 466
+    },
+    {
+      "path": "vendor/etc/audio/LVVEFS_Rx_Configuration.txt",
+      "sha256": "d8e1b5dce64f52347437e921ac3d6baa7e8c961834337f4c2fad9381565604c2",
+      "bytes": 926
+    },
+    {
+      "path": "vendor/etc/audio/LVVEFS_Tx_Configuration.txt",
+      "sha256": "53f5774762fe5ac44c0db69835c217e94341cc867778d716542da91c24b66552",
+      "bytes": 1116
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_BLUETOOTH_HEADSET.txt",
+      "sha256": "630727e8847da729527765edf975aedfdf6de82842a0a818a3220b07ddef67f3",
+      "bytes": 1756
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_EARPIECE_WIDEBAND.txt",
+      "sha256": "50df0a9ffcfad3a424ccd1689246f00ad9d27fb3b6e641c6d9b29bafbd4893d1",
+      "bytes": 1811
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_SECVOIP_BLUETOOTH_HEADSET.txt",
+      "sha256": "35b06f531ea06e977855600c693036cc5d47e9ae55ca4f2f6d960360c653e5e6",
+      "bytes": 1649
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_SECVOIP_EARPIECE_WIDEBAND.txt",
+      "sha256": "04b472fd384ba4c13f9979e7df54d35ff56216949f7284af283504ad1ceed996",
+      "bytes": 1766
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_SECVOIP_SPEAKER_WIDEBAND.txt",
+      "sha256": "084ed4b8d301ef6944622824c79f97a7de6191d936dc7951547934f65447d66c",
+      "bytes": 1791
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_SECVOIP_WIRED_HEADPHONE_WIDEBAND.txt",
+      "sha256": "6038b20bfb89f7226c01d40d368aa6ab5dca6ac38bb11426df6011199013c36a",
+      "bytes": 1704
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_SECVOIP_WIRED_HEADSET_WIDEBAND.txt",
+      "sha256": "e9d8c19188a502b8b3abb6102b500ccd7f6c580cc6c0d806f40568e348824fb1",
+      "bytes": 1675
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_SPEAKER_WIDEBAND.txt",
+      "sha256": "2f60d08716f658047b8b4a1d5ee166aa334c672b11a286ccc40a032ac9e9c7ae",
+      "bytes": 1748
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt",
+      "sha256": "11b1978c8a68cbc4139a6fc2cf90ab18931800dc7cf402c93cc04a1879891807",
+      "bytes": 1753
+    },
+    {
+      "path": "vendor/etc/audio/Rx_ControlParams_WIRED_HEADSET_WIDEBAND.txt",
+      "sha256": "4ce7b7050f54844f73629b96946f9741980970dabd7c631015052bf90fb452ed",
+      "bytes": 1753
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_BLUETOOTH_HEADSET.txt",
+      "sha256": "e2ce39d9f95bcdfa8b646b01deb2e47e24edb5cd1e002b5fd4e7d9dfac8779ef",
+      "bytes": 804
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_EARPIECE_WIDEBAND.txt",
+      "sha256": "438ea929cdb1591d406969d6d603d776c623fd096f89173d5172c1e0cc0285c2",
+      "bytes": 792
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_SECVOIP_BLUETOOTH_HEADSET.txt",
+      "sha256": "50a2bb74eef4ff3c527b19a89b09de70b66cfcb23266e1ddeaec525398ad7d7a",
+      "bytes": 726
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_SECVOIP_EARPIECE_WIDEBAND.txt",
+      "sha256": "6fb7f7abeb961b1e3bc1a10ae497ffa0c24363c55a140c0543520f75ad6c1b36",
+      "bytes": 752
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_SECVOIP_SPEAKER_WIDEBAND.txt",
+      "sha256": "00a9c91de175ce39f3c98a5ea13804da55bc61b3561d8d8274ee188c8beb7702",
+      "bytes": 793
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_SECVOIP_WIRED_HEADPHONE_WIDEBAND.txt",
+      "sha256": "baf9ef29cf9eed3baa1df1d5baf36e8022b8712ab3dcf11f3ddf9fe98d43c28b",
+      "bytes": 778
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_SECVOIP_WIRED_HEADSET_WIDEBAND.txt",
+      "sha256": "f1112a5fad6e27274936e3961349b5391a750214d194a81eb0b488daf1b9a848",
+      "bytes": 796
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_SPEAKER_WIDEBAND.txt",
+      "sha256": "8566bf855c144f1c483ac23a0f3aef17ac4988889924cd0a46f528f68243d79a",
+      "bytes": 775
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt",
+      "sha256": "ae647b25fdf1cb1de92c71db4580ecc5f015fbc93f1a56d53bff07c18904d6fb",
+      "bytes": 711
+    },
+    {
+      "path": "vendor/etc/audio/Tx_ControlParams_WIRED_HEADSET_WIDEBAND.txt",
+      "sha256": "750056e32cde3525dcb562ce458b489d45293940ddf2c6c44429dcb3c53c2ce4",
+      "bytes": 716
+    },
+    {
+      "path": "vendor/etc/audio_VR/LVVEFS_Rx_Configuration.txt",
+      "sha256": "c69c314c3cb2ab2221e6d3f8e041e0c2c6bd8b2562025794a56308f1a0152098",
+      "bytes": 597
+    },
+    {
+      "path": "vendor/etc/audio_VR/LVVEFS_Tx_Configuration.txt",
+      "sha256": "0d116654ef9417077388b96cd222f656e0739f754788706b391f8be1187d0109",
+      "bytes": 761
+    },
+    {
+      "path": "vendor/etc/audio_VR/Rx_ControlParams_VR_BLUETOOTH_HEADSET.txt",
+      "sha256": "9679b9db1ac2716b3980bc3a8a3f911e979d6bdf9ccfa3ae50002c76135fcd0c",
+      "bytes": 1653
+    },
+    {
+      "path": "vendor/etc/audio_VR/Rx_ControlParams_VR_EARPIECE_WIDEBAND.txt",
+      "sha256": "04c6cb2414559a6b2a6a8809bc5327cc2e473d3a83f76924f5c53cda45ad9b43",
+      "bytes": 1781
+    },
+    {
+      "path": "vendor/etc/audio_VR/Rx_ControlParams_VR_SPEAKER_WIDEBAND.txt",
+      "sha256": "b992261bbd65138d22554ce8982af9db16949251c45de622a25e6812455f81a6",
+      "bytes": 1768
+    },
+    {
+      "path": "vendor/etc/audio_VR/Rx_ControlParams_VR_WIRED_HEADPHONE_WIDEBAND.txt",
+      "sha256": "e91d8c8662d754656a25681a67212798de997ee35b60d8424429ecb767093a27",
+      "bytes": 1672
+    },
+    {
+      "path": "vendor/etc/audio_VR/Rx_ControlParams_VR_WIRED_HEADSET_WIDEBAND.txt",
+      "sha256": "5cf919f4650c428b08be404d53fd85ebf65ede258c4443e46136fa8b2bae8bb1",
+      "bytes": 1795
+    },
+    {
+      "path": "vendor/etc/audio_VR/Tx_ControlParams_VR_BLUETOOTH_HEADSET.txt",
+      "sha256": "b19dfcdac7a7fe26b72d25ebaeb5845c77279a9c9fca88f2b7d2d8267995a26a",
+      "bytes": 727
+    },
+    {
+      "path": "vendor/etc/audio_VR/Tx_ControlParams_VR_EARPIECE_WIDEBAND.txt",
+      "sha256": "f76667c966b30e459b8ea6b6fa996e66a9ab71671fe9aad25096f82fd99b7c3c",
+      "bytes": 752
+    },
+    {
+      "path": "vendor/etc/audio_VR/Tx_ControlParams_VR_SPEAKER_WIDEBAND.txt",
+      "sha256": "8e1eb4b8df8e5528133880663d91dd99a226c88b3bef4280c8a72e080cb1fa9e",
+      "bytes": 761
+    },
+    {
+      "path": "vendor/etc/audio_VR/Tx_ControlParams_VR_WIRED_HEADPHONE_WIDEBAND.txt",
+      "sha256": "cc8167ae4646d919b13ffa93f3030ed6d1c6d2198a16b43f7d0c2822af8281cd",
+      "bytes": 758
+    },
+    {
+      "path": "vendor/etc/audio_VR/Tx_ControlParams_VR_WIRED_HEADSET_WIDEBAND.txt",
+      "sha256": "461372560fdb0bdb2f323973d0f4788ed2af149d056c525dc7d9e11d52ef2bb0",
+      "bytes": 757
+    },
+    {
+      "path": "vendor/etc/audio_basic_element.xml",
+      "sha256": "afffa6bb403da6ff5b200aa6cf1ea02d25909d6cbf0ff930a8b6e6b41d789b56",
+      "bytes": 86808
+    },
+    {
+      "path": "vendor/etc/audio_coeff_config.xml",
+      "sha256": "0dd1537802789fe8d2bc188cbe5acd8697002aef9fcebf714d1823d15a5b4b05",
+      "bytes": 48148
+    },
+    {
+      "path": "vendor/etc/audio_gain_config.xml",
+      "sha256": "b1f5256f8691dfa2e50b0908cbb901b57b90d6fa2377bb9ddb5af4edc8b4ba40",
+      "bytes": 74238
+    },
+    {
+      "path": "vendor/etc/audio_path_config.xml",
+      "sha256": "72449bb3ff40d6337b12dfa0536f84ecf2186803387bd1763e74926747cf6971",
+      "bytes": 326818
+    },
+    {
+      "path": "vendor/etc/audio_swvol_calibration_def.xml",
+      "sha256": "04ce6d942fa4bfe01d36e17fd086d0daae02efc2112f771a1b7fab1989c79899",
+      "bytes": 71493
+    },
+    {
+      "path": "vendor/etc/audio_swvol_config.xml",
+      "sha256": "8bf5b513ed8c57aa190677c6819fb32b9ee841623d14f62517053a96e6783837",
+      "bytes": 50150
+    },
+    {
+      "path": "vendor/etc/audio_swvol_element.xml",
+      "sha256": "2dd6ba87f0304eb9f60fd7313bed75b9bb114e4f584bf623c028005c833c5443",
+      "bytes": 6984
+    },
+    {
+      "path": "vendor/etc/bluetooth/modules/mbt8xxx.ko",
+      "sha256": "9d66b073e388ceebad4dca45ecebcb271f626bf6b30b254c09ce3f51874ab45d",
+      "bytes": 73542
+    },
+    {
+      "path": "vendor/etc/camera_profiles.xml",
+      "sha256": "37702b3c7dcdb4b743563297b290a2a9d4c1c9fa1c70a2d69ce3b85709fa0cfd",
+      "bytes": 8011
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/SDIO8777_SDIO_SDIO.bin",
+      "sha256": "4c1d58ddcd3f532a9f83009f5e944832254f8d95d0490b2dac24d7d5a3a9c52b",
+      "bytes": 367892
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/WlanCalData_ext.conf",
+      "sha256": "fb0273fd2ac6d7b1d0e2e8931e9ce7ae1a8fe369e1ca9ed5782c242450ebff5d",
+      "bytes": 370
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/bt_cal_data.conf",
+      "sha256": "10cef00be5e70af410213ff801db65e657e7a75e3bcfa57566eb9cf964df4eac",
+      "bytes": 87
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/bt_init_cfg.conf",
+      "sha256": "2057603895d4bff68d16f6220e95fd33c576f04834cb9d083a56d5a45410b497",
+      "bytes": 85
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/cal_data.conf",
+      "sha256": "69a74b31b318171b60048fba265995b7b7a53c8247ead7ec33ff1775b719fa8f",
+      "bytes": 294
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/reg_alpha2",
+      "sha256": "4378e1a2f8358c2479f3a41d58cc8d69dde17fd5db40c03603034c2fa374e66c",
+      "bytes": 3
+    },
+    {
+      "path": "vendor/etc/firmware/mrvl/sd8777_uapsta.bin",
+      "sha256": "733d407381705beba72e6ba0d1739274cfd6272a84f9c441636ff39571f7d1d1",
+      "bytes": 453612
+    },
+    {
+      "path": "vendor/etc/sensor/sensord_cfg_axis",
+      "sha256": "052389d744a58bcbbc5d8e88d9ef4ff2e9ed9df419b67d8abe4486477e79ca54",
+      "bytes": 20
+    },
+    {
+      "path": "vendor/etc/wifi/modules/mlan.ko",
+      "sha256": "c387277b928f9c60c6e6c96f920a87027bd681ebf26c2714eebe3e6a2a72c5ef",
+      "bytes": 303008
+    },
+    {
+      "path": "vendor/etc/wifi/modules/sd8xxx.ko",
+      "sha256": "4f5a4601c7b913d51191a795af19d19bfe1e1306f7130b62281a526bb5a13a51",
+      "bytes": 404568
+    },
+    {
+      "path": "vendor/firmware/mrvl/cal_data.conf",
+      "sha256": "69a74b31b318171b60048fba265995b7b7a53c8247ead7ec33ff1775b719fa8f",
+      "bytes": 294
+    },
+    {
+      "path": "vendor/firmware/mrvl/sd8777_uapsta.bin",
+      "sha256": "733d407381705beba72e6ba0d1739274cfd6272a84f9c441636ff39571f7d1d1",
+      "bytes": 453612
+    },
+    {
+      "path": "vendor/lib/egl/libEGL_MRVL.so",
+      "sha256": "0152cddd578d837ae7cd235351ba458fe022d361a6bd99aa7aa7b691c3403716",
+      "bytes": 92680
+    },
+    {
+      "path": "vendor/lib/egl/libGLESv1_CM_MRVL.so",
+      "sha256": "6f922751317000710826deb32e5f6add541f78aad2dec1db67e2dde9ac9b79a8",
+      "bytes": 380100
+    },
+    {
+      "path": "vendor/lib/egl/libGLESv2_MRVL.so",
+      "sha256": "e519f5fc0c7532779d9bbe119f204a305655070dc199c450edad3368453b929f",
+      "bytes": 865328
+    },
+    {
+      "path": "vendor/lib/hw/audio.primary.mrvl.so",
+      "sha256": "94d26d7de3d686ffc2d1e6e88bdcb2d47e95d02758aa949cf871a306418bc831",
+      "bytes": 42256
+    },
+    {
+      "path": "vendor/lib/hw/audio_path.adda.mrvl.so",
+      "sha256": "4087dc22964bd097399b5087df2be5df5948002ab0476927450664c9b0017620",
+      "bytes": 21732
+    },
+    {
+      "path": "vendor/lib/hw/audio_path.fm.mrvl.so",
+      "sha256": "3c4f40f453b7ca7e11a88c62a0d587cfd1c7b2ef965c622675101169a4e4092b",
+      "bytes": 25888
+    },
+    {
+      "path": "vendor/lib/hw/audio_path.hifi.mrvl.so",
+      "sha256": "4c0dc6b0349f5ff6b3f916b33274022fc2217e775bf6bd2c0c31d65f90675209",
+      "bytes": 29984
+    },
+    {
+      "path": "vendor/lib/hw/audio_path.vc.mrvl.so",
+      "sha256": "48075e3c4dc70e9b3f2a530dc0b9da69663f5c1eb9f6981532d7d30069a9f2c2",
+      "bytes": 29988
+    },
+    {
+      "path": "vendor/lib/hw/audio_path.voip.mrvl.so",
+      "sha256": "131ae5a1ab3cd65d2279d21ab491f09ffb49d500966c12b182ba37aa3b98a3fa",
+      "bytes": 29984
+    },
+    {
+      "path": "vendor/lib/hw/audio_path.vt.mrvl.so",
+      "sha256": "e1ad4def3cb43bf6ff3540e83b92b61b18b60d3dd581c25fa07b6b4f69ffe754",
+      "bytes": 29984
+    },
+    {
+      "path": "vendor/lib/hw/camera.mrvl.so",
+      "sha256": "9a34b757ea0c5a1cd6e9d18c3fcd425890fefc4d3449aeca97bf4a4e21f41d7d",
+      "bytes": 345588
+    },
+    {
+      "path": "vendor/lib/hw/gralloc.mrvl.so",
+      "sha256": "da8e8887f877d5de012500cd390127742a68fb8b3b53d39b4560712f0c393c58",
+      "bytes": 22000
+    },
+    {
+      "path": "vendor/lib/hw/hwcomposer.mrvl.so",
+      "sha256": "66b02de15b357fb5127846f89288f81aebf5b93701e3d7c999b60922190f1f6f",
+      "bytes": 13536
+    },
+    {
+      "path": "vendor/lib/hw/power.mrvl.so",
+      "sha256": "8f240ab94296a35e738d94bebb50d106d46abb8d23c797d07ec932d72a70c1b0",
+      "bytes": 9500
+    },
+    {
+      "path": "vendor/lib/hw/sensors.mrvl.so",
+      "sha256": "1854fa1d126139e96f35fb5803f78dce2c167b0614f00b82ec4c5c8500fd538a",
+      "bytes": 13600
+    },
+    {
+      "path": "vendor/lib/libGAL.so",
+      "sha256": "62bc5883051ec51e57578b6300eaafd1aaeb38f8dcd1b5c11075bae51e24c66d",
+      "bytes": 1133688
+    },
+    {
+      "path": "vendor/lib/libGLESv2SC.so",
+      "sha256": "ad6e492a98834b34079eb32024fc70e77b8df543b5118e762a4fe8d96c64706f",
+      "bytes": 527012
+    },
+    {
+      "path": "vendor/lib/libHWComposerGC.so",
+      "sha256": "9f18a17b0501e30eadfcdf3569b6709cadbe01ee5805357006c571460fc60b7f",
+      "bytes": 42080
+    },
+    {
+      "path": "vendor/lib/libMarvellWireless.so",
+      "sha256": "59ae5211c35dcbbe358c3bbaa76cace354597270d19dd1d41d891bea871f8ff5",
+      "bytes": 5108
+    },
+    {
+      "path": "vendor/lib/lib_SamsungRec_V03011b.so",
+      "sha256": "004668f5971e6987607f3e2052d676b41763557f3e549cb7d0bf812cf18e79d3",
+      "bytes": 82933
+    },
+    {
+      "path": "vendor/lib/lib_Samsung_SB_AM_for_ICS_v04004.so",
+      "sha256": "aaa9c6bab03b0545c3af86b17eb038ec9204f209045a837b28852d1fe8cf9448",
+      "bytes": 47703
+    },
+    {
+      "path": "vendor/lib/libacm.so",
+      "sha256": "562c4165abfec1aa61290bd6673501550986c39b5d77d967e5de384d26e0cf1d",
+      "bytes": 38452
+    },
+    {
+      "path": "vendor/lib/libacoustic.so",
+      "sha256": "6b0aefb2c37074099821c8241f2dcc1331a653b18dc15c7a624cb2f1024987d1",
+      "bytes": 13392
+    },
+    {
+      "path": "vendor/lib/libasound.so",
+      "sha256": "d16ec5e947ead4de212ce75f62be2be4fb7b9061da5cefff98d0c5dbf1174baa",
+      "bytes": 542032
+    },
+    {
+      "path": "vendor/lib/libaudiodebugtool.so",
+      "sha256": "3a3b8ebe4fde60015621433f02b1695fb458f3449d0050682be4647814d5d229",
+      "bytes": 13460
+    },
+    {
+      "path": "vendor/lib/libcameraengine.so",
+      "sha256": "9d6fd0ac4110ce41b9f0d1c4c0c157d7768e437c4c659e339294df775630c29f",
+      "bytes": 293792
+    },
+    {
+      "path": "vendor/lib/libcoda7542.so",
+      "sha256": "695d774530202e02a969c059b946f872a5558f004b601c1d7ba879f1d1195480",
+      "bytes": 13344
+    },
+    {
+      "path": "vendor/lib/libcoda7542hal.so",
+      "sha256": "f4b3793ae4d7eba8e372dbfab32401547d6a5cecf6cd4a0afb51768b2aa6fed9",
+      "bytes": 353288
+    },
+    {
+      "path": "vendor/lib/libcodeccoda7542enc.so",
+      "sha256": "d68c69f35f3ca7ecbc0662fb4f969898611886f06ba946744460f434460ed64b",
+      "bytes": 70664
+    },
+    {
+      "path": "vendor/lib/libcodecjpegdec.so",
+      "sha256": "a7c7d3777a6ad9ebf320473d33b3df7f11169c382d65822503e4d8dbf61fb110",
+      "bytes": 50280
+    },
+    {
+      "path": "vendor/lib/libcodecjpegenc.so",
+      "sha256": "38df77fe860f6a12cf3fc5f1bf1c718af355ac10244f64d72689f2d1bcbee6d3",
+      "bytes": 78876
+    },
+    {
+      "path": "vendor/lib/libgcu.so",
+      "sha256": "c4993062005773c19d43a04d41ba8a3d422deefd439ab9b0c8a56114c2311db3",
+      "bytes": 79148
+    },
+    {
+      "path": "vendor/lib/libgpucsc.so",
+      "sha256": "af12d7b9163791ac0f3700cd99b5bb65f7ed77c47b375e7a4dabc5ee98355a8e",
+      "bytes": 13400
+    },
+    {
+      "path": "vendor/lib/libgputex.so",
+      "sha256": "c0eb71f32e461b2a2232b253144b5f6c75a52075f8b5cea7a29c2dfc87c2088f",
+      "bytes": 390248
+    },
+    {
+      "path": "vendor/lib/libionhelper.so",
+      "sha256": "8e9e9c6fe4fc1acc291264ba269de963c14cb24be6df411cda11fa0bd789f048",
+      "bytes": 5108
+    },
+    {
+      "path": "vendor/lib/libippsp.so",
+      "sha256": "cb20a8730e4ed8ca0f177f648cba53bce011200f95bd9c216924bca9a832463e",
+      "bytes": 136972
+    },
+    {
+      "path": "vendor/lib/libippvp.so",
+      "sha256": "aef614e654f83b1ee094b775ebb6984093edc2e3b229aa39eda950106bf43648",
+      "bytes": 58512
+    },
+    {
+      "path": "vendor/lib/libmiscgen.so",
+      "sha256": "c36235603a6b60bee0c7e4fd6cabaf1266e3997f967797b95d4cea7f8552f735",
+      "bytes": 17492
+    },
+    {
+      "path": "vendor/lib/libphycontmem.so",
+      "sha256": "4632ae076e9f8a2f67f79af02922588cb87ea70db20cdb373519896fba425eb5",
+      "bytes": 5104
+    },
+    {
+      "path": "vendor/lib/libsamsungRecord.so",
+      "sha256": "e713c4da4b02d99dc5c0e2f7577b8c4b781f36b2cdd1301e8a7e6885ef8d11b2",
+      "bytes": 5156
+    },
+    {
+      "path": "vendor/lib/libsamsungSoundbooster.so",
+      "sha256": "69398c0dce2f13772337875936835bf7c522eb63c5e71ca952ef65d62019d18e",
+      "bytes": 9252
+    },
+    {
+      "path": "vendor/lib/libsecnativefeature.so",
+      "sha256": "54b35e574e60fe44fb44d3331ee6b16aa4bb24bbab513ee1df8b5e38e2515ce4",
+      "bytes": 13396
+    },
+    {
+      "path": "vendor/lib/libsocketsvr.so",
+      "sha256": "6af10375598d3a8e48e460586ced0e51b7fa6f26265de0febe9255bca311a162",
+      "bytes": 5108
+    },
+    {
+      "path": "vendor/lib/libstlport.so",
+      "sha256": "5d838f72c6d5f9dbc6b4d881d5ca845d58f89f882ce0586b0b35c5d5fb71f127",
+      "bytes": 222524
+    },
+    {
+      "path": "vendor/lib/modules/galcore.ko",
+      "sha256": "0d93682f6a54f51aabfd7c91ab77af0b26c61c86aa8e8519c487c70d7f5c3900",
+      "bytes": 2674971
+    },
+    {
+      "path": "vendor/usr/lib/alsa-lib/libasound_module_ctl_codec.so",
+      "sha256": "e9d7075b10d8063d8bb51f682ca194466c367f626b66dd58fccbcf0fc10a2cb5",
+      "bytes": 25796
+    },
+    {
+      "path": "vendor/usr/lib/alsa-lib/libasound_module_ctl_phone.so",
+      "sha256": "3be2f1d27d1a8daa914b446b353e207cc205bea77141b9d062ea5a6625dbe7fe",
+      "bytes": 17600
+    },
+    {
+      "path": "vendor/usr/lib/alsa-lib/libasound_module_pcm_phone.so",
+      "sha256": "39d5cd8bdca145763c09f5fcda4588aec23d83ab7f2e9ae5d6a6d673ccb8682b",
+      "bytes": 17632
+    },
+    {
+      "path": "vendor/usr/share/alsa/alsa.conf",
+      "sha256": "51781716c2a3f289d925fea4a508592a65ab9182b6e6434c643e5d0a5d4e590e",
+      "bytes": 8967
+    },
+    {
+      "path": "vendor/usr/share/alsa/cards/aliases.conf",
+      "sha256": "48477c92655f2e862785d9c4a8fd49ed1001cce6e9c58c0782a4a9912ffc549d",
+      "bytes": 1322
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/centor_lfe.conf",
+      "sha256": "e0f1d7c2b3bdf6acf3736b008824bcd274c33998072b3a1a0c74426753e12cc1",
+      "bytes": 805
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/default.conf",
+      "sha256": "ec4e9a2f87b3f68002b98d52ba978f001d8d4ef4abd2af27a9b3ad16f4fc4f6d",
+      "bytes": 762
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/dmix.conf",
+      "sha256": "d2e881bc963c6ead403566525d89c173758db2feb39f11130a0f27084953fdae",
+      "bytes": 1517
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/dpl.conf",
+      "sha256": "ccec7c194270433c2dcdf3622b2ef25e3197020da800662c6111ff8b8638f30b",
+      "bytes": 645
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/dsnoop.conf",
+      "sha256": "bb90aced45e5007573b75bca2617d082c998bed17d350a1aaa6a7d14b16b09f7",
+      "bytes": 1532
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/front.conf",
+      "sha256": "f89b6abc45ddf345cba76120a2c4d95078a7fa37a960ce163445a71b23d594bd",
+      "bytes": 752
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/iec958.conf",
+      "sha256": "7bc676caeacf1e4e64b7d5c47ada8e7a1ee2ae61b973aa7b36821244e3b03da3",
+      "bytes": 1213
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/modem.conf",
+      "sha256": "c9ceedecf7a20b212c7ab641a3bf3f03a2b8a8720cb40c0547458e0f5f4024c5",
+      "bytes": 1314
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/rear.conf",
+      "sha256": "d4303cffe70f686507966660719f605049e2a8fbb38ed3773614da3fce026802",
+      "bytes": 744
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/side.conf",
+      "sha256": "caf5ac243333775f9a56df77d1e4c0b47f8ec09e75a1b2f81207809b322a3d61",
+      "bytes": 744
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/surround40.conf",
+      "sha256": "b9225ddc8b8c4fd904719b0620474553f78d225b4273e08a3449f7cff155be35",
+      "bytes": 877
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/surround41.conf",
+      "sha256": "0d1ba5e6358e1ab03db4583e0396665dc00b7267a4d267fe9fd739131b2f8bdf",
+      "bytes": 992
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/surround50.conf",
+      "sha256": "87e96a8046301ace9f2cd352a0941756104d73de499c35f5fce1e381e6e134f1",
+      "bytes": 992
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/surround51.conf",
+      "sha256": "567c4823c5747bb48baf81f9b95530267779505f1b232cbec0fa67884db51767",
+      "bytes": 930
+    },
+    {
+      "path": "vendor/usr/share/alsa/pcm/surround71.conf",
+      "sha256": "e44b72c02867d8ddb13f32343e4d785b1f5f3e23b4b38fea3e10c55dedfdcf39",
+      "bytes": 978
+    }
+  ]
+}

@@ -96,8 +96,23 @@ for qualifier,name in [('drawable-sw720dp-nodpi','lineage_current.png'),('drawab
     files[path]['sha256']=hashlib.sha256(data).hexdigest()
     index.write_text(json.dumps(files,indent=2)+'\n')
     assets.append({'source':url,'file':path,'sha256':files[path]['sha256']})
+    # Trebuchet has its own native picker and an initially empty local catalog.
+    # WallpaperCropper is only the generic crop activity, not that catalog.
+    local_path=LAUNCH+'WallpaperPicker/res/drawable-nodpi/'+name
+    local_target=SRC/local_path
+    if local_path not in files:
+        assert not local_target.exists()
+        files[local_path]={'before_sha256':None}
+    local_target.parent.mkdir(parents=True,exist_ok=True)
+    local_target.write_bytes(data)
+    files[local_path]['sha256']=hashlib.sha256(data).hexdigest()
+    index.write_text(json.dumps(files,indent=2)+'\n')
+    assets.append({'source':url,'file':local_path,'sha256':files[local_path]['sha256']})
 edit(PICK+'res/values-nodpi/wallpapers.xml','        <item>arc</item>',
      '        <item>lineage_current</item>\n        <item>arc</item>')
+edit(LAUNCH+'WallpaperPicker/res/values-nodpi/wallpapers.xml',
+     '    <string-array name="wallpapers" translatable="false">\n    </string-array>',
+     '    <string-array name="wallpapers" translatable="false">\n        <item>lineage_current</item>\n    </string-array>')
 (reference/'upstream.json').write_text(json.dumps({
     'frameworks_base':{'branch':'lineage-24.0','commit':'4b252a1f5f128f24ea29b03457e8f903a6f19740'},
     'settings':{'branch':'lineage-24.0','commit':'31b1a9f1cab9638bc6af9f4e6412fbf3b3a7947a'},

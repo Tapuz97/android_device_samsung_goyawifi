@@ -206,5 +206,17 @@
   "frameworks/base/packages/SystemUI/res/values-sw600dp-land/t110_modern.xml": {
     "before_sha256": null,
     "sha256": "5b83c376ccb73704e774973274bdd3faa96c566de952a5f990797236449dee71"
+  },
+  "packages/apps/Trebuchet/WallpaperPicker/res/drawable-nodpi/lineage_current.png": {
+    "before_sha256": null,
+    "sha256": "ae3e5e7754300922dd499e969cf2fa892b2f0a429502ccf750289338cc18374d"
+  },
+  "packages/apps/Trebuchet/WallpaperPicker/res/drawable-nodpi/lineage_current_small.png": {
+    "before_sha256": null,
+    "sha256": "ac07c6734129c66c8773a7e55c83440deb08f45377db6e0fc84d9d444fa30d40"
+  },
+  "packages/apps/Trebuchet/WallpaperPicker/res/values-nodpi/wallpapers.xml": {
+    "before_sha256": "919580aa5534847d60931da266ccb04ed560b4ec0a7b6fdb8227a192230b1f91",
+    "sha256": "fac62df0bdb3b1ecdde1096601136891bbe5f918a4a57d45c49b11b67a95aad8"
   }
 }
