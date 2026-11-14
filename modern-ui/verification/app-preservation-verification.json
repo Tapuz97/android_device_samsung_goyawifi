@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "scope": "Built-in app directory sets in original working and new actual ext4 images",
+  "directories": [
+    {
+      "path": "app",
+      "old_count": 35,
+      "new_count": 35,
+      "missing": [],
+      "added": []
+    },
+    {
+      "path": "priv-app",
+      "old_count": 44,
+      "new_count": 44,
+      "missing": [],
+      "added": []
+    }
+  ]
+}

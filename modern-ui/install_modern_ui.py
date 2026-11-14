@@ -44,15 +44,21 @@ grep -q '^/dev/block/mmcblk0p16 /data ext4 ' /proc/mounts
 assert remote_hash('/data/local/tmp/t110-lineage14-system.raw',timeout=900)=='01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea'
 say('Working boot/recovery/system readbacks match. Backing up the retained14.1 data privately.')
 backup=DEST/'pre-ui-userdata-PRIVATE.tar.gz'
-with backup.open('wb') as output:
-    result=subprocess.run([r'C:\Users\Gal\AppData\Local\Android\Sdk\platform-tools\adb.exe',
-        '-s','3004523270272200','exec-out','/sbin/busybox','tar','-C','/data/local/tmp',
-        '-czf','-','t110-lineage14-data'],stdout=output,stderr=subprocess.PIPE,timeout=900)
-assert result.returncode==0,result.stderr.decode(errors='replace')[-500:]
+remote_backup='/data/local/tmp/t110-pre-ui-userdata.PRIVATE.tar.gz'
+# This old recovery adbd does not implement exec-out. Use its verified shell
+# transport to create a file, then the binary-safe ADB sync/pull protocol.
+shell('''[ ! -e /data/local/tmp/t110-pre-ui-userdata.PRIVATE.tar.gz ]
+/sbin/busybox tar -C /data/local/tmp -czf /data/local/tmp/t110-pre-ui-userdata.PRIVATE.tar.gz t110-lineage14-data
+sync
+''',timeout=1200)
+backup_sha=remote_hash(remote_backup,timeout=900)
+adb('pull',remote_backup,backup,timeout=1200)
+assert digest(backup)==backup_sha
 with tarfile.open(backup,'r:gz') as archive:
     members=archive.getmembers()
     assert any(member.name=='t110-lineage14-data/system/users/0.xml' for member in members)
     assert all(member.name=='t110-lineage14-data' or member.name.startswith('t110-lineage14-data/') for member in members)
+shell('rm /data/local/tmp/t110-pre-ui-userdata.PRIVATE.tar.gz\nsync')
 free=int(adb('shell','/sbin/busybox df -Pk /data').splitlines()[-1].split()[3])*1024
 assert free>entries['system.raw.img']['bytes']+entries['system.raw.img.gz']['bytes']+128*1024*1024,free
 incoming='/data/local/tmp/t110-modern-ui-system.gz'

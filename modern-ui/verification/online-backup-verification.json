@@ -1,0 +1,26 @@
+{
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "release_id": "RE_kwDOVoq2pc4ajv5n",
+  "tag": "t110-lineage14-modern-ui-20261114",
+  "source_commit": "8e20fcd25eb8c4424b899cb8630535dfc4ad2ec1",
+  "draft": true,
+  "system_gzip_sha256": "7605b778ec38156d13c0bbd8aa07f68740b0d4568bd14b855e79ba7545bcf385",
+  "verified_assets": [
+    {
+      "name": "system.raw.img.gz",
+      "sha256": "7605b778ec38156d13c0bbd8aa07f68740b0d4568bd14b855e79ba7545bcf385"
+    },
+    {
+      "name": "boot.img",
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "ui-image-verification.json",
+      "sha256": "e508324ca304fb129864d0ba78e4b03982d40caf7f0ea530c4ff4af4910f1827"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "0b3caedfbff1bb8490c8dfe9e737446d4f5973c02e6a0968d9f05e39d8470730"
+    }
+  ]
+}
