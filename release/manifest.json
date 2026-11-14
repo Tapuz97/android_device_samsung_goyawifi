@@ -1,0 +1,25 @@
+{
+  "device": "SM-T110",
+  "codename": "goyawifi",
+  "android": "7.1.2",
+  "lineage": "14.1",
+  "source_commit": "ceebd0c9a6c3298765757522f88d75d0bd47b4eb",
+  "branch": "release/lineage14.1-t110-20261114",
+  "tag": "t110-lineage14.1-engineering-20261114",
+  "status": "ENGINEERING_DRAFT_NOT_GENERIC_FLASHABLE_ZIP",
+  "raw_system_bytes": 1594884096,
+  "raw_system_sha256": "01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea",
+  "gapps_included": false,
+  "files": [
+    {
+      "path": "payload/boot.img",
+      "bytes": 16777216,
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "path": "payload/system.raw.img.gz",
+      "bytes": 383232412,
+      "sha256": "fd362c7c072d6720f78f135e2a0640d720747f8eed8c9ee85ab7272eeda10125"
+    }
+  ]
+}

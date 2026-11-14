@@ -1,3 +1,11 @@
+# Release preparation — 2026-11-14
+
+See [the release guide](release/README.md) for the current installed image pair,
+post drafts, downloads and measured limitations. This branch preserves the exact
+tested source plus release materials. Older bring-up notes below are historical.
+
+---
+
 # Samsung Galaxy Tab 3 Lite SM-T110 - LineageOS 14.1 bring-up
 
 Android7.1.2 full tablet product. Hardware qualification follows the first complete

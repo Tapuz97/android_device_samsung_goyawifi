@@ -1,0 +1,2 @@
+93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2  payload/boot.img
+fd362c7c072d6720f78f135e2a0640d720747f8eed8c9ee85ab7272eeda10125  payload/system.raw.img.gz

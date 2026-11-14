@@ -1,0 +1,4 @@
+payload/
+third-party/
+*.zip
+__pycache__/
