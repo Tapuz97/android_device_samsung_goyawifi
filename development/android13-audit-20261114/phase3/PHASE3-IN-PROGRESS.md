@@ -35,12 +35,20 @@ prefix's system-internal type. Source and API33 definitions are synchronized.
 No new permissive domains or disabled neverallow/freeze tests are introduced.
 
 Full libhwui, libgui, linker, audio HIDL/service, adapter and SELinux build/test
-targets are running. Completion is NOT yet recorded. Logs live at
+targets passed in full-components-5.log (7799 actions, 15m19s). The compiled
+policy's clock, configuration and property permissions pass direct queries;
+the DSP execmod allow is restricted to hal_audio_default. The separate vendor
+ELF/configuration and full compositor build remains pending. Logs live at
 /root/t110-android13/logs/full-components*.log. The first driver attempt exposed
 standard envsetup's unset-TOP convention; the driver no longer imposes nounset
 on that shell API. A later build exposed duplicate libeffects packaging, fixed
 above. Compilation was resumed at eight jobs after observing available memory;
 completed outputs were retained. No failed or interrupted run counts as PASS.
+The vendor configuration build exposed inherited-product path expansion bugs.
+Generated copy rules now use explicit source-root paths rather than mutable
+LOCAL_PATH or a custom variable stripped by product import. The 16 packaged
+binary hashes remain identical across regeneration. All60 configuration copy
+targets and the primary policy/service files are requested explicitly.
 
 Working14.1 images, source, online backups and tablet remain untouched. No ADB
 command, boot, transfer or flash has been performed during this integration.

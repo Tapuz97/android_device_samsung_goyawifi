@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "binary": "/root/t110-android13/out/target/product/t110_bringup/system/vendor/etc/selinux/precompiled_sepolicy",
+  "checks": [
+    {
+      "source": "hal_audio_default",
+      "target": "t110_audio_textrel_file",
+      "klass": "file",
+      "required": [
+        "execmod",
+        "execute",
+        "map",
+        "open",
+        "read"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "proc_t110_audio_clock",
+      "klass": "file",
+      "required": [
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "init",
+      "target": "proc_t110_audio_clock",
+      "klass": "file",
+      "required": [
+        "open",
+        "read",
+        "setattr",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "audio_config_prop",
+      "klass": "file",
+      "required": [
+        "map",
+        "open",
+        "read"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "vendor_configs_file",
+      "klass": "file",
+      "required": [
+        "open",
+        "read"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "system_file",
+      "klass": "file",
+      "required": [
+        "open",
+        "read"
+      ],
+      "status": "PASS"
+    },
+    {
+      "check": "DSP execmod restricted to hal_audio_default",
+      "status": "PASS",
+      "sources": [
+        "hal_audio_default"
+      ]
+    }
+  ],
+  "hardware_tested": false
+}

@@ -33,13 +33,13 @@ base=(r/'device/development/android13-audit-20261114/implementation/audio/Androi
 copies=[]
 def copy(source,relative,target):
  p=audio/relative;p.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,p)
- copies.append('    $(LOCAL_PATH)/audio/'+relative+':'+target)
+ copies.append('    device/samsung/t110_bringup/audio/'+relative+':'+target)
 # The standard root reads only vendor data and explicitly named plugin libraries.
 conf=audio/'config';conf.mkdir(exist_ok=True)
 text=(stock/'usr/share/alsa/alsa.conf').read_text().replace('"/etc/asound.conf"','"/vendor/etc/alsa/asound.conf"')
 text+='\nctl_type.codec { lib "/vendor/lib/alsa-lib/libasound_module_ctl_codec.so" }\nctl_type.phone { lib "/vendor/lib/alsa-lib/libasound_module_ctl_phone.so" }\npcm_type.phone { lib "/vendor/lib/alsa-lib/libasound_module_pcm_phone.so" }\n'
 (conf/'alsa.conf').write_text(text)
-copies.append('    $(LOCAL_PATH)/audio/config/alsa.conf:$(TARGET_COPY_OUT_VENDOR)/etc/alsa/alsa.conf')
+copies.append('    device/samsung/t110_bringup/audio/config/alsa.conf:$(TARGET_COPY_OUT_VENDOR)/etc/alsa/alsa.conf')
 copy(stock/'etc/asound.conf','config/asound.conf','$(TARGET_COPY_OUT_VENDOR)/etc/alsa/asound.conf')
 # Data-only stock paths: no system/usr plugin libraries are installed.
 for source in sorted((stock/'usr/share/alsa').rglob('*')):
@@ -51,7 +51,7 @@ for folder in ('audio','audio_VR'):
  for source in sorted((stock/'etc'/folder).rglob('*')):
   if source.is_file():
    rel=str(source.relative_to(stock/'etc'));copy(source,'config/'+rel,'$(TARGET_COPY_OUT_SYSTEM)/etc/'+rel)
-(audio/'vendor-audio.mk').write_text('# Exact ANI7 dependencies; retain modern platform providers.\nPRODUCT_PACKAGES += '+' '.join(packages)+'\nPRODUCT_COPY_FILES += \\\n'+' \\\n'.join(copies)+'\n')
+(audio/'vendor-audio.mk').write_text('# Exact ANI7 dependencies; retain modern platform providers.\n# Explicit source-root paths survive product inheritance/import expansion.\nPRODUCT_PACKAGES += '+' '.join(packages)+'\nPRODUCT_COPY_FILES += \\\n'+' \\\n'.join(copies)+'\n')
 (r/'vendor-audio-packaging.json').write_text(json.dumps(records,indent=2)+'\n')
 (r/'vendor-audio-targets.json').write_text(json.dumps(packages,indent=2)+'\n')
 print('Packaged',len(records),'vendor audio binaries with ELF checks enabled,',len(copies),'configuration/data files.')

@@ -16,7 +16,7 @@ from pathlib import Path
 base = Path('/root/t110-android13/out/target/product/t110_bringup')
 mk = Path('device/samsung/t110_bringup/audio/vendor-audio.mk').read_text()
 for line in mk.splitlines():
-    if '$(LOCAL_PATH)/audio/config/' in line:
+    if 'device/samsung/t110_bringup/audio/config/' in line:
         dest = line.strip().rstrip('\\').strip().split(':', 1)[1]
         dest = dest.replace('$(TARGET_COPY_OUT_VENDOR)', 'system/vendor')
         dest = dest.replace('$(TARGET_COPY_OUT_SYSTEM)', 'system')
@@ -25,6 +25,13 @@ for line in mk.splitlines():
 PY
 )
 m -j8 "${audio_modules[@]}" "${audio_config_targets[@]}" \
+    "$product_out/system/vendor/etc/audio_policy_configuration.xml" \
+    "$product_out/system/vendor/etc/primary_audio_policy_configuration.xml" \
+    "$product_out/system/vendor/etc/r_submix_audio_policy_configuration.xml" \
+    "$product_out/system/vendor/etc/audio_policy_volumes.xml" \
+    "$product_out/system/vendor/etc/default_volume_tables.xml" \
+    "$product_out/system/vendor/etc/surround_sound_configuration_5_0.xml" \
+    "$product_out/system/vendor/etc/init/init.t110.audio.rc" \
     "$product_out/system/bin/surfaceflinger" \
     "$product_out/system/vendor/bin/hw/android.hardware.graphics.composer@2.1-service" \
     android.hardware.graphics.allocator@2.0-impl android.hardware.graphics.mapper@2.0-impl

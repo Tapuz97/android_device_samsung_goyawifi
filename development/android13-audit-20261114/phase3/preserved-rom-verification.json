@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "source": "ceebd0c9a6c3298765757522f88d75d0bd47b4eb",
+  "source_clean": true,
+  "images": [
+    {
+      "path": "/root/t110-lineage14/artifacts/lineage14-first-build/boot.img",
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "path": "/root/t110-lineage14/artifacts/lineage14-first-build/system.raw.img",
+      "sha256": "01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea"
+    },
+    {
+      "path": "/root/t110-lineage14/artifacts/media-suspend-parent/boot.img",
+      "sha256": "55df8314699da4ae5b1736100bb798029d023aaf38a4202efb811b6725d8beaf"
+    },
+    {
+      "path": "/root/t110-lineage14/artifacts/media-suspend-parent/system.raw.img",
+      "sha256": "37896dd65fac195e3d7c9291f0ee411a52ae6ab2011ac61eb3114d687e9bd00a"
+    }
+  ]
+}

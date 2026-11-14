@@ -23,8 +23,10 @@ for p in (device/'audio').iterdir():
 shutil.copy2(audit/'vendor-audio-packaging.json',out/'vendor-audio-inputs.json')
 shutil.copy2(audit/'audio-load-probe.json',out/'loader-diagnostic.json')
 tools=Path('/mnt/c/Users/Gal/Documents/ChatGPT/Electronic Repair/SM-T110/android13-audit')
-for name in ('restore_full_android13.py','integrate_full_source.py','package_vendor_audio.py','prepare_audio_loader_root.py','run_audio_load_probe.py','AudioLoadProbe.c','build_full_components.sh','export_phase3_source.py'):
+for name in ('restore_full_android13.py','integrate_full_source.py','package_vendor_audio.py','prepare_audio_loader_root.py','run_audio_load_probe.py','AudioLoadProbe.c','build_full_components.sh','build_vendor_audio.sh','check_textrel_scope.py','check_audio_policy.py','verify_full_components.py','verify_preserved_roms.py','backup_full_components.py','export_phase3_source.py'):
  shutil.copy2(tools/name,out/name)
+for name in ('audio-loader-closure.json','compiled-audio-policy.json','full-build-verification.json','preserved-rom-verification.json'):
+ if (audit/name).is_file():shutil.copy2(audit/name,out/name)
 (out/'RESTORE-NOTES.md').write_text('''# Full build integration checkpoint
 
 The five complete-project-deltas replace the corresponding original capsule

@@ -1,0 +1,169 @@
+{
+  "libraries": {
+    "audio.primary.mrvl.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/hw/audio.primary.mrvl.so"
+    },
+    "libasound_module_ctl_codec.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/alsa-lib/libasound_module_ctl_codec.so"
+    },
+    "libasound_module_ctl_phone.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/alsa-lib/libasound_module_ctl_phone.so"
+    },
+    "libasound_module_pcm_phone.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/alsa-lib/libasound_module_pcm_phone.so"
+    },
+    "libcrypto.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libcrypto.so"
+    },
+    "libdl_android.so": {
+      "source": "preserved Android13 image",
+      "path": "system/apex/com.android.runtime/lib/bionic/libdl_android.so"
+    },
+    "audio.primary.t110.so": {
+      "source": "new component",
+      "path": "vendor/lib/hw/audio.primary.t110.so"
+    },
+    "libt110_audio_legacy_compat.so": {
+      "source": "new component",
+      "path": "vendor/lib/libt110_audio_legacy_compat.so"
+    },
+    "libc.so": {
+      "source": "preserved Android13 image",
+      "path": "system/apex/com.android.runtime/lib/bionic/libc.so"
+    },
+    "ld-android.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/ld-android.so"
+    },
+    "libdl.so": {
+      "source": "preserved Android13 image",
+      "path": "system/apex/com.android.runtime/lib/bionic/libdl.so"
+    },
+    "libc++.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libc++.so"
+    },
+    "libm.so": {
+      "source": "preserved Android13 image",
+      "path": "system/apex/com.android.runtime/lib/bionic/libm.so"
+    },
+    "libasound.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libasound.so"
+    },
+    "libutils.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libutils.so"
+    },
+    "liblog.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/liblog.so"
+    },
+    "libcutils.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libcutils.so"
+    },
+    "libstdc++.so": {
+      "source": "preserved Android13 image",
+      "path": "system/vendor/lib/libstdc++.so"
+    },
+    "libbase.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libbase.so"
+    },
+    "libvndksupport.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libvndksupport.so"
+    },
+    "libacm.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libacm.so"
+    },
+    "libxml2.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libxml2.so"
+    },
+    "libandroidicu.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libandroidicu.so"
+    },
+    "libicuuc.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libicuuc.so"
+    },
+    "libicui18n.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libicui18n.so"
+    },
+    "libhardware.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libhardware.so"
+    },
+    "libaudioutils.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libaudioutils.so"
+    },
+    "libeffects.so": {
+      "source": "preserved Android13 image",
+      "path": "system/vendor/lib/libeffects.so"
+    },
+    "libacoustic.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libacoustic.so"
+    },
+    "libaudiodebugtool.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libaudiodebugtool.so"
+    },
+    "libsamsungSoundbooster.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libsamsungSoundbooster.so"
+    },
+    "libsamsungRecord.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libsamsungRecord.so"
+    },
+    "lib_SamsungRec_V03011b.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/lib_SamsungRec_V03011b.so"
+    },
+    "lib_Samsung_SB_AM_for_ICS_v04004.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/lib_Samsung_SB_AM_for_ICS_v04004.so"
+    },
+    "libmiscgen.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libmiscgen.so"
+    },
+    "libippsp.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libippsp.so"
+    },
+    "libippvp.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libippvp.so"
+    },
+    "libeffectsconfig.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libeffectsconfig.so"
+    },
+    "libtinyxml2.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libtinyxml2.so"
+    },
+    "libmedia_helper.so": {
+      "source": "preserved Android13 image",
+      "path": "system/lib/libmedia_helper.so"
+    },
+    "libspeexresampler.so": {
+      "source": "ANI7 stock",
+      "path": "vendor/lib/libspeexresampler.so"
+    }
+  },
+  "missing": []
+}
