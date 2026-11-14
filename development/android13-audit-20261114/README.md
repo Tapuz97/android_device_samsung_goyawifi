@@ -1,3 +1,17 @@
+# Current progress: full ARM graphics/audio/policy build checks passed
+
+See [phase3/PHASE3.md](phase3/PHASE3.md) and its full-build-verification.json.
+Full HWUI/HIDL/compositor/audio builds, all16 stock ELF checks,60 configuration
+copies and SELinux tests pass. The ARM legacy bridge passes122 Bionic checks.
+136 outputs are hashed and backed up in a separate nonflashable draft archive;
+online readback matches. Both14.1 ROM pairs and its source are unchanged.
+No new complete ROM image, runtime GPU/audio qualification or flash is claimed.
+Production namespaces and complete-image checks remain required.
+
+---
+
+## Historical phase1/2 checkpoints, superseded by phase3 above
+
 # Current progress: ARM audio module and GPU-window candidate
 
 See [PHASE2.md](PHASE2.md) and [arm-verification/SUMMARY.json](arm-verification/SUMMARY.json).

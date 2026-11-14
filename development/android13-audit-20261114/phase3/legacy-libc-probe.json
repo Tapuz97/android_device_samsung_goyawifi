@@ -1,0 +1,27 @@
+{
+  "command": [
+    "unshare",
+    "--pid",
+    "--fork",
+    "--mount-proc",
+    "qemu-arm",
+    "-cpu",
+    "cortex-a9",
+    "-L",
+    "/root/t110-android13-audit/loader-rootfs",
+    "-E",
+    "LD_LIBRARY_PATH=/vendor/lib:/system/lib",
+    "-E",
+    "TMPDIR=/tmp",
+    "/root/t110-android13-audit/loader-rootfs/data/local/tmp/legacy-libc-probe"
+  ],
+  "exit": 0,
+  "stdout": "PASS: 26 exact Bionic helper trampolines, cold/warm paths, ARM multi-register divmod and FILE IO (122 checks)\n",
+  "stderr": "linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"\nWARNING: linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"\n",
+  "symbols": 26,
+  "shim_sha256": "8a0368aec81c4237edbecf5762b33c9bbb5455350898e89b03551c07b0c6b1ff",
+  "shim_textrel": false,
+  "diagnostic_target_sdk_lowered": false,
+  "hardware_opened": false,
+  "scope": "Real Soong ARM shim/probe under actual Android13 Bionic and QEMU; no production namespace or device"
+}

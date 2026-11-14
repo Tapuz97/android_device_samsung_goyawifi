@@ -1,4 +1,4 @@
-# Full platform integration — build in progress
+# Historical integration checkpoint — superseded by PHASE3.md
 
 The exact1242-project Android13 source checkpoint has been restored on internal
 C under Ubuntu /root/t110-android13/android. Original25 project deltas and the

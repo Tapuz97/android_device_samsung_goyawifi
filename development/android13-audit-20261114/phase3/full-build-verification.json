@@ -1,0 +1,838 @@
+{
+  "status": "PASS",
+  "scope": "Offline full Android ARM component and policy build; no hardware validation",
+  "vendor_audio_libraries": 16,
+  "stock_configuration_files": 60,
+  "outputs": [
+    {
+      "path": "out/target/product/t110_bringup/system/lib/libhwui.so",
+      "bytes": 5363900,
+      "sha256": "f0e26ff188ac9deb8eb32a0c53ba564994208f7edfd1c0ec106a10b80ea72fcb",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/lib/libgui.so",
+      "bytes": 961252,
+      "sha256": "6350a161e0a4315c6819c32c8a844ba35857179921317b74bb3904d3b347470d",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/bin/surfaceflinger",
+      "bytes": 4979480,
+      "sha256": "08a2f4b2ee238b715f75c384d184a2a7ce50d0c6a6d73b34239d3fd0285991a6",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/hw/audio.primary.t110.so",
+      "bytes": 12728,
+      "sha256": "92cd0fb9c426211ab46664a46527861b971d95be9927bbfee2b58b07e83d9c0c",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libt110_audio_legacy_compat.so",
+      "bytes": 6164,
+      "sha256": "8a0368aec81c4237edbecf5762b33c9bbb5455350898e89b03551c07b0c6b1ff",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/hw/android.hardware.audio@7.1-impl.so",
+      "bytes": 181564,
+      "sha256": "7fb08f67777642cebff2ae9ddafb19981ba882fc5f9c346159348c8e01457a4f",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/hw/android.hardware.audio.effect@7.0-impl.so",
+      "bytes": 229756,
+      "sha256": "343ed585aaf26194461c569d393799203a9ebe2501da0624c72c7e9a8b548ddb",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/bin/hw/android.hardware.audio.service",
+      "bytes": 10724,
+      "sha256": "ea27715184a34ec334cdd852401d42e52553c2daa121c955972727059e211f99",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/bin/hw/android.hardware.graphics.composer@2.1-service",
+      "bytes": 64500,
+      "sha256": "74014ecd9eb3a313865ee8665ce812a23e6abe1637ee89f3e7b9be123209d0bd",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so",
+      "bytes": 13164,
+      "sha256": "c4216d000d01d54bcbf26ba5edb4e8c640a7724f8b29643d91385fca063b7619",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "bytes": 20716,
+      "sha256": "14c565bf3263419e6c1b747829ea8d53c42b17e3d6a379b65bf8b562beec0699",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/apex/com.android.runtime/bin/linker",
+      "bytes": 1315684,
+      "sha256": "25f4e6ce64be48beb5a4fb70200fa1769334a8f149c15c713c4f02f5affcb809",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/hw/audio.primary.mrvl.so",
+      "bytes": 50160,
+      "sha256": "9869becd8e356d5ffebd35d01eefb1af3f92e49b6e36d1432419bda55c5eb4ed",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/lib_SamsungRec_V03011b.so",
+      "bytes": 89048,
+      "sha256": "932b661dc6d4656453e6b176ec053360bcb266a42db54fc49bb62b84c21cdb02",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/lib_Samsung_SB_AM_for_ICS_v04004.so",
+      "bytes": 50912,
+      "sha256": "999e7d75b9b0546c9f4cae55ac97f0e14ffa221c9663fadccc947d25c8f80e99",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libacm.so",
+      "bytes": 46156,
+      "sha256": "8686caa5cb2c96501dc17e81362e23c8c43db818acd321984d5a43fa55ef7265",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libacoustic.so",
+      "bytes": 13392,
+      "sha256": "6b0aefb2c37074099821c8241f2dcc1331a653b18dc15c7a624cb2f1024987d1",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libasound.so",
+      "bytes": 625448,
+      "sha256": "d77dde66d5d55ba2dcff227d456451d87059fd327ffab3d56e77c52b31efd9e3",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/alsa-lib/libasound_module_ctl_codec.so",
+      "bytes": 25796,
+      "sha256": "e9d7075b10d8063d8bb51f682ca194466c367f626b66dd58fccbcf0fc10a2cb5",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/alsa-lib/libasound_module_ctl_phone.so",
+      "bytes": 17600,
+      "sha256": "3be2f1d27d1a8daa914b446b353e207cc205bea77141b9d062ea5a6625dbe7fe",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/alsa-lib/libasound_module_pcm_phone.so",
+      "bytes": 23316,
+      "sha256": "e01c6eac07e5f6c0a796b8aa5a83f01db510525c843ab4d3d8aee46efe3e1120",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libaudiodebugtool.so",
+      "bytes": 19544,
+      "sha256": "637c095fa232dd316e47389110f6f380d60b48090ad5825d222fd70f1bef7da8",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libippsp.so",
+      "bytes": 148424,
+      "sha256": "f6163a79c79fd4c33ba143bf0837c8e1cfec3083f9ee4786471709e783464b53",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libippvp.so",
+      "bytes": 66956,
+      "sha256": "0c9a767ba86cd346da49536bf9b227526ebdc3db96b1850984bc7b2266ebe69f",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libmiscgen.so",
+      "bytes": 26292,
+      "sha256": "1b0dc623a390e74f23b99901bc3c283ae9c195228687e89711518a19238baada",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libsamsungRecord.so",
+      "bytes": 5156,
+      "sha256": "e713c4da4b02d99dc5c0e2f7577b8c4b781f36b2cdd1301e8a7e6885ef8d11b2",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libsamsungSoundbooster.so",
+      "bytes": 9252,
+      "sha256": "69398c0dce2f13772337875936835bf7c522eb63c5e71ca952ef65d62019d18e",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/lib/libspeexresampler.so",
+      "bytes": 18128,
+      "sha256": "701a572376624fe7c334ccdc21246287f02510ed52e28a128cc1b91579864a86",
+      "architecture": "ELF32 ARM"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/alsa/alsa.conf",
+      "bytes": 9208,
+      "sha256": "0bf9fa734529dc3fc67289ccaa863617ec16259feacefc017b551ce40eac0258"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/alsa/asound.conf",
+      "bytes": 466,
+      "sha256": "10a7c0ac21cefc24ca9667aeb606c9911ae07dee1fc530e794ee8db2a9946b94"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/alsa.conf",
+      "bytes": 8967,
+      "sha256": "51781716c2a3f289d925fea4a508592a65ab9182b6e6434c643e5d0a5d4e590e"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/cards/aliases.conf",
+      "bytes": 1322,
+      "sha256": "48477c92655f2e862785d9c4a8fd49ed1001cce6e9c58c0782a4a9912ffc549d"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/centor_lfe.conf",
+      "bytes": 805,
+      "sha256": "e0f1d7c2b3bdf6acf3736b008824bcd274c33998072b3a1a0c74426753e12cc1"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/default.conf",
+      "bytes": 762,
+      "sha256": "ec4e9a2f87b3f68002b98d52ba978f001d8d4ef4abd2af27a9b3ad16f4fc4f6d"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/dmix.conf",
+      "bytes": 1517,
+      "sha256": "d2e881bc963c6ead403566525d89c173758db2feb39f11130a0f27084953fdae"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/dpl.conf",
+      "bytes": 645,
+      "sha256": "ccec7c194270433c2dcdf3622b2ef25e3197020da800662c6111ff8b8638f30b"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/dsnoop.conf",
+      "bytes": 1532,
+      "sha256": "bb90aced45e5007573b75bca2617d082c998bed17d350a1aaa6a7d14b16b09f7"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/front.conf",
+      "bytes": 752,
+      "sha256": "f89b6abc45ddf345cba76120a2c4d95078a7fa37a960ce163445a71b23d594bd"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/iec958.conf",
+      "bytes": 1213,
+      "sha256": "7bc676caeacf1e4e64b7d5c47ada8e7a1ee2ae61b973aa7b36821244e3b03da3"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/modem.conf",
+      "bytes": 1314,
+      "sha256": "c9ceedecf7a20b212c7ab641a3bf3f03a2b8a8720cb40c0547458e0f5f4024c5"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/rear.conf",
+      "bytes": 744,
+      "sha256": "d4303cffe70f686507966660719f605049e2a8fbb38ed3773614da3fce026802"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/side.conf",
+      "bytes": 744,
+      "sha256": "caf5ac243333775f9a56df77d1e4c0b47f8ec09e75a1b2f81207809b322a3d61"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/surround40.conf",
+      "bytes": 877,
+      "sha256": "b9225ddc8b8c4fd904719b0620474553f78d225b4273e08a3449f7cff155be35"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/surround41.conf",
+      "bytes": 992,
+      "sha256": "0d1ba5e6358e1ab03db4583e0396665dc00b7267a4d267fe9fd739131b2f8bdf"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/surround50.conf",
+      "bytes": 992,
+      "sha256": "87e96a8046301ace9f2cd352a0941756104d73de499c35f5fce1e381e6e134f1"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/surround51.conf",
+      "bytes": 930,
+      "sha256": "567c4823c5747bb48baf81f9b95530267779505f1b232cbec0fa67884db51767"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/usr/share/alsa/pcm/surround71.conf",
+      "bytes": 978,
+      "sha256": "e44b72c02867d8ddb13f32343e4d785b1f5f3e23b4b38fea3e10c55dedfdcf39"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_basic_element.xml",
+      "bytes": 86808,
+      "sha256": "afffa6bb403da6ff5b200aa6cf1ea02d25909d6cbf0ff930a8b6e6b41d789b56"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_coeff_config.xml",
+      "bytes": 48148,
+      "sha256": "0dd1537802789fe8d2bc188cbe5acd8697002aef9fcebf714d1823d15a5b4b05"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_gain_config.xml",
+      "bytes": 74238,
+      "sha256": "b1f5256f8691dfa2e50b0908cbb901b57b90d6fa2377bb9ddb5af4edc8b4ba40"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_path_config.xml",
+      "bytes": 326818,
+      "sha256": "72449bb3ff40d6337b12dfa0536f84ecf2186803387bd1763e74926747cf6971"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_swvol_calibration_def.xml",
+      "bytes": 71493,
+      "sha256": "04ce6d942fa4bfe01d36e17fd086d0daae02efc2112f771a1b7fab1989c79899"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_swvol_config.xml",
+      "bytes": 50150,
+      "sha256": "8bf5b513ed8c57aa190677c6819fb32b9ee841623d14f62517053a96e6783837"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_swvol_element.xml",
+      "bytes": 6984,
+      "sha256": "2dd6ba87f0304eb9f60fd7313bed75b9bb114e4f584bf623c028005c833c5443"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/LVVEFS_Rx_Configuration.txt",
+      "bytes": 926,
+      "sha256": "d8e1b5dce64f52347437e921ac3d6baa7e8c961834337f4c2fad9381565604c2"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/LVVEFS_Tx_Configuration.txt",
+      "bytes": 1116,
+      "sha256": "53f5774762fe5ac44c0db69835c217e94341cc867778d716542da91c24b66552"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_BLUETOOTH_HEADSET.txt",
+      "bytes": 1756,
+      "sha256": "630727e8847da729527765edf975aedfdf6de82842a0a818a3220b07ddef67f3"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_EARPIECE_WIDEBAND.txt",
+      "bytes": 1811,
+      "sha256": "50df0a9ffcfad3a424ccd1689246f00ad9d27fb3b6e641c6d9b29bafbd4893d1"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_SECVOIP_BLUETOOTH_HEADSET.txt",
+      "bytes": 1649,
+      "sha256": "35b06f531ea06e977855600c693036cc5d47e9ae55ca4f2f6d960360c653e5e6"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_SECVOIP_EARPIECE_WIDEBAND.txt",
+      "bytes": 1766,
+      "sha256": "04b472fd384ba4c13f9979e7df54d35ff56216949f7284af283504ad1ceed996"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_SECVOIP_SPEAKER_WIDEBAND.txt",
+      "bytes": 1791,
+      "sha256": "084ed4b8d301ef6944622824c79f97a7de6191d936dc7951547934f65447d66c"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_SECVOIP_WIRED_HEADPHONE_WIDEBAND.txt",
+      "bytes": 1704,
+      "sha256": "6038b20bfb89f7226c01d40d368aa6ab5dca6ac38bb11426df6011199013c36a"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_SECVOIP_WIRED_HEADSET_WIDEBAND.txt",
+      "bytes": 1675,
+      "sha256": "e9d8c19188a502b8b3abb6102b500ccd7f6c580cc6c0d806f40568e348824fb1"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_SPEAKER_WIDEBAND.txt",
+      "bytes": 1748,
+      "sha256": "2f60d08716f658047b8b4a1d5ee166aa334c672b11a286ccc40a032ac9e9c7ae"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt",
+      "bytes": 1753,
+      "sha256": "11b1978c8a68cbc4139a6fc2cf90ab18931800dc7cf402c93cc04a1879891807"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Rx_ControlParams_WIRED_HEADSET_WIDEBAND.txt",
+      "bytes": 1753,
+      "sha256": "4ce7b7050f54844f73629b96946f9741980970dabd7c631015052bf90fb452ed"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_BLUETOOTH_HEADSET.txt",
+      "bytes": 804,
+      "sha256": "e2ce39d9f95bcdfa8b646b01deb2e47e24edb5cd1e002b5fd4e7d9dfac8779ef"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_EARPIECE_WIDEBAND.txt",
+      "bytes": 792,
+      "sha256": "438ea929cdb1591d406969d6d603d776c623fd096f89173d5172c1e0cc0285c2"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_SECVOIP_BLUETOOTH_HEADSET.txt",
+      "bytes": 726,
+      "sha256": "50a2bb74eef4ff3c527b19a89b09de70b66cfcb23266e1ddeaec525398ad7d7a"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_SECVOIP_EARPIECE_WIDEBAND.txt",
+      "bytes": 752,
+      "sha256": "6fb7f7abeb961b1e3bc1a10ae497ffa0c24363c55a140c0543520f75ad6c1b36"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_SECVOIP_SPEAKER_WIDEBAND.txt",
+      "bytes": 793,
+      "sha256": "00a9c91de175ce39f3c98a5ea13804da55bc61b3561d8d8274ee188c8beb7702"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_SECVOIP_WIRED_HEADPHONE_WIDEBAND.txt",
+      "bytes": 778,
+      "sha256": "baf9ef29cf9eed3baa1df1d5baf36e8022b8712ab3dcf11f3ddf9fe98d43c28b"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_SECVOIP_WIRED_HEADSET_WIDEBAND.txt",
+      "bytes": 796,
+      "sha256": "f1112a5fad6e27274936e3961349b5391a750214d194a81eb0b488daf1b9a848"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_SPEAKER_WIDEBAND.txt",
+      "bytes": 775,
+      "sha256": "8566bf855c144f1c483ac23a0f3aef17ac4988889924cd0a46f528f68243d79a"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_WIRED_HEADPHONE_WIDEBAND.txt",
+      "bytes": 711,
+      "sha256": "ae647b25fdf1cb1de92c71db4580ecc5f015fbc93f1a56d53bff07c18904d6fb"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio/Tx_ControlParams_WIRED_HEADSET_WIDEBAND.txt",
+      "bytes": 716,
+      "sha256": "750056e32cde3525dcb562ce458b489d45293940ddf2c6c44429dcb3c53c2ce4"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/LVVEFS_Rx_Configuration.txt",
+      "bytes": 597,
+      "sha256": "c69c314c3cb2ab2221e6d3f8e041e0c2c6bd8b2562025794a56308f1a0152098"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/LVVEFS_Tx_Configuration.txt",
+      "bytes": 761,
+      "sha256": "0d116654ef9417077388b96cd222f656e0739f754788706b391f8be1187d0109"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Rx_ControlParams_VR_BLUETOOTH_HEADSET.txt",
+      "bytes": 1653,
+      "sha256": "9679b9db1ac2716b3980bc3a8a3f911e979d6bdf9ccfa3ae50002c76135fcd0c"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Rx_ControlParams_VR_EARPIECE_WIDEBAND.txt",
+      "bytes": 1781,
+      "sha256": "04c6cb2414559a6b2a6a8809bc5327cc2e473d3a83f76924f5c53cda45ad9b43"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Rx_ControlParams_VR_SPEAKER_WIDEBAND.txt",
+      "bytes": 1768,
+      "sha256": "b992261bbd65138d22554ce8982af9db16949251c45de622a25e6812455f81a6"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Rx_ControlParams_VR_WIRED_HEADPHONE_WIDEBAND.txt",
+      "bytes": 1672,
+      "sha256": "e91d8c8662d754656a25681a67212798de997ee35b60d8424429ecb767093a27"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Rx_ControlParams_VR_WIRED_HEADSET_WIDEBAND.txt",
+      "bytes": 1795,
+      "sha256": "5cf919f4650c428b08be404d53fd85ebf65ede258c4443e46136fa8b2bae8bb1"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Tx_ControlParams_VR_BLUETOOTH_HEADSET.txt",
+      "bytes": 727,
+      "sha256": "b19dfcdac7a7fe26b72d25ebaeb5845c77279a9c9fca88f2b7d2d8267995a26a"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Tx_ControlParams_VR_EARPIECE_WIDEBAND.txt",
+      "bytes": 752,
+      "sha256": "f76667c966b30e459b8ea6b6fa996e66a9ab71671fe9aad25096f82fd99b7c3c"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Tx_ControlParams_VR_SPEAKER_WIDEBAND.txt",
+      "bytes": 761,
+      "sha256": "8e1eb4b8df8e5528133880663d91dd99a226c88b3bef4280c8a72e080cb1fa9e"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Tx_ControlParams_VR_WIRED_HEADPHONE_WIDEBAND.txt",
+      "bytes": 758,
+      "sha256": "cc8167ae4646d919b13ffa93f3030ed6d1c6d2198a16b43f7d0c2822af8281cd"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/audio_VR/Tx_ControlParams_VR_WIRED_HEADSET_WIDEBAND.txt",
+      "bytes": 757,
+      "sha256": "461372560fdb0bdb2f323973d0f4788ed2af149d056c525dc7d9e11d52ef2bb0"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/audio_policy_configuration.xml",
+      "bytes": 1844,
+      "sha256": "b473dc1199d8b0035640e19ccb36d37140ddaf256ab95b319894498fdb7a233e"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/primary_audio_policy_configuration.xml",
+      "bytes": 1783,
+      "sha256": "74b049fa39dfb79f2a2124dd2b12682793ce6505176bfb3d51cd5b87afb87bf6"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/r_submix_audio_policy_configuration.xml",
+      "bytes": 2105,
+      "sha256": "44aa04e6a3fe674bf22e1e87fee602ca4d42e701740bf96f0101fe6c3b2abe09"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/audio_policy_volumes.xml",
+      "bytes": 13561,
+      "sha256": "6732440a6237e80159e71cd4b861d94b9aed6908070a43786f9e216bfbb3f2c7"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/default_volume_tables.xml",
+      "bytes": 5133,
+      "sha256": "700b3e3979801bc09875e948bfae489d4c488e8b17911e8dcc2eebbfd17bb4ec"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/surround_sound_configuration_5_0.xml",
+      "bytes": 1548,
+      "sha256": "327f45d1e95082b88cf6d2974bcc640e96aefbc14598863b1594b3a093c2ee28"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/init/init.t110.audio.rc",
+      "bytes": 1013,
+      "sha256": "2ada118258a7a2162928def3fc30e6094b4b32d0a43ca0037076c21066bfe2c8"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/bug_map",
+      "bytes": 1510,
+      "sha256": "8179c8ece3f3128340fb5b207c573e9781b8c78464412ce5e44ef1fe85667927"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/28.0.cil",
+      "bytes": 96212,
+      "sha256": "ab3bf6d3db851d08a71c69f60748cd80a07efd7e3c35446cc6bb61e8eb39a3de"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/28.0.compat.cil",
+      "bytes": 987,
+      "sha256": "bd927aaa7c0b10b84dc35f8be3a4f767ae085fb042f0c8a8ddb9319fdef80561"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/29.0.cil",
+      "bytes": 111302,
+      "sha256": "8b3d187a1084a1afa28391d9708a5a19cc2bb2faedc82a541b21f6ad209de3de"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/29.0.compat.cil",
+      "bytes": 846,
+      "sha256": "a719324d4059bcff49ea4df6ae74a8f69fb9f5907781a85ecaeb4b78c88626dc"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/30.0.cil",
+      "bytes": 124581,
+      "sha256": "d6ddac2e83aef3bef73ca194cc82c32f88ef892710b41a59a7b34706008b7d8e"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/30.0.compat.cil",
+      "bytes": 902,
+      "sha256": "760a5aa8f81926445d48f52fb52edc124f6f51c4c4085d9e6f2ccaecebd38cbb"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/31.0.cil",
+      "bytes": 140920,
+      "sha256": "a66b892b6117c5779bfa8cb45533d8f727635d33d31e1b10c89bebd71e329e60"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/31.0.compat.cil",
+      "bytes": 29,
+      "sha256": "8a4ae48ea2fec85e203bad7da59b2953e3b9a616c700eabbb0f5a2877ef9fa41"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/32.0.cil",
+      "bytes": 141103,
+      "sha256": "5bbf48137c5b7b28c0fe33bbda70bdb10e6771d9eb3eab65e6702229b3029190"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/32.0.compat.cil",
+      "bytes": 29,
+      "sha256": "8a4ae48ea2fec85e203bad7da59b2953e3b9a616c700eabbb0f5a2877ef9fa41"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/mapping/33.0.cil",
+      "bytes": 201238,
+      "sha256": "3d7a09b8fd65b5aa5dcef84afcb373f8cc7f9db309d77de0a8eeaf33292d235c"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_file_contexts",
+      "bytes": 50741,
+      "sha256": "ba07db35ba3ad035ad354108fcb03a922dcd0cd1469f16b8833ddde41b3bbc89"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_hwservice_contexts",
+      "bytes": 8750,
+      "sha256": "5eae772c38b35c0538a55a38d337923db67c79960845775e940bd6484a688c50"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_keystore2_key_contexts",
+      "bytes": 1152,
+      "sha256": "0252bc54a4cf8c17c8690b77953389d8f7ea5a9724f822bc2abcdf1877fdbe3b"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_mac_permissions.xml",
+      "bytes": 13455,
+      "sha256": "9581fe8ddd5797536f1034ee9bdf75b472a448aa90b816a2ec298ee58c41c611"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_property_contexts",
+      "bytes": 87991,
+      "sha256": "3f58fccde699c93e6d1b70aa4670f5f7a94510f85e5ba8e2fa693e5fcb7d51db"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_seapp_contexts",
+      "bytes": 3168,
+      "sha256": "23e842f8b017e4703a685325f1c050ed372b67d7ad6334badbf6431ced1149f7"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_sepolicy.cil",
+      "bytes": 2105876,
+      "sha256": "70d7dd2cc83255356c98c003e73e89b3a3b943452f9efa0acbfdce48ff00befd"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_sepolicy_and_mapping.sha256",
+      "bytes": 65,
+      "sha256": "af5b6d0fdd0c8e82af6b02949233dd9406db2e00a05eb12c75e6bc3f96fa9bfb"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/etc/selinux/plat_service_contexts",
+      "bytes": 31248,
+      "sha256": "51a21e9c200a66fc5b1872d95142a1bcc2d2d1dffd990811d0ed669b4d75441b"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/plat_pub_versioned.cil",
+      "bytes": 983673,
+      "sha256": "79ab01331274906c02932dc4635be43f1b735716f5ba6b5e774f2ecd2624dab8"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/plat_sepolicy_vers.txt",
+      "bytes": 5,
+      "sha256": "d2d39e9afe66f40b96a73a6629523a4c39d0e65c952f191cf7a32e05d63248a9"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/precompiled_sepolicy",
+      "bytes": 647596,
+      "sha256": "6a3cacb467ea4d81183a9dcbf06fa59209e763da080d8671fbc56317bd025132"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+      "bytes": 65,
+      "sha256": "af5b6d0fdd0c8e82af6b02949233dd9406db2e00a05eb12c75e6bc3f96fa9bfb"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
+      "bytes": 65,
+      "sha256": "62821446129f2a1c834b354c7dcd83f27a183beb1763bf1fa55d8a716cf5622d"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vendor_file_contexts",
+      "bytes": 15973,
+      "sha256": "6f866689dad5d35cc5925916972c83b94e9217a08b985c45387a22d5f4d4e364"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vendor_hwservice_contexts",
+      "bytes": 2464,
+      "sha256": "ed6648869797a113384ac4203409d6294e017d6a9ea93794d032a3f9dabf42a3"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vendor_mac_permissions.xml",
+      "bytes": 2549,
+      "sha256": "94cc111b69bcd66871cb20d5405a4ada011d01e829a91c2b000e6eb580cea7cc"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vendor_property_contexts",
+      "bytes": 767,
+      "sha256": "3f4b6e7e1a4bfca5b1ed9769dd75fb019d24b7c8e4f7ee87fa67d3a68df08633"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vendor_sepolicy.cil",
+      "bytes": 145659,
+      "sha256": "e94b7517b156e86c1e8e502f0e9e03d4549a97447b2a45951c453c5fbe7a958b"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vendor_service_contexts",
+      "bytes": 375,
+      "sha256": "c9dfac469281d5d5714f64bb1a858083ae89c5e61e726e361b5492c0f5e894d7"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/vendor/etc/selinux/vndservice_contexts",
+      "bytes": 183,
+      "sha256": "cfee3dba618891e71fddf851f68f5ba99a1cb531e6a58ea68ee090422829e53d"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/mapping/33.0.cil",
+      "bytes": 343,
+      "sha256": "ce67c6eb09898553deed22ea78c64b3c1543edacd041651d60253aa554dfbdae"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_file_contexts",
+      "bytes": 796,
+      "sha256": "491a6b965691fd39a4bc73ae93fd4941cf89400b5b2122e405ab393b294a65e8"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_mac_permissions.xml",
+      "bytes": 2089,
+      "sha256": "d779aa31eebd356538db04ac9247044b73dcdd4cb5d20d0c8d1bea0f1ccd095c"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_property_contexts",
+      "bytes": 702,
+      "sha256": "335da83d7cc35232ffc6aebf84a779a12b2165eb5194e604577b498786ce4a4c"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_seapp_contexts",
+      "bytes": 259,
+      "sha256": "40386c2adaa350510f5494f9974937238998d0a78fc84cd2b745d22ad99bb47b"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "bytes": 82406,
+      "sha256": "c1b166b535d95bfaf5d17979b5315c126837ff3b0a71b0f5d420cde06c7c62ef"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256",
+      "bytes": 65,
+      "sha256": "62821446129f2a1c834b354c7dcd83f27a183beb1763bf1fa55d8a716cf5622d"
+    },
+    {
+      "path": "out/target/product/t110_bringup/system/system_ext/etc/selinux/system_ext_service_contexts",
+      "bytes": 637,
+      "sha256": "262127d36252432d5b4ddd5b92ebf432392ec132d5705d7b8717b9419bcd01d3"
+    }
+  ],
+  "logs": [
+    {
+      "path": "full-components-5.log",
+      "sha256": "55d77c069c3adf43f0d10f35cbb3d207bc53959d3eac81331997af08c0632866"
+    },
+    {
+      "path": "vendor-audio.log",
+      "sha256": "1cd5016c60e50593f97a339ba65ed9dd7e4fd1207dae7170aa7c570bb3f48d57"
+    }
+  ],
+  "compiled_audio_policy": {
+    "status": "PASS",
+    "binary": "/root/t110-android13/out/target/product/t110_bringup/system/vendor/etc/selinux/precompiled_sepolicy",
+    "checks": [
+      {
+        "source": "hal_audio_default",
+        "target": "t110_audio_textrel_file",
+        "klass": "file",
+        "required": [
+          "execmod",
+          "execute",
+          "map",
+          "open",
+          "read"
+        ],
+        "status": "PASS"
+      },
+      {
+        "source": "hal_audio_default",
+        "target": "proc_t110_audio_clock",
+        "klass": "file",
+        "required": [
+          "open",
+          "read",
+          "write"
+        ],
+        "status": "PASS"
+      },
+      {
+        "source": "init",
+        "target": "proc_t110_audio_clock",
+        "klass": "file",
+        "required": [
+          "open",
+          "read",
+          "setattr",
+          "write"
+        ],
+        "status": "PASS"
+      },
+      {
+        "source": "hal_audio_default",
+        "target": "audio_config_prop",
+        "klass": "file",
+        "required": [
+          "map",
+          "open",
+          "read"
+        ],
+        "status": "PASS"
+      },
+      {
+        "source": "hal_audio_default",
+        "target": "vendor_configs_file",
+        "klass": "file",
+        "required": [
+          "open",
+          "read"
+        ],
+        "status": "PASS"
+      },
+      {
+        "source": "hal_audio_default",
+        "target": "system_file",
+        "klass": "file",
+        "required": [
+          "open",
+          "read"
+        ],
+        "status": "PASS"
+      },
+      {
+        "check": "DSP execmod restricted to hal_audio_default",
+        "status": "PASS",
+        "sources": [
+          "hal_audio_default"
+        ]
+      }
+    ],
+    "hardware_tested": false
+  },
+  "legacy_libc_probe": {
+    "command": [
+      "unshare",
+      "--pid",
+      "--fork",
+      "--mount-proc",
+      "qemu-arm",
+      "-cpu",
+      "cortex-a9",
+      "-L",
+      "/root/t110-android13-audit/loader-rootfs",
+      "-E",
+      "LD_LIBRARY_PATH=/vendor/lib:/system/lib",
+      "-E",
+      "TMPDIR=/tmp",
+      "/root/t110-android13-audit/loader-rootfs/data/local/tmp/legacy-libc-probe"
+    ],
+    "exit": 0,
+    "stdout": "PASS: 26 exact Bionic helper trampolines, cold/warm paths, ARM multi-register divmod and FILE IO (122 checks)\n",
+    "stderr": "linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"\nWARNING: linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"\n",
+    "symbols": 26,
+    "shim_sha256": "8a0368aec81c4237edbecf5762b33c9bbb5455350898e89b03551c07b0c6b1ff",
+    "shim_textrel": false,
+    "diagnostic_target_sdk_lowered": false,
+    "hardware_opened": false,
+    "scope": "Real Soong ARM shim/probe under actual Android13 Bionic and QEMU; no production namespace or device"
+  },
+  "strict_vendor_elf_checks": 16,
+  "flashed": false,
+  "gpu_runtime_qualified": false,
+  "audio_hardware_qualified": false
+}

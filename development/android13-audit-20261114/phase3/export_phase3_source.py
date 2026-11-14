@@ -32,10 +32,30 @@ for p in (device/'audio').iterdir():
 shutil.copy2(audit/'vendor-audio-packaging.json',out/'vendor-audio-inputs.json')
 shutil.copy2(audit/'audio-load-probe.json',out/'loader-diagnostic.json')
 tools=Path('/mnt/c/Users/Gal/Documents/ChatGPT/Electronic Repair/SM-T110/android13-audit')
-for name in ('restore_full_android13.py','integrate_full_source.py','package_vendor_audio.py','prepare_legacy_libc_bridge.py','LegacyLibcProbe.cpp','run_legacy_libc_probe.py','prepare_audio_loader_root.py','run_audio_load_probe.py','AudioLoadProbe.c','build_full_components.sh','build_vendor_audio.sh','check_textrel_scope.py','check_audio_policy.py','verify_full_components.py','verify_preserved_roms.py','backup_full_components.py','export_phase3_source.py'):
+for name in ('PHASE3.md','PHASE3-IN-PROGRESS.md','restore_full_android13.py','integrate_full_source.py','package_vendor_audio.py','prepare_legacy_libc_bridge.py','LegacyLibcProbe.cpp','run_legacy_libc_probe.py','prepare_audio_loader_root.py','run_audio_load_probe.py','AudioLoadProbe.c','build_full_components.sh','build_vendor_audio.sh','check_textrel_scope.py','check_audio_policy.py','verify_full_components.py','verify_preserved_roms.py','backup_full_components.py','export_phase3_source.py'):
  shutil.copy2(tools/name,out/name)
 for name in ('audio-loader-closure.json','legacy-libc-bridge.json','legacy-libc-probe.json','compiled-audio-policy.json','full-build-verification.json','preserved-rom-verification.json'):
  if (audit/name).is_file():shutil.copy2(audit/name,out/name)
+backup_record=tools/'component-backup/phase3/phase3-backup-verification.json'
+if backup_record.is_file():
+ (out/'phase3-backup-verification.json').write_text(json.dumps(json.loads(backup_record.read_text(encoding='utf-8-sig')),indent=2)+'\n')
+overview=out.parent/'README.md'
+heading='# Current progress: full ARM graphics/audio/policy build checks passed\n'
+if not overview.read_text().startswith(heading):
+ overview.write_text(heading+'''
+See [phase3/PHASE3.md](phase3/PHASE3.md) and its full-build-verification.json.
+Full HWUI/HIDL/compositor/audio builds, all16 stock ELF checks,60 configuration
+copies and SELinux tests pass. The ARM legacy bridge passes122 Bionic checks.
+136 outputs are hashed and backed up in a separate nonflashable draft archive;
+online readback matches. Both14.1 ROM pairs and its source are unchanged.
+No new complete ROM image, runtime GPU/audio qualification or flash is claimed.
+Production namespaces and complete-image checks remain required.
+
+---
+
+## Historical phase1/2 checkpoints, superseded by phase3 above
+
+'''+overview.read_text())
 (out/'RESTORE-NOTES.md').write_text('''# Full build integration checkpoint
 
 The five complete-project-deltas replace the corresponding original capsule

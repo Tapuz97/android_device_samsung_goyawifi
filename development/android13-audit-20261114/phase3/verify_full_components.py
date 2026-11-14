@@ -80,6 +80,12 @@ assert (product / 'obj/ETC/sepolicy_test_intermediates/sepolicy_test').exists()
 assert (product / 'fake_packages/sepolicy_freeze_test-timestamp').exists()
 policy_result = json.loads((audit / 'compiled-audio-policy.json').read_text())
 assert policy_result['status'] == 'PASS'
+bridge_result = json.loads((audit / 'legacy-libc-probe.json').read_text())
+assert bridge_result['exit'] == 0 and bridge_result['shim_textrel'] is False
+assert bridge_result['shim_sha256'] == sha(product / 'system/vendor/lib/libt110_audio_legacy_compat.so')
+assert not (product / 'system/vendor/bin/t110_legacy_libc_probe').exists(), 'Diagnostic left in ROM staging'
+for module in json.loads((audit / 'vendor-audio-targets.json').read_text()):
+    assert (product / f'obj/SHARED_LIBRARIES/{module}_intermediates/check_elf_files.timestamp').exists(), module
 
 symbols = subprocess.check_output(['readelf', '--dyn-syms', '-W', str(product / expected[3])], text=True)
 assert re.search(r'\bGLOBAL\s+DEFAULT\s+\d+\s+HMI\b', symbols), 'Missing exported HAL module'
@@ -103,6 +109,7 @@ for name, marker in (
 result = dict(status='PASS', scope='Offline full Android ARM component and policy build; no hardware validation',
               vendor_audio_libraries=16, stock_configuration_files=config_count, outputs=records, logs=logs,
               compiled_audio_policy=policy_result,
+              legacy_libc_probe=bridge_result, strict_vendor_elf_checks=16,
               flashed=False, gpu_runtime_qualified=False, audio_hardware_qualified=False)
 (audit / 'full-build-verification.json').write_text(json.dumps(result, indent=2) + '\n')
 print(f'PASS: {len(records)} outputs, 16 vendor audio ELFs and {config_count} configuration files verified.')

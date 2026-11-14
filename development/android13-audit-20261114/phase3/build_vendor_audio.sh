@@ -26,7 +26,7 @@ PY
 )
 m -j8 "${audio_modules[@]}" "${audio_config_targets[@]}" \
     "$product_out/system/vendor/lib/libt110_audio_legacy_compat.so" \
-    "$product_out/system/vendor/bin/t110_legacy_libc_probe" \
+    "$OUT_DIR/soong/.intermediates/device/samsung/t110_bringup/audio/t110_legacy_libc_probe/android_arm_armv7-a-neon_cortex-a9/t110_legacy_libc_probe" \
     "$product_out/system/vendor/etc/audio_policy_configuration.xml" \
     "$product_out/system/vendor/etc/primary_audio_policy_configuration.xml" \
     "$product_out/system/vendor/etc/r_submix_audio_policy_configuration.xml" \

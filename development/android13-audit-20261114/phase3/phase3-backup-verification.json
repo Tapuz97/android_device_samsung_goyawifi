@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "release": "https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/tag/untagged-e5642f0e39b63feffb4e",
+  "draft": true,
+  "asset_id": 747576252,
+  "name": "t110-android13-full-components-20261114.zip",
+  "bytes": 8803353,
+  "local_sha256": "3fee9856be42bc9c933e632ee6eec71e101cbc06315d178f5ce8891fd774f1ad",
+  "downloaded_sha256": "3fee9856be42bc9c933e632ee6eec71e101cbc06315d178f5ce8891fd774f1ad",
+  "source_branch": "t110/android13-offline-audit-20261114",
+  "prior_assets_unchanged": true,
+  "flashable": false,
+  "flashed": false,
+  "release_id": 445258659,
+  "tag": "t110-android13-offline-components-20261114"
+}

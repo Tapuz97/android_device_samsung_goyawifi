@@ -9,7 +9,7 @@ audit = Path('/root/t110-android13-audit')
 product = Path('/root/t110-android13/out/target/product/t110_bringup')
 root = audit / 'loader-rootfs'
 shim = product / 'system/vendor/lib/libt110_audio_legacy_compat.so'
-probe = product / 'system/vendor/bin/t110_legacy_libc_probe'
+probe = Path('/root/t110-android13/out/soong/.intermediates/device/samsung/t110_bringup/audio/t110_legacy_libc_probe/android_arm_armv7-a-neon_cortex-a9/t110_legacy_libc_probe')
 symbols = subprocess.check_output(['readelf', '--dyn-syms', '-W', str(shim)], text=True)
 expected = json.loads((audit / 'legacy-libc-bridge.json').read_text())['symbols']
 for name in expected:
@@ -30,3 +30,9 @@ data = dict(command=cmd, exit=result.returncode, stdout=result.stdout, stderr=re
 print(result.stdout)
 if result.stderr:print(result.stderr)
 assert result.returncode == 0 and 'PASS: 26 exact Bionic helper trampolines' in result.stdout, data
+# The probe is a build diagnostic, never a ROM payload. Older driver revisions
+# requested its installed target; remove only that identical generated copy.
+installed = product / 'system/vendor/bin/t110_legacy_libc_probe'
+if installed.exists():
+    assert installed.is_file() and installed.read_bytes() == probe.read_bytes(), installed
+    installed.unlink()
