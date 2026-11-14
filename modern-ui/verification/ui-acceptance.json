@@ -1,0 +1,30 @@
+{
+  "status": "INSTALLED_AUTOMATIC_UI_CHECKS_PASSED_MANUAL_TOUCH_PENDING",
+  "recorded_utc": "2026-11-14T22:14:39.340915+00:00",
+  "build_id": "T110_UI_20261114_R2",
+  "kernel_and_recovery_unchanged": true,
+  "original_working14_image_retained": true,
+  "data_profiles_preserved": true,
+  "native_app_set_preserved": 79,
+  "verified": [
+    "normal screenshot capture as standard ADB shell user",
+    "readable native Settings dashboard and search/keyboard flow",
+    "Quick Settings portrait and full-width landscape layouts",
+    "Wi-Fi-only default tile list",
+    "compact native launcher drawer",
+    "new Settings Recents preview and native Clear all dismissal",
+    "native power menu styling on R1; unchanged R2 menu resources"
+  ],
+  "physical_finger_touch_rechecked": false,
+  "new_java_crashes_in_bounded_snapshot": false,
+  "baseline_bootanimation_native_crash_seen": true,
+  "remaining": [
+    "owner physical display/touch confirmation",
+    "separate baseline BootAnimation native-crash audit",
+    "Google-enabled distribution/root/publication qualification"
+  ],
+  "scope": "Visual backport on API25; not a port of the newest Android APIs, dynamic color engine or Quickstep",
+  "temporary_screen_settings_restored": true,
+  "continuous_capture_running": false,
+  "source_branch": "t110/lineage14-modern-ui-20261114"
+}

@@ -6,16 +6,16 @@ sleep/wake changes and existing LineageOS features remain the base.
 
 ## First combined implementation
 
-| Surface | Change | Hardware qualification |
+| Surface | Change | Verification |
 | --- | --- | --- |
-| Quick Settings | Large horizontal tiles; active/inactive colors; 2 portrait / 4 landscape columns | Device check pending |
-| Settings | Light surfaces, rounded cards, larger icon containers, native-search entry | Pending |
-| Notifications | Rounded card backgrounds and dark shade | Pending |
-| System menus | Rounded dialogs/popups, restyled native power action rows | Pending |
-| Recents | Rounded cards; pill-shaped native Clear all with icon | Pending |
-| Launcher | Rounded app surfaces and larger-icon default; existing preferences retained | Pending |
-| Lock screen | Stronger clock weight; existing time format/security/weather retained | Pending |
-| Wallpapers | Current official Lineage artwork in the existing picker; old choices retained | Pending |
+| Quick Settings | Large horizontal tiles; active/inactive colors; 2 portrait / 4 landscape columns | Captured on installed R2 in both orientations |
+| Settings | Light surfaces, rounded cards, larger icon containers, native-search entry | Captured; search/results/keyboard exercised |
+| Notifications | Rounded card backgrounds and dark shade | Captured on installed R2 |
+| System menus | Rounded dialogs/popups, restyled native power action rows | Native power menu captured on R1; unchanged R2 resources |
+| Recents | Rounded cards; pill-shaped native Clear all with icon | New Settings preview captured; Clear all exercised to empty stack |
+| Launcher | Rounded app surfaces, compact/larger-icon defaults; preferences retained | Installed R2 compact drawer captured |
+| Lock screen | Stronger clock weight; existing time format/security/weather retained | Installed frame inspected; finger check pending |
+| Wallpapers | Current official Lineage artwork in both native pickers; old choices retained | Actual packaged catalogs verified; selection test pending |
 
 Quick Settings still uses native tile actions, long press, accessibility and policy
 handling. Settings still uses its existing categories and search implementation.
@@ -72,7 +72,7 @@ known unused inode-bitmap padding in the generated candidate copy.
 - System SHA256: `2778300b359e54c35966390e47c779c14cd11da1f5fb4ae0af3bddad1f49b400`.
 - Transfer gzip SHA256: `ecf3ca9efd794ac5b8a8d7aea9838593e00c09dd20f844689999059c7474e4de`.
 - The original boot image is reused without modification.
-- Physical screen, touch and menu acceptance remain pending installation.
+- Installed R2 captured-interface and injected-input checks passed. Owner physical display/finger confirmation remains pending.
 
 ## Capture and responsive-layout follow-up
 

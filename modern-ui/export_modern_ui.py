@@ -28,7 +28,7 @@ for name,entry in sorted(files.items()):
 shutil.copytree(WORK/'baseline',DEST/'baseline',dirs_exist_ok=True)
 shutil.copytree(WORK/'reference',DEST/'reference',dirs_exist_ok=True)
 local=Path(__file__).parent
-for name in ('apply_modern_ui.py','finish_modern_ui.py','polish_capture_and_layout.py','build_modern_ui.sh','export_modern_ui.py','verify_modern_ui_image.py','install_modern_ui.py','backup_modern_ui.py','check_lineage_apps.py','capture_screen.py','read_framebuffer.py','monitor_ui_boot.py'):
+for name in ('apply_modern_ui.py','finish_modern_ui.py','polish_capture_and_layout.py','build_modern_ui.sh','export_modern_ui.py','verify_modern_ui_image.py','install_modern_ui.py','backup_modern_ui.py','check_lineage_apps.py','capture_screen.py','read_framebuffer.py','monitor_ui_boot.py','record_ui_acceptance.py'):
     shutil.copy2(local/name,DEST/name)
 (DEST/'apply.py').write_text('''"""Apply only onto the recorded working14.1 baseline; fail before any write on mismatch."""
 from pathlib import Path
