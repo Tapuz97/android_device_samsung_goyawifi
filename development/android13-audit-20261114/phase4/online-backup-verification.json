@@ -1,0 +1,43 @@
+{
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "repository": "Tapuz97/android_device_samsung_goyawifi",
+  "tag": "t110-android13-image-candidate-20261114",
+  "release_id": 445434326,
+  "draft": true,
+  "source_branch": "t110/android13-offline-audit-20261114",
+  "verified_utc": "2026-11-14T16:39:28.4121715Z",
+  "assets": [
+    {
+      "name": "system-android13-candidate-20261114.raw.img.gz",
+      "bytes": 639987015,
+      "sha256": "767b46e5e729615e34956d0564523de7a99ed91c2df85f806a8ee7dcd2221ab7"
+    },
+    {
+      "name": "boot-android13-candidate-20261114.img",
+      "bytes": 16777216,
+      "sha256": "f2d735c3fea57b853147b6a846fc80ff0ed9e2df3d168ef398fc7d3a1a8365c7"
+    },
+    {
+      "name": "android13-candidate-offline-verification-20261114.zip",
+      "bytes": 1037632,
+      "sha256": "78baa18334d20862a73832c0accacf4ec7624863320ec89dc55afd8376719141"
+    },
+    {
+      "name": "SHA256SUMS-image-candidate.txt",
+      "bytes": 337,
+      "sha256": "37622457e355564a6b426659003c73d1cd2f48eb3351174e37f4775739f8b1e1"
+    },
+    {
+      "name": "backup-manifest.json",
+      "bytes": 819,
+      "sha256": "0b8a669d4eb1e17487c087f15326d040c4a9d0c7c4df317a169506de14f24377"
+    },
+    {
+      "name": "README-CANDIDATE.md",
+      "bytes": 1411,
+      "sha256": "89d37ba5d400f4ba009db165da6fad47aecfa0b254e5ad859224bf0f96092702"
+    }
+  ],
+  "working14_backups_modified": false,
+  "flashed": false
+}

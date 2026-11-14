@@ -95,11 +95,13 @@ Source branch: `t110/android13-offline-audit-20261114` in
 Restore prerequisites remain the original private capsule and phase3 complete
 project deltas/additions. Phase4 contains changed product files and all new tools.
 
-Candidate assets use a separate unpublished release tag
-`t110-android13-image-candidate-20261114`. The online verification receipt is
-written only after every uploaded asset has been downloaded and hash-verified.
+Candidate assets use separate unpublished release445434326, tag
+`t110-android13-image-candidate-20261114`:
+[candidate backup](https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/tag/untagged-8ab919de1de4a8821311).
+All six uploaded assets were downloaded again and their full hashes match.
+The online verification receipt was written only after this completed.
 Existing14.1 engineering, original restoration and phase3 component releases
-remain unchanged. See `online-backup-verification.json` after upload completes.
+remain unchanged. See `online-backup-verification.json` beside this source record.
 
 Before any later hardware test, check userdata capacity and preserve recovery.
 The next combined test must verify actual panel graphics and touch, boot/user

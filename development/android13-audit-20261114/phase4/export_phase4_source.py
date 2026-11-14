@@ -22,7 +22,8 @@ for name in ('BoardConfig.mk','graphics.mk','graphics/ueventd.t110.rc','sepolicy
     target=out/'product'/name;target.parent.mkdir(parents=True,exist_ok=True)
     shutil.copy2(product/name,target)
 for name in ('complete-image-geometry.json','preserved-android13-boot.json','kernel-carryover-verification.json',
-             'complete-image-verification.json','production-namespace-verification.json','pinned-webview-verification.json'):
+             'complete-image-verification.json','production-namespace-verification.json','pinned-webview-verification.json',
+             'preserved-rom-verification.json'):
     if (audit / name).is_file(): shutil.copy2(audit / name, out / name)
 for name in ('gpu-node-carryover.json','candidate-boot-verification.json','complete-image-policy-verification.json'):
     if (audit/name).is_file():shutil.copy2(audit/name,out/name)

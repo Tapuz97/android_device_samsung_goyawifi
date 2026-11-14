@@ -23,8 +23,12 @@ $release = Get-CandidateRelease
 if (-not $release) {
     gh release create $tag --repo $repo --draft --target $sourceBranch --title 'SM-T110 Android 13 complete engineering candidate - offline checks only' --notes-file (Join-Path $backup 'README-CANDIDATE.md')
     if ($LASTEXITCODE -ne 0) { throw 'Cannot create the separate candidate backup release.' }
-    $release = Get-CandidateRelease
+    for ($attempt = 0; $attempt -lt 5 -and -not $release; $attempt++) {
+        Start-Sleep -Seconds 2
+        $release = Get-CandidateRelease
+    }
 }
+if (-not $release) { throw 'New draft has not appeared in the API yet; retry this script.' }
 if (-not $release.draft) { throw 'Refusing to modify a published release.' }
 foreach ($name in $assets) {
     if (-not (@($release.assets.name) -contains $name)) {
