@@ -1,3 +1,14 @@
+# Latest hardware result: Android13 booted with functional defects
+
+See [hardware-test-1/RESULTS.md](hardware-test-1/RESULTS.md). One full candidate
+boot reached setup and the launcher. Owner-confirmed touch/setup work, but startup
+ANRs, top-left rendering artifacts and missing audio routing modules remain.
+The candidate is not hardware-qualified.14.1 images/source and isolated tablet
+data are preserved; its tablet system file was reclaimed only after matching
+the verified C: copy. Raw logs/userdata remain private and local.
+
+---
+
 # Current progress: complete Android13 image and offline gates passed
 
 See [phase4/PHASE4.md](phase4/PHASE4.md) and the image, policy, production namespace

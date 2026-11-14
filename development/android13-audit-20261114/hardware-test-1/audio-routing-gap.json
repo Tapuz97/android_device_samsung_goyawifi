@@ -1,0 +1,97 @@
+{
+  "status": "FAIL_MISSING_DYNAMIC_AUDIO_ROUTING_MODULES",
+  "modules": [
+    {
+      "name": "audio_path.adda.mrvl.so",
+      "sha256": "4087dc22964bd097399b5087df2be5df5948002ab0476927450664c9b0017620",
+      "present_in_android13": false,
+      "needed": [
+        "libasound.so",
+        "libdl.so",
+        "liblog.so",
+        "libcutils.so",
+        "libhardware_legacy.so",
+        "libc.so",
+        "libstdc++.so",
+        "libm.so"
+      ]
+    },
+    {
+      "name": "audio_path.fm.mrvl.so",
+      "sha256": "3c4f40f453b7ca7e11a88c62a0d587cfd1c7b2ef965c622675101169a4e4092b",
+      "present_in_android13": false,
+      "needed": [
+        "libasound.so",
+        "libdl.so",
+        "liblog.so",
+        "libcutils.so",
+        "libhardware_legacy.so",
+        "libc.so",
+        "libstdc++.so",
+        "libm.so"
+      ]
+    },
+    {
+      "name": "audio_path.hifi.mrvl.so",
+      "sha256": "4c0dc6b0349f5ff6b3f916b33274022fc2217e775bf6bd2c0c31d65f90675209",
+      "present_in_android13": false,
+      "needed": [
+        "libasound.so",
+        "libdl.so",
+        "liblog.so",
+        "libcutils.so",
+        "libhardware_legacy.so",
+        "libc.so",
+        "libstdc++.so",
+        "libm.so"
+      ]
+    },
+    {
+      "name": "audio_path.vc.mrvl.so",
+      "sha256": "48075e3c4dc70e9b3f2a530dc0b9da69663f5c1eb9f6981532d7d30069a9f2c2",
+      "present_in_android13": false,
+      "needed": [
+        "libasound.so",
+        "libdl.so",
+        "liblog.so",
+        "libcutils.so",
+        "libhardware_legacy.so",
+        "libc.so",
+        "libstdc++.so",
+        "libm.so"
+      ]
+    },
+    {
+      "name": "audio_path.voip.mrvl.so",
+      "sha256": "131ae5a1ab3cd65d2279d21ab491f09ffb49d500966c12b182ba37aa3b98a3fa",
+      "present_in_android13": false,
+      "needed": [
+        "libasound.so",
+        "libdl.so",
+        "liblog.so",
+        "libcutils.so",
+        "libhardware_legacy.so",
+        "libc.so",
+        "libstdc++.so",
+        "libm.so"
+      ]
+    },
+    {
+      "name": "audio_path.vt.mrvl.so",
+      "sha256": "e1ad4def3cb43bf6ff3540e83b92b61b18b60d3dd581c25fa07b6b4f69ffe754",
+      "present_in_android13": false,
+      "needed": [
+        "libasound.so",
+        "libdl.so",
+        "liblog.so",
+        "libcutils.so",
+        "libhardware_legacy.so",
+        "libMarvellWireless.so",
+        "libc.so",
+        "libstdc++.so",
+        "libm.so"
+      ]
+    }
+  ],
+  "source14_modified": false
+}

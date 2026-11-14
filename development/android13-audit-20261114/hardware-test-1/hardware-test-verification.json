@@ -1,0 +1,53 @@
+{
+  "status": "HARDWARE_QUALIFICATION_FAILED_FUNCTIONAL_GAPS_REMAIN",
+  "full_candidate_boots": 1,
+  "boot_id": "5f038d19-5f66-4f51-9f06-6468c4d3c23f",
+  "android_sdk": 33,
+  "boot_completed_observed": true,
+  "host_monitor_first_completion_seconds": 279.4,
+  "user_setup_complete": true,
+  "display": {
+    "status": "PARTIAL",
+    "owner_saw_animation": true,
+    "owner_completed_setup": true,
+    "top_left_artifacts_owner_and_screenshot": true
+  },
+  "touch": {
+    "status": "PASS_TESTED_FLOW",
+    "owner_confirmed_start_and_setup": true,
+    "recorded_contacts": 26
+  },
+  "speaker": {
+    "status": "FAIL_PLAYBACK_INITIALIZATION",
+    "audible_playback_confirmed": false,
+    "media_player_error": -19,
+    "primary_output_available": false,
+    "missing_dynamic_audio_path_modules": 6
+  },
+  "startup": {
+    "status": "FAIL_ANRS_BEFORE_RECOVERY",
+    "system_and_systemui_anrs": true
+  },
+  "bluetooth": {
+    "status": "FAIL_OBSERVED_HAL_CONTROLLER_TIMEOUT"
+  },
+  "system_sha256": "470961893c93aa228c5722108ab15b364b970d6d143c3a5546401bb6ac7563ee",
+  "boot_sha256": "f2d735c3fea57b853147b6a846fc80ff0ed9e2df3d168ef398fc7d3a1a8365c7",
+  "recovery_sha256": "f7f0bcf8a0cee4ecf265a2e1d75de028e97e9401c640e8cbc29d4b256d39452e",
+  "recovery_unchanged": true,
+  "physical_system_written": false,
+  "working14_host_pair_preserved": true,
+  "working14_on_tablet_data_preserved": true,
+  "working14_on_tablet_system_file_reclaimed_after_host_and_tablet_hash_comparison": true,
+  "working14_online_release_id": 444868203,
+  "android13_candidate_online_release_id": 445434326,
+  "same_boot_audio_service_reinitializations": 1,
+  "system_image_modified_during_runtime": false,
+  "usb_stay_awake_original_and_restored": 0,
+  "continuous_device_logging_enabled": false,
+  "private_userdata_archive_uploaded": false,
+  "screenshot": {
+    "file": "setup-complete-screen.png",
+    "sha256": "501a18bd9f872a2ff66d168d9bea60cd01ffb776638a10de0768605210ec7c47"
+  }
+}
