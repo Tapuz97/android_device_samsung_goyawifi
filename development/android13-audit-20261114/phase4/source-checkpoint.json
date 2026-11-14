@@ -13,7 +13,7 @@
     },
     {
       "path": "PHASE4-IN-PROGRESS.md",
-      "sha256": "bb113feefcecc20f9b792433536c30d2ed4db950794883e81981013b820bd685"
+      "sha256": "c2dd8b4137265989386bf394daab10a1b28840083f6556b38f41ee54a240a0a1"
     },
     {
       "path": "ProductionAudioProbe.c",
@@ -21,7 +21,7 @@
     },
     {
       "path": "backup_complete_candidate.py",
-      "sha256": "a3a45d38bf6c9486d1373460cd23b9ee0fe520fdc76d853bda1941b704070e05"
+      "sha256": "d894abffc332bc7e7f211bca84e5ad1cf87f35cc75d357c8bc9bb806312d03b3"
     },
     {
       "path": "build_complete_image.sh",
@@ -37,7 +37,7 @@
     },
     {
       "path": "check_complete_image_policy.py",
-      "sha256": "531d938ba8443dd899818d8a2122543ed8d25649df8c9cd1bea7e6c608e97229"
+      "sha256": "b8e45b424aaf5d0a34fd84a10ee2eb992236cf4356d2c0a19cc1ba0cf0080f2e"
     },
     {
       "path": "complete-image-geometry.json",
@@ -45,7 +45,7 @@
     },
     {
       "path": "export_phase4_source.py",
-      "sha256": "0500f81df6606d11ec4ceb437d2ca0901ed38eaec1e537be7f30489c4f9b2725"
+      "sha256": "88071d6aca851924dd8b6e89bd2d913170e9bf2e55c26f0dd17929c8b053e76d"
     },
     {
       "path": "gpu-node-carryover.json",
@@ -65,7 +65,11 @@
     },
     {
       "path": "package_android13_candidate_boot.py",
-      "sha256": "8e298d1289d80558247e4bdb3dc3dd5baf905423a792759fd89dfd7c6d286f13"
+      "sha256": "3c2a3a4e87061e01b32e1b4693f91f04a7b6d75d2766a50369efa2d2b4c3be62"
+    },
+    {
+      "path": "pinned-webview-verification.json",
+      "sha256": "018eaabea752eb9389741582273cbf22a20104a10fd4bf92036583bc5582a960"
     },
     {
       "path": "prepare_complete_image_geometry.py",
@@ -92,12 +96,20 @@
       "sha256": "d1e6ed72e7c29149f007072b6952ad46dfcba3547e2da230e01b8f34ec9a5bfc"
     },
     {
+      "path": "restore_pinned_webview.py",
+      "sha256": "7b55a29d6cfc4e4a1b05bd8dc2c6a331451ec2bf0129f60b21874ff45fc6917b"
+    },
+    {
+      "path": "run_complete_candidate_gates.sh",
+      "sha256": "e62abf753054916f6e05f60c588e1b5c137f66f3f01536d7dfccfc88b1457134"
+    },
+    {
       "path": "run_production_namespace_checks.py",
       "sha256": "96b1d8b629e5ae6c5839918c5bf309ea9841713cf025515f8f23b68602204393"
     },
     {
       "path": "verify_complete_image.py",
-      "sha256": "1f4dccaf21da623d05b2120934fb58053b94055063073f7e12a239abd0820029"
+      "sha256": "28fd02ca471c510f8acbd5d2478e0725dc778366622d11e9b90c468e33f91dc1"
     },
     {
       "path": "verify_kernel_carryover.py",

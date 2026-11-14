@@ -12,7 +12,7 @@ boot=json.loads((audit/'candidate-boot-verification.json').read_text())
 policy=json.loads((audit/'complete-image-policy-verification.json').read_text())
 assert image['status']==ns['status']==policy['status']=='PASS'
 assert boot['status']=='PASS_OFFLINE_NOT_HARDWARE_QUALIFIED'
-assert image['raw_image_sha256']==ns['image_sha256']==boot['system_sha256']
+assert image['raw_image_sha256']==ns['image_sha256']==policy['image_sha256']==boot['system_sha256']
 dest=audit/'complete-candidate-backup';dest.mkdir(exist_ok=True)
 raw=image_dir/'system.raw.img'
 def sha(path):

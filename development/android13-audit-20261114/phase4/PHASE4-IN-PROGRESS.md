@@ -69,3 +69,20 @@ the new actual-image policy check verifies that actor instead of guessing.
 
 No full image/namespace PASS is claimed yet. No ADB, transfer, reboot, flash or
 tablet operation has occurred. See phase4 tool/source checkpoints for resuming.
+
+## Full-image build recovery
+
+The12-job attempt reached95% before Linux killed Ninja for memory pressure.
+The cached build now uses two jobs and one high-memory slot; the failure and
+kernel OOM evidence remain in the build logs. No compilation check was disabled.
+
+The next attempt exposed the pinned ARM WebView APK as a133-byte Git LFS pointer.
+`restore_pinned_webview.py` fetches its exact98,126,751-byte payload through the
+repository's declared public Gerrit LFS endpoint, then checks its pinned SHA256
+and all ZIP entries. The source revision and WebView feature remain unchanged.
+Build4 resumes with that verified payload; its log is complete-image-4.log.
+
+Actual-image policy results now bind to the image and compiled-policy hashes.
+Image extraction removes previous output files before each dump so a missing
+candidate file cannot pass through a stale extraction. Matching boot/backup gates
+require the same image hash in policy, namespace, and filesystem records.

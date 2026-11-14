@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "project": "LineageOS/android_external_chromium-webview_prebuilt_arm",
+  "revision": "472d0ac3cf8e78982807bedd20279a537d6cdf68",
+  "path": "external/chromium-webview/prebuilt/arm/webview.apk",
+  "url": "https://review.lineageos.org/LineageOS/android_external_chromium-webview_prebuilt_arm.git/info/lfs",
+  "bytes": 98126751,
+  "sha256": "0dc261c3f37e9ac16a4f593ef316a097fc59815bb2082a8e38c519647bbcb3cc",
+  "source_revision_changed": false,
+  "flashed": false
+}

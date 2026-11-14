@@ -1,11 +1,17 @@
 from pathlib import Path
 import json
+import hashlib
 import sys
 
 root=Path('/root/t110-android13');audit=Path('/root/t110-android13-audit')
 sys.path.insert(0,str(root/'android/system/sepolicy/tests'))
 from policy import Policy
 image=audit/'complete-image/extracted'
+manifest=json.loads((audit/'complete-image-verification.json').read_text())
+assert manifest['status']=='PASS'
+policy_name='system/vendor/etc/selinux/precompiled_sepolicy'
+policy_sha256=hashlib.sha256((image/policy_name).read_bytes()).hexdigest()
+assert next(x['sha256'] for x in manifest['files'] if x['path']==policy_name)==policy_sha256
 lib=root/'out/soong/.intermediates/system/sepolicy/tests/libsepolwrap/linux_glibc_x86_64_shared/libsepolwrap.so'
 contexts=[image/'system/etc/selinux/plat_file_contexts',image/'system/vendor/etc/selinux/vendor_file_contexts']
 p=Policy(str(image/'system/vendor/etc/selinux/precompiled_sepolicy'),[str(x) for x in contexts],str(lib))
@@ -33,6 +39,7 @@ assert not ({'read','write'}&perms('untrusted_app','graphics_device','chr_file')
 paths=p.QueryFc('gpu_device')
 assert '/dev/graphics/galcore' in paths,paths
 result=dict(status='PASS',scope='Actual image policy and file-context inputs; no live SELinux enforcement',
+    image_sha256=manifest['raw_image_sha256'],policy_sha256=policy_sha256,
     checks=records,gpu_exact_path_present=True,unrelated_graphics_device_not_opened_to_apps=True,
     vendor_init_actual_action_actor_checked=True,flashed=False)
 (audit/'complete-image-policy-verification.json').write_text(json.dumps(result,indent=2)+'\n')

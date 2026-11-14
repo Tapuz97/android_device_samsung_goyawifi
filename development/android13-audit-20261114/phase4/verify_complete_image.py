@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 base=Path('/root/t110-android13');audit=Path('/root/t110-android13-audit')
 product=base/'out/target/product/t110_bringup';dest=audit/'complete-image'
 dest.mkdir(exist_ok=True)
-log=Path(sys.argv[1]) if len(sys.argv)>1 else base/'logs/complete-image-3.log'
+log=Path(sys.argv[1]) if len(sys.argv)>1 else base/'logs/complete-image-4.log'
 assert 'T110_COMPLETE_SYSTEMIMAGE_BUILD_PASS' in log.read_text(errors='replace'),log
 image=product/'system.img';raw=dest/'system.raw.img'
 with image.open('rb') as f:magic=f.read(4)
@@ -40,6 +40,8 @@ extracted=dest/'extracted';extracted.mkdir(exist_ok=True)
 records=[];component_deltas=[]
 def extract(name,expected=None):
     path=extracted/name;path.parent.mkdir(parents=True,exist_ok=True)
+    # A failed debugfs dump must never leave a previous candidate's file valid.
+    path.unlink(missing_ok=True)
     result=subprocess.run(['debugfs','-R','dump /'+name+' '+str(path),str(raw)],capture_output=True,text=True)
     assert path.is_file() and path.stat().st_size,(name,result.stderr)
     digest=sha(path)
