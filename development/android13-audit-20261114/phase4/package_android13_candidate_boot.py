@@ -74,7 +74,7 @@ if b'/dev/graphics/galcore 0666 system graphics' not in rules:
 items['ueventd.mrvl.rc']=(fields,rules)
 for name in ('product','system_ext','system','stage-data','data'):
     assert stat.S_ISDIR(items[name][0][1]),name
-assert items['init'][1]==original['init'][1] and b'/stage-data/local/tmp/t110-stage-system.raw' in items['init'][1]
+assert items['init'][1]==original['init'][1] and b'/stage-data/local/tmp/t110-rom-system.raw' in items['init'][1]
 assert sha(items['lib/modules/galcore.ko'][1])==carry['matched_galcore_sha256']
 kernel=Path('/root/t110-lineage14/android/device/samsung/goyawifi/prebuilt/zImage').read_bytes()
 assert sha(kernel)==carry['candidate_kernel_sha256']
@@ -104,6 +104,8 @@ result=dict(status='PASS_OFFLINE_NOT_HARDWARE_QUALIFIED',bytes=path.stat().st_si
     source_boot_sha256=sha(old),kernel_sha256=sha(kernel),kernel_carryover=carry,
     system_sha256=image['raw_image_sha256'],bootstrap_policy_sha256=sha(policy),policy_version=policy_version,
     ramdisk_changed_files=changed,original_stage_unchanged=True,module_unchanged=True,
+    backing_image_path='/stage-data/local/tmp/t110-rom-system.raw',
+    android_data_path='/stage-data/local/tmp/t110-rom-data',
     window_gpu_enabled=True,software_fallback_retained=True,continuous_logcat_enabled=False,
     memory_fixes_retained=True,working14_images_modified=False,flashed=False)
 (audit/'candidate-boot-verification.json').write_text(json.dumps(result,indent=2)+'\n')

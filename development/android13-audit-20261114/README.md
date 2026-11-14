@@ -1,3 +1,18 @@
+# Current progress: complete Android13 image and offline gates passed
+
+See [phase4/PHASE4.md](phase4/PHASE4.md) and the image, policy, production namespace
+and candidate boot verification records. The complete system image and matching
+boot are built.142 extracted hashes and279 native load targets across10 real
+namespace configurations pass, including real audio module/plugin/HIDL loading.
+No guest LD overrides or SDK lowering were used. Matching boot retains the13
+stage/data paths and memory/logging fixes, with the archive-fixed kernel and
+exact GPU-node access carried from14.1. Current and rollback14.1 pairs remain
+unchanged. No flash or hardware rendering/audio qualification is claimed.
+
+---
+
+## Historical phase3 checkpoint
+
 # Current progress: full ARM graphics/audio/policy build checks passed
 
 See [phase3/PHASE3.md](phase3/PHASE3.md) and its full-build-verification.json.

@@ -38,8 +38,9 @@ with zipfile.ZipFile(verification,'w',compression=zipfile.ZIP_DEFLATED,compressl
     for name in ('complete-image-verification.json','production-namespace-verification.json',
                  'complete-image-policy-verification.json','candidate-boot-verification.json',
                  'kernel-carryover-verification.json','complete-image-geometry.json',
-                 'preserved-rom-verification.json'):
+                 'preserved-rom-verification.json','pinned-webview-verification.json'):
         z.write(audit/name,'verification/'+name)
+    z.write(audit/'namespace-tools/toolchain.json','verification/namespace-toolchain.json')
     for name in ('filesystem-check.txt','filesystem-header.txt','candidate-init.mrvl.rc'):
         z.write(image_dir/name,name)
     for path in sorted(Path('/root/t110-android13/logs').glob('complete-image-*.log')):

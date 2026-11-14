@@ -1,7 +1,7 @@
 {
   "base": "ce73cdbb2644e1919645068853657a5b9c3efa3c",
   "prerequisites": "phase3 complete-project-deltas, project-additions and original private restoration capsule",
-  "status": "FULL_IMAGE_AND_PRODUCTION_NAMESPACE_PENDING",
+  "status": "COMPLETE_IMAGE_OFFLINE_GATES_PASS_NOT_HARDWARE_QUALIFIED",
   "files": [
     {
       "path": "BuildCandidatePropertyInfo.cpp",
@@ -16,12 +16,20 @@
       "sha256": "c2dd8b4137265989386bf394daab10a1b28840083f6556b38f41ee54a240a0a1"
     },
     {
+      "path": "PHASE4.md",
+      "sha256": "b5dcb71f8e5bf971ad7eda9cbe3603f90fb876dddd5f1b086092da123ddc625e"
+    },
+    {
       "path": "ProductionAudioProbe.c",
       "sha256": "c43c37744d3846393d55f43678d2b59438e3c76bf13e8af2ea175aa82a7e587c"
     },
     {
       "path": "backup_complete_candidate.py",
-      "sha256": "d894abffc332bc7e7f211bca84e5ad1cf87f35cc75d357c8bc9bb806312d03b3"
+      "sha256": "e02d4d452b22cf446882ad3c174a642f093b5602b0af2e9901192c0b84c73928"
+    },
+    {
+      "path": "backup_complete_candidate_online.ps1",
+      "sha256": "afa938f93490641d29b63ab26a8a8c7a33786ab98752644da8e66787893fc740"
     },
     {
       "path": "build_complete_image.sh",
@@ -30,6 +38,10 @@
     {
       "path": "build_namespace_tools.py",
       "sha256": "de7293874c1975b4ff9b3cd5b58a3ee2cd0f7e2d8a9729afa38a36886bf732f8"
+    },
+    {
+      "path": "candidate-boot-verification.json",
+      "sha256": "4076de4e0a4645b0c41160910a64d56fb29bac2a7d820159b46fde80cff93ca9"
     },
     {
       "path": "carry_gpu_node_fix.py",
@@ -44,8 +56,16 @@
       "sha256": "29215bbacec895c4fb997265efcaa2e3f4101f25b08507ff7ad3bde4d44401e3"
     },
     {
+      "path": "complete-image-policy-verification.json",
+      "sha256": "e8e3b195b811b85b5ad31aef0ce983e6bb902168d024549a155cc5b7b7550c91"
+    },
+    {
+      "path": "complete-image-verification.json",
+      "sha256": "3863d5575657d97c198cc590ce7e16126fdcceb3b06faf373237152a5cfa6da0"
+    },
+    {
       "path": "export_phase4_source.py",
-      "sha256": "88071d6aca851924dd8b6e89bd2d913170e9bf2e55c26f0dd17929c8b053e76d"
+      "sha256": "45424c16632282f7e1c9ff968d73dc5b4c23b9725ab41ffbd524d7e95775bcda"
     },
     {
       "path": "gpu-node-carryover.json",
@@ -65,7 +85,7 @@
     },
     {
       "path": "package_android13_candidate_boot.py",
-      "sha256": "3c2a3a4e87061e01b32e1b4693f91f04a7b6d75d2766a50369efa2d2b4c3be62"
+      "sha256": "855cbe37dacd0cb4b37f7129810d74c861b7af02d9443a5c9433a8cd144b362e"
     },
     {
       "path": "pinned-webview-verification.json",
@@ -96,6 +116,10 @@
       "sha256": "d1e6ed72e7c29149f007072b6952ad46dfcba3547e2da230e01b8f34ec9a5bfc"
     },
     {
+      "path": "production-namespace-verification.json",
+      "sha256": "7e505d1ca554f21f8598b0ca6c5d751fca5757de89ba8923d8c9f70ec9ecce29"
+    },
+    {
       "path": "restore_pinned_webview.py",
       "sha256": "7b55a29d6cfc4e4a1b05bd8dc2c6a331451ec2bf0129f60b21874ff45fc6917b"
     },
@@ -105,7 +129,7 @@
     },
     {
       "path": "run_production_namespace_checks.py",
-      "sha256": "96b1d8b629e5ae6c5839918c5bf309ea9841713cf025515f8f23b68602204393"
+      "sha256": "dbb1a81cfb8938580a28534cdebeaf8d66a4d86886ccb7abf0ee2d527e9f3c8e"
     },
     {
       "path": "verify_complete_image.py",

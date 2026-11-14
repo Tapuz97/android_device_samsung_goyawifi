@@ -12,9 +12,10 @@ names = ('PHASE4-IN-PROGRESS.md', 'build_complete_image.sh', 'run_complete_candi
          'inspect_android13_boot.py', 'verify_kernel_carryover.py', 'verify_complete_image.py',
          'run_production_namespace_checks.py', 'carry_gpu_node_fix.py',
          'package_android13_candidate_boot.py', 'check_complete_image_policy.py',
-         'backup_complete_candidate.py', 'export_phase4_source.py')
+         'backup_complete_candidate.py', 'backup_complete_candidate_online.ps1', 'export_phase4_source.py')
 for name in names:
     shutil.copy2(tools / name, out / name)
+if (tools/'PHASE4.md').is_file():shutil.copy2(tools/'PHASE4.md',out/'PHASE4.md')
 product = Path('/root/t110-android13/android/device/samsung/t110_bringup')
 (out / 'product').mkdir(exist_ok=True)
 for name in ('BoardConfig.mk','graphics.mk','graphics/ueventd.t110.rc','sepolicy/file_contexts'):
@@ -27,6 +28,17 @@ for name in ('gpu-node-carryover.json','candidate-boot-verification.json','compl
     if (audit/name).is_file():shutil.copy2(audit/name,out/name)
 if (audit / 'namespace-tools/toolchain.json').is_file():
     shutil.copy2(audit / 'namespace-tools/toolchain.json', out / 'namespace-toolchain.json')
+receipt=audit/'complete-candidate-backup/online-backup-verification.json'
+if receipt.is_file():
+    (out/receipt.name).write_text(json.dumps(json.loads(receipt.read_text(encoding='utf-8-sig')),indent=2)+'\n')
+statuses={}
+for name in ('complete-image-verification.json','production-namespace-verification.json',
+             'complete-image-policy-verification.json','candidate-boot-verification.json'):
+    path=audit/name
+    if path.is_file():statuses[name]=json.loads(path.read_text())
+complete=len(statuses)==4 and all(v['status'].startswith('PASS') for v in statuses.values())
+if complete:
+    assert statuses['complete-image-verification.json']['raw_image_sha256']==statuses['production-namespace-verification.json']['image_sha256']==statuses['complete-image-policy-verification.json']['image_sha256']==statuses['candidate-boot-verification.json']['system_sha256']
 records=[]
 for p in sorted(out.rglob('*')):
     if p.is_file() and p.name != 'source-checkpoint.json':
@@ -34,5 +46,6 @@ for p in sorted(out.rglob('*')):
 (out / 'source-checkpoint.json').write_text(json.dumps(dict(
     base='ce73cdbb2644e1919645068853657a5b9c3efa3c',
     prerequisites='phase3 complete-project-deltas, project-additions and original private restoration capsule',
-    status='FULL_IMAGE_AND_PRODUCTION_NAMESPACE_PENDING',files=records, flashed=False),indent=2)+'\n')
+    status='COMPLETE_IMAGE_OFFLINE_GATES_PASS_NOT_HARDWARE_QUALIFIED' if complete else 'FULL_IMAGE_AND_PRODUCTION_NAMESPACE_PENDING',
+    files=records, flashed=False),indent=2)+'\n')
 print('Exported phase4 source/geometry/tool checkpoint without altering the phase3 backup.')

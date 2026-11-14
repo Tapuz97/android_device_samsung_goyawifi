@@ -194,11 +194,25 @@ def child(work):
     generator='/system/bin/bootstrap/linkerconfig'
     # Static generator can bootstrap the dynamic writer. Only the regenerated
     # configuration made AFTER actual properties exist counts as production.
-    guest(generator,['--target','/linkerconfig','--strict'])
+    guest(generator,['--target','/linkerconfig'])
     guest('/data/local/tmp/candidate-namespace-probe',['properties','/data/local/tmp/candidate.properties'])
     guest('/data/local/tmp/candidate-namespace-probe',['get','ro.build.version.sdk','33'])
     guest('/data/local/tmp/candidate-namespace-probe',['get','ro.t110.legacy_audio',props['ro.t110.legacy_audio']])
-    guest(generator,['--target','/linkerconfig','--strict'])
+    # Match init's actual arguments. Strict mode deliberately aborts resolution
+    # on libdexfiled: this product intentionally uses optimized release ART,
+    # while AOSP's generic system require-list also names the debug-only DSO.
+    # Keep that diagnostic separately; it must not corrupt production configs.
+    (root/'linkerconfig-strict').mkdir()
+    (root/'dev/kmsg').write_text('')
+    guest(generator,['--target','/linkerconfig-strict','--strict'])
+    strict_diagnostics=(root/'dev/kmsg').read_text()
+    unexpected=set(re.findall(r'not found: (\S+)',strict_diagnostics))-{'libdexfiled.so'}
+    assert not unexpected,('Unexpected strict-mode missing provider',unexpected,strict_diagnostics)
+    (work/'strict-generator-diagnostics.txt').write_text(strict_diagnostics)
+    (root/'dev/kmsg').write_text('')
+    guest(generator,['--target','/linkerconfig'])
+    production_diagnostics=(root/'dev/kmsg').read_text()
+    assert not production_diagnostics.strip(),production_diagnostics
     configs=[]
     for p in sorted((root/'linkerconfig').rglob('ld.config.txt')):
         text=p.read_text()
@@ -230,6 +244,12 @@ def child(work):
     libraries.update(required_egl)
     linker='/apex/com.android.runtime/bin/linker'
     failures=[]
+    egl_context_targets={'/vendor/lib/egl/libGLESv1_CM_MRVL.so',
+                         '/vendor/lib/egl/libGLESv2_MRVL.so','/vendor/lib/libGLESv2SC.so'}
+    loader_source=Path('/root/t110-android13/android/frameworks/native/opengl/libs/EGL/Loader.cpp')
+    source_text=loader_source.read_text()
+    system_loader=source_text[source_text.index('Loader::driver_t* Loader::attempt_to_load_system_driver'):]
+    assert system_loader.index('load_system_driver("EGL"')<system_loader.index('load_system_driver("GLESv1_CM"')<system_loader.index('load_system_driver("GLESv2"')
     for index,target in enumerate(sorted(targets)):
         program=target
         if target in libraries:
@@ -238,9 +258,16 @@ def child(work):
             wrapper=diag/f'library-case-{index}'
             shutil.copy2(AUDIT/'namespace-tools/candidate-namespace-probe',wrapper)
             run(['patchelf','--add-needed',target,wrapper])
+            if target in egl_context_targets:
+                # Android's real Loader opens EGL before either GLES library;
+                # the shader compiler is later loaded from that same driver.
+                # Keep stock DSOs unchanged and model that existing dependency
+                # context without constructors or an invented search directory.
+                run(['patchelf','--add-needed','/vendor/lib/egl/libEGL_MRVL.so',wrapper])
             program='/data/local/tmp/'+wrapper.name
         item=guest(linker,['--list',program],required=False)
         item['production_target']=target
+        if target in egl_context_targets:item['existing_egl_loader_dependency']='/vendor/lib/egl/libEGL_MRVL.so'
         if item['exit']:failures.append(item)
     # Actual dlopen in the same generated legacy service namespace, with normal
     # SDK behavior. No HMI open/read/write or GPU initialization is called.
@@ -267,6 +294,9 @@ def child(work):
         property_count=len(props),native_load_targets=len(targets),failures=failures,commands=commands,
         sdk_lowered=False,ld_overrides=False,constructor_free_checks=True,
         boot_derived_properties={'ro.boot.hardware':'mrvl','ro.hardware':'mrvl'},
+        generator_matches_init=True,production_generator_diagnostics=production_diagnostics,
+        strict_generator_diagnostics=strict_diagnostics,strict_debug_only_optional_provider='libdexfiled.so',
+        egl_context_targets=sorted(egl_context_targets),egl_loader_source_sha256=digest(loader_source),
         host_runtime=host_runtime,required_literal_egl_paths=sorted(required_egl),
         hardware_opened=False,selinux_runtime_enforced=False,
         kernel_emulated=False,flashed=False)

@@ -1,0 +1,143 @@
+{
+  "status": "PASS",
+  "scope": "Actual image policy and file-context inputs; no live SELinux enforcement",
+  "image_sha256": "470961893c93aa228c5722108ab15b364b970d6d143c3a5546401bb6ac7563ee",
+  "policy_sha256": "6a3cacb467ea4d81183a9dcbf06fa59209e763da080d8671fbc56317bd025132",
+  "checks": [
+    {
+      "source": "vendor_init",
+      "target": "proc_t110_audio_clock",
+      "kind": "file",
+      "required": [
+        "open",
+        "read",
+        "setattr"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "vendor_init",
+      "target": "audio_config_prop",
+      "kind": "property_service",
+      "required": [
+        "set"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "proc_t110_audio_clock",
+      "kind": "file",
+      "required": [
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "audio_config_prop",
+      "kind": "file",
+      "required": [
+        "map",
+        "open",
+        "read"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_audio_default",
+      "target": "exported_default_prop",
+      "kind": "file",
+      "required": [
+        "map",
+        "open",
+        "read"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "untrusted_app",
+      "target": "gpu_device",
+      "kind": "chr_file",
+      "required": [
+        "ioctl",
+        "map",
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "platform_app",
+      "target": "gpu_device",
+      "kind": "chr_file",
+      "required": [
+        "ioctl",
+        "map",
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "system_app",
+      "target": "gpu_device",
+      "kind": "chr_file",
+      "required": [
+        "ioctl",
+        "map",
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "surfaceflinger",
+      "target": "gpu_device",
+      "kind": "chr_file",
+      "required": [
+        "ioctl",
+        "map",
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_graphics_allocator_default",
+      "target": "gpu_device",
+      "kind": "chr_file",
+      "required": [
+        "ioctl",
+        "map",
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source": "hal_graphics_composer_default",
+      "target": "gpu_device",
+      "kind": "chr_file",
+      "required": [
+        "ioctl",
+        "map",
+        "open",
+        "read",
+        "write"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "gpu_exact_path_present": true,
+  "unrelated_graphics_device_not_opened_to_apps": true,
+  "vendor_init_actual_action_actor_checked": true,
+  "flashed": false
+}
