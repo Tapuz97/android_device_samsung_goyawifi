@@ -8,6 +8,8 @@ index=WORK/'changed-files.json'
 files=json.loads(index.read_text()) if index.is_file() else {}
 def save(name,text):
     p=SRC/name
+    if p.is_file() and p.read_bytes()==text.encode('utf-8'):
+        return
     if name not in files:
         if p.exists():
             old=p.read_bytes();backup=BEFORE/name;backup.parent.mkdir(parents=True,exist_ok=True);backup.write_bytes(old)

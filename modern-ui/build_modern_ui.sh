@@ -16,5 +16,8 @@ make -C /root/t110-lineage14/kernel-initramfs-source \
 cd /root/t110-lineage14/android
 source build/envsetup.sh >/dev/null
 lunch lineage_goyawifi-userdebug >/dev/null
+# envsetup/lunch prepends the JDK and otherwise bypasses the already qualified
+# localhost-only Jack launcher/security wrapper.
+export PATH=/root/t110-lineage14/host-bin:$PATH
 # User interface and framework only. Reuse the verified boot image and kernel.
 make -j8 systemimage

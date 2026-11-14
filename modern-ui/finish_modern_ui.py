@@ -28,6 +28,12 @@ resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_de
 resource(FW+'core/res/res/values/colors_device_defaults.xml','color','primary_dark_device_default_settings','#101B16')
 edit(SET+'res/values/themes.xml','@*android:drawable/ic_menu_moreoverflow_holo_dark',
      '@*android:drawable/ic_menu_moreoverflow_material')
+save(SET+'res/values/t110_modern.xml',xml('''<resources><string name="t110_search_settings">@string/search_settings</string></resources>'''))
+# Smallest-width resources outrank orientation. Override each inherited row
+# count for landscape so the expanded shade fits the T110's 480dp short side,
+# including when users choose the original 160dpi display density.
+for qualifier in ('values-land','values-sw410dp-land','values-sw540dp-land','values-sw600dp-land'):
+    save(UI+'res/'+qualifier+'/t110_modern.xml',xml('''<resources><integer name="quick_settings_num_rows">2</integer></resources>'''))
 
 # Native power actions keep all existing IDs, listeners and advanced restart.
 path=FW+'core/res/res/layout/global_actions_item.xml'
