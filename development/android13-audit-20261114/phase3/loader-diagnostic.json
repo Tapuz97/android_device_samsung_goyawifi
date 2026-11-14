@@ -1,0 +1,25 @@
+{
+  "command": [
+    "unshare",
+    "--pid",
+    "--fork",
+    "--mount-proc",
+    "qemu-arm",
+    "-cpu",
+    "cortex-a9",
+    "-L",
+    "/root/t110-android13-audit/loader-rootfs",
+    "-E",
+    "LD_LIBRARY_PATH=/vendor/lib:/system/lib",
+    "-E",
+    "ALSA_CONFIG_PATH=/vendor/etc/alsa/alsa.conf",
+    "-E",
+    "T110_PROBE_LEGACY_SDK=1",
+    "/root/t110-android13-audit/loader-rootfs/data/local/tmp/audio-load-probe"
+  ],
+  "exit": 0,
+  "stdout": "Android Bionic loader probe started\nDiagnostic probe process only: legacy target SDK22\nLoaded /vendor/lib/hw/audio.primary.mrvl.so\nLoaded /vendor/lib/alsa-lib/libasound_module_ctl_codec.so\nLoaded /vendor/lib/alsa-lib/libasound_module_ctl_phone.so\nLoaded /vendor/lib/alsa-lib/libasound_module_pcm_phone.so\nALSA codec plugin configured at /vendor/lib/alsa-lib/libasound_module_ctl_codec.so\nPASS actual Android13 loader, stock audio/plugin relocations and ALSA config; no hardware opened\n",
+  "stderr": "linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"\nWARNING: linker: Warning: failed to find generated linker configuration from \"/linkerconfig/ld.config.txt\"\nlinker: Warning: \"/root/t110-android13-audit/loader-rootfs/vendor/lib/libippsp.so\" has text relocations and will not work when the app moves to API level 23 or later (https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md#Text-Relocations-Enforced-for-API-level-23) (allowing for now because this app's target API level is still 22)\nWARNING: linker: Warning: \"/root/t110-android13-audit/loader-rootfs/vendor/lib/libippsp.so\" has text relocations and will not work when the app moves to API level 23 or later (https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md#Text-Relocations-Enforced-for-API-level-23) (allowing for now because this app's target API level is still 22)\n",
+  "context": "Offline QEMU, real Android13 Bionic/loader, explicit DT_NEEDED shims, diagnostic legacy SDK; production vendor namespace not represented",
+  "hardware_opened": false
+}

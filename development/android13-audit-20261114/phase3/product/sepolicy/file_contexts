@@ -1,0 +1,13 @@
+/(vendor|system/vendor)/lib/libGAL\.so u:object_r:t110_gpu_file:s0
+/dev/galcore u:object_r:gpu_device:s0
+# Use Android's existing swap-device permissions for this actual RAM swap node.
+/dev/block/zram0 u:object_r:swap_block_device:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software u:object_r:hal_gatekeeper_default_exec:s0
+/(vendor|system/vendor)/bin/t110_radio_init u:object_r:t110_radio_init_exec:s0
+/(vendor|system/vendor)/etc/wifi/modules/(mlan|sd8xxx)\.ko u:object_r:t110_radio_module_file:s0
+/(vendor|system/vendor)/bin/t110_bt_init u:object_r:t110_radio_init_exec:s0
+/(vendor|system/vendor)/etc/bluetooth/modules/mbt8xxx\.ko u:object_r:t110_radio_module_file:s0
+/dev/mbtchar[0-9]+ u:object_r:t110_bt_device:s0
+/data/vendor/t110-bluetooth(/.*)? u:object_r:t110_bt_address_file:s0
+
+/(vendor|system/vendor)/lib/libippsp\.so u:object_r:t110_audio_textrel_file:s0

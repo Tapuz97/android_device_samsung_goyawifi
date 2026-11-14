@@ -1,0 +1,8 @@
+{
+  "nougat_source_sha256": "444a2013d53dd1bdcbde134621dae1d5a308978de2ec74dc7938514c8e2d9007",
+  "changes": [
+    "Standalone parameter parser; no libmedia/String8 ABI dependency",
+    "Input route initialized from open_input_stream device argument",
+    "Modern full-size zero-initialized stream structures retain the tested ANI7 prefixes"
+  ]
+}

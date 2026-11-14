@@ -1,0 +1,384 @@
+// SPDX-License-Identifier: Apache-2.0
+// Integrate this directory at device/samsung/t110_bringup/audio.
+cc_library_shared {
+    name: "audio.primary.t110",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "32",
+    srcs: ["AudioAdapter.cpp", "AudioModule.cpp"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["libdl"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_library_shared {
+    name: "libt110_audio_legacy_compat",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: ["LegacyList.cpp"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_audio_primary_mrvl",
+    stem: "audio.primary.mrvl",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/hw/audio.primary.mrvl.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "libt110_audio_legacy_compat",
+        "liblog",
+        "libcutils",
+        "t110_ani7_libasound",
+        "libhardware",
+        "libaudioutils",
+        "libeffects",
+        "t110_ani7_libacoustic",
+        "t110_ani7_libaudiodebugtool",
+        "t110_ani7_libsamsungSoundbooster",
+        "t110_ani7_libsamsungRecord",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true,
+    relative_install_path: "hw"
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_lib_SamsungRec_V03011b",
+    stem: "lib_SamsungRec_V03011b",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/lib_SamsungRec_V03011b.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_lib_Samsung_SB_AM_for_ICS_v04004",
+    stem: "lib_Samsung_SB_AM_for_ICS_v04004",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/lib_Samsung_SB_AM_for_ICS_v04004.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libacm",
+    stem: "libacm",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libacm.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "libcrypto",
+        "libxml2",
+        "liblog",
+        "libcutils",
+        "t110_ani7_libasound",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libacoustic",
+    stem: "libacoustic",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libacoustic.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "libxml2",
+        "liblog",
+        "libcutils",
+        "t110_ani7_libmiscgen",
+        "t110_ani7_libippsp",
+        "t110_ani7_libippvp",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libasound",
+    stem: "libasound",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libasound.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "libdl",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libasound_module_ctl_codec",
+    stem: "libasound_module_ctl_codec",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/alsa-lib/libasound_module_ctl_codec.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "t110_ani7_libasound",
+        "libutils",
+        "liblog",
+        "libcutils",
+        "t110_ani7_libacm",
+        "libdl",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true,
+    relative_install_path: "alsa-lib"
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libasound_module_ctl_phone",
+    stem: "libasound_module_ctl_phone",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/alsa-lib/libasound_module_ctl_phone.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "t110_ani7_libasound",
+        "libutils",
+        "liblog",
+        "libcutils",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true,
+    relative_install_path: "alsa-lib"
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libasound_module_pcm_phone",
+    stem: "libasound_module_pcm_phone",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/alsa-lib/libasound_module_pcm_phone.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "t110_ani7_libasound",
+        "libutils",
+        "liblog",
+        "libcutils",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true,
+    relative_install_path: "alsa-lib"
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libaudiodebugtool",
+    stem: "libaudiodebugtool",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libaudiodebugtool.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libm",
+        "t110_ani7_libasound",
+        "libc",
+        "t110_libstdcpp"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libippsp",
+    stem: "libippsp",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libippsp.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "t110_ani7_libmiscgen",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libippvp",
+    stem: "libippvp",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libippvp.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "t110_ani7_libmiscgen",
+        "t110_ani7_libippsp",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libmiscgen",
+    stem: "libmiscgen",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libmiscgen.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libsamsungRecord",
+    stem: "libsamsungRecord",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libsamsungRecord.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "t110_ani7_lib_SamsungRec_V03011b",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libsamsungSoundbooster",
+    stem: "libsamsungSoundbooster",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libsamsungSoundbooster.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "t110_ani7_lib_Samsung_SB_AM_for_ICS_v04004",
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}
+
+cc_prebuilt_library_shared {
+    name: "t110_ani7_libspeexresampler",
+    stem: "libspeexresampler",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: [
+        "vendor/lib/libspeexresampler.so"
+    ],
+    strip: {
+        none: true
+    },
+    shared_libs: [
+        "libc",
+        "t110_libstdcpp",
+        "libm"
+    ],
+    check_elf_files: true
+}

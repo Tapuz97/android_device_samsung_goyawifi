@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Local analogue routes from the measured ANI7/Nougat contract. Bluetooth
+     stays in its standard separate module; SCO requires its own qualification. -->
+<module name="primary" halVersion="2.0">
+    <attachedDevices><item>Speaker</item><item>Built-In Mic</item></attachedDevices>
+    <defaultOutputDevice>Speaker</defaultOutputDevice>
+    <mixPorts>
+        <mixPort name="primary output" role="source" flags="AUDIO_OUTPUT_FLAG_PRIMARY">
+            <profile name="" format="AUDIO_FORMAT_PCM_16_BIT" samplingRates="44100" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+        </mixPort>
+        <mixPort name="primary input" role="sink">
+            <profile name="" format="AUDIO_FORMAT_PCM_16_BIT" samplingRates="8000,16000,44100,48000" channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
+        </mixPort>
+    </mixPorts>
+    <devicePorts>
+        <devicePort tagName="Speaker" type="AUDIO_DEVICE_OUT_SPEAKER" role="sink"/>
+        <devicePort tagName="Wired Headset" type="AUDIO_DEVICE_OUT_WIRED_HEADSET" role="sink"/>
+        <devicePort tagName="Wired Headphones" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE" role="sink"/>
+        <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source"/>
+        <devicePort tagName="Wired Headset Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source"/>
+    </devicePorts>
+    <routes>
+        <route type="mix" sink="Speaker" sources="primary output"/>
+        <route type="mix" sink="Wired Headset" sources="primary output"/>
+        <route type="mix" sink="Wired Headphones" sources="primary output"/>
+        <route type="mix" sink="primary input" sources="Built-In Mic,Wired Headset Mic"/>
+    </routes>
+</module>

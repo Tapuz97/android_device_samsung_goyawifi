@@ -1,0 +1,6 @@
+# Exact ANI7 DSP/clock paths; no new permissive domains.
+type t110_audio_textrel_file, file_type, vendor_file_type, t110_audio_file_type;
+allow hal_audio_default t110_audio_textrel_file:file { getattr open read execute map execmod };
+type proc_t110_audio_clock, fs_type, proc_type;
+allow init proc_t110_audio_clock:file { rw_file_perms setattr };
+allow hal_audio_default proc_t110_audio_clock:file rw_file_perms;

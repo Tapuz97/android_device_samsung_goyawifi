@@ -1,0 +1,32 @@
+[
+  {
+    "project": "bionic",
+    "base": "998f94cdcddfd9b5134bbdaf4b0752156fd89ab4",
+    "patch": "bionic.patch",
+    "sha256": "32e0f91582b3f8fcde3a9993e3136efaa53a57b67d7cc6d582bf3a61bcc97a04"
+  },
+  {
+    "project": "frameworks/native",
+    "base": "915ad642e331e0f8ea107b5f5519f2c6f1e7e01c",
+    "patch": "frameworks__native.patch",
+    "sha256": "6b71dbab82c117981afa6e75bf64ecbeffbda29558d11d5faf5328f9ed6d0a71"
+  },
+  {
+    "project": "frameworks/base",
+    "base": "3a5c19c7b673b0d5f1f811629750ae6d1526ce09",
+    "patch": "frameworks__base.patch",
+    "sha256": "1f4b92ba3aac26c62661c8f6e941bd970f7709d5474cd705f3967ec0e0849e99"
+  },
+  {
+    "project": "hardware/interfaces",
+    "base": "2f83e1bda9536aaf406352c868a8192cc3526a69",
+    "patch": "hardware__interfaces.patch",
+    "sha256": "1149bbab200f94f775cda0a1659915bea633b5d725632c1c02014b0e16e169ba"
+  },
+  {
+    "project": "system/sepolicy",
+    "base": "60f5720f939213f8e20ec4eaab49d5348576c70d",
+    "patch": "system__sepolicy.patch",
+    "sha256": "2b8f2596836fc5fb8acce7929add081b21633c4adbf8a078e8d2c99e3c9dab16"
+  }
+]

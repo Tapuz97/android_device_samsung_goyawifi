@@ -1,0 +1,233 @@
+[
+  {
+    "name": "audio.primary.mrvl.so",
+    "source_sha256": "94d26d7de3d686ffc2d1e6e88bdcb2d47e95d02758aa949cf871a306418bc831",
+    "packaged_sha256": "9869becd8e356d5ffebd35d01eefb1af3f92e49b6e36d1432419bda55c5eb4ed",
+    "needed": [
+      "libt110_audio_legacy_compat.so",
+      "liblog.so",
+      "libcutils.so",
+      "libasound.so",
+      "libhardware.so",
+      "libaudioutils.so",
+      "libeffects.so",
+      "libacoustic.so",
+      "libaudiodebugtool.so",
+      "libsamsungSoundbooster.so",
+      "libsamsungRecord.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/hw/audio.primary.mrvl.so"
+  },
+  {
+    "name": "lib_SamsungRec_V03011b.so",
+    "source_sha256": "004668f5971e6987607f3e2052d676b41763557f3e549cb7d0bf812cf18e79d3",
+    "packaged_sha256": "004668f5971e6987607f3e2052d676b41763557f3e549cb7d0bf812cf18e79d3",
+    "needed": [
+      "liblog.so",
+      "libutils.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/lib_SamsungRec_V03011b.so"
+  },
+  {
+    "name": "lib_Samsung_SB_AM_for_ICS_v04004.so",
+    "source_sha256": "aaa9c6bab03b0545c3af86b17eb038ec9204f209045a837b28852d1fe8cf9448",
+    "packaged_sha256": "aaa9c6bab03b0545c3af86b17eb038ec9204f209045a837b28852d1fe8cf9448",
+    "needed": [
+      "liblog.so",
+      "libutils.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/lib_Samsung_SB_AM_for_ICS_v04004.so"
+  },
+  {
+    "name": "libacm.so",
+    "source_sha256": "562c4165abfec1aa61290bd6673501550986c39b5d77d967e5de384d26e0cf1d",
+    "packaged_sha256": "8686caa5cb2c96501dc17e81362e23c8c43db818acd321984d5a43fa55ef7265",
+    "needed": [
+      "libcrypto.so",
+      "libxml2.so",
+      "liblog.so",
+      "libcutils.so",
+      "libasound.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libacm.so"
+  },
+  {
+    "name": "libacoustic.so",
+    "source_sha256": "6b0aefb2c37074099821c8241f2dcc1331a653b18dc15c7a624cb2f1024987d1",
+    "packaged_sha256": "6b0aefb2c37074099821c8241f2dcc1331a653b18dc15c7a624cb2f1024987d1",
+    "needed": [
+      "libxml2.so",
+      "liblog.so",
+      "libcutils.so",
+      "libmiscgen.so",
+      "libippsp.so",
+      "libippvp.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libacoustic.so"
+  },
+  {
+    "name": "libasound.so",
+    "source_sha256": "d16ec5e947ead4de212ce75f62be2be4fb7b9061da5cefff98d0c5dbf1174baa",
+    "packaged_sha256": "d16ec5e947ead4de212ce75f62be2be4fb7b9061da5cefff98d0c5dbf1174baa",
+    "needed": [
+      "libdl.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libasound.so"
+  },
+  {
+    "name": "libasound_module_ctl_codec.so",
+    "source_sha256": "e9d7075b10d8063d8bb51f682ca194466c367f626b66dd58fccbcf0fc10a2cb5",
+    "packaged_sha256": "e9d7075b10d8063d8bb51f682ca194466c367f626b66dd58fccbcf0fc10a2cb5",
+    "needed": [
+      "libasound.so",
+      "libutils.so",
+      "liblog.so",
+      "libcutils.so",
+      "libacm.so",
+      "libdl.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/alsa-lib/libasound_module_ctl_codec.so"
+  },
+  {
+    "name": "libasound_module_ctl_phone.so",
+    "source_sha256": "3be2f1d27d1a8daa914b446b353e207cc205bea77141b9d062ea5a6625dbe7fe",
+    "packaged_sha256": "3be2f1d27d1a8daa914b446b353e207cc205bea77141b9d062ea5a6625dbe7fe",
+    "needed": [
+      "libasound.so",
+      "libutils.so",
+      "liblog.so",
+      "libcutils.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/alsa-lib/libasound_module_ctl_phone.so"
+  },
+  {
+    "name": "libasound_module_pcm_phone.so",
+    "source_sha256": "39d5cd8bdca145763c09f5fcda4588aec23d83ab7f2e9ae5d6a6d673ccb8682b",
+    "packaged_sha256": "39d5cd8bdca145763c09f5fcda4588aec23d83ab7f2e9ae5d6a6d673ccb8682b",
+    "needed": [
+      "libasound.so",
+      "libutils.so",
+      "liblog.so",
+      "libcutils.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/alsa-lib/libasound_module_pcm_phone.so"
+  },
+  {
+    "name": "libaudiodebugtool.so",
+    "source_sha256": "3a3b8ebe4fde60015621433f02b1695fb458f3449d0050682be4647814d5d229",
+    "packaged_sha256": "3a3b8ebe4fde60015621433f02b1695fb458f3449d0050682be4647814d5d229",
+    "needed": [
+      "liblog.so",
+      "libcutils.so",
+      "libm.so",
+      "libasound.so",
+      "libc.so",
+      "libstdc++.so"
+    ],
+    "path": "vendor/lib/libaudiodebugtool.so"
+  },
+  {
+    "name": "libippsp.so",
+    "source_sha256": "cb20a8730e4ed8ca0f177f648cba53bce011200f95bd9c216924bca9a832463e",
+    "packaged_sha256": "cb20a8730e4ed8ca0f177f648cba53bce011200f95bd9c216924bca9a832463e",
+    "needed": [
+      "libmiscgen.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libippsp.so"
+  },
+  {
+    "name": "libippvp.so",
+    "source_sha256": "aef614e654f83b1ee094b775ebb6984093edc2e3b229aa39eda950106bf43648",
+    "packaged_sha256": "aef614e654f83b1ee094b775ebb6984093edc2e3b229aa39eda950106bf43648",
+    "needed": [
+      "libmiscgen.so",
+      "libippsp.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libippvp.so"
+  },
+  {
+    "name": "libmiscgen.so",
+    "source_sha256": "c36235603a6b60bee0c7e4fd6cabaf1266e3997f967797b95d4cea7f8552f735",
+    "packaged_sha256": "c36235603a6b60bee0c7e4fd6cabaf1266e3997f967797b95d4cea7f8552f735",
+    "needed": [
+      "liblog.so",
+      "libcutils.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libmiscgen.so"
+  },
+  {
+    "name": "libsamsungRecord.so",
+    "source_sha256": "e713c4da4b02d99dc5c0e2f7577b8c4b781f36b2cdd1301e8a7e6885ef8d11b2",
+    "packaged_sha256": "e713c4da4b02d99dc5c0e2f7577b8c4b781f36b2cdd1301e8a7e6885ef8d11b2",
+    "needed": [
+      "liblog.so",
+      "libutils.so",
+      "lib_SamsungRec_V03011b.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libsamsungRecord.so"
+  },
+  {
+    "name": "libsamsungSoundbooster.so",
+    "source_sha256": "69398c0dce2f13772337875936835bf7c522eb63c5e71ca952ef65d62019d18e",
+    "packaged_sha256": "69398c0dce2f13772337875936835bf7c522eb63c5e71ca952ef65d62019d18e",
+    "needed": [
+      "liblog.so",
+      "libutils.so",
+      "lib_Samsung_SB_AM_for_ICS_v04004.so",
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libsamsungSoundbooster.so"
+  },
+  {
+    "name": "libspeexresampler.so",
+    "source_sha256": "af34196be5a31f06caf1ea79b7641dc217adb2c47d3536b3a4fc16f25159475d",
+    "packaged_sha256": "af34196be5a31f06caf1ea79b7641dc217adb2c47d3536b3a4fc16f25159475d",
+    "needed": [
+      "libc.so",
+      "libstdc++.so",
+      "libm.so"
+    ],
+    "path": "vendor/lib/libspeexresampler.so"
+  }
+]

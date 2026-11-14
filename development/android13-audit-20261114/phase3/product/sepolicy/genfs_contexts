@@ -1,0 +1,20 @@
+genfscon sysfs /devices/platform/pxa168-fb.0/vsync_ts u:object_r:sysfs_t110_vsync:s0
+genfscon sysfs /devices/platform/pxa168-fb.0/vsync u:object_r:sysfs_t110_vsync_control:s0
+
+# Verified real panel path; standard hal_light policy already permits sysfs_leds.
+genfscon sysfs /devices/virtual/backlight/panel u:object_r:sysfs_leds:s0
+
+# Actual power-supply paths resolved on this SM-T110 in recovery.
+genfscon sysfs /devices/platform/sec-battery/power_supply u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/platform/i2c-gpio.6/i2c-6/6-0034/power_supply u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/platform/pxa910-i2c.2/i2c-2/2-0030/sec-fuelgauge/power_supply u:object_r:sysfs_batteryinfo:s0
+
+genfscon sysfs /devices/platform/sd8x-rfkill/rfkill/rfkill0/name u:object_r:sysfs_t110_wifi_rfkill_name:s0
+genfscon sysfs /devices/platform/sd8x-rfkill/rfkill/rfkill0/state u:object_r:sysfs_t110_wifi_rfkill:s0
+
+# The standard init swap policy must address this exact legacy proc node.
+genfscon proc /sys/vm/swappiness u:object_r:proc_t110_swappiness:s0
+
+genfscon proc /driver/ssp_master u:object_r:proc_t110_audio_clock:s0
+
+genfscon proc /driver/gssp_master u:object_r:proc_t110_audio_clock:s0
