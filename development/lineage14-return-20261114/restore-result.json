@@ -1,0 +1,16 @@
+{
+  "status": "WORKING14_RESTORED_OWNER_CONFIRMED",
+  "boot_id": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+  "system_sha256": "01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea",
+  "boot_sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2",
+  "recovery_unchanged": true,
+  "physical_system_written": false,
+  "original14_data_preserved": true,
+  "owner_confirmed_home_and_touch": true,
+  "camera_double_tap_power_gesture_disabled": 1,
+  "owner_confirmed_single_power_press_sleeps": true,
+  "android13_work_preserved": true,
+  "active_direction": "Lineage14.1 native UI improvements; Android13 port stopped by owner",
+  "ui_redesign_installed": false,
+  "boot_animation_crash_observed": true
+}

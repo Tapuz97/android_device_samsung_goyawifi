@@ -1,3 +1,12 @@
+# Current direction: restored working14.1, then native UI improvements
+
+Owner ended the13 port and requested the working14.1 base. Restoration and
+physical Home/touch/Power checks passed. Original14.1 data is retained;13 work
+stays backed up. See [restore results](../lineage14-return-20261114/RESTORED-LINEAGE14-20261114.md)
+and [UI direction](../lineage14-return-20261114/LINEAGE14-UI-DIRECTION.md).
+
+---
+
 # Latest hardware result: Android13 booted with functional defects
 
 See [hardware-test-1/RESULTS.md](hardware-test-1/RESULTS.md). One full candidate

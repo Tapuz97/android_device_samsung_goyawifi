@@ -1,0 +1,13 @@
+{
+  "status": "WORKING14_RESTORED_READBACK_VERIFIED_NOT_BOOTED",
+  "system_sha256": "01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea",
+  "boot_sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2",
+  "recovery_sha256": "f7f0bcf8a0cee4ecf265a2e1d75de028e97e9401c640e8cbc29d4b256d39452e",
+  "recovery_unchanged": true,
+  "physical_system_written": false,
+  "original14_data_preserved": true,
+  "android13_data_preserved": true,
+  "android13_source_and_images_preserved": true,
+  "normal_exit_command": "/sbin/reboot recovery_done",
+  "ui_direction": "Modernize14.1 selectively; retain native Lineage features and navigation"
+}

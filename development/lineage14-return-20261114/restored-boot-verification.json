@@ -1,0 +1,117 @@
+{
+  "status": "PASS_RESTORED14_BOOT_COMPLETED",
+  "boot_id": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+  "elapsed": 64.1,
+  "rows": [
+    {
+      "elapsed": 0.0,
+      "transport": "ADB command failed: ('get-state',) error: device '3004523270272200' not found\r\n"
+    },
+    {
+      "elapsed": 5.0,
+      "transport": "ADB command failed: ('get-state',) error: device '3004523270272200' not found\r\n"
+    },
+    {
+      "elapsed": 10.0,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 15.4,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 20.9,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 26.1,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 31.4,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 37.1,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 42.6,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 47.9,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 53.2,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 58.5,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    },
+    {
+      "elapsed": 63.9,
+      "state": "device",
+      "SDK": "25",
+      "RELEASE": "7.1.2",
+      "COMPLETE": "1",
+      "ID": "77b5b670-acf7-41dd-a498-a49d9972b8af",
+      "SF": "running"
+    }
+  ],
+  "original_data_preserved": true,
+  "system_sha256": "01165196d103ecb5939bea6ec367497d956b606ac789178413169fc5f6cb95ea",
+  "boot_sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+}
