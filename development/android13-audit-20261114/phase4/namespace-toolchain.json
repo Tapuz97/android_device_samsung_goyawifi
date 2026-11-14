@@ -48,6 +48,7 @@
     "-I/root/t110-android13/android/system/core/property_service/libpropertyinfoparser/include",
     "-I/root/t110-android13/android/system/libbase/include"
   ],
+  "host_binary_sha256": "f028e6959d346016b42d94c98c1f77dae7981aa4cc9fee189f79bffd55d37541",
   "arm_compile_flags": [
     "clang",
     "--target=armv7a-linux-androideabi",
@@ -67,24 +68,45 @@
     "-isystem",
     "/root/t110-lineage14/android/bionic/libc/kernel/uapi/asm-arm"
   ],
-  "arm_link": [
-    "clang",
-    "--target=armv7a-linux-androideabi",
-    "-fuse-ld=lld",
-    "-pie",
-    "-nostdlib",
-    "-Wl,--no-undefined",
-    "-Wl,-dynamic-linker,/system/bin/linker",
-    "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtbegin_dynamic.o",
-    "/root/t110-android13-audit/namespace-tools/CandidateNamespaceProbe.o",
-    "-L/root/t110-android13/out/target/product/t110_bringup/system/lib/bootstrap",
-    "-lc",
-    "-lm",
-    "-ldl",
-    "/root/t110-lineage14/toolchains/arm-linux-androideabi-4.6/lib/gcc/arm-linux-androideabi/4.6.x-google/libgcc.a",
-    "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtend_android.o",
-    "-o",
-    "/root/t110-android13-audit/namespace-tools/candidate-namespace-probe"
+  "arm_links": [
+    [
+      "clang",
+      "--target=armv7a-linux-androideabi",
+      "-fuse-ld=lld",
+      "-pie",
+      "-nostdlib",
+      "-Wl,--no-undefined",
+      "-Wl,-dynamic-linker,/system/bin/linker",
+      "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtbegin_dynamic.o",
+      "/root/t110-android13-audit/namespace-tools/CandidateNamespaceProbe.c.o",
+      "-L/root/t110-android13/out/target/product/t110_bringup/system/lib/bootstrap",
+      "-lc",
+      "-lm",
+      "-ldl",
+      "/root/t110-lineage14/toolchains/arm-linux-androideabi-4.6/lib/gcc/arm-linux-androideabi/4.6.x-google/libgcc.a",
+      "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtend_android.o",
+      "-o",
+      "/root/t110-android13-audit/namespace-tools/candidate-namespace-probe"
+    ],
+    [
+      "clang",
+      "--target=armv7a-linux-androideabi",
+      "-fuse-ld=lld",
+      "-pie",
+      "-nostdlib",
+      "-Wl,--no-undefined",
+      "-Wl,-dynamic-linker,/system/bin/linker",
+      "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtbegin_dynamic.o",
+      "/root/t110-android13-audit/namespace-tools/ProductionAudioProbe.c.o",
+      "-L/root/t110-android13/out/target/product/t110_bringup/system/lib/bootstrap",
+      "-lc",
+      "-lm",
+      "-ldl",
+      "/root/t110-lineage14/toolchains/arm-linux-androideabi-4.6/lib/gcc/arm-linux-androideabi/4.6.x-google/libgcc.a",
+      "/root/t110-lineage14/android/prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib/crtend_android.o",
+      "-o",
+      "/root/t110-android13-audit/namespace-tools/production-audio-probe"
+    ]
   ],
   "production_payload": false
 }

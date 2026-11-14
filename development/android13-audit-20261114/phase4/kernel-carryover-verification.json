@@ -26,5 +26,16 @@
   },
   "working14_images_modified": false,
   "current14_boot_uses_this_kernel": true,
-  "android13_hardware_tested": false
+  "android13_hardware_tested": false,
+  "selected_config_lines": [
+    "CONFIG_CMDLINE=\"androidboot.hardware=mrvl\"",
+    "# CONFIG_CMDLINE_FROM_BOOTLOADER is not set",
+    "CONFIG_CMDLINE_EXTEND=y",
+    "# CONFIG_CMDLINE_FORCE is not set",
+    "# CONFIG_CMDLINE_INITRD_SIZE_OVERRIDE is not set",
+    "CONFIG_ANDROID_BINDER_IPC=y",
+    "CONFIG_ANDROID_BINDER_IPC_32BIT=y",
+    "CONFIG_ANDROID_BINDER_DEVICES=\"binder,hwbinder,vndbinder\"",
+    "# CONFIG_SECURITY_SELINUX_POLICYDB_VERSION_MAX is not set"
+  ]
 }

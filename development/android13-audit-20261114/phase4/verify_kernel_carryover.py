@@ -45,6 +45,9 @@ assert current[current_page:current_page+len(kernel)]==kernel
 result=dict(status='PASS',old13_kernel_sha256=sha(oldkernel),candidate_kernel_sha256=sha(kernel),
     same_embedded_config=True,config_sha256=sha(config(kernel)),matched_galcore_sha256=sha(module),
     changed_kernel_files=changed,source=record,working14_images_modified=False,
-    current14_boot_uses_this_kernel=True,android13_hardware_tested=False)
+    current14_boot_uses_this_kernel=True,android13_hardware_tested=False,
+    selected_config_lines=[line for line in config(kernel).decode().splitlines()
+        if any(n in line for n in ('CONFIG_CMDLINE','CONFIG_ANDROID_BINDER','CONFIG_SECURITY_SELINUX_POLICYDB_VERSION'))])
 Path('/root/t110-android13-audit/kernel-carryover-verification.json').write_text(json.dumps(result,indent=2)+'\n')
 print('PASS: proven14 kernel adds only initramfs archive fix; embedded13 config and GPU module match exactly.')
+print('\n'.join(result['selected_config_lines']))

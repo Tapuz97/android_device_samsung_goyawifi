@@ -14,7 +14,8 @@ audit=Path('/root/t110-android13-audit');dest=audit/'complete-image'
 image=json.loads((audit/'complete-image-verification.json').read_text())
 ns=json.loads((audit/'production-namespace-verification.json').read_text())
 carry=json.loads((audit/'kernel-carryover-verification.json').read_text())
-assert image['status']==ns['status']==carry['status']=='PASS'
+policy_checks=json.loads((audit/'complete-image-policy-verification.json').read_text())
+assert image['status']==ns['status']==carry['status']==policy_checks['status']=='PASS'
 assert ns['image_sha256']==image['raw_image_sha256']
 source=Path('/root/t110-lineage14/reference/current-private/artifacts/android13-boot-v48/KERNEL.img')
 old=source.read_bytes();sha=lambda b:hashlib.sha256(b).hexdigest()

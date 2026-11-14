@@ -31,5 +31,33 @@ bootstrap explicitly keeps window GPU rendering off; its diagnostic logcat is
 disabled and requires manual start. A matching candidate boot/policy must be
 reviewed before any physical test; the working14.1 boot is never repurposed.
 
+The matched14 kernel is now verified to have exactly the same embedded13
+configuration and byte-identical galcore module; only init/initramfs.c differs
+from the old kernel baseline. The candidate boot builder carries that proven
+archive-end correction,13 startup and the new policy forward. Its original
+stager/module remain byte-identical. It retains disabled continuous logging and
+zram tuning, corrects the legacy GPU-device alias, and enables the newly built
+window path only after complete-image/policy/namespace gates pass.
+
+Android13's actual ueventd places galcore under /dev/graphics, just as in the
+qualified14.1 fix. The old13 rules configured only /dev/galcore. The exact real
+node now has a normal vendor ueventd rule and gpu_device label; ordinary apps
+must remain forbidden the unrelated graphics_device type. These late source
+changes require the final cached full build before image verification.
+
+Production tests use the real ARM linkerconfig and linker inside a private
+read-only-image/overlay mount namespace. APEX bindings and factory activation
+metadata come from the candidate's real manifests. Libraries are dependencies
+of real PIE diagnostic executables for constructor-free loading. Actual audio
+tests also exercise libhardware's module selection, proxy identity, three ALSA
+plugin definitions and HIDL-library loading, with no hardware opens. No SDK
+setter is present in these production probes. The native program/library
+checks retain ordinary loader search behavior. The host generator is also built.
+
+Wi-Fi/BT source already bounds module lengths and converts st_size to ARM32
+size_t before raw init_module, preserving the prior ABI lesson. Vendor-init
+audio chown/chmod and property changes are covered by existing standard policy;
+the new actual-image policy check verifies that actor instead of guessing.
+
 No full image/namespace PASS is claimed yet. No ADB, transfer, reboot, flash or
 tablet operation has occurred. See phase4 tool/source checkpoints for resuming.

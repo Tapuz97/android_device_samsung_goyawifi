@@ -21,7 +21,10 @@ host_cmd = ['g++', '-std=c++17', '-O2', '-include', 'algorithm', '-include', 'cs
             '-ffunction-sections', '-fdata-sections', '-Wl,--gc-sections',
             '-I'+str(serializer / 'include'), '-I'+str(parser / 'include'),
             '-I'+str(android / 'system/libbase/include')]
-subprocess.run(host_cmd + [str(p) for p in host_sources] + ['-o', str(out / 'candidate-property-info')], check=True)
+records = [dict(path=str(p), sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in host_sources]
+cached=json.loads((out/'toolchain.json').read_text()) if (out/'toolchain.json').is_file() else {}
+if not ((out/'candidate-property-info').is_file() and cached.get('host_sources')==records and cached.get('host_flags')==host_cmd):
+    subprocess.run(host_cmd + [str(p) for p in host_sources] + ['-o', str(out / 'candidate-property-info')], check=True)
 
 legacy = Path('/root/t110-lineage14/android')
 ndk = legacy / 'prebuilts/ndk/current/platforms/android-23/arch-arm/usr/lib'
@@ -30,15 +33,17 @@ flags = ['clang', '--target=armv7a-linux-androideabi', '-std=c11', '-fno-builtin
          '-Wall', '-Wextra', '-Werror', '-I'+str(audit / 'arm-headers')]
 for p in ('bionic/libc/include', 'bionic/libc/arch-arm/include', 'bionic/libc/kernel/uapi', 'bionic/libc/kernel/uapi/asm-arm'):
     flags += ['-isystem', str(legacy / p)]
-obj = out / 'CandidateNamespaceProbe.o'
-subprocess.run(flags + ['-c', str(source / 'CandidateNamespaceProbe.c'), '-o', str(obj)], check=True)
 providers = Path('/root/t110-android13/out/target/product/t110_bringup/system/lib/bootstrap')
-link_cmd = ['clang', '--target=armv7a-linux-androideabi', '-fuse-ld=lld', '-pie', '-nostdlib',
-            '-Wl,--no-undefined', '-Wl,-dynamic-linker,/system/bin/linker', str(ndk / 'crtbegin_dynamic.o'),
-            str(obj), '-L'+str(providers), '-lc', '-lm', '-ldl', str(gcc), str(ndk / 'crtend_android.o'),
-            '-o', str(out / 'candidate-namespace-probe')]
-subprocess.run(link_cmd, check=True)
-records = [dict(path=str(p), sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in host_sources]
+arm_links=[]
+for srcname,binary in (('CandidateNamespaceProbe.c','candidate-namespace-probe'),('ProductionAudioProbe.c','production-audio-probe')):
+    obj=out/(srcname+'.o')
+    subprocess.run(flags+['-c',str(source/srcname),'-o',str(obj)],check=True)
+    link_cmd = ['clang', '--target=armv7a-linux-androideabi', '-fuse-ld=lld', '-pie', '-nostdlib',
+                '-Wl,--no-undefined', '-Wl,-dynamic-linker,/system/bin/linker', str(ndk / 'crtbegin_dynamic.o'),
+                str(obj), '-L'+str(providers), '-lc', '-lm', '-ldl', str(gcc), str(ndk / 'crtend_android.o'),
+                '-o', str(out / binary)]
+    subprocess.run(link_cmd, check=True);arm_links.append(link_cmd)
 (out / 'toolchain.json').write_text(json.dumps(dict(host_sources=records, host_flags=host_cmd,
-    arm_compile_flags=flags, arm_link=link_cmd, production_payload=False), indent=2) + '\n')
+    host_binary_sha256=hashlib.sha256((out/'candidate-property-info').read_bytes()).hexdigest(),
+    arm_compile_flags=flags, arm_links=arm_links, production_payload=False), indent=2) + '\n')
 print('Built pinned property serializer and ARM Bionic property/namespace fixture probe; no production source changed.')

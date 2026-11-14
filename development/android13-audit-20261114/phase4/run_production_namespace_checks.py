@@ -14,6 +14,7 @@ import stat
 import struct
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 
 AUDIT = Path('/root/t110-android13-audit')
 TOOLS = Path('/mnt/c/Users/Gal/Documents/ChatGPT/Electronic Repair/SM-T110/android13-audit')
@@ -28,10 +29,14 @@ def digest(path):
         for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
     return h.hexdigest()
 
-def manifest_name(directory):
+def manifest_info(directory):
     j=directory/'apex_manifest.json'
-    if j.is_file():return json.loads(j.read_text())['name']
+    if j.is_file():
+        info=json.loads(j.read_text())
+        return dict(name=info['name'],version=int(info['version']),versionName=info.get('versionName',''),
+                    provideSharedApexLibs=info.get('provideSharedApexLibs',False))
     data=(directory/'apex_manifest.pb').read_bytes();pos=0
+    info=dict(versionName='',provideSharedApexLibs=False)
     def varint():
         nonlocal pos
         value=0
@@ -43,11 +48,16 @@ def manifest_name(directory):
         key=varint();wire=key&7;field=key>>3
         if wire==2:
             n=varint();value=data[pos:pos+n];pos+=n
-            if field==1:return value.decode()
-        elif wire==0:varint()
+            if field==1:info['name']=value.decode()
+            if field==5:info['versionName']=value.decode()
+        elif wire==0:
+            value=varint()
+            if field==2:info['version']=value
+            if field==11:info['provideSharedApexLibs']=bool(value)
         elif wire in (1,5):pos+=8 if wire==1 else 4
         else:raise ValueError('Unexpected manifest wire type')
-    raise ValueError('Missing APEX manifest name')
+    assert info.get('name') and info.get('version',0)>0,info
+    return info
 
 def is_dynamic_arm(path):
     # Inspect real files only; never follow guest absolute symlinks on the host.
@@ -96,20 +106,32 @@ def child(work):
         assert source.is_dir(),source
         run(['mount','--bind',source,target])
         run(['mount','-o','remount,bind,ro',target])
-    apexes={}
+    apexes={};activation={}
     for partition in ('system','system/system_ext','system/product','system/vendor'):
         apexdir=root/partition/'apex'
         if not apexdir.is_dir():continue
         for source in sorted(apexdir.iterdir()):
             if source.is_symlink() or not source.is_dir():continue
             if not (source/'apex_manifest.pb').is_file():continue
-            name=manifest_name(source)
+            info=manifest_info(source);name=info['name']
             assert name not in apexes,('Multiple active flattened APEX candidates',name)
             target=root/'apex'/name;target.mkdir(parents=True,exist_ok=True)
             run(['mount','--bind',source,target])
             run(['mount','-o','remount,bind,ro',target])
             apexes[name]=str(source.relative_to(root))
+            prefix={'system':'/system','system/system_ext':'/system_ext','system/product':'/product',
+                    'system/vendor':'/vendor'}[partition]
+            activation[name]=dict(info,path=prefix+'/apex/'+source.name)
     assert {'com.android.runtime','com.android.art','com.android.i18n'}<=set(apexes),apexes
+    # Factory activation metadata is derived from real manifests and partition
+    # paths, as emitted by flattened apexd bootstrap; no invented providers.
+    info_list=ET.Element('apex-info-list')
+    for name,info in sorted(activation.items()):
+        ET.SubElement(info_list,'apex-info',dict(moduleName=name,modulePath=info['path'],
+            preinstalledModulePath=info['path'],versionCode=str(info['version']),
+            versionName=info['versionName'],isFactory='true',isActive='true',lastUpdateMillis='0',
+            provideSharedApexLibs=str(info['provideSharedApexLibs']).lower()))
+    ET.ElementTree(info_list).write(root/'apex/apex-info-list.xml',encoding='utf-8',xml_declaration=True)
     (root/'proc').mkdir(exist_ok=True);run(['mount','--bind','/proc',root/'proc'])
     for name,minor in (('null',3),('zero',5),('random',8),('urandom',9)):
         p=root/'dev'/name
@@ -118,6 +140,7 @@ def child(work):
     host_runtime=install_qemu_runtime(root)
     diag=root/'data/local/tmp';diag.mkdir(parents=True,exist_ok=True)
     shutil.copy2(AUDIT/'namespace-tools/candidate-namespace-probe',diag/'candidate-namespace-probe')
+    shutil.copy2(AUDIT/'namespace-tools/production-audio-probe',diag/'production-audio-probe')
     context_files=[]
     for partition,prefix in (('system','plat'),('system/system_ext','system_ext'),
                              ('system/product','product'),('system/vendor','vendor'),('system/odm','odm')):
@@ -179,7 +202,7 @@ def child(work):
     assert len(configs)>1,'No isolated APEX executable configurations generated'
     # Constructor-free loading of all dynamic native programs and all vendor
     # libraries also covers graphics blobs whose old build skipped ELF checks.
-    targets=set()
+    targets=set();libraries=set()
     trees=[(root/'system/bin','/system/bin'),(root/'system/vendor/bin','/vendor/bin'),
            (root/'system/vendor/lib','/vendor/lib')]
     trees += [(root/'apex'/name/'bin','/apex/'+name+'/bin') for name in apexes]
@@ -188,11 +211,29 @@ def child(work):
         for parent,_,files in os.walk(tree,followlinks=False):
             for filename in files:
                 p=Path(parent)/filename
-                if is_dynamic_arm(p):targets.add(prefix+'/'+str(p.relative_to(tree)))
+                if is_dynamic_arm(p):
+                    name=prefix+'/'+str(p.relative_to(tree));targets.add(name)
+                    if prefix=='/vendor/lib':libraries.add(name)
+    egl=(root/'system/vendor/lib/egl/libEGL_MRVL.so').read_bytes()
+    literal_paths=set(p.decode() for p in re.findall(rb'/(?:system|vendor)/lib/egl/[A-Za-z0-9_.]+\.so',egl))
+    # Stock GLES3 is an optional unsupported lookup; never invent a GLES3 driver.
+    required_egl={p for p in literal_paths if 'GLESv3' not in p}
+    assert len(required_egl)==3,required_egl
+    targets.update(required_egl)
+    libraries.update(required_egl)
     linker='/apex/com.android.runtime/bin/linker'
     failures=[]
-    for target in sorted(targets):
-        item=guest(linker,['--list',target],required=False)
+    for index,target in enumerate(sorted(targets)):
+        program=target
+        if target in libraries:
+            # Load DSOs as dependencies of a real PIE, not as fake executables.
+            # /data and /vendor both select this product's real legacy section.
+            wrapper=diag/f'library-case-{index}'
+            shutil.copy2(AUDIT/'namespace-tools/candidate-namespace-probe',wrapper)
+            run(['patchelf','--add-needed',target,wrapper])
+            program='/data/local/tmp/'+wrapper.name
+        item=guest(linker,['--list',program],required=False)
+        item['production_target']=target
         if item['exit']:failures.append(item)
     # Actual dlopen in the same generated legacy service namespace, with normal
     # SDK behavior. No HMI open/read/write or GPU initialization is called.
@@ -204,16 +245,22 @@ def child(work):
            '/vendor/lib/hw/android.hardware.audio.effect@7.0-impl.so']
     loaded=guest('/data/local/tmp/candidate-namespace-probe',['load',*audio],required=False)
     if loaded['exit']:failures.append(loaded)
+    parsed_audio=guest('/data/local/tmp/production-audio-probe',required=False)
+    if parsed_audio['exit']:failures.append(parsed_audio)
     # Exact-path textrel restriction: an identical DSP at an unrelated path must
     # remain rejected, even with the device's real opt-in property enabled.
     shutil.copy2(root/'system/vendor/lib/libippsp.so',diag/'libippsp-unrelated.so')
-    rejected=guest(linker,['--list','/data/local/tmp/libippsp-unrelated.so'],required=False)
+    bad_wrapper=diag/'unrelated-dsp-case'
+    shutil.copy2(AUDIT/'namespace-tools/candidate-namespace-probe',bad_wrapper)
+    run(['patchelf','--add-needed','/data/local/tmp/libippsp-unrelated.so',bad_wrapper])
+    rejected=guest(linker,['--list','/data/local/tmp/unrelated-dsp-case'],required=False)
     assert rejected['exit'] and 'text relocations' in rejected['stderr'],rejected
     result=dict(status='FAIL' if failures else 'PASS',image_sha256=digest(IMAGE),
-        fixture=str(work),apexes=apexes,configs=configs,property_inputs=prop_inputs,
+        fixture=str(work),apexes=apexes,apex_activation=activation,configs=configs,property_inputs=prop_inputs,
         property_count=len(props),native_load_targets=len(targets),failures=failures,commands=commands,
         sdk_lowered=False,ld_overrides=False,constructor_free_checks=True,
-        host_runtime=host_runtime,hardware_opened=False,selinux_runtime_enforced=False,
+        host_runtime=host_runtime,required_literal_egl_paths=sorted(required_egl),
+        hardware_opened=False,selinux_runtime_enforced=False,
         kernel_emulated=False,flashed=False)
     (AUDIT/'production-namespace-verification.json').write_text(json.dumps(result,indent=2)+'\n')
     # Preserve the actual generated configuration text, not only its hashes.
