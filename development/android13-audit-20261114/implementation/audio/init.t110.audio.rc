@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: Apache-2.0
+# Load with the next candidate's compiled, scoped policy, before class hal starts.
+on post-fs-data
+    chown system audio /proc/driver/ssp_master
+    chmod 0660 /proc/driver/ssp_master
+    chown system audio /proc/driver/gssp_master
+    chmod 0660 /proc/driver/gssp_master
+    setprop persist.audio.apmaster 1
+    setprop persist.audio.gsspmaster 1
+    setprop persist.audio.codecmaster 0

@@ -1,0 +1,21 @@
+{
+  "status": "COMPONENT_ARM_CHECKS_PASS_FULL_PLATFORM_AND_HARDWARE_PENDING",
+  "graphics": "Device-only full redraw/ordinary swap candidate; callback ARM emulation passed",
+  "audio": "Complete ARM Android forwarding module and list shim compiled/linked against preserved Android13 providers; proxy regressions pass",
+  "artifacts": {
+    "audio.primary.t110.so": {
+      "bytes": 69096,
+      "sha256": "691ef097af74a1bdca9ad5a12727bf6f1ca02eae692d135859361f4adefdcf0c"
+    },
+    "libt110_audio_legacy_compat.so": {
+      "bytes": 1900,
+      "sha256": "52f500514521af097c03dd65e1d508982d0db6190b67584aab0e026e218d079e"
+    }
+  },
+  "flashed": false,
+  "rom_image_built": false,
+  "full_libHWUI_built": false,
+  "real_vendor_module_loaded": false,
+  "product_selection_changed": false,
+  "selinux_policy_compiled": false
+}

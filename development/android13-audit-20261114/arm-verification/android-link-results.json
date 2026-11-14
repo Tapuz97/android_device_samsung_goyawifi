@@ -1,0 +1,214 @@
+[
+  {
+    "command": [
+      "debugfs",
+      "-R",
+      "dump /system/lib/libc++.so /root/t110-android13-audit/arm-checks/android13-providers/libc++.so",
+      "/root/t110-lineage14/reference/android13-current-system.raw.img"
+    ],
+    "exit": 0,
+    "diagnostics": "debugfs 1.46.5 (30-Dec-2021)\n"
+  },
+  {
+    "command": [
+      "debugfs",
+      "-R",
+      "dump /system/apex/com.android.runtime/lib/bionic/libc.so /root/t110-android13-audit/arm-checks/android13-providers/libc.so",
+      "/root/t110-lineage14/reference/android13-current-system.raw.img"
+    ],
+    "exit": 0,
+    "diagnostics": "debugfs 1.46.5 (30-Dec-2021)\n"
+  },
+  {
+    "command": [
+      "debugfs",
+      "-R",
+      "dump /system/apex/com.android.runtime/lib/bionic/libm.so /root/t110-android13-audit/arm-checks/android13-providers/libm.so",
+      "/root/t110-lineage14/reference/android13-current-system.raw.img"
+    ],
+    "exit": 0,
+    "diagnostics": "debugfs 1.46.5 (30-Dec-2021)\n"
+  },
+  {
+    "command": [
+      "debugfs",
+      "-R",
+      "dump /system/apex/com.android.runtime/lib/bionic/libdl.so /root/t110-android13-audit/arm-checks/android13-providers/libdl.so",
+      "/root/t110-lineage14/reference/android13-current-system.raw.img"
+    ],
+    "exit": 0,
+    "diagnostics": "debugfs 1.46.5 (30-Dec-2021)\n"
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-androideabi",
+      "-std=c++17",
+      "-fno-exceptions",
+      "-fno-rtti",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/include",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/arch-arm/include",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/kernel/uapi",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/kernel/uapi/asm-arm",
+      "-isystem",
+      "/root/t110-lineage14/android/external/libcxx/include",
+      "-isystem",
+      "/root/t110-lineage14/android/external/libcxxabi/include",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioAdapter.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/AudioAdapter-bionic.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-androideabi",
+      "-std=c++17",
+      "-fno-exceptions",
+      "-fno-rtti",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/include",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/arch-arm/include",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/kernel/uapi",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/kernel/uapi/asm-arm",
+      "-isystem",
+      "/root/t110-lineage14/android/external/libcxx/include",
+      "-isystem",
+      "/root/t110-lineage14/android/external/libcxxabi/include",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioModule.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/AudioModule-bionic.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-androideabi",
+      "-std=c++17",
+      "-fno-exceptions",
+      "-fno-rtti",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/include",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/arch-arm/include",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/kernel/uapi",
+      "-isystem",
+      "/root/t110-lineage14/android/bionic/libc/kernel/uapi/asm-arm",
+      "-isystem",
+      "/root/t110-lineage14/android/external/libcxx/include",
+      "-isystem",
+      "/root/t110-lineage14/android/external/libcxxabi/include",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/LegacyList.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/LegacyList-bionic.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-androideabi",
+      "-fuse-ld=lld",
+      "-shared",
+      "-nostdlib",
+      "-Wl,--no-undefined",
+      "-Wl,-soname,audio.primary.t110.so",
+      "/root/t110-android13-audit/arm-checks/AudioAdapter-bionic.o",
+      "/root/t110-android13-audit/arm-checks/AudioModule-bionic.o",
+      "-L/root/t110-android13-audit/arm-checks/android13-providers",
+      "-lc++",
+      "-lc",
+      "-lm",
+      "-ldl",
+      "/root/t110-lineage14/toolchains/arm-linux-androideabi-4.6/lib/gcc/arm-linux-androideabi/4.6.x-google/libgcc.a",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/audio.primary.t110.so"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "readelf",
+      "-h",
+      "/root/t110-android13-audit/arm-checks/audio.primary.t110.so"
+    ],
+    "exit": 0,
+    "diagnostics": "ELF Header:\n  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 \n  Class:                             ELF32\n  Data:                              2's complement, little endian\n  Version:                           1 (current)\n  OS/ABI:                            UNIX - System V\n  ABI Version:                       0\n  Type:                              DYN (Shared object file)\n  Machine:                           ARM\n  Version:                           0x1\n  Entry point address:               0x0\n  Start of program headers:          52 (bytes into file)\n  Start of section headers:          68096 (bytes into file)\n  Flags:                             0x5000200, Version5 EABI, soft-float ABI\n  Size of this header:               52 (bytes)\n  Size of program headers:           32 (bytes)\n  Number of program headers:         10\n  Size of section headers:           40 (bytes)\n  Number of section headers:         25\n  Section header string table index: 23\n"
+  },
+  {
+    "command": [
+      "readelf",
+      "-d",
+      "/root/t110-android13-audit/arm-checks/audio.primary.t110.so"
+    ],
+    "exit": 0,
+    "diagnostics": "\nDynamic section at offset 0xc044 contains 27 entries:\n  Tag        Type                         Name/Value\n 0x00000001 (NEEDED)                     Shared library: [libc++.so]\n 0x00000001 (NEEDED)                     Shared library: [libc.so]\n 0x00000001 (NEEDED)                     Shared library: [libm.so]\n 0x00000001 (NEEDED)                     Shared library: [libdl.so]\n 0x0000000e (SONAME)                     Library soname: [audio.primary.t110.so]\n 0x0000001e (FLAGS)                      BIND_NOW\n 0x6ffffffb (FLAGS_1)                    Flags: NOW\n 0x00000011 (REL)                        0x3164\n 0x00000012 (RELSZ)                      376 (bytes)\n 0x00000013 (RELENT)                     8 (bytes)\n 0x6ffffffa (RELCOUNT)                   6\n 0x00000017 (JMPREL)                     0x3394\n 0x00000002 (PLTRELSZ)                   624 (bytes)\n 0x00000003 (PLTGOT)                     0xe1c0\n 0x00000014 (PLTREL)                     REL\n 0x00000006 (SYMTAB)                     0x18c\n 0x0000000b (SYMENT)                     16 (bytes)\n 0x00000005 (STRTAB)                     0x1120\n 0x0000000a (STRSZ)                      8260 (bytes)\n 0x6ffffef5 (GNU_HASH)                   0xa60\n 0x00000004 (HASH)                       0xd50\n 0x00000019 (INIT_ARRAY)                 0xe040\n 0x0000001b (INIT_ARRAYSZ)               4 (bytes)\n 0x6ffffff0 (VERSYM)                     0x91c\n 0x6ffffffe (VERNEED)                    0xa10\n 0x6fffffff (VERNEEDNUM)                 2\n 0x00000000 (NULL)                       0x0\n"
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-androideabi",
+      "-fuse-ld=lld",
+      "-shared",
+      "-nostdlib",
+      "-Wl,--no-undefined",
+      "-Wl,-soname,libt110_audio_legacy_compat.so",
+      "/root/t110-android13-audit/arm-checks/LegacyList-bionic.o",
+      "-L/root/t110-android13-audit/arm-checks/android13-providers",
+      "-lc",
+      "/root/t110-lineage14/toolchains/arm-linux-androideabi-4.6/lib/gcc/arm-linux-androideabi/4.6.x-google/libgcc.a",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/libt110_audio_legacy_compat.so"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "component_sha256": "691ef097af74a1bdca9ad5a12727bf6f1ca02eae692d135859361f4adefdcf0c",
+    "shim_sha256": "52f500514521af097c03dd65e1d508982d0db6190b67584aab0e026e218d079e",
+    "providers": {
+      "libm.so": "3753fdaca32b539f394078e2a94d0044cda5e924f4e0860f045c17cb10e09a5f",
+      "libdl.so": "6aa6593eeca5ebeefaa2ff45038eb00d9b75d88074724f296571f428d35c58bf",
+      "libc++.so": "e3de6d5218aa97f62afedc56ef6793c54443c5c7b413b5fc0e4c7ca9fdbc6c68",
+      "libc.so": "2bebccf0224e1ecf1deac94ddea723f533f2ef1c21b7b8cd0cee5d1c194f42fc"
+    },
+    "status": "ARM_ANDROID_COMPONENT_LINK_PASS_NOT_FULL_PLATFORM_OR_VENDOR_LOAD_TEST",
+    "header_context": "Pinned Android13 hardware/system headers; retained Nougat Bionic/libc++ build headers; linked against actual Android13 shared providers",
+    "flashed": false
+  }
+]

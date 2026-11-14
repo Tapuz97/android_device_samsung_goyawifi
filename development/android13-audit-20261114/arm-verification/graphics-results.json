@@ -1,0 +1,129 @@
+[
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-gnueabihf",
+      "--sysroot=/usr/arm-linux-gnueabihf",
+      "--gcc-toolchain=/usr",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/tests/hwui_window_swap_test.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/hwui-window-arm.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "arm-linux-gnueabihf-g++",
+      "/root/t110-android13-audit/arm-checks/hwui-window-arm.o",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/hwui-window-arm"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "qemu-arm",
+      "-L",
+      "/usr/arm-linux-gnueabihf",
+      "/root/t110-android13-audit/arm-checks/hwui-window-arm"
+    ],
+    "exit": 0,
+    "diagnostics": "PASS: ARM non-T110 age/damage behavior preserved\n"
+  },
+  {
+    "command": [
+      "qemu-arm",
+      "-L",
+      "/usr/arm-linux-gnueabihf",
+      "/root/t110-android13-audit/arm-checks/hwui-window-arm",
+      "legacy"
+    ],
+    "exit": 0,
+    "diagnostics": "PASS: ARM T110 full-frame GPU swap semantics\n"
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-gnueabihf",
+      "--sysroot=/usr/arm-linux-gnueabihf",
+      "--gcc-toolchain=/usr",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/platform/hardware/interfaces/graphics/composer/2.1/default",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/tests/dequeue_callback_test.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/dequeue_callback_test-arm.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "arm-linux-gnueabihf-g++",
+      "/root/t110-android13-audit/arm-checks/dequeue_callback_test-arm.o",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/dequeue_callback_test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "qemu-arm",
+      "-L",
+      "/usr/arm-linux-gnueabihf",
+      "/root/t110-android13-audit/arm-checks/dequeue_callback_test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": "PASS: real callback immediate/delayed/timeout/device isolation/error/fence ownership cases\n"
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-gnueabihf",
+      "--sysroot=/usr/arm-linux-gnueabihf",
+      "--gcc-toolchain=/usr",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/platform/hardware/interfaces/graphics/composer/2.1/default",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/tests/framebuffer_resume_test.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/framebuffer_resume_test-arm.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "arm-linux-gnueabihf-g++",
+      "/root/t110-android13-audit/arm-checks/framebuffer_resume_test-arm.o",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/framebuffer_resume_test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "qemu-arm",
+      "-L",
+      "/usr/arm-linux-gnueabihf",
+      "/root/t110-android13-audit/arm-checks/framebuffer_resume_test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": "PASS: actual unblank callback refreshes reset/retained page; validates power/errors/mapping/offsets\n"
+  }
+]

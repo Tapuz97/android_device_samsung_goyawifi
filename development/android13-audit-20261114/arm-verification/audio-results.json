@@ -1,0 +1,120 @@
+[
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-gnueabihf",
+      "--sysroot=/usr/arm-linux-gnueabihf",
+      "--gcc-toolchain=/usr",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioAdapter.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/AudioAdapter.cpp.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-gnueabihf",
+      "--sysroot=/usr/arm-linux-gnueabihf",
+      "--gcc-toolchain=/usr",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioModule.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/AudioModule.cpp.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "--target=armv7a-linux-gnueabihf",
+      "--sysroot=/usr/arm-linux-gnueabihf",
+      "--gcc-toolchain=/usr",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-c",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioAdapterTest.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/AudioAdapterTest.cpp.o"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "arm-linux-gnueabihf-g++",
+      "/root/t110-android13-audit/arm-checks/AudioAdapter.cpp.o",
+      "/root/t110-android13-audit/arm-checks/AudioAdapterTest.cpp.o",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/audio-test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "qemu-arm",
+      "-L",
+      "/usr/arm-linux-gnueabihf",
+      "/root/t110-android13-audit/arm-checks/audio-test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": "PASS: real audio proxy routing/ABI/rate/callback bounds/activation/error/standby/close cases\n"
+  },
+  {
+    "command": [
+      "clang++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/root/t110-android13-audit/arm-headers",
+      "-I/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-no-pie",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioAdapter.cpp",
+      "/root/t110-android13-audit/device/development/android13-audit-20261114/implementation/audio/AudioAdapterTest.cpp",
+      "-o",
+      "/root/t110-android13-audit/arm-checks/audio-test-host"
+    ],
+    "exit": 0,
+    "diagnostics": ""
+  },
+  {
+    "command": [
+      "/root/t110-android13-audit/arm-checks/audio-test-host"
+    ],
+    "exit": 0,
+    "diagnostics": "PASS: real audio proxy routing/ABI/rate/callback bounds/activation/error/standby/close cases\n"
+  },
+  {
+    "command": [
+      "file",
+      "/root/t110-android13-audit/arm-checks/AudioAdapter.cpp.o",
+      "/root/t110-android13-audit/arm-checks/AudioModule.cpp.o",
+      "/root/t110-android13-audit/arm-checks/audio-test-arm"
+    ],
+    "exit": 0,
+    "diagnostics": "/root/t110-android13-audit/arm-checks/AudioAdapter.cpp.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), not stripped\n/root/t110-android13-audit/arm-checks/AudioModule.cpp.o:  ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), not stripped\n/root/t110-android13-audit/arm-checks/audio-test-arm:     ELF 32-bit LSB pie executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, BuildID[sha1]=6af703d99bca871cf694f02a804a4505e6eb4dd7, for GNU/Linux 3.2.0, not stripped\n"
+  }
+]

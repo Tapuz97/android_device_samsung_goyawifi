@@ -1,0 +1,93 @@
+{
+  "pins": {
+    "hardware/libhardware": "0eb202d7ebd7d2410eb2f62c908c0341964a4829",
+    "system/media": "41c2d1ab132fd5388d39418507263e77483fe987",
+    "system/core": "c0500ffe2cc283d61f1e3db1b2c979bfbd9beb8c"
+  },
+  "files": [
+    {
+      "path": "cutils/bitops.h",
+      "sha256": "98cc23dc740cf827c27804f3f221abe7842c5c157cbb5f7a579294fe0c1b9dcd"
+    },
+    {
+      "path": "cutils/compiler.h",
+      "sha256": "b544a1f41e0ec7592773af661cd21ba53c3e1165dd4a67c32d6cd9d79cf2abd6"
+    },
+    {
+      "path": "cutils/native_handle.h",
+      "sha256": "274d7252085f24c975191eb07f209166a78aa1d92d6a7a1f32a84b9b6ae4a42d"
+    },
+    {
+      "path": "hardware/audio.h",
+      "sha256": "8f9245d34b8c441e590342cd57f012b6a45eab2e0b2aa18488a14f03d9003ba9"
+    },
+    {
+      "path": "hardware/audio_effect.h",
+      "sha256": "35465295c44521ee7e548bb73c4980d0641d670651328f2002b56b5f5f5d1e81"
+    },
+    {
+      "path": "hardware/hardware.h",
+      "sha256": "05cc2f0108d6c87e36384380559943d34acd104e3c2ade9aeba4415cfb23aee8"
+    },
+    {
+      "path": "system/audio-base-utils.h",
+      "sha256": "de24fd8d162d45131ce4f670774adacddc22b7e158a2b271f32db49ac1b36be3"
+    },
+    {
+      "path": "system/audio-base-v7.0.h",
+      "sha256": "8297dd0b2a524a2dae2a1f2d67db06f47913f68673155e30370afe5cca57fc3c"
+    },
+    {
+      "path": "system/audio-base-v7.1.h",
+      "sha256": "358504369aa00b6c1370707cffc1b3d79f6877289cbcc47edf4c7aec8dfcff0e"
+    },
+    {
+      "path": "system/audio-base.h",
+      "sha256": "76a628d0a1cf548a698b057c6a00334b727295bfef1cac10dfd4fecf80bd2a0a"
+    },
+    {
+      "path": "system/audio-hal-enums.h",
+      "sha256": "bd27524fe7e4c6d4c7065e21f652878126f949bed5a6214e6f533915640d5578"
+    },
+    {
+      "path": "system/audio.h",
+      "sha256": "d174364c891e4483ead2a475106f8a59f77b1a5938f2aac4fbe2747da3183dc8"
+    },
+    {
+      "path": "system/audio_common-base.h",
+      "sha256": "42cf7549b19fe820aeea1428403910a8e0e586bc542c3e3c5b756f98a9288aab"
+    },
+    {
+      "path": "system/audio_effect-base.h",
+      "sha256": "0dc8d6260e9cad4e2b26a06806a5b38732ad45bcf5963aa7d80359ea9dd9702e"
+    },
+    {
+      "path": "system/audio_effect.h",
+      "sha256": "4279ef33d0d0cc29f38c78ef4bc41affd1d0937f6f7d2de56ddc367c549fae01"
+    },
+    {
+      "path": "system/graphics-base-v1.0.h",
+      "sha256": "1950723d8660b2c00cf5685f51031e79af0814ad4c00b94ef48caf4af3646d1f"
+    },
+    {
+      "path": "system/graphics-base-v1.1.h",
+      "sha256": "8e22bfdc66a7ec548e972238b53e827574303ea3c066a7cd4e9708159b5b6d39"
+    },
+    {
+      "path": "system/graphics-base-v1.2.h",
+      "sha256": "1c22b50c060d6e9709b1e68ffc0d4a5d309166d640620f3f21ddc12d62a5c226"
+    },
+    {
+      "path": "system/graphics-base.h",
+      "sha256": "58dadf516c74c48ebf0ca652f5eb5fb15a0f432fe7b4d18888bf36b42444fa4a"
+    },
+    {
+      "path": "system/graphics-sw.h",
+      "sha256": "957e089937f69aee425c4a2de7995ab42bfbee606567963af625fa429e7f5497"
+    },
+    {
+      "path": "system/graphics.h",
+      "sha256": "3ad78e6b394e080fb034e1ae4ff6f893e2ecf6c093235990b3d9e8d0daf8250d"
+    }
+  ]
+}

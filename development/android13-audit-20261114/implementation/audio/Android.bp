@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: Apache-2.0
+// Integrate this directory at device/samsung/t110_bringup/audio.
+cc_library_shared {
+    name: "audio.primary.t110",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "32",
+    srcs: ["AudioAdapter.cpp", "AudioModule.cpp"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["libdl"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_library_shared {
+    name: "libt110_audio_legacy_compat",
+    vendor: true,
+    compile_multilib: "32",
+    srcs: ["LegacyList.cpp"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

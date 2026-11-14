@@ -1,3 +1,12 @@
+# Current progress: ARM audio module and GPU-window candidate
+
+See [PHASE2.md](PHASE2.md) and [arm-verification/SUMMARY.json](arm-verification/SUMMARY.json).
+The real forwarding audio module now exists and links as Android ARM code.
+Full platform, vendor-loader and physical qualification remain pending. The older
+first-pass findings below describe the preserved baseline, not missing phase2 source.
+
+---
+
 # Android13 audit against working Lineage14.1 — 2026-11-14
 
 Status: two source fixes pass bounded host regressions. No complete Android13

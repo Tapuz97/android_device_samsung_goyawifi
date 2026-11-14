@@ -1,0 +1,66 @@
+diff --git a/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp b/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp
+index 8e350d5..4d13a38 100644
+--- a/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp
++++ b/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp
+@@ -188,7 +188,8 @@ bool SkiaOpenGLPipeline::setSurface(ANativeWindow* surface, SwapBehavior swapBeh
+     }
+ 
+     if (mEglSurface != EGL_NO_SURFACE) {
+-        const bool preserveBuffer = (swapBehavior != SwapBehavior::kSwap_discardBuffer);
++        const bool preserveBuffer = (swapBehavior != SwapBehavior::kSwap_discardBuffer) &&
++                !property_get_bool("ro.t110.legacy_gpu", false);
+         const bool isPreserved = mEglManager.setPreserveBuffer(mEglSurface, preserveBuffer);
+         ALOGE_IF(preserveBuffer != isPreserved, "Unable to match the desired swap behavior.");
+         return true;
+diff --git a/libs/hwui/renderthread/EglManager.cpp b/libs/hwui/renderthread/EglManager.cpp
+index 3a767b9..2bb0f5e 100644
+--- a/libs/hwui/renderthread/EglManager.cpp
++++ b/libs/hwui/renderthread/EglManager.cpp
+@@ -120,7 +120,11 @@ void EglManager::initialize() {
+     initExtensions();
+ 
+     // Now that extensions are loaded, pick a swap behavior
+-    if (Properties::enablePartialUpdates) {
++    // The ANI7 window driver does not provide a reliable retained-pixel
++    // contract to modern Skia. Redraw on the GPU rather than assuming an old
++    // buffer contains valid pixels. This does not select software Canvas.
++    if (Properties::enablePartialUpdates &&
++            !property_get_bool("ro.t110.legacy_gpu", false)) {
+         // An Adreno driver bug is causing rendering problems for SkiaGL with
+         // buffer age swap behavior (b/31957043).  To temporarily workaround,
+         // we will use preserved swap behavior.
+@@ -547,6 +551,8 @@ bool EglManager::makeCurrent(EGLSurface surface, EGLint* errOut, bool force) {
+ }
+ 
+ EGLint EglManager::queryBufferAge(EGLSurface surface) {
++    // Age zero makes CanvasContext expand damage to the complete window.
++    if (property_get_bool("ro.t110.legacy_gpu", false)) return 0;
+     switch (mSwapBehavior) {
+         case SwapBehavior::Discard:
+             return 0;
+@@ -605,11 +611,22 @@ bool EglManager::swapBuffers(const Frame& frame, const SkRect& screenDirty) {
+         glReadPixels(0, 0, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
+     }
+ 
+-    EGLint rects[4];
+-    frame.map(screenDirty, rects);
+-    eglSwapBuffersWithDamageKHR(mEglDisplay, frame.mSurface, rects, screenDirty.isEmpty() ? 0 : 1);
++    EGLBoolean swapped = EGL_TRUE;
++    if (legacyT110) {
++        // Stock window queueing/resolve is the ordinary EGL swap contract.
++        // Full GPU redraw above means no retained-pixel/damage hint is needed.
++        swapped = eglSwapBuffers(mEglDisplay, frame.mSurface);
++    } else {
++        EGLint rects[4];
++        frame.map(screenDirty, rects);
++        eglSwapBuffersWithDamageKHR(mEglDisplay, frame.mSurface, rects, screenDirty.isEmpty() ? 0 : 1);
++    }
+ 
+     EGLint err = eglGetError();
++    if (legacyT110 && swapped != EGL_TRUE && err == EGL_SUCCESS) {
++        ALOGW("T110 legacy window swap returned false without an EGL error");
++        return false;
++    }
+     if (CC_LIKELY(err == EGL_SUCCESS)) {
+         return true;
+     }
