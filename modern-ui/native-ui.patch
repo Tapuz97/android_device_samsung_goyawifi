@@ -804,7 +804,7 @@
 +    <color name="quantum_panel_text_color">#17251E</color>
 +    <color name="quantum_panel_text_color_dark">#E5EFE8</color>
 +    <color name="quantum_panel_bg_color">#F5F8F5</color>
-+    <color name="quantum_panel_bg_color_dark">#1B3028</color>
++    <color name="quantum_panel_bg_color_dark">#191C1A</color>
  
      <color name="outline_color">#FFFFFFFF</color>
  
@@ -822,6 +822,18 @@
      <bool name="preferences_interface_use_scroller_default">true</bool>
      <bool name="preferences_interface_use_horizontal_scrubber_default">true</bool>
      <bool name="preferences_interface_drawer_search_default">true</bool>
+--- a/packages/apps/Trebuchet/src/com/android/launcher3/BaseContainerView.java
++++ b/packages/apps/Trebuchet/src/com/android/launcher3/BaseContainerView.java
+@@ -110,7 +110,8 @@
+         mUseScroller = SettingsProvider.getBoolean(context,
+                 SettingsProvider.SETTINGS_UI_USE_SCROLLER,
+                 R.bool.preferences_interface_use_scroller_default);
+-        mUseScrubber = SettingsProvider.getBoolean(context,
++        // The modern Apps drawer has no alphabet footer; widget preferences remain native.
++        mUseScrubber = getId() != R.id.apps_view && SettingsProvider.getBoolean(context,
+                 SettingsProvider.SETTINGS_UI_USE_HORIZONTAL_SCRUBBER,
+                 R.bool.preferences_interface_use_horizontal_scrubber_default);
+ 
 --- a/packages/apps/Trebuchet/src/com/android/launcher3/DragLayer.java
 +++ b/packages/apps/Trebuchet/src/com/android/launcher3/DragLayer.java
 @@ -32,6 +32,7 @@
@@ -1073,6 +1085,113 @@
                              : IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
          } else {
              int accessible = mState == State.NORMAL ?
+--- a/packages/apps/Trebuchet/src/com/android/launcher3/allapps/AllAppsContainerView.java
++++ b/packages/apps/Trebuchet/src/com/android/launcher3/allapps/AllAppsContainerView.java
+@@ -50,6 +50,7 @@
+ import com.android.launcher3.Workspace;
+ import com.android.launcher3.util.ComponentKey;
+ import com.android.launcher3.util.Thunk;
++import com.android.launcher3.util.HomeSwipeDetector;
+ import com.cyanogenmod.trebuchet.settings.SettingsProvider;
+ 
+ import java.nio.charset.Charset;
+@@ -99,6 +100,8 @@
+     private final Point mIconLastTouchPos = new Point();
+ 
+     private boolean mReloadDrawer = false;
++    private final HomeSwipeDetector mDismissSwipe;
++    private boolean mDismissSwipeCaptured;
+ 
+     private View.OnClickListener mSearchClickListener = new View.OnClickListener() {
+         @Override
+@@ -121,6 +124,9 @@
+         Resources res = context.getResources();
+ 
+         mLauncher = (Launcher) context;
++        int slop = ViewConfiguration.get(context).getScaledTouchSlop();
++        mDismissSwipe = new HomeSwipeDetector(Math.max(48 * res.getDisplayMetrics().density,
++                4 * slop), slop, ViewConfiguration.getLongPressTimeout());
+         mApps = new AlphabeticalAppsList(context);
+         mAdapter = new AllAppsGridAdapter(mLauncher, mApps, this, mLauncher,
+                 this);
+@@ -239,6 +245,9 @@
+                 SettingsProvider.SETTINGS_UI_DRAWER_DARK,
+                 R.bool.preferences_interface_drawer_dark_default);
+         mGridTheme = useDarkColor ? GRID_THEME_DARK : GRID_THEME_LIGHT;
++        // One continuous drawer surface instead of separate floating panels.
++        setBackgroundColor(getResources().getColor(useDarkColor
++                ? R.color.quantum_panel_bg_color_dark : R.color.quantum_panel_bg_color));
+         mAdapter.setGridTheme(mGridTheme);
+         updateBackgroundAndPaddings(true);
+     }
+@@ -475,6 +484,67 @@
+         }
+ 
+         return super.dispatchKeyEvent(event);
++    }
++
++    private boolean canDismissDrawer() {
++        return mAppsRecyclerView != null && mLauncher.isAppsViewVisible()
++                && !mLauncher.getWorkspace().isSwitchingState()
++                && !mLauncher.getDragController().isDragging() && !mApps.hasFilter()
++                && !mAppsRecyclerView.canScrollVertically(-1);
++    }
++
++    private boolean canStartDismissSwipe(MotionEvent event) {
++        if (!canDismissDrawer()) return false;
++        Rect bounds = new Rect();
++        mAppsRecyclerView.getGlobalVisibleRect(bounds);
++        return bounds.contains((int) event.getRawX(), (int) event.getRawY());
++    }
++
++    @Override
++    public boolean dispatchTouchEvent(MotionEvent event) {
++        int action = event.getActionMasked();
++        if (action == MotionEvent.ACTION_DOWN) {
++            mDismissSwipeCaptured = false;
++            // Negate Y to reuse the tested upward recognizer for downward motion.
++            mDismissSwipe.begin(event.getX(), -event.getY(), event.getEventTime(),
++                    canStartDismissSwipe(event));
++        }
++        if (!canDismissDrawer()) mDismissSwipe.cancel();
++        if (action == MotionEvent.ACTION_POINTER_DOWN) mDismissSwipe.cancel();
++        if (action == MotionEvent.ACTION_MOVE
++                && mDismissSwipe.move(event.getX(), -event.getY(),
++                        event.getEventTime(), event.getPointerCount())) {
++            if (!mDismissSwipeCaptured) {
++                // RecyclerView may already disallow interception while it scrolls.
++                // Observe dispatch, then cancel its stream exactly once when claimed.
++                MotionEvent cancel = MotionEvent.obtain(event);
++                cancel.setAction(MotionEvent.ACTION_CANCEL);
++                super.dispatchTouchEvent(cancel);
++                cancel.recycle();
++                mDismissSwipeCaptured = true;
++            }
++        }
++        if (mDismissSwipeCaptured) {
++            if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
++                boolean close = action == MotionEvent.ACTION_UP
++                        && mDismissSwipe.end(event.getX(), -event.getY(), event.getPointerCount());
++                mDismissSwipe.cancel();
++                mDismissSwipeCaptured = false;
++                if (close && canDismissDrawer()) {
++                    post(new Runnable() {
++                        @Override
++                        public void run() {
++                            if (canDismissDrawer()) mLauncher.showWorkspace(true);
++                        }
++                    });
++                }
++            }
++            return true;
++        }
++        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
++            mDismissSwipe.cancel();
++        }
++        return super.dispatchTouchEvent(event);
+     }
+ 
+     @Override
 --- a/packages/apps/WallpaperPicker/res/values-nodpi/wallpapers.xml
 +++ b/packages/apps/WallpaperPicker/res/values-nodpi/wallpapers.xml
 @@ -17,6 +17,7 @@

@@ -47,6 +47,22 @@ public final class HomeSwipeDetectorTest {
         d.move(100, 140, 100, 1);
         d.move(100, 100, 110, 2);
         check(!d.end(100, 100, 1), "multi-touch after interception cancels");
+        // The Apps drawer passes -Y to the same detector.
+        d = new HomeSwipeDetector(48, 8, 500);
+        d.begin(100, -200, 0, true);
+        check(d.move(104, -260, 100, 1), "drawer downward claim");
+        check(d.end(105, -300, 1), "drawer downward dismissal");
+        d.begin(100, -200, 0, true);
+        check(!d.move(100, -140, 100, 1), "drawer upward scroll preserved");
+        check(!d.end(100, -100, 1), "upward never dismisses");
+        d.begin(100, -200, 0, false);
+        check(!d.move(100, -280, 100, 1), "scrolled list cannot dismiss");
+        d.begin(100, -200, 0, true);
+        check(!d.move(160, -210, 100, 1), "drawer horizontal rejected");
+        d.begin(100, -200, 0, true);
+        check(!d.move(100, -280, 700, 1), "drawer long press preserved");
+        d.begin(100, -200, 0, true);
+        check(!d.move(100, -280, 100, 2), "drawer multi-touch preserved");
         System.out.println("PASS: " + checks + " gesture behavior checks");
     }
 }

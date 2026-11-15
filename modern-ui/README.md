@@ -143,3 +143,16 @@ Installed raw image SHA256:
 `eb38b38a506d10b0d8b7f405951dd58e50e6521a7528e2bd83ff2157bb7baa97`.
 Draft image tag: `t110-lineage14-ui-swipe-image-20261115`.
 Evidence is under `swipe-up`; private data archives and device logs are not in Git.
+
+## Drawer refinement
+
+Owner confirmed finger swipe-up opens the drawer and the button is hidden. The
+next native change adds downward dismissal only for a gesture that starts with
+the app list at the top, outside search/filter/drag. RecyclerView scrolling, app
+taps, long-press drag and multi-touch retain their own event paths. The existing
+recognizer is reused with inverted Y; all 29 behavior checks passed.
+
+The Apps alphabet footer is disabled without changing the Widgets scrubber
+preference or removing app search/vertical scrolling. Light/dark preferences
+remain; a continuous surface replaces the disconnected drawer panels. Referenced
+Lineage launcher paths/commit are recorded in reference/drawer-upstream.json.

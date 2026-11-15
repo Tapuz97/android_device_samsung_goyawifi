@@ -1,0 +1,258 @@
+make: Entering directory '/root/t110-lineage14/kernel-initramfs-source'
+make[1]: /opt/toolchains/arm-eabi-4.6/bin/arm-eabi-gcc: No such file or directory
+  CHK     include/linux/version.h
+  INSTALL include/asm-generic (34 files)
+  INSTALL include/drm (15 files)
+  INSTALL include/linux/byteorder (2 files)
+  INSTALL include/linux/caif (2 files)
+  INSTALL include/linux/can (5 files)
+  INSTALL include/linux/dvb (8 files)
+  INSTALL include/linux/hdlc (1 file)
+  INSTALL include/linux/hsi (1 file)
+  INSTALL include/linux/isdn (1 file)
+  INSTALL include/linux/mmc (1 file)
+  INSTALL include/linux/netfilter/ipset (4 files)
+  INSTALL include/linux/netfilter (75 files)
+  INSTALL include/linux/netfilter_arp (2 files)
+  INSTALL include/linux/netfilter_bridge (18 files)
+  INSTALL include/linux/netfilter_ipv4 (12 files)
+  INSTALL include/linux/netfilter_ipv6 (11 files)
+  INSTALL include/linux/nfsd (5 files)
+  INSTALL include/linux/raid (2 files)
+  INSTALL include/linux/spi (1 file)
+  INSTALL include/linux/sunrpc (1 file)
+  INSTALL include/linux/tc_act (7 files)
+  INSTALL include/linux/tc_ematch (4 files)
+  INSTALL include/linux/usb (10 files)
+  INSTALL include/linux/wimax (1 file)
+  INSTALL include/linux (374 files)
+  INSTALL include/mtd (5 files)
+  INSTALL include/rdma (6 files)
+  INSTALL include/scsi/fc (4 files)
+  INSTALL include/scsi (3 files)
+  INSTALL include/sound (10 files)
+  INSTALL include/video (3 files)
+  INSTALL include/xen (2 files)
+  INSTALL include (0 file)
+  INSTALL include/asm (32 files)
+make: Leaving directory '/root/t110-lineage14/kernel-initramfs-source'
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=7.1.2
+LINEAGE_VERSION=14.1-20261115-UNOFFICIAL-goyawifi
+TARGET_PRODUCT=lineage_goyawifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_BUILD_TYPE=release
+TARGET_BUILD_APPS=
+TARGET_ARCH=arm
+TARGET_ARCH_VARIANT=armv7-a-neon
+TARGET_CPU_VARIANT=cortex-a9
+TARGET_2ND_ARCH=
+TARGET_2ND_ARCH_VARIANT=
+TARGET_2ND_CPU_VARIANT=
+HOST_ARCH=x86_64
+HOST_2ND_ARCH=x86
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-Ubuntu-22.04-jammy
+HOST_CROSS_OS=windows
+HOST_CROSS_ARCH=x86
+HOST_CROSS_2ND_ARCH=x86_64
+HOST_BUILD_TYPE=release
+BUILD_ID=NJH47F
+OUT_DIR=/root/t110-lineage14-ui/out
+============================================
+Running kati to generate build-lineage_goyawifi.ninja...
+No need to regenerate ninja file
+Starting build with ninja
+ninja: Entering directory `.'
+[ 11% 18/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/autoload/dist/ft.vim
+[ 11% 19/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/autoload/spacehi.vim
+[ 12% 20/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/colors/default.vim
+[ 12% 21/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/colors/desert.vim
+[ 13% 22/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/editing.txt
+[ 14% 23/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/help.txt
+[ 14% 24/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/intro.txt
+[ 15% 25/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/motion.txt
+[ 16% 26/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/options.txt
+[ 16% 27/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/scroll.txt
+[ 17% 28/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/tags
+[ 17% 29/162] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/doc/term.txt
+[ 18% 30/162] Install: external/bash/etc/bashrc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/bash/
+[ 19% 31/162] Checking API:  checkpublicapi-cm-last
+[ 19% 32/162] target thumb C: libtinyalsa <= external/tinyalsa/mixer.c
+[ 20% 33/162] Install: external/bash/etc/bash_logout -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/bash/
+[ 20% 34/162] Install: external/nano/etc/nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 21% 35/162] Install: external/nano/syntax/asm.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 22% 36/162] Install: external/nano/syntax/autoconf.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 22% 37/162] Install: external/nano/syntax/awk.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 23% 38/162] Install: external/nano/syntax/c.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 24% 39/162] Install: external/nano/syntax/changelog.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 24% 40/162] Checking API:  checkpublicapi-cm-current
+[ 25% 41/162] -e Generate Toybox links: $(/root/t110-lineage14-ui/out/host/linux-x86/bin/toybox-instlist)
+[ 25% 42/162] Generate Toybox links: $(/root/t110-lineage14-ui/out/host/linux-x86/bin/toybox-instlist)
+[ 26% 43/162] Install: external/nano/syntax/cmake.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 27% 44/162] Install: external/nano/syntax/css.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 27% 45/162] Install: external/nano/syntax/debian.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 28% 46/162] Install: external/nano/syntax/default.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 29% 47/162] Install: external/nano/syntax/elisp.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 29% 48/162] Install: external/nano/syntax/fortran.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 30% 49/162] Install: external/nano/syntax/gentoo.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 30% 50/162] Install: external/nano/syntax/go.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 31% 51/162] Install: external/nano/syntax/groff.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 32% 52/162] target thumb C: libtinyalsa <= external/tinyalsa/pcm.c
+[ 32% 53/162] Install: external/nano/syntax/guile.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 33% 54/162] Install: external/nano/syntax/html.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 33% 55/162] Install: external/nano/syntax/java.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 34% 56/162] Install: external/nano/syntax/javascript.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 35% 57/162] target thumb C++: recovery <= bootable/recovery/fuse_sdcard_provider.cpp
+[ 35% 58/162] target thumb C++: recovery <= bootable/recovery/asn1_decoder.cpp
+[ 36% 59/162] target thumb C++: recovery <= bootable/recovery/wear_touch.cpp
+[ 37% 60/162] target SharedLib: libtinyalsa (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/SHARED_LIBRARIES/libtinyalsa_intermediates/LINKED/libtinyalsa.so)
+[ 37% 61/162] target thumb C++: recovery <= bootable/recovery/../../system/core/toolbox/start_stop.cpp
+[ 38% 62/162] target Pack Relocations: libtinyalsa (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/SHARED_LIBRARIES/libtinyalsa_intermediates/PACKED/libtinyalsa.so)
+[ 38% 63/162] Install: external/nano/syntax/json.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 39% 64/162] target Symbolic: libtinyalsa (/root/t110-lineage14-ui/out/target/product/goyawifi/symbols/system/lib/libtinyalsa.so)
+[ 40% 65/162] Install: external/nano/syntax/lua.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 40% 66/162] Install: external/nano/syntax/makefile.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 41% 67/162] target Strip: libtinyalsa (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/lib/libtinyalsa.so)
+[ 41% 68/162] Install: external/nano/syntax/man.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 42% 69/162] target thumb C: recovery <= bootable/recovery/../../system/core/toolbox/newfs_msdos.c
+[ 43% 70/162] target thumb C: toybox <= external/toybox/main.c
+[ 43% 71/162] build /root/t110-lineage14-ui/out/target/product/goyawifi/obj/lib/libtinyalsa.so.toc
+[ 49% 72/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/lib/libtinyalsa.so
+[ 50% 73/146] Install: external/nano/syntax/mgp.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 50% 74/146] Install: external/nano/syntax/mutt.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 51% 75/146] Install: external/nano/syntax/nanorc.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 52% 76/146] target R.java/Manifest.java: Trebuchet (/root/t110-lineage14-ui/out/target/common/obj/APPS/Trebuchet_intermediates/src/R.stamp)
+warning: string 'application_name' has no default translation.
+warning: string 'toggle_weight_watcher' has no default translation.
+Warning: AndroidManifest.xml already defines minSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+Warning: AndroidManifest.xml already defines targetSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+[ 52% 77/146] target Executable: toybox (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/EXECUTABLES/toybox_intermediates/LINKED/toybox)
+[ 53% 78/146] Install: external/nano/syntax/nanohelp.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 54% 79/146] target thumb C++: recovery <= bootable/recovery/adb_install.cpp
+[ 54% 80/146] Install: external/nano/syntax/nftables.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 55% 81/146] target thumb C++: recovery <= bootable/recovery/default_device.cpp
+[ 56% 82/146] target thumb C++: recovery <= bootable/recovery/../../system/vold/vdc.cpp
+[ 56% 83/146] Install: external/nano/syntax/objc.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 57% 84/146] Install: external/nano/syntax/ocaml.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 58% 85/146] target Unpacked: toybox (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/EXECUTABLES/toybox_intermediates/PACKED/toybox)
+[ 58% 86/146] Install: external/nano/syntax/patch.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 59% 87/146] target thumb C++: recovery <= bootable/recovery/roots.cpp
+[ 60% 88/146] Install: external/nano/syntax/perl.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 60% 89/146] Install: external/nano/syntax/php.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 61% 90/146] Install: external/nano/syntax/po.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 62% 91/146] Install: external/nano/syntax/postgresql.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 63% 92/146] Install: external/nano/syntax/pov.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 63% 93/146] Install: external/nano/syntax/python.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 64% 94/146] target Symbolic: toybox (/root/t110-lineage14-ui/out/target/product/goyawifi/symbols/system/bin/toybox)
+[ 65% 95/146] Install: external/nano/syntax/ruby.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 65% 96/146] Install: external/nano/syntax/rust.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 66% 97/146] Install: external/nano/syntax/sh.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 67% 98/146] Install: external/nano/syntax/spec.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 67% 99/146] Install: external/nano/syntax/tcl.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 68% 100/146] target thumb C++: recovery <= bootable/recovery/device.cpp
+[ 69% 101/146] target thumb C++: recovery <= bootable/recovery/ui.cpp
+[ 69% 102/146] Install: external/nano/syntax/tex.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 70% 103/146] Install: external/nano/syntax/texinfo.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 71% 104/146] Install: external/nano/syntax/xml.nanorc -> /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/nano
+[ 71% 105/146] target Strip: toybox (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/EXECUTABLES/toybox_intermediates/toybox)
+[ 72% 106/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/filetype.vim
+[ 73% 107/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/ftoff.vim
+[ 73% 108/146] target thumb C++: recovery <= bootable/recovery/verifier.cpp
+[ 74% 109/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/indent.vim
+[ 75% 110/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/indoff.vim
+[ 76% 111/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/plugin/matchparen.vim
+[ 76% 112/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/scripts.vim
+[ 77% 113/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/awk.vim
+[ 78% 114/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/c.vim
+[ 78% 115/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/conf.vim
+[ 79% 116/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/config.vim
+[ 80% 117/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/bin/toybox
+[ 80% 118/146] target thumb C++: recovery <= bootable/recovery/wear_ui.cpp
+[ 81% 119/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/context.vim
+[ 82% 120/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/cpp.vim
+[ 82% 121/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/css.vim
+[ 83% 122/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/diff.vim
+[ 84% 123/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/doxygen.vim
+[ 84% 124/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/dtd.vim
+[ 85% 125/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/gitcommit.vim
+[ 86% 126/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/help.vim
+[ 86% 127/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/html.vim
+[ 87% 128/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/java.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/javascript.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/logcat.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/lua.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/manual.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/markdown.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/pod.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/sh.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/syncolor.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/synload.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/syntax.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/vb.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/vim.vim
+[ 88% 129/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/usr/share/vim/syntax/xml.vim
+[ 88% 129/146] target thumb C++: recovery <= bootable/recovery/voldclient.cpp
+[ 88% 129/146] Ensure Jack server is installed and started
+Jack server already installed in "/root/.jack-server"
+Launching Jack server java -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp -Dfile.encoding=UTF-8 -XX:+TieredCompilation -cp /root/.jack-server/launcher.jar com.android.jack.launcher.ServerLauncher
+[ 89% 130/146] target thumb C++: recovery <= bootable/recovery/screen_ui.cpp
+[ 89% 130/146] target thumb C++: recovery <= bootable/recovery/install.cpp
+[ 89% 130/146] target thumb C++: recovery <= bootable/recovery/recovery.cpp
+[ 89% 131/146] target StaticExecutable: recovery (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/EXECUTABLES/recovery_intermediates/LINKED/recovery)
+[ 90% 132/146] target Unpacked: recovery (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/EXECUTABLES/recovery_intermediates/PACKED/recovery)
+[ 91% 133/146] target Symbolic: recovery (/root/t110-lineage14-ui/out/target/product/goyawifi/symbols/recovery/root/sbin/recovery)
+[ 91% 134/146] target Strip: recovery (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/EXECUTABLES/recovery_intermediates/recovery)
+[ 92% 135/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/recovery/root/sbin/recovery
+[ 92% 135/146] Building with Jack: /root/t110-lineage14-ui/out/target/common/obj/APPS/Trebuchet_intermediates/with-local/classes.dex
+[ 93% 136/146] Copying: /root/t110-lineage14-ui/out/target/common/obj/APPS/Trebuchet_intermediates/classes.dex
+[ 94% 138/146] build /root/t110-lineage14-ui/out/target/product/goyawifi/obj/APPS/Trebuchet_intermediates/oat/arm/package.odex
+[ 95% 139/146] Copy: /root/t110-lineage14-ui/out/target/product/goyawifi/system/priv-app/Trebuchet/oat/arm/Trebuchet.odex
+[ 95% 139/146] target Package: Trebuchet (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/APPS/Trebuchet_intermediates/package.apk)
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: string 'application_name' has no default translation.
+warning: string 'application_name' is missing 43 required localizations: ast_ES az_AZ be_BY bn_BD bs_BA cy_GB en_AU en_CA en_GB en_IN en_NZ en_SG en_US eo_EU eu_ES gl_ES gu_IN hy_AM is_IS ka_GE kk_KZ km_KH kn_IN ku_IQ ky_KG lb_LU lo_LA mk_MK ml_IN mn_MN mr_IN my_MM ne_NP pa_IN si_LK sq_AL ta_IN te_IN ur_PK uz_UZ zh_CN zh_HK zh_TW
+warning: string 'toggle_weight_watcher' has no default translation.
+warning: string 'toggle_weight_watcher' is missing 45 required localizations: ast_ES az_AZ be_BY bn_BD bs_BA cy_GB en_AU en_CA en_GB en_IN en_NZ en_SG en_US eo_EU et_EE eu_ES gl_ES gu_IN hy_AM is_IS ka_GE kk_KZ km_KH kn_IN ku_IQ ky_KG lb_LU lo_LA mk_MK ml_IN mn_MN mr_IN ms_MY my_MM ne_NP pa_IN si_LK sq_AL ta_IN te_IN ur_PK uz_UZ zh_CN zh_HK zh_TW
+Warning: AndroidManifest.xml already defines minSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+Warning: AndroidManifest.xml already defines targetSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+[ 95% 140/146] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/priv-app/Trebuchet/Trebuchet.apk
+[ 96% 141/146] build /root/t110-lineage14-ui/out/target/product/goyawifi/obj/NOTICE.html
+Combining NOTICE files into HTML
+Combining NOTICE files into text
+[ 97% 142/146] build /root/t110-lineage14-ui/out/target/product/goyawifi/obj/NOTICE.html.gz
+[ 97% 143/146] build /root/t110-lineage14-ui/out/target/product/goyawifi/system/etc/NOTICE.html.gz
+[ 98% 144/146] Installed file list: /root/t110-lineage14-ui/out/target/product/goyawifi/installed-files.txt
+[ 99% 145/146] Target system fs image: /root/t110-lineage14-ui/out/target/product/goyawifi/obj/PACKAGING/systemimage_intermediates/system.img
+BuildImage: in_dir = /root/t110-lineage14-ui/out/target/product/goyawifi/system, out_file = /root/t110-lineage14-ui/out/target/product/goyawifi/obj/PACKAGING/systemimage_intermediates/system.img
+fs type is not ext4
+Running:  mkuserimg.sh -s /root/t110-lineage14-ui/out/target/product/goyawifi/system /root/t110-lineage14-ui/out/target/product/goyawifi/obj/PACKAGING/systemimage_intermediates/system.img ext4 system 1594884096 -D /root/t110-lineage14-ui/out/target/product/goyawifi/system -L system /root/t110-lineage14-ui/out/target/product/goyawifi/root/file_contexts.bin
+make_ext4fs -s -T -1 -S /root/t110-lineage14-ui/out/target/product/goyawifi/root/file_contexts.bin -L system -l 1594884096 -a system /root/t110-lineage14-ui/out/target/product/goyawifi/obj/PACKAGING/systemimage_intermediates/system.img /root/t110-lineage14-ui/out/target/product/goyawifi/system /root/t110-lineage14-ui/out/target/product/goyawifi/system
+Creating filesystem with parameters:
+    Size: 1594884096
+    Block size: 4096
+    Blocks per group: 32768
+    Inodes per group: 8112
+    Inode size: 256
+    Journal blocks: 6084
+    Label: system
+    Blocks: 389376
+    Block groups: 12
+    Reserved block group size: 95
+Created filesystem with 2458/97344 inodes and 218038/389376 blocks
+Running ['mkuserimg.sh', '-s', '/root/t110-lineage14-ui/out/target/product/goyawifi/system', '/root/t110-lineage14-ui/out/target/product/goyawifi/obj/PACKAGING/systemimage_intermediates/system.img', 'ext4', 'system', '1594884096', '-D', '/root/t110-lineage14-ui/out/target/product/goyawifi/system', '-L', 'system', '/root/t110-lineage14-ui/out/target/product/goyawifi/root/file_contexts.bin'] command, exit code = 0
+[100% 146/146] Install system fs image: /root/t110-lineage14-ui/out/target/product/goyawifi/system.img
+/root/t110-lineage14-ui/out/target/product/goyawifi/system.img+ maxsize=1628233728 blocksize=135168 total=868348600 reserve=16490496
+
+[0;32m#### make completed successfully (32 seconds) ####[00m
+

@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/LineageOS/android_packages_apps_Trebuchet",
+  "reference_branch": "lineage-22.2",
+  "commit": "20d0158c34931052d11d2478088c26b39e45aab9",
+  "files": [
+    "src/com/android/launcher3/touch/AllAppsSwipeController.java",
+    "src/com/android/launcher3/allapps/AllAppsTransitionController.java",
+    "res/layout/all_apps.xml"
+  ],
+  "scope": "Reference for native Home/AllApps gesture states and continuous drawer presentation; not a claim of ported Quickstep/Monet or newer APIs."
+}
