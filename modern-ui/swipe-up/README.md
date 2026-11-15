@@ -5,7 +5,8 @@ Its transfer and expanded-image readbacks matched; boot, recovery, user data and
 the on-tablet original rollback were preserved. The former R2 image remains
 backed up on the PC and online. See installation and acceptance JSON records.
 The rendered Home/drawer and injected swipe/Back checks passed on the new boot.
-Physical finger confirmation remains pending; no continuous capture is running.
+The owner confirmed finger swipe-up opens the drawer and the button is hidden.
+No continuous capture is running.
 
 Swipe upward on Home or the dock to open Trebuchet's existing app drawer. The old
 drawer button is invisible, non-clickable and excluded from accessibility. Both

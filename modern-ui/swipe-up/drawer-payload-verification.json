@@ -1,0 +1,9 @@
+{
+  "status": "PASS_ACTUAL_IMAGE_AND_MATCHING_ARM_ODEX",
+  "files": {
+    "priv-app/Trebuchet/Trebuchet.apk": "73346674c7158d1505e3c59d6a38a35a459588372a1067393f9f9b33f3ca9144",
+    "priv-app/Trebuchet/oat/arm/Trebuchet.odex": "aa006e2291ba73106648795a1db66541f42f7b6260cdbbcfcf13745c914f75f8"
+  },
+  "new_dismiss_dispatch_in_build_dex": true,
+  "gesture_checks": 29
+}

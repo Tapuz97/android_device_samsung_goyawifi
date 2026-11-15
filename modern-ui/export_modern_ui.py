@@ -36,6 +36,8 @@ for name in ('verify_swipe_image.py','backup_swipe_image.py','install_swipe_imag
     shutil.copy2(local/name,DEST/name)
 for name in ('modernize_drawer.py','verify_drawer_image.py','backup_drawer_image.py','install_drawer_image.py'):
     shutil.copy2(local/name,DEST/name)
+for name in ('monitor_drawer_boot.py','check_installed_drawer.py'):
+    shutil.copy2(local/name,DEST/name)
 shutil.copytree(local/'swipe-up',DEST/'swipe-up',dirs_exist_ok=True)
 (DEST/'apply.py').write_text('''"""Apply only onto the recorded working14.1 baseline; fail before any write on mismatch."""
 from pathlib import Path

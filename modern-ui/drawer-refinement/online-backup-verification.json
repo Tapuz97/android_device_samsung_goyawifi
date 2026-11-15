@@ -1,0 +1,26 @@
+{
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "release_id": "RE_kwDOVoq2pc4alYir",
+  "tag": "t110-lineage14-ui-drawer-20261115",
+  "source_commit": "649cf42c7fdeb000d1575877a56fbf6c704742cd",
+  "draft": true,
+  "system_gzip_sha256": "7f376a54770454cadab3677a99499d7216a7a8d594370fd893e96841d7fb9645",
+  "verified_assets": [
+    {
+      "name": "system.raw.img.gz",
+      "sha256": "7f376a54770454cadab3677a99499d7216a7a8d594370fd893e96841d7fb9645"
+    },
+    {
+      "name": "boot.img",
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "ui-image-verification.json",
+      "sha256": "7ea2d554818840f20d3b5ffdf0e81abacc99ae4808b72b9dd821c4669dba7af0"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "e254fd60292b80b5ef41d3978941c8d452c7983a08b4cb9d49d2eb958176f5cc"
+    }
+  ]
+}
