@@ -104,6 +104,7 @@ image = DEST / "system.raw.img"
 shutil.copyfile(BASE / "system.raw.img", image)
 baseline = BASE / "system.raw.img"
 dirs = set()
+labeled = set()
 commands = []
 for relative in sorted(origins):
     # Abort on every overwrite, including permissions/framework configuration.
@@ -116,12 +117,14 @@ for relative in sorted(origins):
         dirs.add(str(parent))
         existing = run("/usr/sbin/debugfs", "-R", "stat /" + str(parent), baseline)
         if "Inode:" not in existing:
+            labeled.add(str(parent))
             commands += ["mkdir /" + str(parent),
                          "set_inode_field /" + str(parent) + " mode 040755",
                          "ea_set -f " + str(context_file) + " /" + str(parent) + " security.selinux"]
     commands += ["write " + str(stage / relative) + " /" + relative,
                  "set_inode_field /" + relative + " mode 0100644",
                  "ea_set -f " + str(context_file) + " /" + relative + " security.selinux"]
+    labeled.add(relative)
 script = DEST / "debugfs-add-files.txt"
 script.write_text("\n".join(commands) + "\n")
 result = subprocess.run(["/usr/sbin/debugfs", "-w", "-f", str(script), str(image)],
@@ -142,6 +145,12 @@ for relative in sorted(origins):
     verified.append({"file": relative, "upstream_archive": origins[relative], "sha256": sha(target)})
     target.unlink()
 readback.rmdir()
+context_readback = DEST / "readback-context.bin"
+for relative in sorted(labeled):
+    run("/usr/sbin/debugfs", "-R", "ea_get -f " + str(context_readback) +
+        " /" + relative + " security.selinux", image)
+    assert context_readback.read_bytes() == context_file.read_bytes(), relative
+    context_readback.unlink()
 
 # Native tree byte comparison via debugfs rdump (including app icons and drivers).
 for label, source in (("base-tree", baseline), ("google-tree", image)):
@@ -180,6 +189,8 @@ files = [{"name": name, "bytes": (DEST / name).stat().st_size, "sha256": sha(DES
 report = {"status": "OFFLINE_CHECKED_GOOGLE_CANDIDATE_NOT_BOOT_TESTED",
           "base_system_sha256": RAW_SHA, "upstream_zip_sha256": ZIP_SHA,
           "native_files_unchanged": native, "native_apps_and_ui_preserved": True,
+          "selinux_labels_checked": len(labeled),
+          "selinux_label_terminator_checked": True,
           "google_payload_public_upload_allowed": False,
           "excluded": ["Google launcher", "Google WebView", "GoogleExtServices",
                        "GoogleExtShared", "Google TTS", "Google keyboard"],

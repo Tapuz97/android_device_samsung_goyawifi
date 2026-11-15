@@ -60,3 +60,12 @@ https://github.com/Tapuz97/android_device_samsung_goyawifi/tree/release/lineage1
 Do not publish the old engineering post: it describes an obsolete UI and an
 unqualified archive. The new post must distinguish tested hardware from pending
 Bluetooth audio, video+sound, SD/OTG/GPS and normal-app root qualification.
+
+## Reproduce the private candidate
+
+Local Linux preparation order: prepare_google_input.py, build_google_candidate.py,
+then assemble_modern_release.py. The scripts use the checked existing source/image
+layout and refuse to overwrite a candidate directory. The historical
+finish_google_context_check.py records and repairs the first candidate label
+terminator audit; the main builder now performs that check itself.
+No script mounts tablet storage or installs the upstream recovery ZIP.
