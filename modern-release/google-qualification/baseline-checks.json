@@ -1,0 +1,89 @@
+{
+  "com.google.android.syncadapters.calendar": {
+    "installed_from_system": true
+  },
+  "com.google.android.syncadapters.contacts": {
+    "installed_from_system": true
+  },
+  "com.google.android.configupdater": {
+    "installed_from_system": true
+  },
+  "com.google.android.backuptransport": {
+    "installed_from_system": true
+  },
+  "com.google.android.feedback": {
+    "installed_from_system": true
+  },
+  "com.google.android.gsf.login": {
+    "installed_from_system": true
+  },
+  "com.google.android.onetimeinitializer": {
+    "installed_from_system": true
+  },
+  "com.google.android.partnersetup": {
+    "installed_from_system": true
+  },
+  "com.google.android.gsf": {
+    "installed_from_system": true
+  },
+  "com.android.vending": {
+    "installed_from_system": true
+  },
+  "com.google.android.gms": {
+    "installed_from_system": true
+  },
+  "com.google.android.setupwizard": {
+    "installed_from_system": true
+  },
+  "native_app_registration": {
+    "Settings": {
+      "installed_from_system": true,
+      "package": "com.android.settings"
+    },
+    "Trebuchet": {
+      "installed_from_system": true,
+      "package": "com.cyanogenmod.trebuchet"
+    },
+    "Camera2": {
+      "installed_from_system": true,
+      "package": "com.android.camera2"
+    },
+    "Recorder": {
+      "installed_from_system": true,
+      "package": "org.lineageos.recorder"
+    },
+    "Eleven": {
+      "installed_from_system": true,
+      "package": "com.cyanogenmod.eleven"
+    },
+    "LatinIME": {
+      "installed_from_system": true,
+      "package": "com.android.inputmethod.latin"
+    }
+  },
+  "graphics": {
+    "gles_renderer": "GLES: Vivante Corporation, GC1000 core, OpenGL ES 2.0",
+    "vivante_acceleration_reported": true,
+    "screenshot_workaround_preserved": true,
+    "rotation_preserved": true,
+    "physical_screen_verified": false
+  },
+  "wifi": {
+    "interface_has_ipv4": true,
+    "default_route": true,
+    "framework_validated": true,
+    "certificate_checked_https_204": true,
+    "https_status": "204",
+    "route_scope": "Android per-network routing tables, not only main table"
+  },
+  "health": {
+    "boot_id": "b4029312-8d0f-4bd2-b69e-bd8c18f3c4be",
+    "java_crash_in_snapshot": false,
+    "native_fatal_signal_in_snapshot": false,
+    "last_anr_present": false,
+    "zram_swap_present": true
+  },
+  "google_sign_in": "OWNER_CHECK_PENDING",
+  "play_install": "PENDING",
+  "continuous_logging": false
+}

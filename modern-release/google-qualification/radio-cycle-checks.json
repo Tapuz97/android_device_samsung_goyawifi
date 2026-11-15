@@ -1,0 +1,9 @@
+{
+  "bluetooth_off": true,
+  "bluetooth_on": true,
+  "wifi_https_204_after_bt_cycle": true,
+  "new_java_crash_seen": false,
+  "last_anr_seen": false,
+  "boot_id": "b4029312-8d0f-4bd2-b69e-bd8c18f3c4be",
+  "scope": "Native radio toggle/coexistence; does not qualify discovery/pairing/audio"
+}

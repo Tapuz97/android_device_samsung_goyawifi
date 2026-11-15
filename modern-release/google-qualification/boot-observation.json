@@ -1,0 +1,8 @@
+{
+  "status": "ANDROID_BOOT_COMPLETED_OWNER_SCREEN_CHECK_PENDING",
+  "elapsed_from_observer_start_seconds": 184.0,
+  "timing_is_cold_boot_benchmark": false,
+  "root_adb_requested": true,
+  "old_profile_preserved": true,
+  "continuous_logging": false
+}

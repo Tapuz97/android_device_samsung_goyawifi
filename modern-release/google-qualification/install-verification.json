@@ -1,0 +1,16 @@
+{
+  "status": "GOOGLE_SYSTEM_INSTALLED_READBACK_VERIFIED_FIRST_BOOT_PENDING",
+  "system_raw_sha256": "d99aaa28603e11b357965121ffd209225099e1e73dc5af29fb22a907aaf6248a",
+  "boot_sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2",
+  "recovery_sha256": "f7f0bcf8a0cee4ecf265a2e1d75de028e97e9401c640e8cbc29d4b256d39452e",
+  "boot_unchanged": true,
+  "recovery_unchanged": true,
+  "physical_system_written": false,
+  "prior_profile_preserved": "/data/local/tmp/t110-lineage14-data.pre-google-20261115",
+  "current_rom_rollback_gzip": "/data/local/tmp/t110-modern-pre-google-system.raw.img.gz",
+  "private_userdata_tar_sha256": null,
+  "fresh_isolated_profile": true,
+  "wifi_and_authorized_adb_keys_preserved": true,
+  "google_account_present": false,
+  "exit_command": "/sbin/reboot recovery_done"
+}
