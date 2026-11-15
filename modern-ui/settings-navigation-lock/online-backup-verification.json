@@ -1,0 +1,34 @@
+{
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "release_id": "RE_kwDOVoq2pc4alnLI",
+  "tag": "t110-lineage14-ui-settings-lock-20261115",
+  "source_commit": "d5dea06a07e8121a4a891c25a906f5d27cc9d1e4",
+  "draft": true,
+  "system_gzip_sha256": "1e585dd848217cb686432205ac0879e512da0f9d31873f8f2fde2d6c008e844b",
+  "verified_assets": [
+    {
+      "name": "system.raw.img.gz",
+      "sha256": "1e585dd848217cb686432205ac0879e512da0f9d31873f8f2fde2d6c008e844b"
+    },
+    {
+      "name": "boot.img",
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "ui-image-verification.json",
+      "sha256": "7ed3261f67ac19ea43f6e25bc3ef8a27c8ed06060c1ceb002e4a5264700bf30a"
+    },
+    {
+      "name": "native-icon-verification.json",
+      "sha256": "899241db31354676b2ad72fca70943a511b8e90faa10c788844f414c411ea2fb"
+    },
+    {
+      "name": "settings-lock-verification.json",
+      "sha256": "037e556f7bba34343cc0851c952ccf287e0ee1a46f934a2360097c8d90c72f04"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "cc59774c7d158cfd2b0f44f5f5dcb09cb25b427790b7306695747b4f08b79b1f"
+    }
+  ]
+}
