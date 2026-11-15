@@ -1,0 +1,30 @@
+{
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "release_id": "RE_kwDOVoq2pc4alf26",
+  "tag": "t110-lineage14-ui-icons-20261115",
+  "source_commit": "5a4f443f9a9c35f90d1a969ad81fe4e6be0e641d",
+  "draft": true,
+  "system_gzip_sha256": "099522657524390bf6225e680037a4876ad6d1ac6aedfd7fd3de18f03ba1e318",
+  "verified_assets": [
+    {
+      "name": "system.raw.img.gz",
+      "sha256": "099522657524390bf6225e680037a4876ad6d1ac6aedfd7fd3de18f03ba1e318"
+    },
+    {
+      "name": "boot.img",
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "ui-image-verification.json",
+      "sha256": "e5defe070ab9cc939c546d74bb6920c84f81381ffd41e984eaf25b8f2b74b1de"
+    },
+    {
+      "name": "native-icon-verification.json",
+      "sha256": "7fab7ce18887cbc9f7ae9c03999cf141e7b7e8c1e61d948cb2cfa808c331fa21"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "868d7c28463bcbd7f0cca2453da72835cf204544c2a66f4d62a035c55e058f84"
+    }
+  ]
+}
