@@ -124,3 +124,22 @@ The existing R2 system artifact still contains the earlier launcher; only the ne
 APK/source bundle contains this gesture. Hidden anchor/reserved dock rank remain
 for layout/animation compatibility. Gesture details and test evidence are under
 swipe-up; artifact verification is under swipe-up/verification.json.
+
+## Installed swipe-up image - 2026-11-15
+
+The full system container was installed after explicit owner authorization and
+readback verification. The previous R2 is backed up on PC/online, the original
+rollback stays on the tablet, and current user data has a private backup. Kernel
+and recovery hashes were unchanged. The faulty physical SYSTEM was not written.
+
+The new boot completed. Native screen captures and accessibility hierarchy show
+Home drawing correctly, an injected swipe opening the native drawer, Back
+returning Home, and the old drawer button absent before/after. No Java crash
+appeared in the bounded snapshot. Physical finger confirmation and the broader
+widget/landscape/accessibility gesture matrix remain pending. All observers and
+capture commands are stopped; no live feed is running.
+
+Installed raw image SHA256:
+`eb38b38a506d10b0d8b7f405951dd58e50e6521a7528e2bd83ff2157bb7baa97`.
+Draft image tag: `t110-lineage14-ui-swipe-image-20261115`.
+Evidence is under `swipe-up`; private data archives and device logs are not in Git.

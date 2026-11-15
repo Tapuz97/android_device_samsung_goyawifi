@@ -32,6 +32,8 @@ for name in ('apply_modern_ui.py','finish_modern_ui.py','polish_capture_and_layo
     shutil.copy2(local/name,DEST/name)
 for name in ('add_swipe_up.py','build_launcher_swipe.sh','package_launcher_swipe.py'):
     shutil.copy2(local/name,DEST/name)
+for name in ('verify_swipe_image.py','backup_swipe_image.py','install_swipe_image.py','monitor_swipe_boot.py','check_installed_swipe.py'):
+    shutil.copy2(local/name,DEST/name)
 shutil.copytree(local/'swipe-up',DEST/'swipe-up',dirs_exist_ok=True)
 (DEST/'apply.py').write_text('''"""Apply only onto the recorded working14.1 baseline; fail before any write on mismatch."""
 from pathlib import Path

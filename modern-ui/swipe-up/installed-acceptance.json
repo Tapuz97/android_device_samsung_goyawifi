@@ -1,0 +1,9 @@
+{
+  "status": "AUTOMATED_NATIVE_SCREEN_CHECKS_PASSED_PHYSICAL_TOUCH_PENDING",
+  "swipe_opens_native_drawer": true,
+  "back_returns_home": true,
+  "drawer_button_not_visible_before_after": true,
+  "new_java_crash_in_snapshot": false,
+  "physical_finger_gesture_checked": false,
+  "continuous_capture_running": false
+}

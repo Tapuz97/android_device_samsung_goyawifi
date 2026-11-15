@@ -1,7 +1,11 @@
 # Home swipe-up launcher update - 2026-11-15
 
-Prepared offline at the owner's request; not installed or tested on the tablet.
-The installed R2 system image and its online/local rollback copies are unchanged.
+The full image was installed on 2026-11-15 after explicit authorization.
+Its transfer and expanded-image readbacks matched; boot, recovery, user data and
+the on-tablet original rollback were preserved. The former R2 image remains
+backed up on the PC and online. See installation and acceptance JSON records.
+The rendered Home/drawer and injected swipe/Back checks passed on the new boot.
+Physical finger confirmation remains pending; no continuous capture is running.
 
 Swipe upward on Home or the dock to open Trebuchet's existing app drawer. The old
 drawer button is invisible, non-clickable and excluded from accessibility. Both
@@ -38,12 +42,15 @@ established loop-container method; never write the faulty physical SYSTEM
 partition. The extracted original system APK is a signing/reference artifact:
 it is dex-stripped and is not an installable rollback APK.
 
-Device acceptance remains pending: portrait and landscape swipe-up from blank
+Further acceptance remains pending: physical portrait and landscape swipes from blank
 Home, icons and dock; app launching/search; Home/Back; repeated open/close without
 the button reappearing; sideways paging; long-press drag; widget scrolling;
 multi-touch; accessibility Apps action. Physical responsiveness is not proven by
 the classifier tests or build.
 
 Backups: existing R2 draft release and original working 14.1 remain preserved.
-The standalone update and verification records have their own draft release.
+The standalone APK remains a reference draft; the complete installable container
+and verification records have a separate t110-lineage14-ui-swipe-image-20261115
+draft release. Installed raw image SHA256:
+eb38b38a506d10b0d8b7f405951dd58e50e6521a7528e2bd83ff2157bb7baa97.
 This update does not change hardware drivers, navigation settings or Android API.

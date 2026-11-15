@@ -1,0 +1,26 @@
+{
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "release_id": "RE_kwDOVoq2pc4alU7u",
+  "tag": "t110-lineage14-ui-swipe-image-20261115",
+  "source_commit": "ef80ca50149f1da9eb3282cdb2e5d808a9427c9f",
+  "draft": true,
+  "system_gzip_sha256": "118bd3cc0f229dc2a43e9f1e402270e49636650f7339c1adfeb57540cadf53d4",
+  "verified_assets": [
+    {
+      "name": "system.raw.img.gz",
+      "sha256": "118bd3cc0f229dc2a43e9f1e402270e49636650f7339c1adfeb57540cadf53d4"
+    },
+    {
+      "name": "boot.img",
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "ui-image-verification.json",
+      "sha256": "91919c7b3421e2cd4f586f6522358e63fb9e6a934cead6356f4c205f1920a399"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "defa9ffc898420ba61f2b94196b9792e3b62d6667a79ee259032352512a81229"
+    }
+  ]
+}

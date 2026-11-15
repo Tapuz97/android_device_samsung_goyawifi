@@ -1,0 +1,8 @@
+{
+  "status": "ANDROID_BOOT_COMPLETED_PHYSICAL_UI_UNVERIFIED",
+  "build_id": "T110_UI_20261114_R2",
+  "boot_id": "7ac47809-b126-4dcb-82e8-a464b3d1ca24",
+  "observed_completion_seconds": 54.3,
+  "timing_scope": "Time from starting this observer, not a cold-boot benchmark",
+  "crash_snapshot_has_fatal_exception": false
+}
