@@ -39,4 +39,6 @@ and after, preserving Home layouts. Never clear all Trebuchet user data.
 
 Native drawer changes are already physically confirmed: swipe-up opens,
 swipe-down closes from the top, and the alphabet footer is absent. The icon image
-is a separate candidate until it passes all offline gates and runtime inspection.
+passed every offline gate and runtime screen inspection. The owner confirmed
+that the new icons look correct. Installed raw image SHA256:
+fe204df8498ce7dac3e18cc66ae80a9a78c9be12790506dc30df5fee2e66a9c3.

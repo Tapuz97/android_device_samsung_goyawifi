@@ -1,0 +1,14 @@
+{
+  "status": "INSTALLED_AUTOMATED_GESTURES_AND_OWNER_CONFIRMED_ICONS",
+  "swipe_opens_native_drawer": true,
+  "downward_swipe_returns_home": true,
+  "drawer_button_not_visible_before_after": true,
+  "alphabet_footer_not_in_drawer": true,
+  "new_java_crash_in_snapshot": false,
+  "physical_finger_gesture_checked": false,
+  "continuous_capture_running": false,
+  "new_artwork_visible_on_home_and_drawer": true,
+  "owner_confirmed_icon_appearance": true,
+  "owner_report": "New icons look correct",
+  "native_app_icon_count": 13
+}

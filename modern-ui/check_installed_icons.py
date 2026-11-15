@@ -42,7 +42,11 @@ if not any(n.get('package')=='com.cyanogenmod.trebuchet' for n in nodes):
     assert any(n.get('resource-id','').endswith('/lock_icon') for n in nodes)
     root_bounds=list(map(int,re.findall(r'\d+',nodes[0].get('bounds'))))
     unlock_x=(root_bounds[0]+root_bounds[2])//2
-    shell('input swipe %d %d %d %d 450'%(unlock_x,root_bounds[3]-130,
+    # The keyguard can sleep during UIAutomator's idle wait even with a longer
+    # unlocked-screen timeout. Wake immediately before the unlock gesture.
+    shell('input keyevent 224')
+    time.sleep(1)
+    shell('input swipe %d %d %d %d 500'%(unlock_x,root_bounds[3]-50,
           unlock_x,root_bounds[1]+180))
     time.sleep(2)
     shell('input keyevent 3')

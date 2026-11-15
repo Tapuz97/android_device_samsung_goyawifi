@@ -40,6 +40,7 @@ for name in ('monitor_drawer_boot.py','check_installed_drawer.py'):
     shutil.copy2(local/name,DEST/name)
 for name in ('audit_modern_icons.py','fetch_modern_icons.py','port_modern_icons.py','verify_native_icons.py','verify_icons_image.py','backup_icons_image.py','install_icons_image.py','monitor_icons_boot.py'):
     shutil.copy2(local/name,DEST/name)
+shutil.copy2(local/'check_installed_icons.py',DEST/'check_installed_icons.py')
 if (WORK/'icon-reference').is_dir():
     shutil.copytree(WORK/'icon-reference',DEST/'icon-reference',dirs_exist_ok=True)
 shutil.copy2(local/'NATIVE-ICONS.md',DEST/'NATIVE-ICONS.md')

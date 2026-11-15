@@ -166,3 +166,19 @@ application/launcher icon selection and actual-image packaging passed verificati
 See NATIVE-ICONS.md and icon-reference for immutable source/attribution and the
 build conversion. No newer app APK, icon-pack app or runtime renderer is added.
 The earlier XML-mipmap alias experiment failed offline and was never installed.
+
+## Installed icon image - 2026-11-15
+
+The full image was installed and read back; boot/recovery and the Home-layout
+database remained unchanged. Only the regenerable icon cache was invalidated.
+Native captures show the new artwork on Home and all 13 drawer entries. Up/down
+gestures, the hidden button and absent alphabet footer passed on this boot. The
+owner confirmed the new icons look correct; the prior drawer build's finger
+gesture behavior was also confirmed. No Java crash appeared in the bounded
+snapshot. Screen timeout is restored to 60000 and no live capture/logger remains.
+
+Installed raw SHA256:
+`fe204df8498ce7dac3e18cc66ae80a9a78c9be12790506dc30df5fee2e66a9c3`.
+Verified draft backup: `t110-lineage14-ui-icons-20261115`. Current checkpoint:
+[RESUME-CURRENT-UI.md](RESUME-CURRENT-UI.md). Prior working images/data remain
+preserved; private data and device logs are excluded from Git.
