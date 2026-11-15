@@ -1,5 +1,5 @@
 {
-  "status": "AUTOMATED_SETTINGS_AND_LOCK_CHECKS_PASSED_PHYSICAL_LOCK_PENDING",
+  "status": "AUTOMATED_CHECKS_AND_OWNER_PHYSICAL_LOCK_PASSED",
   "single_gestures_navigation_category": true,
   "display_category_back_returns_root": true,
   "native_gestures_nested_and_back_returns_parent": true,
@@ -10,8 +10,10 @@
   "sleep_and_wake_to_settings": true,
   "new_java_crash": false,
   "continuous_capture_running": false,
-  "physical_lock_animation_confirmed": false,
+  "physical_lock_animation_confirmed": true,
   "baseline_bootanimation_native_fault_seen": true,
   "native_navigation_page_pixels_inspected": true,
-  "search_renamed_category_refreshed": true
+  "search_renamed_category_refreshed": true,
+  "owner_confirmation": "Locks cleanly and wakes normally",
+  "owner_confirmation_date": "2026-11-15"
 }

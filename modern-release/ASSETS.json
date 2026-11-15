@@ -1,0 +1,90 @@
+{
+  "roms": [
+    {
+      "name": "SM-T110-Lineage14.1-Modernized-20261115-without-Google-apps.zip",
+      "edition": "Modernized \u2014 without Google apps",
+      "bytes": 372068867,
+      "sha256": "6673be5699e7d4eac5328ccbb6983bfedde509c40600c3ec731cd9507df6c6b3",
+      "public_upload_allowed": true,
+      "manifest": {
+        "edition": "Modernized \u2014 without Google apps",
+        "model": "SM-T110",
+        "codename": "goyawifi",
+        "android": "7.1.2",
+        "android_sdk": 25,
+        "lineage": "14.1",
+        "architecture": "arm",
+        "modernized_ui": true,
+        "google_apps": false,
+        "container_format": "computer_transport_not_recovery_update",
+        "system_raw_sha256": "eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1",
+        "physical_system_write_allowed": false,
+        "files": {
+          "system.raw.img.gz": {
+            "name": "system.raw.img.gz",
+            "bytes": 355261008,
+            "sha256": "1e585dd848217cb686432205ac0879e512da0f9d31873f8f2fde2d6c008e844b"
+          },
+          "boot.img": {
+            "name": "boot.img",
+            "bytes": 16777216,
+            "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+          }
+        },
+        "qualification": "INSTALLED_OWNER_CONFIRMED_MODERN_UI",
+        "public_upload_allowed": true
+      }
+    },
+    {
+      "name": "LOCAL-PRIVATE-SM-T110-Lineage14.1-Modernized-20261115-with-Google-apps.zip",
+      "edition": "Modernized \u2014 with Google apps (local qualification candidate)",
+      "bytes": 471825412,
+      "sha256": "6438117ce70fe739f111fe70402174042bf80f241fd23a666c64840d2bcce6e9",
+      "public_upload_allowed": false,
+      "manifest": {
+        "edition": "Modernized \u2014 with Google apps (local qualification candidate)",
+        "model": "SM-T110",
+        "codename": "goyawifi",
+        "android": "7.1.2",
+        "android_sdk": 25,
+        "lineage": "14.1",
+        "architecture": "arm",
+        "modernized_ui": true,
+        "google_apps": true,
+        "container_format": "computer_transport_not_recovery_update",
+        "system_raw_sha256": "d99aaa28603e11b357965121ffd209225099e1e73dc5af29fb22a907aaf6248a",
+        "physical_system_write_allowed": false,
+        "files": {
+          "system.raw.img.gz": {
+            "name": "system.raw.img.gz",
+            "bytes": 455014841,
+            "sha256": "89d173d5a365311f9305f050cd95ab86ad2e3d3543b07fca5f6dc2aacb5033eb"
+          },
+          "boot.img": {
+            "name": "boot.img",
+            "bytes": 16777216,
+            "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+          }
+        },
+        "qualification": "OFFLINE_ONLY_GOOGLE_TESTS_PENDING",
+        "public_upload_allowed": false
+      }
+    }
+  ],
+  "toolkit": {
+    "status": "PASS_MATCHED_T110_RECOVERY_AND_RETAINED_ODIN_FILES",
+    "recovery_tar": {
+      "bytes": 6953016,
+      "sha256": "aa46d7591bc038b24b1062dd8ab39e2567d20a856586dee554f9efdd0b25c8cd"
+    },
+    "recovery_image_bytes": 6946816,
+    "md5_footer_verified": true,
+    "installed_recovery_padding_match": true,
+    "odin_toolkit": {
+      "bytes": 23628078,
+      "sha256": "b1640cc74d460a9d067022af49c401b7cf5861d2507b5c82a1929a19a35304e4"
+    },
+    "toolkit_files_verified": 12,
+    "public_third_party_downloads": "Use original upstream references in docs/XDA-POST.md"
+  }
+}

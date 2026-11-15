@@ -79,3 +79,11 @@ docs/RECOVERY-HANDOFF.md. The saved Android13 EGL-path, process-initialization, 
 startup fixes are now adapted to Nougat. See docs/PRIOR-WORK-CARRYOVER.md and run
 tools/verify_prior_graphics_fixes.py against the actual artifacts before flashing.
 A usable Android screen and completed startup are not yet confirmed.
+
+## Modernized release preparation (2026-11-15)
+
+Both editions retain the full modern native UI/icons/gestures/Settings/lock revamp.
+See [the release plan](modern-release/MODERN-RELEASE-PLAN.md) and
+[the XDA draft](modern-release/XDA-MODERN-POST.md). The Google-enabled candidate
+passed offline preservation/integration checks; device/account tests are pending.
+Owner confirmed clean physical Power locking and normal waking.

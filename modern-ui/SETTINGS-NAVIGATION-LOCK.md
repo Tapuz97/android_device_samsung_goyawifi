@@ -43,7 +43,8 @@ Installed image raw SHA256:
 eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1.
 Runtime checks passed for category Back, nested gestures Back, toolbar-only
 search, navigation search results, MODE_FADE at screen-off and wake to Settings.
-Physical Power-transition appearance is pending owner confirmation.
+Physical Power-transition appearance passed owner verification on 2026-11-15:
+"Locks cleanly and wakes normally" after single presses to lock and wake.
 
 Settings uses device-protected storage: its index locale cache is under
 /data/user_de/0/com.android.settings/shared_prefs/index.xml. Clearing only that

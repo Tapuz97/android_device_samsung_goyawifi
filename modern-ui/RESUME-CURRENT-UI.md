@@ -73,7 +73,8 @@ Latest Settings/lock update:
 - Native category Back, nested gestures Back and refreshed search results passed.
 - Lock uses MODE_FADE with a bufferless compositor dim layer, skipping the rotated
   screenshot/EGL/shader path. Automatic screen-off selected mode2 and wake returned
-  to Settings; physical Power-transition appearance awaits owner confirmation.
+  to Settings. Owner confirmed: "Locks cleanly and wakes normally" after pressing
+  Power once to lock and again to wake on this installed build.
 - Native mode-fade cleanup handles a null Surface; fade timing uses the normal
   short animation duration and respects global animator settings.
 - Search indexing uses device-protected data under user_de/0/com.android.settings.

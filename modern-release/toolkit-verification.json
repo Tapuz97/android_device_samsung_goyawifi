@@ -1,0 +1,16 @@
+{
+  "status": "PASS_MATCHED_T110_RECOVERY_AND_RETAINED_ODIN_FILES",
+  "recovery_tar": {
+    "bytes": 6953016,
+    "sha256": "aa46d7591bc038b24b1062dd8ab39e2567d20a856586dee554f9efdd0b25c8cd"
+  },
+  "recovery_image_bytes": 6946816,
+  "md5_footer_verified": true,
+  "installed_recovery_padding_match": true,
+  "odin_toolkit": {
+    "bytes": 23628078,
+    "sha256": "b1640cc74d460a9d067022af49c401b7cf5861d2507b5c82a1929a19a35304e4"
+  },
+  "toolkit_files_verified": 12,
+  "public_third_party_downloads": "Use original upstream references in docs/XDA-POST.md"
+}
