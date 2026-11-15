@@ -1,0 +1,23 @@
+{
+  "release": {
+    "isDraft": true,
+    "tagName": "t110-lineage14-launcher-swipe-20261115",
+    "targetCommitish": "8d773cae64e2edaba63507f8bca11ec44a46376c",
+    "url": "https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/tag/untagged-545056e2547fccc291b6"
+  },
+  "status": "PASS_ONLINE_DOWNLOAD_HASH_READBACK",
+  "assets": [
+    {
+      "name": "Trebuchet-T110-swipe-up-20261115.apk",
+      "sha256": "65e9375d44450d60a4ff57193522086db87e0794b7c5ced9b1340db6afe858d1"
+    },
+    {
+      "name": "verification.json",
+      "sha256": "b4658fa8961d33cc735864bf160794d7ee6943aecd80fe67deccffe8ad9ae821"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "ab7982761e327fcb3e16822fb9662c00679d87c5f9c488e6ed83ee0d7752ffa8"
+    }
+  ]
+}
