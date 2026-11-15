@@ -1,0 +1,140 @@
+{
+  "status": "PASS_ACTUAL_IMAGE_ICON_PIXELS_AND_LAUNCHER_MANIFESTS",
+  "apps": [
+    {
+      "label": "AudioFX",
+      "apk": "priv-app/AudioFX/AudioFX.apk",
+      "sha256": "3c58ff38a5aa935c95c2208bdb8fb4e218765e414857a89ee45668fb97629b64",
+      "launcher_components": [
+        "org.cyanogenmod.audiofx.activity.ActivityMusic"
+      ],
+      "resolved_icon_resource": "0x7f030002",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Browser",
+      "apk": "app/Jelly/Jelly.apk",
+      "sha256": "eaa87e3a4ebdc6417b04b44fb567f9f50c564bc84dba236b8b29e9a9746eeb40",
+      "launcher_components": [
+        "org.lineageos.jelly.MainActivity"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Calculator",
+      "apk": "app/ExactCalculator/ExactCalculator.apk",
+      "sha256": "ae5dd7f29b3227192aba865d8949b512be3b508df447bae35d91164a2bbe746e",
+      "launcher_components": [
+        "com.android.calculator2.Calculator"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Calendar",
+      "apk": "app/Calendar/Calendar.apk",
+      "sha256": "cafe03b7c00517ed99a646907daf360976a2d0a9b945135aa8feec9370f9faa7",
+      "launcher_components": [
+        "com.android.calendar.AllInOneActivity"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Camera",
+      "apk": "app/Camera2/Camera2.apk",
+      "sha256": "aa048157df57c2c33701fd665f0eed0e7d06f701ee6ede80d6eae273d967afe3",
+      "launcher_components": [
+        "com.android.camera.CameraLauncher"
+      ],
+      "resolved_icon_resource": "0x7f030002",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Clock",
+      "apk": "app/DeskClock/DeskClock.apk",
+      "sha256": "7cf8887789c55d45e3331ffa9b18fe4d7780325ff5bb17e692bad52008fa0fb6",
+      "launcher_components": [
+        "com.android.deskclock.DeskClock"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Contacts",
+      "apk": "priv-app/Contacts/Contacts.apk",
+      "sha256": "39dd19cc61362eeec92db5ecc72c0aa2ea089e593f48fbefd813fd2659a2e1b4",
+      "launcher_components": [
+        "com.android.contacts.activities.PeopleActivity"
+      ],
+      "resolved_icon_resource": "0x7f030002",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Email",
+      "apk": "app/Email/Email.apk",
+      "sha256": "5d273a68075b817472d6b449c0d82da089b5f11b61018a98a05a981ffc3da456",
+      "launcher_components": [
+        "com.android.email.activity.Welcome"
+      ],
+      "resolved_icon_resource": "0x7f030004",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Files",
+      "apk": "priv-app/DocumentsUI/DocumentsUI.apk",
+      "sha256": "77b37110428c094ab4475c36265d6e8406074b1f79d1dcc6a4461906e93382ad",
+      "launcher_components": [
+        "com.android.documentsui.LauncherActivity"
+      ],
+      "resolved_icon_resource": "0x7f030003",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Gallery",
+      "apk": "priv-app/Gallery2/Gallery2.apk",
+      "sha256": "1bedf134db53821f0fc430c24baa06a99a53d1f1123c6cce274658f6afa0921b",
+      "launcher_components": [
+        "com.android.gallery3d.app.GalleryActivity"
+      ],
+      "resolved_icon_resource": "0x7f030002",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Music",
+      "apk": "priv-app/Eleven/Eleven.apk",
+      "sha256": "ec9538906445db5446840b83a5ebcdc2a4e76ac00ef515c756ae00365cdffd4e",
+      "launcher_components": [
+        "com.cyanogenmod.eleven.ui.activities.HomeActivity"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Recorder",
+      "apk": "priv-app/Recorder/Recorder.apk",
+      "sha256": "32bc17187df22000c484e149fe6091c95d0b6e23876c7cc39a2a34524e254b40",
+      "launcher_components": [
+        "org.lineageos.recorder.RecorderActivity"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    },
+    {
+      "label": "Settings",
+      "apk": "priv-app/Settings/Settings.apk",
+      "sha256": "6b5c19483e1be509c0714c12326e525e5f4cfa52cd453c1c67714bfa3485c0d0",
+      "launcher_components": [
+        "com.android.settings.Settings"
+      ],
+      "resolved_icon_resource": "0x7f030001",
+      "matching_density_images": 5
+    }
+  ],
+  "native_app_count": 13,
+  "density_images_checked": 65,
+  "android_api": 25,
+  "runtime_icon_pack_or_renderer_required": false,
+  "system_image_sha256": "eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1"
+}

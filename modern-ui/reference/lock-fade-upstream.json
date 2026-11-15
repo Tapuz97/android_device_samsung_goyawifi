@@ -1,0 +1,4 @@
+{
+  "source": "https://github.com/aosp-mirror/platform_frameworks_base/blob/android-13.0.0_r1/services/core/java/com/android/server/display/ColorFade.java",
+  "scope": "Native color-layer fade concept adapted to API25 SurfaceControl.FX_SURFACE_DIM; no newer APIs introduced"
+}

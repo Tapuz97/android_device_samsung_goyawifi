@@ -474,7 +474,7 @@ public class SettingsActivity extends SettingsDrawerActivity
         final String query = mSearchQuery;
 
         mSearchMenuItem = menu.findItem(R.id.search);
-        mSearchView = (SearchView) mSearchMenuItem.getActionView();
+        mSearchView = mSearchMenuItem == null ? null : (SearchView) mSearchMenuItem.getActionView();
 
         if (mSearchMenuItem == null || mSearchView == null) {
             return false;
@@ -680,10 +680,7 @@ public class SettingsActivity extends SettingsDrawerActivity
         }
 
         mActionBar = getActionBar();
-        if (mActionBar != null) {
-            mActionBar.setDisplayHomeAsUpEnabled(mDisplayHomeAsUpEnabled);
-            mActionBar.setHomeButtonEnabled(mDisplayHomeAsUpEnabled);
-        }
+        updateSettingsNavigation();
         mSwitchBar = (SwitchBar) findViewById(R.id.switch_bar);
         if (mSwitchBar != null) {
             mSwitchBar.setMetricsTag(getMetricsTag());
@@ -787,6 +784,24 @@ public class SettingsActivity extends SettingsDrawerActivity
     @Override
     public void onBackStackChanged() {
         setTitleFromBackStack();
+        updateSettingsNavigation();
+    }
+
+    @Override
+    public void showMenuIcon() {
+        updateSettingsNavigation();
+    }
+
+    private void updateSettingsNavigation() {
+        mDisplayHomeAsUpEnabled = !mIsShowingDashboard || mSearchMenuItemExpanded
+                || getFragmentManager().getBackStackEntryCount() > 0;
+        if (getActionBar() == null) return;
+        if (mDisplayHomeAsUpEnabled) {
+            super.showMenuIcon();
+        } else {
+            getActionBar().setDisplayHomeAsUpEnabled(false);
+            getActionBar().setHomeButtonEnabled(false);
+        }
     }
 
     private void setTitleFromBackStack() {
@@ -1260,14 +1275,11 @@ public class SettingsActivity extends SettingsDrawerActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (super.onOptionsItemSelected(item)) {
-            return true;
-        }
         if (mDisplayHomeAsUpEnabled && item.getItemId() == android.R.id.home) {
-            finish();
+            onBackPressed();
             return true;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -133,15 +133,15 @@
   },
   "packages/apps/Settings/res/layout/dashboard.xml": {
     "before_sha256": "fdd3732c7310292fd945f6230a2c4c3dd1ff0b9203b0915f37b162f0266adb6a",
-    "sha256": "78cddb7cb56c63ad705dc6245d7e27f7bf3c57b954985be6ae615361ecf19f01"
+    "sha256": "b90c89b95b66a7923d7c671720c1e33c3da815e9aa4d43e8b2b84125c901b1e9"
   },
   "packages/apps/Settings/src/com/android/settings/SettingsActivity.java": {
     "before_sha256": "41b358e26e12792626211ac27608e2b496c45980ce4e69d6321318a06389b865",
-    "sha256": "996abea34516dc77cb9ce44d4ac461b6ef844ffa718b4eb55538634453848a25"
+    "sha256": "ce0d70bed67fa3dd3da16f8b1660579ac95529f93cdb152c2d2a11a357556159"
   },
   "packages/apps/Settings/src/com/android/settings/dashboard/DashboardSummary.java": {
     "before_sha256": "fe3085bc9dbc9ba41325fbfb18bf2f31bf92ce46b13aec506eba77ad08060f29",
-    "sha256": "c9d6f11918507dfab7545a6aa7916d1d53e91cc88491a1f0a2030cdae39cf813"
+    "sha256": "fe3085bc9dbc9ba41325fbfb18bf2f31bf92ce46b13aec506eba77ad08060f29"
   },
   "packages/apps/Trebuchet/res/values/preferences_defaults.xml": {
     "before_sha256": "58b7e0cab05858c0aab4715b271f7410ea853d5e56eec24564ab00977f6f2f48",
@@ -549,7 +549,7 @@
   },
   "packages/apps/Settings/AndroidManifest.xml": {
     "before_sha256": "512c3dc0754883b406253c90ad14fa830aca3bfc1a3544ddde94877d546a8435",
-    "sha256": "4fff8675a7b708e933d941ff9f60cbd9e7377b8f4d05070aa4e268a94edbd72e"
+    "sha256": "bdffffd9f32bc4f64544436c3e9e37f4178341ed516aa617d3cefb1724b9b768"
   },
   "packages/apps/Camera2/res/mipmap-mdpi/t110_modern_launcher.png": {
     "before_sha256": null,
@@ -574,5 +574,49 @@
   "packages/apps/Camera2/AndroidManifest.xml": {
     "before_sha256": "9143da0930bc33d17dbccae186f2cc73b6814eb898cb42feaab8001fdeb8475f",
     "sha256": "3beff5f94cbb7768cec9e722e3bae258ef8ed1ffd3dd23bf45e2db7e69eead7e"
+  },
+  "frameworks/base/packages/SettingsLib/res/drawable/t110_nav_back.xml": {
+    "before_sha256": null,
+    "sha256": "1fbf53726f000aa585a35e8cd07fc0a545a02cc3a6c413869aa279df41492a6b"
+  },
+  "frameworks/base/packages/SettingsLib/src/com/android/settingslib/drawer/SettingsDrawerActivity.java": {
+    "before_sha256": "09125d0c7729bf71b0c7e81c673f78c18cf25b6af494d6826ffc239d4a80ff6b",
+    "sha256": "fc29eda6d89618ec0010fe3b8c7003bde782d1a9f9dd43a2867d13c72288071c"
+  },
+  "packages/apps/Settings/res/menu/options_menu.xml": {
+    "before_sha256": "1999965af770d8efe292cef781f9a91d1377368cad8e627bd7f41de6a2942ec1",
+    "sha256": "161be921cde96fe88f7bf922e4958987981052a7bbb25014ac279a08314b1262"
+  },
+  "packages/apps/CMParts/res/values/t110_navigation.xml": {
+    "before_sha256": null,
+    "sha256": "550f821f8e8e87591f19f7a55da76ffc83cb66335e7eb1719f1663026f2a0c0d"
+  },
+  "packages/apps/CMParts/res/xml/parts_catalog.xml": {
+    "before_sha256": "7295cb56da9ca8dc5acaa3c685fc6bcafb3a55e9ffea6f4a624e07628320b2d9",
+    "sha256": "eca67b23ffd6bd6032e259db45d010b2e084623f9185329ce7b4bb87ba936e90"
+  },
+  "packages/apps/CMParts/res/xml/button_settings.xml": {
+    "before_sha256": "8011080daec6220e9c2fe26ca2d486d74844dd9c71fe245ad11affb778d31ca5",
+    "sha256": "e674d22e14b69c4f26c3a79f760857f63cb5ddbd39f6b608f3a785af1e758835"
+  },
+  "packages/apps/CMParts/AndroidManifest.xml": {
+    "before_sha256": "b155c09762c105c51cc0ee40e85502eff2eaeee5ee1481db1c7f10c088baa3c4",
+    "sha256": "1327d6cc1b1b3b4b11638c30f08ee4c01fe99c706aff3105a640c122d3133a93"
+  },
+  "packages/apps/CMParts/src/org/cyanogenmod/cmparts/PartsActivity.java": {
+    "before_sha256": "258febbd5236daa82b74e70caada88e2040f47a64f5a669a9e200794322c381d",
+    "sha256": "70a2629172c091472a8498806ec017529c259b08e925c4a5615349c56aaac685"
+  },
+  "frameworks/base/services/core/java/com/android/server/display/ColorFade.java": {
+    "before_sha256": "fd244b9d2f06c9301b5ddf2d4cd5a568c8a6338122bc4d3ec317c838c058889e",
+    "sha256": "81d6d14f3ec2042fdca3bfb6c91951809f69a173244081c5dc6a62aca6184469"
+  },
+  "device/samsung/goyawifi/overlay/frameworks/base/core/res/res/values/config.xml": {
+    "before_sha256": "1c494a9c996221a7174bac8ba1f669e48b8baee4614d4c9d947b8823f4b8e9c9",
+    "sha256": "e0247f4fe663f02bc2a91a3a0ee5554f9f19f7bab8eaa7f17552593f313b0e0d"
+  },
+  "frameworks/base/services/core/java/com/android/server/display/DisplayPowerController.java": {
+    "before_sha256": "fab323514178b7e75c420af4bbfe8c5530bc5ed1c96e214172e41b1f584044cd",
+    "sha256": "e4e45a0625dd70a952774fb806767e8de2671dcc7feb2f728f936cb6ae3f2eb5"
   }
 }

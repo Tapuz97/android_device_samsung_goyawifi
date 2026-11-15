@@ -14,4 +14,6 @@
     <!-- No physical LED backend has been established. Keep its controls hidden
          until the lights HAL/kernel can actually provide this capability. -->
     <integer name="config_buttonBrightnessSettingDefault">0</integer>
+    <!-- A pure dim layer keeps lock transitions off the rotated capture/GL path. -->
+    <bool name="config_animateScreenLights">true</bool>
 </resources>

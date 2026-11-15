@@ -1,0 +1,13 @@
+{
+  "status": "PASS_SETTINGS_NAVIGATION_AND_LOCK_IMAGE_CHECKS",
+  "system_image_sha256": "eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1",
+  "one_dashboard_navigation_category": true,
+  "native_button_preference_keys_preserved": 45,
+  "existing_gesture_activity_enabled_and_nested": true,
+  "native_back_asset_in_settings_and_cmparts": true,
+  "toolbar_search_always_visible": true,
+  "duplicate_dashboard_search_row_removed": true,
+  "native_dim_fade_selected": true,
+  "services_odex_sha256": "c15fde794a1fc3833cc723f536e2f5254a85695d12fb4e3dbc5d89d00ea6198d",
+  "runtime_navigation_and_lock_checks": "PENDING"
+}

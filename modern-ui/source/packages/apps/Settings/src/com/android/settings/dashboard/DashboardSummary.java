@@ -197,13 +197,6 @@ public class DashboardSummary extends InstrumentedFragment
     @Override
     public void onViewCreated(View view, Bundle bundle) {
         long startTime = System.currentTimeMillis();
-        view.findViewById(R.id.t110_search_settings).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((SettingsActivity) getActivity()).startModernSearch();
-                    }
-                });
         mDashboard = (FocusRecyclerView) view.findViewById(R.id.dashboard_container);
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

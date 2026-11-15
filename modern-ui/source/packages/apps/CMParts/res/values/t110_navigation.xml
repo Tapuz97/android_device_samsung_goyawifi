@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="t110_gestures_navigation_title">Gestures &amp; Navigation</string>
+    <string name="t110_system_gestures_title">Gestures</string>
+    <string name="t110_system_gestures_summary">Power-button shortcuts and screen gestures</string>
+</resources>
