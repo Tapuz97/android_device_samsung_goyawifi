@@ -1,0 +1,14 @@
+{
+  "status": "FULL_IMAGE_INSTALLED_READBACK_VERIFIED",
+  "system_sha256": "eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1",
+  "boot_unchanged": true,
+  "recovery_unchanged": true,
+  "physical_system_written": false,
+  "original_rollback_kept_on_tablet": true,
+  "previous_r2_preserved_pc_online": true,
+  "userdata_preserved": true,
+  "launcher_layout_database_preserved": true,
+  "launcher_icon_cache_rebuilt": false,
+  "private_userdata_backup_sha256": "abe5eac7cfc87f039bd80dcbdec0ad2bf00c9f84162eaf8188359fcd3281b932",
+  "exit_command": "/sbin/reboot recovery_done"
+}

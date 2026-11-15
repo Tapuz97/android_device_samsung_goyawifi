@@ -182,3 +182,22 @@ Installed raw SHA256:
 Verified draft backup: `t110-lineage14-ui-icons-20261115`. Current checkpoint:
 [RESUME-CURRENT-UI.md](RESUME-CURRENT-UI.md). Prior working images/data remain
 preserved; private data and device logs are excluded from Git.
+
+## Installed Settings/navigation and lock update - 2026-11-15
+
+One Gestures & Navigation dashboard entry retains all 45 existing button/nav
+preference keys and links the native gesture page. Shared category navigation
+uses Back, with native stacks and package-update listeners preserved. Search is
+always at the toolbar end; its duplicate dashboard row is removed. Native
+category Back, nested gestures Back and search results passed on the tablet.
+
+The board selects a compositor-only fade, avoiding its rotated capture path.
+Automatic sleep/wake selected MODE_FADE and returned to Settings successfully;
+physical Power-transition appearance awaits owner confirmation. No Java crash
+occurred in these bounded checks. The pre-existing BootAnimation native fault
+was seen separately. The screen timeout was restored to 60000.
+
+Installed raw SHA256:
+`eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1`.
+Backup tag: `t110-lineage14-ui-settings-lock-20261115`. Data, prior ROM, boot and
+recovery are preserved; private data and device logs remain outside Git.

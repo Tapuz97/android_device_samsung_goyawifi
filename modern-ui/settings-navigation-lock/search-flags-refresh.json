@@ -1,0 +1,8 @@
+{
+  "status": "SEARCH_INDEX_LOCALE_FLAGS_REFRESHED",
+  "context": "DEVICE_PROTECTED_STORAGE",
+  "search_database_and_saved_queries_preserved": true,
+  "database_hash_unchanged_at_flag_refresh": true,
+  "actual_settings_preserved": true,
+  "private_backup_taken_first": true
+}

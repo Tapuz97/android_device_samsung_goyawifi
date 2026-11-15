@@ -118,6 +118,14 @@ sync
 assert remote_hash('/dev/block/mmcblk0p10')==BOOT
 assert remote_hash('/dev/block/mmcblk0p9')==RECOVERY
 assert remote_hash(layout_path)==layout_sha
+# The build tag is intentionally unchanged, so invalidate only indexed-locale
+# flags. The native indexer refreshes renamed labels without deleting history.
+shell('''[ -d /data/local/tmp/t110-lineage14-data/user_de/0/com.android.settings/shared_prefs ]
+[ ! -L /data/local/tmp/t110-lineage14-data/user_de/0/com.android.settings/shared_prefs/index.xml ]
+[ ! -L /data/local/tmp/t110-lineage14-data/user_de/0/com.android.settings/shared_prefs/index.xml.bak ]
+rm -f /data/local/tmp/t110-lineage14-data/user_de/0/com.android.settings/shared_prefs/index.xml /data/local/tmp/t110-lineage14-data/user_de/0/com.android.settings/shared_prefs/index.xml.bak
+sync
+''')
 receipt={'status':'FULL_IMAGE_INSTALLED_READBACK_VERIFIED',
     'system_sha256':files['system.raw.img']['sha256'],
     'boot_unchanged':True,'recovery_unchanged':True,'physical_system_written':False,

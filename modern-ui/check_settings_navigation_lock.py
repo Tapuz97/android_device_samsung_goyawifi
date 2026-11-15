@@ -14,10 +14,11 @@ def hierarchy():
     shell('uiautomator dump /data/local/tmp/t110-settings-nav.xml')
     return ET.fromstring(adb('exec-out','cat /data/local/tmp/t110-settings-nav.xml'))
 def snapshot(name):
+    root=hierarchy()
+    time.sleep(.3)
     png=adb('exec-out','screencap -p 2>/dev/null')
     assert png.startswith(b'\x89PNG\r\n\x1a\n')
     (DEST/(name+'.png')).write_bytes(png)
-    root=hierarchy()
     ET.ElementTree(root).write(DEST/(name+'.xml'),encoding='utf-8',xml_declaration=True)
     return root
 def point(n):

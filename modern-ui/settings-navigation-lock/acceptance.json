@@ -1,0 +1,17 @@
+{
+  "status": "AUTOMATED_SETTINGS_AND_LOCK_CHECKS_PASSED_PHYSICAL_LOCK_PENDING",
+  "single_gestures_navigation_category": true,
+  "display_category_back_returns_root": true,
+  "native_gestures_nested_and_back_returns_parent": true,
+  "toolbar_search_inline_right_of_title": true,
+  "native_search_returns_navigation_results": true,
+  "no_duplicate_search_row": true,
+  "dim_fade_selected_at_sleep": true,
+  "sleep_and_wake_to_settings": true,
+  "new_java_crash": false,
+  "continuous_capture_running": false,
+  "physical_lock_animation_confirmed": false,
+  "baseline_bootanimation_native_fault_seen": true,
+  "native_navigation_page_pixels_inspected": true,
+  "search_renamed_category_refreshed": true
+}

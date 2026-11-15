@@ -38,3 +38,21 @@ contents passed. The checker also verifies all 13 current app icons remain
 correctly selected with 65 matching density images. Runtime checks must verify
 the category/back/search flows and physical lock behavior before claiming them
 hardware-qualified. No continuous logging/capture is required.
+
+Installed image raw SHA256:
+eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1.
+Runtime checks passed for category Back, nested gestures Back, toolbar-only
+search, navigation search results, MODE_FADE at screen-off and wake to Settings.
+Physical Power-transition appearance is pending owner confirmation.
+
+Settings uses device-protected storage: its index locale cache is under
+/data/user_de/0/com.android.settings/shared_prefs/index.xml. Clearing only that
+flag file refreshes renamed categories without dropping the search database or
+saved queries. The Settings app was stopped and the database hash was verified
+unchanged across flag deletion. The CE /data/data path is not the active index.
+
+Screen captures must follow UIAutomator's settled hierarchy, rather than precede
+it: a newly opened native category can otherwise yield the outgoing frame.
+The known prior BootAnimation native SIGSEGV appeared in the startup snapshot;
+it is separate from these Settings/lock changes. No Java crash occurred in the
+bounded runtime tests. Temporary screen timeout was restored to 60000.

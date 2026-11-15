@@ -43,6 +43,7 @@ for name in ('audit_modern_icons.py','fetch_modern_icons.py','port_modern_icons.
 shutil.copy2(local/'check_installed_icons.py',DEST/'check_installed_icons.py')
 for name in ('settings_navigation.py','fix_lock_fade.py','verify_settings_lock_image.py','verify_settings_lock_icons.py','verify_settings_lock_payload.py','backup_settings_lock_image.py','install_settings_lock_image.py','monitor_settings_lock_boot.py'):
     shutil.copy2(local/name,DEST/name)
+shutil.copy2(local/'check_settings_navigation_lock.py',DEST/'check_settings_navigation_lock.py')
 if (WORK/'icon-reference').is_dir():
     shutil.copytree(WORK/'icon-reference',DEST/'icon-reference',dirs_exist_ok=True)
 shutil.copy2(local/'NATIVE-ICONS.md',DEST/'NATIVE-ICONS.md')
