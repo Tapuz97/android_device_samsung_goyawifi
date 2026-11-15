@@ -262,5 +262,317 @@
   "packages/apps/Trebuchet/src/com/android/launcher3/BaseContainerView.java": {
     "before_sha256": "6c31caa32e56cbc90d6609f44672785c66d2c6bdd5c59b4a408c1efe0124a107",
     "sha256": "c6ef21555dc88979585893ff7d1275e4ed9a9c09c3b731c132821ba4df831d0c"
+  },
+  "packages/apps/AudioFX/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "488120c443dea518aee0b79205b11f085519a383ac54d97e3c1587dd09b299c0"
+  },
+  "packages/apps/AudioFX/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "afcf250507df1d48e3754e32eb3913f0e1150751551ffe5713f5d17e56ac00ca"
+  },
+  "packages/apps/AudioFX/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e5d2665dbfb5b6caf680dd700c8687f868aed5abda66ba56b535d5cb89ee6269"
+  },
+  "packages/apps/AudioFX/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "8586514400802f51fbc2e997d0bad004d11e854508cc252f5f9cf3543e8a8112"
+  },
+  "packages/apps/AudioFX/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "fcd8a32297a8bf3c750a23155a21166142c77ed3a771ec6e8b3f98e53f1b300c"
+  },
+  "packages/apps/Jelly/app/src/main/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "31d6585dc89088045d8d6d3ba54747cef2611587adf642a8d693d47ba98dc606"
+  },
+  "packages/apps/Jelly/app/src/main/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "68da22a6f3c3485c4630a5040865ed348eb3308ee2f94e411a8eafe2afabbfe4"
+  },
+  "packages/apps/Jelly/app/src/main/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e9f36f1d9a910d7cb6d396cce4e4e9ccdf4192dbaf8405f6c977ed5cc8cf725f"
+  },
+  "packages/apps/Jelly/app/src/main/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "c3bcbcbc681e42c8db3b569aa1b423fce8997e79b7b931d07e377754dc07a90f"
+  },
+  "packages/apps/Jelly/app/src/main/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d31c768552eebd28346dc36a3b85bf3e485a3bfc146bfcdedb5596c0fcbc8464"
+  },
+  "packages/apps/ExactCalculator/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "50b38f3612203f52d21536c658bfd6b6ec472272f49d6ecd444e0a47ccc7bb8d"
+  },
+  "packages/apps/ExactCalculator/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "7d67199832d37041aba1402c88eb3e2a87c8a15dd6cb4adc390d7bc79a3ad82b"
+  },
+  "packages/apps/ExactCalculator/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "ad5a101220a09a5cbff9321f0a6f01f771542cee7b4c6c2bc401fd0f409f8e6e"
+  },
+  "packages/apps/ExactCalculator/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "878c2d3bdd1bfc71001c8a26f9bab123b1694a0951e64f23c1e3db7467655f76"
+  },
+  "packages/apps/ExactCalculator/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "bd1bd35f8fbdbef0d81d95d4f5ab5ee4a871f9823f49d820ab2ff2983540f20b"
+  },
+  "packages/apps/Calendar/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "ed842e26f2983f004a39fd3f2107127d249c9fe74a4b060b9d791dc33de0eb6e"
+  },
+  "packages/apps/Calendar/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e0a2b26da57fed9afcf225059fda36bb3534461eea5a4e54892fb668f85fd6dd"
+  },
+  "packages/apps/Calendar/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "a011e41e28d351d72e29c3054450fc68d081938c058c2e822bdd0a0c592ba8e6"
+  },
+  "packages/apps/Calendar/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "84d817e242a0416dd57f86dc38dd1fcf468a5a771e0512e912e28b89132b2474"
+  },
+  "packages/apps/Calendar/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "9e905439265ca6b87716bde2b19fa4c6cb82f9df48f306e74638e424c530ff5c"
+  },
+  "packages/apps/DeskClock/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d9ad477663a2d79ab2c8da034a325e73cd7964086bcaf00a47398796c99b52b6"
+  },
+  "packages/apps/DeskClock/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "4af37e145115a92f0945edbbe6abe8379ea16743d96cef97fed505da7fd34507"
+  },
+  "packages/apps/DeskClock/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e1c40b6b7e5f163ad9f23aa22ec0427ed1c0e94129962608097f2e79eb1d8ce6"
+  },
+  "packages/apps/DeskClock/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "59a183c47ab1cea24932d9fd8159a533dbbc42130642b1becae77bf968ee6a1d"
+  },
+  "packages/apps/DeskClock/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "8ecd115e47e517093d66e53d5f209f4c8186c4a7f26f76eba73be68269947e46"
+  },
+  "packages/apps/Contacts/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "b4c7c71f8cb13ae5f88d8d59f9c878032920da073820260d92166ca0e18cc2bd"
+  },
+  "packages/apps/Contacts/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "1046ae383c763bf47f19b1ffc3e38819727db06a6d3510d3a4f2a937bb526ed4"
+  },
+  "packages/apps/Contacts/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "1826f428fe1651fb3bc964487c117b7d8c7f10234cccb29c6683e70604fc26c8"
+  },
+  "packages/apps/Contacts/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "3ae74ffc37b6bfaeb927a6b3db1ae37bab288146739338e811f6a2d638a3e0aa"
+  },
+  "packages/apps/Contacts/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "7c9a5fa582d33c8fa3cf0f52668c7c234ba4cda3d77d42075729e90031b4d117"
+  },
+  "packages/apps/Email/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "0cc319445d88d45b8e64dd26b376bfb123e639ba7d86cb7b42bb4e774cd95878"
+  },
+  "packages/apps/Email/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d8819c25e69d1088d6aee82dd8199dbb754458b2ae72dc98de45771e940b6161"
+  },
+  "packages/apps/Email/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "067d22b6e9f6f82587aa4a25a66db8e8a41b75865c51fa017b81ec8f813f4c14"
+  },
+  "packages/apps/Email/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "3fa6810a64e51f8fe093574d27f5249cb7bb1e98a14ca93e1347fca0c6e65e51"
+  },
+  "packages/apps/Email/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "1b4f07cbf49e249cf560a78ff5ac66eb2d2e3b5e2f0c55a9929aad706f9a8063"
+  },
+  "frameworks/base/packages/DocumentsUI/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e41a0530615f4c13a38de6d375e881d6ad028328f35ef41b68f9f648d50c84f7"
+  },
+  "frameworks/base/packages/DocumentsUI/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "a87a5781a0bbf7b0289afa24306a934d8c9f16660aa1d40b7d966c5cfce1fa42"
+  },
+  "frameworks/base/packages/DocumentsUI/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e6226a6f50bd0846cf0e62ad1312b22264b3641c8379f1cfc96d4e2d2fb92ed2"
+  },
+  "frameworks/base/packages/DocumentsUI/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "ae78823d5149b29b38fedd58b323e0d24f0a92e0732df7b3611034edc9522063"
+  },
+  "frameworks/base/packages/DocumentsUI/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "b7a44ca5c6a55ddc7097e8fbdde117ccad347b0445ba530a0d5b67f286a08de3"
+  },
+  "packages/apps/Gallery2/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "8fd5693cefc618d3e83279cd2f21d49770251dd31d349c74334879d715c4a6db"
+  },
+  "packages/apps/Gallery2/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "422aa8dfde1750f88b07cf1ef6264bc8aa11968cedd5cab0bf793fb927d70a46"
+  },
+  "packages/apps/Gallery2/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "e5bdc9ea70e579729bd3afb9d5fbb87dd81fb44f06424a69c8fc7f4ef7ce42cd"
+  },
+  "packages/apps/Gallery2/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "b15f5ebdb4e1be9f6f81d98ef4408602aec46288bf5bded732c00b3c4be82a56"
+  },
+  "packages/apps/Gallery2/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d419d1c2caae24a1b7165ac1060adc71248ad19d222417d232bb8306ad0aae84"
+  },
+  "packages/apps/Eleven/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "18ac53ddad26b4b30440c9c7d1d81f749a9a2af13dab13e0c875ae8d47530d86"
+  },
+  "packages/apps/Eleven/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "4216428339585b03dc39ffcaed3414c100c648713fc5d100d61900df01cac6eb"
+  },
+  "packages/apps/Eleven/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "fc12b580e0fe930bda4a2a254ed61c86ba24b687553031531add8d1dbdf9710e"
+  },
+  "packages/apps/Eleven/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d50502024b108d80dd73ee614583df7e406dd063d069a3379ddc93e666477fbf"
+  },
+  "packages/apps/Eleven/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "7129afe85dff5d74469642009b42297b703323e1f1aec33158f2167023b7a44f"
+  },
+  "packages/apps/Recorder/app/src/main/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "218e9ad73a5c2f97eff4a2e51e7f7a0811683f1f91a2d2481f71d6624271bad1"
+  },
+  "packages/apps/Recorder/app/src/main/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "7e11567f174de2bc75dc4e28fcb574ec60a439c26b1b711635467659267be07d"
+  },
+  "packages/apps/Recorder/app/src/main/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "cd5b36f01db56665afb028c4db2ade7ac1d20cb2c7e723e4844019eec9c7e60b"
+  },
+  "packages/apps/Recorder/app/src/main/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "963399a9ea279fc34a67ac49b06b7c2149737be35a01da0aad6ff064fc59d429"
+  },
+  "packages/apps/Recorder/app/src/main/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "f8f591dd4474267e7b340375251cc2712d4d1d69bc71f592acb26d79dfaf2cdb"
+  },
+  "packages/apps/Settings/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "c7e2d028b8bade4bb995238f7dfa360e59363435cb55e4d136b8caad330d6695"
+  },
+  "packages/apps/Settings/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "cea36c52714e1380b1383d2cdd700d515ca1335994d7002850673a0f3d4fb4f0"
+  },
+  "packages/apps/Settings/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d0029721330f0ef914b0f1356a98675756ecbe6045e4ca60464b9610e1cdb26f"
+  },
+  "packages/apps/Settings/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "621b498082b400557bb1ab8b4709d73000a2ea12199849b8d59d8b7182b200f1"
+  },
+  "packages/apps/Settings/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "a103e1abbee72e5546fe1d0a53b08175b28e47e3c405c7195ef4978bcac499e8"
+  },
+  "packages/apps/AudioFX/AndroidManifest.xml": {
+    "before_sha256": "2f0de499e24db9e2e722d4a82dd8b8062aeb409ddb50c0c0427a13e806246421",
+    "sha256": "d300630028cc7b1b0614233a503d47e2150e44f4f4f7b217a27229b45f2753ad"
+  },
+  "packages/apps/Jelly/app/src/main/AndroidManifest.xml": {
+    "before_sha256": "049f898f6fd42b09796ac6db7a4d994b45af06afc038ed18925e14ff73b689bb",
+    "sha256": "9dc392374df06dd4c467b43e257e53f4cceec921ea6d4d005e2ff8d4b406639f"
+  },
+  "packages/apps/ExactCalculator/AndroidManifest.xml": {
+    "before_sha256": "4387d7fd7ada07c837953b60527ac075b1dd3d7e5c5ba64c43ef310c6bfc9945",
+    "sha256": "d49a5dfb8ca74fe6f430bbc8b40be0759d7c3455216aecee0393fc62a14771b7"
+  },
+  "packages/apps/Calendar/AndroidManifest.xml": {
+    "before_sha256": "9f41be90f3641bf6ff7c22cfca1fdf46a568c583afce06c04c037270754db06d",
+    "sha256": "1b7730b657e5e5d9e0f7e713cb012296b79313b7b4e44b78b0f5383f6302b172"
+  },
+  "packages/apps/DeskClock/AndroidManifest.xml": {
+    "before_sha256": "8a7912229c5bb6f08ee7e3c10653cc2670883ceba9a3d8593187e3bb880298d1",
+    "sha256": "e36b064bb1527992ad19208c47e59f4f55d1c413b3ca91fc829b994fa31dbd4e"
+  },
+  "packages/apps/Contacts/AndroidManifest.xml": {
+    "before_sha256": "9e1a78a3a2d1e8e8cec3375979da9bb5d13c612a9536676d9c66a69d53005eb8",
+    "sha256": "3402bb541137b435a3d170832d9c39020e7b30e96eb675af5c30de3952037e05"
+  },
+  "packages/apps/Email/AndroidManifest.xml": {
+    "before_sha256": "41c25bcb361e55596d22c98928e5592babb51b814baa38c126901fdc488eeacd",
+    "sha256": "3a3867a36d19ba332e50f4629a1b577e233df7f8c952eb51c631d170a8814b70"
+  },
+  "frameworks/base/packages/DocumentsUI/AndroidManifest.xml": {
+    "before_sha256": "dec165bd799a736f629dff8a99ed340c09109b511eb340be93c13c6572836fab",
+    "sha256": "f64dd67a556660aa61061ed21def58f59d12e0f6662838258ddf2ae681b08e76"
+  },
+  "packages/apps/Gallery2/AndroidManifest.xml": {
+    "before_sha256": "b061a78d49ac3f8754b3d933c5eeaf87df2664c9d1a5654387d81bd3f2d44091",
+    "sha256": "54ca8427b98673abbdc53fd70263e7504bbf09ea44942272e34cfb5b0124659a"
+  },
+  "packages/apps/Eleven/AndroidManifest.xml": {
+    "before_sha256": "00c5f684fbf8e34557df9f3aa15c064234a2ad715d53ddce9d51f4dfd377be31",
+    "sha256": "8a6307d04df933117d4c53002c64623205e18fbf908f7ff388880a7e95e75666"
+  },
+  "packages/apps/Recorder/app/src/main/AndroidManifest.xml": {
+    "before_sha256": "640291cf0dffe77e645260cabf8bbca4bdb881d401ae7ffa2adb02f7b5f3233e",
+    "sha256": "f54ceb3a6e8fdb883838c96bf69f02136f03f03f31d4fea0ddec4d1fdb0084a1"
+  },
+  "packages/apps/Settings/AndroidManifest.xml": {
+    "before_sha256": "512c3dc0754883b406253c90ad14fa830aca3bfc1a3544ddde94877d546a8435",
+    "sha256": "4fff8675a7b708e933d941ff9f60cbd9e7377b8f4d05070aa4e268a94edbd72e"
+  },
+  "packages/apps/Camera2/res/mipmap-mdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "d6193d25361259a527eff8a46f7d09ce9a4b22e25390bf5804d3597642b609cc"
+  },
+  "packages/apps/Camera2/res/mipmap-hdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "9a6d8bbd2975c94d3b7b51e16a06497bcf3da89da210cc4da5ae3f87d8317376"
+  },
+  "packages/apps/Camera2/res/mipmap-xhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "9f0177a9736c3d0ffe75b2ddad16ac22ad1843b2f138edb6476bda0431273c5a"
+  },
+  "packages/apps/Camera2/res/mipmap-xxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "f835bc35d172d2aafc2aed381cee7d3fcf4fe358c771fdcb01251f9049a3daac"
+  },
+  "packages/apps/Camera2/res/mipmap-xxxhdpi/t110_modern_launcher.png": {
+    "before_sha256": null,
+    "sha256": "6425e94e773f64e1b8b2d7f754f34f5e0be1ca353fcbd4a0ca044746e3ee6757"
+  },
+  "packages/apps/Camera2/AndroidManifest.xml": {
+    "before_sha256": "9143da0930bc33d17dbccae186f2cc73b6814eb898cb42feaab8001fdeb8475f",
+    "sha256": "3beff5f94cbb7768cec9e722e3bae258ef8ed1ffd3dd23bf45e2db7e69eead7e"
   }
 }

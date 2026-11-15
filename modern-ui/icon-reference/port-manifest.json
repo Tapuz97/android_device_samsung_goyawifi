@@ -1,0 +1,232 @@
+{
+  "scope": "13 native app icon-resource backports only; all existing apps/code/APIs retained",
+  "api": 25,
+  "shape": "circle",
+  "adaptive_crop_viewbox": "18 18 72 72",
+  "renderer": "CairoSVG 2.9.1",
+  "apps": [
+    {
+      "label": "AudioFX",
+      "upstream_artwork": "LineageOS/android_packages_apps_AudioFX",
+      "retained_source_root": "packages/apps/AudioFX/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher"
+      ],
+      "manifest": "packages/apps/AudioFX/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/AudioFX/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/AudioFX/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/AudioFX/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/AudioFX/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/AudioFX/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/AudioFX/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Browser",
+      "upstream_artwork": "LineageOS/android_packages_apps_Jelly",
+      "retained_source_root": "packages/apps/Jelly/app/src/main/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher"
+      ],
+      "manifest": "packages/apps/Jelly/app/src/main/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Jelly/app/src/main/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Jelly/app/src/main/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Jelly/app/src/main/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Jelly/app/src/main/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Jelly/app/src/main/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Jelly/app/src/main/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Calculator",
+      "upstream_artwork": "LineageOS/android_packages_apps_ExactCalculator",
+      "retained_source_root": "packages/apps/ExactCalculator/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_calculator"
+      ],
+      "manifest": "packages/apps/ExactCalculator/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/ExactCalculator/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/ExactCalculator/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/ExactCalculator/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/ExactCalculator/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/ExactCalculator/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/ExactCalculator/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Calendar",
+      "upstream_artwork": "LineageOS/android_packages_apps_Etar",
+      "retained_source_root": "packages/apps/Calendar/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_calendar"
+      ],
+      "manifest": "packages/apps/Calendar/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Calendar/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Calendar/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Calendar/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Calendar/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Calendar/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Calendar/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Camera",
+      "upstream_artwork": "LineageOS/android_packages_apps_Aperture",
+      "retained_source_root": "packages/apps/Camera2/res",
+      "original_icon_resources": [
+        "mipmap/logo_camera_color_44in48dp"
+      ],
+      "manifest": "packages/apps/Camera2/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Camera2/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Camera2/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Camera2/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Camera2/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Camera2/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Camera2/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Clock",
+      "upstream_artwork": "LineageOS/android_packages_apps_DeskClock",
+      "retained_source_root": "packages/apps/DeskClock/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_alarmclock"
+      ],
+      "manifest": "packages/apps/DeskClock/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/DeskClock/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/DeskClock/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/DeskClock/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/DeskClock/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/DeskClock/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/DeskClock/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Contacts",
+      "upstream_artwork": "LineageOS/android_packages_apps_Contacts",
+      "retained_source_root": "packages/apps/Contacts/res",
+      "original_icon_resources": [
+        "mipmap/ic_contacts_launcher",
+        "mipmap/ic_contacts_round"
+      ],
+      "manifest": "packages/apps/Contacts/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Contacts/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Contacts/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Contacts/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Contacts/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Contacts/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Contacts/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Email",
+      "upstream_artwork": "LineageOS/android_packages_apps_Email",
+      "retained_source_root": "packages/apps/Email/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_mail"
+      ],
+      "manifest": "packages/apps/Email/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Email/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Email/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Email/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Email/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Email/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Email/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Files",
+      "upstream_artwork": "LineageOS/android_packages_apps_DocumentsUI",
+      "retained_source_root": "frameworks/base/packages/DocumentsUI/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_filemanager",
+        "drawable/app_icon"
+      ],
+      "manifest": "frameworks/base/packages/DocumentsUI/AndroidManifest.xml",
+      "generated": [
+        "frameworks/base/packages/DocumentsUI/res/mipmap-mdpi/t110_modern_launcher.png",
+        "frameworks/base/packages/DocumentsUI/res/mipmap-hdpi/t110_modern_launcher.png",
+        "frameworks/base/packages/DocumentsUI/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "frameworks/base/packages/DocumentsUI/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "frameworks/base/packages/DocumentsUI/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "frameworks/base/packages/DocumentsUI/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Gallery",
+      "upstream_artwork": "LineageOS/android_packages_apps_Glimpse",
+      "retained_source_root": "packages/apps/Gallery2/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_gallery"
+      ],
+      "manifest": "packages/apps/Gallery2/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Gallery2/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Gallery2/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Gallery2/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Gallery2/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Gallery2/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Gallery2/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Music",
+      "upstream_artwork": "LineageOS/android_packages_apps_Eleven",
+      "retained_source_root": "packages/apps/Eleven/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_eleven"
+      ],
+      "manifest": "packages/apps/Eleven/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Eleven/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Eleven/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Eleven/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Eleven/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Eleven/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Eleven/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Recorder",
+      "upstream_artwork": "LineageOS/android_packages_apps_Recorder",
+      "retained_source_root": "packages/apps/Recorder/app/src/main/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher"
+      ],
+      "manifest": "packages/apps/Recorder/app/src/main/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Recorder/app/src/main/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Recorder/app/src/main/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Recorder/app/src/main/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Recorder/app/src/main/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Recorder/app/src/main/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Recorder/app/src/main/AndroidManifest.xml"
+      ]
+    },
+    {
+      "label": "Settings",
+      "upstream_artwork": "LineageOS/android_packages_apps_Settings",
+      "retained_source_root": "packages/apps/Settings/res",
+      "original_icon_resources": [
+        "mipmap/ic_launcher_settings"
+      ],
+      "manifest": "packages/apps/Settings/AndroidManifest.xml",
+      "generated": [
+        "packages/apps/Settings/res/mipmap-mdpi/t110_modern_launcher.png",
+        "packages/apps/Settings/res/mipmap-hdpi/t110_modern_launcher.png",
+        "packages/apps/Settings/res/mipmap-xhdpi/t110_modern_launcher.png",
+        "packages/apps/Settings/res/mipmap-xxhdpi/t110_modern_launcher.png",
+        "packages/apps/Settings/res/mipmap-xxxhdpi/t110_modern_launcher.png",
+        "packages/apps/Settings/AndroidManifest.xml"
+      ]
+    }
+  ]
+}

@@ -84,6 +84,37 @@
 +    <color name="background_floating_device_default_dark">#26382E</color>
 +    <color name="background_floating_device_default_light">#FAFCF9</color>
  </resources>
+--- a/frameworks/base/packages/DocumentsUI/AndroidManifest.xml
++++ b/frameworks/base/packages/DocumentsUI/AndroidManifest.xml
+@@ -11,8 +11,8 @@
+     <application
+         android:name=".DocumentsApplication"
+         android:label="@string/app_label"
+-        android:icon="@mipmap/ic_launcher_filemanager"
+-        android:roundIcon="@drawable/app_icon"
++        android:icon="@mipmap/t110_modern_launcher"
++        android:roundIcon="@mipmap/t110_modern_launcher"
+         android:supportsRtl="true">
+ 
+         <activity
+@@ -46,7 +46,7 @@
+         <activity
+             android:name=".LauncherActivity"
+             android:label="@string/app_label"
+-            android:icon="@mipmap/ic_launcher_filemanager"
++            android:icon="@mipmap/t110_modern_launcher"
+             android:theme="@android:style/Theme.NoDisplay">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+@@ -57,7 +57,7 @@
+         <activity
+             android:name=".FilesActivity"
+             android:label="@string/app_label"
+-            android:icon="@mipmap/ic_launcher_filemanager"
++            android:icon="@mipmap/t110_modern_launcher"
+             android:documentLaunchMode="intoExisting"
+             android:theme="@style/DocumentsTheme">
+             <intent-filter>
 --- a/frameworks/base/packages/Keyguard/res/values/styles.xml
 +++ b/frameworks/base/packages/Keyguard/res/values/styles.xml
 @@ -41,7 +41,7 @@
@@ -488,6 +519,176 @@
          mPadLock.setVisibility(state.disabledByPolicy ? View.VISIBLE : View.GONE);
      }
  }
+--- a/packages/apps/AudioFX/AndroidManifest.xml
++++ b/packages/apps/AudioFX/AndroidManifest.xml
+@@ -32,7 +32,7 @@
+     <uses-permission android:name="cyanogenmod.permission.OBSERVE_AUDIO_SESSIONS" />
+ 
+     <application
+-            android:icon="@mipmap/ic_launcher"
++            android:icon="@mipmap/t110_modern_launcher"
+             android:allowBackup="false"
+             android:label="@string/app_name_cm"
+             android:supportsRtl="true"
+--- a/packages/apps/Calendar/AndroidManifest.xml
++++ b/packages/apps/Calendar/AndroidManifest.xml
+@@ -43,7 +43,7 @@
+     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="23"></uses-sdk>
+ 
+     <application android:name="CalendarApplication"
+-            android:label="@string/app_label" android:icon="@mipmap/ic_launcher_calendar"
++            android:label="@string/app_label" android:icon="@mipmap/t110_modern_launcher"
+             android:taskAffinity="android.task.calendar"
+             android:hardwareAccelerated="true"
+             android:backupAgent="com.android.calendar.CalendarBackupAgent"
+--- a/packages/apps/Camera2/AndroidManifest.xml
++++ b/packages/apps/Camera2/AndroidManifest.xml
+@@ -42,7 +42,7 @@
+     <application
+         android:name="com.android.camera.app.CameraApp"
+         android:hardwareAccelerated="true"
+-        android:icon="@mipmap/logo_camera_color_44in48dp"
++        android:icon="@mipmap/t110_modern_launcher"
+         android:label="@string/app_name"
+         android:largeHeap="true"
+         android:restoreAnyVersion="true"
+--- a/packages/apps/Contacts/AndroidManifest.xml
++++ b/packages/apps/Contacts/AndroidManifest.xml
+@@ -55,8 +55,8 @@
+     <application
+         android:name="com.android.contacts.ContactsApplication"
+         android:label="@string/applicationLabel"
+-        android:icon="@mipmap/ic_contacts_launcher"
+-        android:roundIcon="@mipmap/ic_contacts_round"
++        android:icon="@mipmap/t110_modern_launcher"
++        android:roundIcon="@mipmap/t110_modern_launcher"
+         android:taskAffinity="android.task.contacts"
+         android:hardwareAccelerated="true"
+         android:supportsRtl="true"
+--- a/packages/apps/DeskClock/AndroidManifest.xml
++++ b/packages/apps/DeskClock/AndroidManifest.xml
+@@ -52,7 +52,7 @@
+                  android:backupAgent="DeskClockBackupAgent"
+                  android:fullBackupContent="@xml/backup_scheme"
+                  android:fullBackupOnly="true"
+-                 android:icon="@mipmap/ic_launcher_alarmclock"
++                 android:icon="@mipmap/t110_modern_launcher"
+                  android:requiredForAllUsers="true"
+                  android:supportsRtl="true">
+ 
+@@ -69,7 +69,7 @@
+         <activity android:name="DeskClock"
+                 android:label="@string/app_label"
+                 android:theme="@style/DeskClockTheme"
+-                android:icon="@mipmap/ic_launcher_alarmclock"
++                android:icon="@mipmap/t110_modern_launcher"
+                 android:launchMode="singleTask">
+ 
+             <intent-filter>
+@@ -83,7 +83,7 @@
+                 android:targetActivity="DeskClock"
+                 android:label="@string/app_label"
+                 android:theme="@style/DeskClockTheme"
+-                android:icon="@mipmap/ic_launcher_alarmclock"
++                android:icon="@mipmap/t110_modern_launcher"
+                 android:launchMode="singleTask"
+                 android:enabled="@bool/config_dockAppEnabled"
+                 >
+@@ -270,7 +270,7 @@
+ 
+         <receiver
+             android:name="com.android.alarmclock.AnalogAppWidgetProvider"
+-            android:icon="@mipmap/ic_launcher_alarmclock"
++            android:icon="@mipmap/t110_modern_launcher"
+             android:label="@string/analog_gadget">
+             <intent-filter>
+                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+@@ -286,7 +286,7 @@
+ 
+         <receiver
+             android:name="com.android.alarmclock.DigitalAppWidgetProvider"
+-            android:icon="@mipmap/ic_launcher_alarmclock"
++            android:icon="@mipmap/t110_modern_launcher"
+             android:label="@string/digital_gadget">
+             <intent-filter>
+                 <action android:name="android.intent.action.TIME_SET"/>
+--- a/packages/apps/Eleven/AndroidManifest.xml
++++ b/packages/apps/Eleven/AndroidManifest.xml
+@@ -56,7 +56,7 @@
+         android:allowBackup="true"
+         android:allowTaskReparenting="true"
+         android:hardwareAccelerated="@bool/config_hardwareAccelerated"
+-        android:icon="@mipmap/ic_launcher_eleven"
++        android:icon="@mipmap/t110_modern_launcher"
+         android:label="@string/app_name"
+         android:largeHeap="@bool/config_largeHeap"
+         android:taskAffinity="com.cyanogenmod.eleven.task"
+--- a/packages/apps/Email/AndroidManifest.xml
++++ b/packages/apps/Email/AndroidManifest.xml
+@@ -87,7 +87,7 @@
+ 
+     <application
+         android:name=".EmailApplication"
+-        android:icon="@mipmap/ic_launcher_mail"
++        android:icon="@mipmap/t110_modern_launcher"
+         android:label="@string/app_name"
+         android:requiredAccountType="com.android.exchange,com.android.email.imap,com.android.email.pop3,com.android.email.legacy.imap"
+         android:theme="@style/UnifiedEmailTheme.Appcompat"
+--- a/packages/apps/ExactCalculator/AndroidManifest.xml
++++ b/packages/apps/ExactCalculator/AndroidManifest.xml
+@@ -21,7 +21,7 @@
+ 
+     <application
+         android:allowBackup="false"
+-        android:icon="@mipmap/ic_launcher_calculator"
++        android:icon="@mipmap/t110_modern_launcher"
+         android:label="@string/app_name"
+         android:supportsRtl="true">
+ 
+--- a/packages/apps/Gallery2/AndroidManifest.xml
++++ b/packages/apps/Gallery2/AndroidManifest.xml
+@@ -60,7 +60,7 @@
+     <permission android:name="org.codeaurora.gallery.filtershow.permission.WRITE"
+                 android:protectionLevel="signature" />
+ 
+-    <application android:icon="@mipmap/ic_launcher_gallery" android:label="@string/app_name"
++    <application android:icon="@mipmap/t110_modern_launcher" android:label="@string/app_name"
+             android:name="com.android.gallery3d.app.GalleryAppImpl"
+             android:logo="@mipmap/ic_launcher_gallery"
+             android:hardwareAccelerated="true"
+--- a/packages/apps/Jelly/app/src/main/AndroidManifest.xml
++++ b/packages/apps/Jelly/app/src/main/AndroidManifest.xml
+@@ -25,7 +25,7 @@
+     <application
+         android:allowBackup="true"
+         android:fullBackupContent="@xml/backup_descriptor"
+-        android:icon="@mipmap/ic_launcher"
++        android:icon="@mipmap/t110_modern_launcher"
+         android:label="@string/app_name"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
+--- a/packages/apps/Recorder/app/src/main/AndroidManifest.xml
++++ b/packages/apps/Recorder/app/src/main/AndroidManifest.xml
+@@ -32,7 +32,7 @@
+ 
+     <application
+         android:allowBackup="false"
+-        android:icon="@mipmap/ic_launcher"
++        android:icon="@mipmap/t110_modern_launcher"
+         android:label="@string/app_name"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
+--- a/packages/apps/Settings/AndroidManifest.xml
++++ b/packages/apps/Settings/AndroidManifest.xml
+@@ -93,7 +93,7 @@
+     <uses-permission android:name="cyanogenmod.permission.MANAGE_REMOTE_PREFERENCES" />
+ 
+     <application android:label="@string/settings_label"
+-            android:icon="@mipmap/ic_launcher_settings"
++            android:icon="@mipmap/t110_modern_launcher"
+             android:taskAffinity=""
+             android:theme="@style/Theme.Settings"
+             android:hardwareAccelerated="true"
 --- a/packages/apps/Settings/res/drawable/selectable_card.xml
 +++ b/packages/apps/Settings/res/drawable/selectable_card.xml
 @@ -1,22 +1,2 @@

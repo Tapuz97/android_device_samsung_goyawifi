@@ -1,0 +1,12 @@
+{
+  "status": "FULL_IMAGE_INSTALLED_READBACK_VERIFIED",
+  "system_sha256": "b53fdc9389cdf31cf7e6d9d3001990157558d28a661b127f410107b57d6e41de",
+  "boot_unchanged": true,
+  "recovery_unchanged": true,
+  "physical_system_written": false,
+  "original_rollback_kept_on_tablet": true,
+  "previous_r2_preserved_pc_online": true,
+  "userdata_preserved": true,
+  "private_userdata_backup_sha256": "12877c619738b27953ce14c1f2cc00c37dccf82414c5a6ace4e830454c3f86ed",
+  "exit_command": "/sbin/reboot recovery_done"
+}

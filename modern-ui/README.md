@@ -156,3 +156,13 @@ The Apps alphabet footer is disabled without changing the Widgets scrubber
 preference or removing app search/vertical scrolling. Light/dark preferences
 remain; a continuous surface replaces the disconnected drawer panels. Referenced
 Lineage launcher paths/commit are recorded in reference/drawer-upstream.json.
+
+## Native icon artwork
+
+The working launcher has no icon-pack manager. Thirteen existing system apps now
+select official newer Lineage artwork through normal PNG resources. Their code,
+labels, components and permissions remain. All 65 density images, compiled
+application/launcher icon selection and actual-image packaging passed verification.
+See NATIVE-ICONS.md and icon-reference for immutable source/attribution and the
+build conversion. No newer app APK, icon-pack app or runtime renderer is added.
+The earlier XML-mipmap alias experiment failed offline and was never installed.

@@ -1,6 +1,6 @@
 """Bounded native-screen and launcher gesture checks; no continuous feed."""
 from pathlib import Path
-import json, re, subprocess, time, xml.etree.ElementTree as ET
+import atexit, json, re, subprocess, time, xml.etree.ElementTree as ET
 from PIL import Image
 ADB=r'C:\Users\Gal\AppData\Local\Android\Sdk\platform-tools\adb.exe'
 SERIAL='3004523270272200'
@@ -27,7 +27,12 @@ def snapshot(name):
 
 assert shell('getprop sys.boot_completed').strip()=='1'
 assert '/system/priv-app/Trebuchet' in shell('pm path com.cyanogenmod.trebuchet')
-shell('input keyevent 224; input keyevent 82; input keyevent 3')
+previous_timeout=shell('settings get system screen_off_timeout').strip()
+assert previous_timeout.isdigit()
+atexit.register(lambda: shell('settings put system screen_off_timeout '+previous_timeout))
+shell('settings put system screen_off_timeout 180000; input keyevent 224')
+time.sleep(1)
+shell('input keyevent 82; input keyevent 3')
 time.sleep(2)
 home=snapshot('home-before')
 nodes=list(home.iter('node'))

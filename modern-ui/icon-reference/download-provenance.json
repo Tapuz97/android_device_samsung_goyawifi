@@ -1,0 +1,408 @@
+[
+  {
+    "repo": "LineageOS/android_packages_apps_ExactCalculator",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "b1bc7cff3e203e9986a314833b7759ed0f52eef2",
+    "sha256": "ead63a1be710cfdd5c417492c069fdc3caedac7777debd716078a67610a97f13",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_ExactCalculator/git/blobs/b1bc7cff3e203e9986a314833b7759ed0f52eef2"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_ExactCalculator",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "f6073b409a2987fe157440f54d4e5b10dc5db256",
+    "sha256": "7ebe1c4af4892d91518d8f8fca1b4def7d5cc4f6647a5403a9a0acba5b3323d9",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_ExactCalculator/git/blobs/f6073b409a2987fe157440f54d4e5b10dc5db256"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_ExactCalculator",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "5ea57ad6f54237599cc1ee1d0de2207f9d1a4fd5",
+    "sha256": "d3589602b525ae39ec93e3546754aea872d268e68af019aea33c837e77986da4",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_ExactCalculator/git/blobs/5ea57ad6f54237599cc1ee1d0de2207f9d1a4fd5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_ExactCalculator",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "2bf186e4fd90a7d1f742c0e593db95e69669fbd7",
+    "sha256": "b2a61e76dfcfcdb142dd46c1f4f93687206d69b801b8d3633788b6b9e3f25835",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_ExactCalculator/git/blobs/2bf186e4fd90a7d1f742c0e593db95e69669fbd7"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Etar",
+    "path": "LICENSE",
+    "blob_sha": "810fce6e9bf2aa10265b85614db5ac65941ecf81",
+    "sha256": "1b3782ccad7b8614100cda30d3faf42fc39f2e97932908c543005053b654ca68",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Etar/git/blobs/810fce6e9bf2aa10265b85614db5ac65941ecf81"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Etar",
+    "path": "app/src/main/res/drawable/ic_launcher_background.xml",
+    "blob_sha": "cc2f6babf88e2d6082c951bdd4ee199e2fbac601",
+    "sha256": "5cffaba68ab38060c65538a16c2a962711a77c74163f379da4025cfbf4afa19b",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Etar/git/blobs/cc2f6babf88e2d6082c951bdd4ee199e2fbac601"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Etar",
+    "path": "app/src/main/res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "59a07bb4556d01fa16a84dcbc41a1190c7588614",
+    "sha256": "581f58f16a4c55116eab2374809d6e77cfc99f521fee207b823400ffeb408a31",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Etar/git/blobs/59a07bb4556d01fa16a84dcbc41a1190c7588614"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Etar",
+    "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+    "blob_sha": "93542a753b7c18c0c880b5796ed66ed0ff7154b1",
+    "sha256": "d552733f41cabf9a08642e1cdc4d4151a6d832b791b168fa1a5935b4b05b4de6",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Etar/git/blobs/93542a753b7c18c0c880b5796ed66ed0ff7154b1"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Etar",
+    "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+    "blob_sha": "93542a753b7c18c0c880b5796ed66ed0ff7154b1",
+    "sha256": "d552733f41cabf9a08642e1cdc4d4151a6d832b791b168fa1a5935b4b05b4de6",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Etar/git/blobs/93542a753b7c18c0c880b5796ed66ed0ff7154b1"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Contacts",
+    "path": "NOTICE",
+    "blob_sha": "88c063d9a9245cea436eaa1ce8a30d0e1f47d0c6",
+    "sha256": "e0c886df0f1ec2afc71b289842681afcf4a39d7623f9f9e9a9997657237f9fa4",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Contacts/git/blobs/88c063d9a9245cea436eaa1ce8a30d0e1f47d0c6"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Contacts",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "fc4823054e0e3af053a38aecf3b95f595ab454d3",
+    "sha256": "83f5a2a5afe98c4db19cacef86e20d661a46aeb2f48cd09d2b29169649d44924",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Contacts/git/blobs/fc4823054e0e3af053a38aecf3b95f595ab454d3"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Contacts",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "686ffa2b53b156a4f10f9ff3c8e061b36ebf17df",
+    "sha256": "6ea4c4920c5d08b7e24efefc7679c4db3903e500b9fe1af384fa3d429e1f24c0",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Contacts/git/blobs/686ffa2b53b156a4f10f9ff3c8e061b36ebf17df"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Contacts",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "fc64ec074b28902023890de67a69e7fb62712691",
+    "sha256": "e7343c153301c51887da48f7f77d8d324f00eded81910c75a2399223702da525",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Contacts/git/blobs/fc64ec074b28902023890de67a69e7fb62712691"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Contacts",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "b58c81ff94fc2cd9353409539d491f43b91966a5",
+    "sha256": "3169fbb090730e34d7ae51baacda75d1efd0075a50083c26e76919fcfa792a0c",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Contacts/git/blobs/b58c81ff94fc2cd9353409539d491f43b91966a5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DeskClock",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "8bb038e444cfbb1f6bb339d10b4c695668b4115a",
+    "sha256": "29aa28d00a6cb811d8fb62a0a3d43d5bfe878fa6473108ba1508190306e110bd",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DeskClock/git/blobs/8bb038e444cfbb1f6bb339d10b4c695668b4115a"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DeskClock",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "5f494b6ee5f7f7326d97b984283991ce5bf79b18",
+    "sha256": "8deaae830fb927fc868b96e3d3ea8cceb953013c51fd6e4adeb6d4770c510002",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DeskClock/git/blobs/5f494b6ee5f7f7326d97b984283991ce5bf79b18"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DeskClock",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "3ac6a73c030ef02a68991e838ba2ac903dcca33a",
+    "sha256": "737273d70ad7b7f252c602bf9a8a60bd2e77c6315c762355b5ea71a883636d89",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DeskClock/git/blobs/3ac6a73c030ef02a68991e838ba2ac903dcca33a"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DeskClock",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "b58c81ff94fc2cd9353409539d491f43b91966a5",
+    "sha256": "3169fbb090730e34d7ae51baacda75d1efd0075a50083c26e76919fcfa792a0c",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DeskClock/git/blobs/b58c81ff94fc2cd9353409539d491f43b91966a5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Glimpse",
+    "path": "app/src/main/res/drawable/ic_launcher_background.xml",
+    "blob_sha": "ab48b9dfd2fe2596f61dc8b1fb6413df6666d0b9",
+    "sha256": "5db1cf4513fe352a599316c510f73fe621ee0f4c7be5e8cb4e77d536481a3613",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Glimpse/git/blobs/ab48b9dfd2fe2596f61dc8b1fb6413df6666d0b9"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Glimpse",
+    "path": "app/src/main/res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "53685c5a00c532ac2a2577c39a6e6f9d6e81f841",
+    "sha256": "e405affb0c53d16e3a671a9d7538660645c02677fa4295bf97163626fe5f39d2",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Glimpse/git/blobs/53685c5a00c532ac2a2577c39a6e6f9d6e81f841"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Glimpse",
+    "path": "app/src/main/res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "3d9fa5922f5b357ca5e29eeec1f7bafc68f7d46c",
+    "sha256": "dc1b0ca4c5d1e85cda9bda642b2e2a243578e06683d5949893e4e4702d038595",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Glimpse/git/blobs/3d9fa5922f5b357ca5e29eeec1f7bafc68f7d46c"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Glimpse",
+    "path": "app/src/main/res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "096c9697cacbae9073983d4f494d0cd26cd60404",
+    "sha256": "0e4b3cf684141754cc52a72a7579257eb9d4ba45d7c2c4d85a3f8df7158d336b",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Glimpse/git/blobs/096c9697cacbae9073983d4f494d0cd26cd60404"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Eleven",
+    "path": "NOTICE",
+    "blob_sha": "cfbbd37a31c22178e4897398e50e39c89765cfb6",
+    "sha256": "43a587291ecfda054ca10734cb9b1eb6d897feaff44a90662196bee58045fa02",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Eleven/git/blobs/cfbbd37a31c22178e4897398e50e39c89765cfb6"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Eleven",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "3275d87d71f594c26c76d5ee48f517466618dca8",
+    "sha256": "1540053baa6bb76e90f5ba6a7c0099174c2c169a669d4d06e45b69061ad6dfd1",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Eleven/git/blobs/3275d87d71f594c26c76d5ee48f517466618dca8"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Eleven",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "ce461bc034a4a275ecce6df8cc5c9c3148f50ec7",
+    "sha256": "c588929260911907ca64972757bbd2d0f2f8268a5551b8240b7241342948ddc5",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Eleven/git/blobs/ce461bc034a4a275ecce6df8cc5c9c3148f50ec7"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Eleven",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "37fc89bc66d0e682ceb8254f9e53168c31764b8a",
+    "sha256": "419eb50ea99119766029f8bfeb4ea2e53666911177d628fe357fcf073bdc8ab3",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Eleven/git/blobs/37fc89bc66d0e682ceb8254f9e53168c31764b8a"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Eleven",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "b58c81ff94fc2cd9353409539d491f43b91966a5",
+    "sha256": "3169fbb090730e34d7ae51baacda75d1efd0075a50083c26e76919fcfa792a0c",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Eleven/git/blobs/b58c81ff94fc2cd9353409539d491f43b91966a5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Recorder",
+    "path": "app/src/main/res/drawable/ic_launcher_background.xml",
+    "blob_sha": "5d1ad2587458622cf160e84378f88ea5912bd3b7",
+    "sha256": "74f5c2668c97803e4f480766cfd5f0b4e3274bdda2388d5b547ebd1169153323",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Recorder/git/blobs/5d1ad2587458622cf160e84378f88ea5912bd3b7"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Recorder",
+    "path": "app/src/main/res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "d533225a255eae84235354fe99a7043674cc298e",
+    "sha256": "4d1c2325a543b642034b69664e6e699545002607255390c7e0c305c761386c38",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Recorder/git/blobs/d533225a255eae84235354fe99a7043674cc298e"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Recorder",
+    "path": "app/src/main/res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "cab4bc7950fa7c41c5310afd79e105f7252b4da0",
+    "sha256": "e6c04cd962cd7eee6770dd42e582066ccc28856a8b46d5ffadf4392c7b9601ab",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Recorder/git/blobs/cab4bc7950fa7c41c5310afd79e105f7252b4da0"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Recorder",
+    "path": "app/src/main/res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "2bf186e4fd90a7d1f742c0e593db95e69669fbd7",
+    "sha256": "b2a61e76dfcfcdb142dd46c1f4f93687206d69b801b8d3633788b6b9e3f25835",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Recorder/git/blobs/2bf186e4fd90a7d1f742c0e593db95e69669fbd7"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_AudioFX",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "dea1b72777129185f8439886ca2c0e2d2bfe3521",
+    "sha256": "2acae6f7795367f43ba452e5604f85d62c5be8e547421484994743852ef3209b",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_AudioFX/git/blobs/dea1b72777129185f8439886ca2c0e2d2bfe3521"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_AudioFX",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "95ac95a31e88ba560aa56c63b10637109f8d7b05",
+    "sha256": "8cd36c0c1aebda6ff459fdc0cb2bd04afd52e490a3e40c12993e90b42a0b3ddb",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_AudioFX/git/blobs/95ac95a31e88ba560aa56c63b10637109f8d7b05"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_AudioFX",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "d46ca732e2693b905dd24277dff37045c4566ebc",
+    "sha256": "c25f7ace31aeeb85a3f15a8ec27c5fa70d367e9c1379a81f34ba8218aead0317",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_AudioFX/git/blobs/d46ca732e2693b905dd24277dff37045c4566ebc"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_AudioFX",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "2bf186e4fd90a7d1f742c0e593db95e69669fbd7",
+    "sha256": "b2a61e76dfcfcdb142dd46c1f4f93687206d69b801b8d3633788b6b9e3f25835",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_AudioFX/git/blobs/2bf186e4fd90a7d1f742c0e593db95e69669fbd7"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Jelly",
+    "path": "app/src/main/res/drawable/ic_launcher_background.xml",
+    "blob_sha": "cd840642d993aeb0190734e5b15d2c88edd2a055",
+    "sha256": "00f9d3699cba62c58da27b1876e28fb1dddd57a528e754db1dffba16349cfd01",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Jelly/git/blobs/cd840642d993aeb0190734e5b15d2c88edd2a055"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Jelly",
+    "path": "app/src/main/res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "f6d7b2de863067fdd35d572facda70058cdbc3b0",
+    "sha256": "ffccab289a9909f8bf7b9fbab97b92c460a9577f96bcacfe3b938fb7e0c26fdb",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Jelly/git/blobs/f6d7b2de863067fdd35d572facda70058cdbc3b0"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Jelly",
+    "path": "app/src/main/res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "5431e030ec805ad5dea74c2510b986e617f90af5",
+    "sha256": "f978e82eab78308c34bf3528e83d791e00b7e02016f87732a2a14ae59deca718",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Jelly/git/blobs/5431e030ec805ad5dea74c2510b986e617f90af5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Jelly",
+    "path": "app/src/main/res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "096c9697cacbae9073983d4f494d0cd26cd60404",
+    "sha256": "0e4b3cf684141754cc52a72a7579257eb9d4ba45d7c2c4d85a3f8df7158d336b",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Jelly/git/blobs/096c9697cacbae9073983d4f494d0cd26cd60404"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Aperture",
+    "path": "app/src/main/res/drawable/ic_launcher_background.xml",
+    "blob_sha": "09ddefbad21dc3ceb3b25813a0e167073ecdaca1",
+    "sha256": "49c90021a1d7ee8bd0cda6c9f56bdbd821a1b6c684cdfeca933434e215e0426f",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Aperture/git/blobs/09ddefbad21dc3ceb3b25813a0e167073ecdaca1"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Aperture",
+    "path": "app/src/main/res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "4ccdad66f92a8d5073404cae53effd67dffa2dc1",
+    "sha256": "3857272d64aa55183c4a2628826e2db2c2f301bb3563d728c7dc6a62776ccded",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Aperture/git/blobs/4ccdad66f92a8d5073404cae53effd67dffa2dc1"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Aperture",
+    "path": "app/src/main/res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "ae132102ff07e3f053ae9aeaf82563f599010ce1",
+    "sha256": "f49f781e428aebe0062d2c65a988adcc5c0ae44d5dec95b4a0c5b414cba265ee",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Aperture/git/blobs/ae132102ff07e3f053ae9aeaf82563f599010ce1"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Aperture",
+    "path": "app/src/main/res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "096c9697cacbae9073983d4f494d0cd26cd60404",
+    "sha256": "0e4b3cf684141754cc52a72a7579257eb9d4ba45d7c2c4d85a3f8df7158d336b",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Aperture/git/blobs/096c9697cacbae9073983d4f494d0cd26cd60404"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Settings",
+    "path": "NOTICE",
+    "blob_sha": "c5b1efa7aac764ae6d8da63476a2d5cec02a6a5d",
+    "sha256": "38751245389e1e23f73e6f5384b5cbe7fa972cc4410c5adc9c04b082a0b9561a",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Settings/git/blobs/c5b1efa7aac764ae6d8da63476a2d5cec02a6a5d"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Settings",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "8c651550f9374bc99342c769a9b734f56ab90674",
+    "sha256": "bd99c174f02fa8642dc726240f95c2ad86a34c883ac6f39b998a4985e7458b62",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Settings/git/blobs/8c651550f9374bc99342c769a9b734f56ab90674"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Settings",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "4d28d393e2b794351e814f653a02b25968bf7b13",
+    "sha256": "7d9cf36ee6cfc2c456cdc6d7166e87cd3ffc5ea0b16eb01d5fbfc3b68cca579a",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Settings/git/blobs/4d28d393e2b794351e814f653a02b25968bf7b13"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Settings",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "087d83f82b30140f1d0862abc15153c5f2fa5f79",
+    "sha256": "ca5c8e5bbb3f418710d36c9da723edf2c78aa0cf3766a209011c4a0f5ee0900f",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Settings/git/blobs/087d83f82b30140f1d0862abc15153c5f2fa5f79"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Settings",
+    "path": "res/drawable/ic_launcher_settings.xml",
+    "blob_sha": "b58c81ff94fc2cd9353409539d491f43b91966a5",
+    "sha256": "3169fbb090730e34d7ae51baacda75d1efd0075a50083c26e76919fcfa792a0c",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Settings/git/blobs/b58c81ff94fc2cd9353409539d491f43b91966a5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Email",
+    "path": "NOTICE",
+    "blob_sha": "c5b1efa7aac764ae6d8da63476a2d5cec02a6a5d",
+    "sha256": "38751245389e1e23f73e6f5384b5cbe7fa972cc4410c5adc9c04b082a0b9561a",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Email/git/blobs/c5b1efa7aac764ae6d8da63476a2d5cec02a6a5d"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Email",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "d8649ba56640bf9a0f634519d40db702a9fc62cd",
+    "sha256": "b9bda390fb74fa4899cbcdc4929928083f2febe68ac8febdf968298040cd1d72",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Email/git/blobs/d8649ba56640bf9a0f634519d40db702a9fc62cd"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DocumentsUI",
+    "path": "res/drawable/ic_launcher_background.xml",
+    "blob_sha": "452f45a3ad5508dc3bee9dd4486ea9faeb12977d",
+    "sha256": "07fdc3268b9dc773f03ad0eaa0e2f20c6715f0f57e4f075e8400fe5f371e4b38",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DocumentsUI/git/blobs/452f45a3ad5508dc3bee9dd4486ea9faeb12977d"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DocumentsUI",
+    "path": "res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "7ce0be9048f8ab8f0bd44d93f22abf6439a0d62c",
+    "sha256": "39ebb5f48dec3aac28404efad9c922e3ce83823c0daa60f4de39111402001e65",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DocumentsUI/git/blobs/7ce0be9048f8ab8f0bd44d93f22abf6439a0d62c"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DocumentsUI",
+    "path": "res/drawable/ic_launcher_monochrome.xml",
+    "blob_sha": "38f9fbb9b1e2f42ccf23ee783d5fb2a6b86560dc",
+    "sha256": "64c1776304822a42742f4086df68a24a033fa310c0d2df6abd06d9cb185e40d0",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DocumentsUI/git/blobs/38f9fbb9b1e2f42ccf23ee783d5fb2a6b86560dc"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DocumentsUI",
+    "path": "res/mipmap-anydpi/ic_launcher.xml",
+    "blob_sha": "b58c81ff94fc2cd9353409539d491f43b91966a5",
+    "sha256": "3169fbb090730e34d7ae51baacda75d1efd0075a50083c26e76919fcfa792a0c",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DocumentsUI/git/blobs/b58c81ff94fc2cd9353409539d491f43b91966a5"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DocumentsUI",
+    "path": "tests/demoapp/res/drawable/ic_launcher_foreground.xml",
+    "blob_sha": "a584cb9f288a75f02193cc818000dbec1f9645fa",
+    "sha256": "d42d8c3bfd730cbef1f8356164f3f8b5057a35d68892a62482d16bac06f7d346",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DocumentsUI/git/blobs/a584cb9f288a75f02193cc818000dbec1f9645fa"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_DocumentsUI",
+    "path": "tests/demoapp/res/mipmap/ic_launcher.xml",
+    "blob_sha": "fd8961d00e53cfa20c5e6aeaaf7948b7666ac967",
+    "sha256": "6686aab24d46054aaad2a56060bd53eb9c58004dc5002393390b60fe5536b7df",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_DocumentsUI/git/blobs/fd8961d00e53cfa20c5e6aeaaf7948b7666ac967"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Email",
+    "path": "res/mipmap-xxxhdpi/ic_background.png",
+    "blob_sha": "b9715525e8b5158bcd6524d741f70b2fe88a63b6",
+    "sha256": "5517bff6684e9f337034633b6a48ef8c4355e06400d2d9eaf10bac0c505111ed",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Email/git/blobs/b9715525e8b5158bcd6524d741f70b2fe88a63b6"
+  },
+  {
+    "repo": "LineageOS/android_packages_apps_Email",
+    "path": "res/mipmap-xxxhdpi/ic_foreground.png",
+    "blob_sha": "e61e094caf41e28f83ee72acfe6fb5226de760e5",
+    "sha256": "cdc3b117c7b221f3853f84a345764e84fbc06343d7e17da77e3d01e6c848e9b7",
+    "source": "https://api.github.com/repos/LineageOS/android_packages_apps_Email/git/blobs/e61e094caf41e28f83ee72acfe6fb5226de760e5"
+  }
+]

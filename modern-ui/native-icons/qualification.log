@@ -1,0 +1,35 @@
+PASS verify_vendor_elf.py
+PASS verify_prior_graphics_fixes.py
+PASS verify_window_contract_build.py
+PASS verify_final_image.py
+{
+  "status": "OFFLINE_COMPLETE_IMAGE_CHECKS_PASSED_NOT_HARDWARE_QUALIFIED",
+  "android": "7.1.2",
+  "api": 25,
+  "lineage": "14.1",
+  "ui_branch": "t110/lineage14-modern-ui-20261114",
+  "build_fingerprint": "samsung/lineage_goyawifi/goyawifi:7.1.2/NJH47F/T110_UI_20261114_R2:userdebug/test-keys",
+  "ui_source_manifest_sha256": "557aa402c8382d9922124c9fa219da579f74244219de603b6aaa5e90c3a892e9",
+  "boot_reused_unchanged": true,
+  "physical_system_write_allowed": false,
+  "inode_bitmap_padding_normalized": true,
+  "google_apps_included": false,
+  "files": [
+    {
+      "name": "boot.img",
+      "bytes": 16777216,
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "system.raw.img",
+      "bytes": 1594884096,
+      "sha256": "fe204df8498ce7dac3e18cc66ae80a9a78c9be12790506dc30df5fee2e66a9c3"
+    },
+    {
+      "name": "system.raw.img.gz",
+      "bytes": 355269825,
+      "sha256": "099522657524390bf6225e680037a4876ad6d1ac6aedfd7fd3de18f03ba1e318"
+    }
+  ]
+}
+PASS: 13 actual image APKs, 65 matching density images and native launcher manifest selection.
