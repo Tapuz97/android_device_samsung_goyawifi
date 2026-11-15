@@ -5,17 +5,17 @@ Build fingerprint still contains T110_UI_20261114_R2; use the image hashes and
 receipts to distinguish later native UI/icon revisions.
 
 Current installed raw image:
-fe204df8498ce7dac3e18cc66ae80a9a78c9be12790506dc30df5fee2e66a9c3
+eb9d8955ef8df81f04f424f2b3d0c4bc2d3451395ed36ca7648fd696212067f1
 
 Transfer gzip:
-099522657524390bf6225e680037a4876ad6d1ac6aedfd7fd3de18f03ba1e318
+1e585dd848217cb686432205ac0879e512da0f9d31873f8f2fde2d6c008e844b
 
-- Images: /root/t110-lineage14-ui/artifacts-icons-20261115.
+- Images: /root/t110-lineage14-ui/artifacts-settings-lock-20261115.
 - Private data backup and installation/boot receipts:
-  /root/t110-lineage14-ui/hardware-test-icons-20261115.
+  /root/t110-lineage14-ui/hardware-test-settings-lock-20261115.
 - Git branch: t110/lineage14-modern-ui-20261114 under
   https://github.com/Tapuz97/android_device_samsung_goyawifi .
-- Verified draft image backup: t110-lineage14-ui-icons-20261115.
+- Verified draft image backup: t110-lineage14-ui-settings-lock-20261115.
 - Original, R1, R2, swipe-up and drawer-refinement images remain preserved on PC
   and online. Original working14 rollback remains on the tablet.
 - Boot and recovery are unchanged. Physical SYSTEM was not written.
@@ -41,7 +41,8 @@ Sources, Git blob provenance, copyright/licenses and render conversion are
 backed up in modern-ui/icon-reference; actual-image verification checked all
 13 APKs, 65 density images and resolved launcher-component icon IDs.
 
-Only the regenerable Trebuchet app_icons.db cache and sidecars were removed.
+The earlier icon-artwork installation removed only the regenerable Trebuchet
+app_icons.db cache and sidecars. The latest Settings update leaves that cache alone.
 launcher.db was hash-checked before/after, retaining Home layouts. Never clear
 all launcher data to refresh icons.
 
@@ -60,3 +61,27 @@ separate from the owner-confirmed basic drawer behavior.
 Android13 work stays archived. Rooting, Google-enabled distribution and XDA
 publication still need their separate qualification; this remains an API25
 visual backport, without newer Android APIs or the dynamic color engine.
+
+
+Latest Settings/lock update:
+
+- One Gestures & Navigation tile, retaining all 45 native button/navigation keys.
+  The original gesture page is nested under it, with its deep links preserved.
+- Category headers use the standard mirrored Back arrow; the old drawer is locked
+  closed without disabling native category/package-update receiver lifetimes.
+- Search stays at the toolbar end beside Settings; the duplicate large row is gone.
+- Native category Back, nested gestures Back and refreshed search results passed.
+- Lock uses MODE_FADE with a bufferless compositor dim layer, skipping the rotated
+  screenshot/EGL/shader path. Automatic screen-off selected mode2 and wake returned
+  to Settings; physical Power-transition appearance awaits owner confirmation.
+- Native mode-fade cleanup handles a null Surface; fade timing uses the normal
+  short animation duration and respects global animator settings.
+- Search indexing uses device-protected data under user_de/0/com.android.settings.
+  Only shared_prefs/index.xml indexing flags were refreshed, with the search DB
+  hash unchanged; saved queries and actual settings remain. CE data/data is wrong.
+- Native UI screenshots must follow settled UI hierarchy to avoid outgoing frames.
+- The known BootAnimation native SIGSEGV was observed separately; there was no new
+  Java crash in these bounded tests. No live logger/capture is left running.
+
+Receipts and acceptance: modern-ui/settings-navigation-lock in the source branch;
+private logs and screenshots: SM-T110/tests/settings-navigation-20261115.
