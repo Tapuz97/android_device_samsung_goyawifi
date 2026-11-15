@@ -1,0 +1,46 @@
+{
+  "status": "PASS_DRAFT_ASSETS_DOWNLOADED_AND_HASH_CHECKED",
+  "source_commit": "33e958efa34d53891ca166c65e79aa27c77c4381",
+  "branch": "release/lineage14.1-modern-t110-20261115",
+  "tag": "t110-lineage14-modern-20261115",
+  "draft": true,
+  "url": "https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/tag/untagged-1d77b777bf814635dd22",
+  "assets": [
+    {
+      "name": "SM-T110-Lineage14.1-Modernized-20261115-without-Google-apps.zip",
+      "sha256": "6673be5699e7d4eac5328ccbb6983bfedde509c40600c3ec731cd9507df6c6b3"
+    },
+    {
+      "name": "ASSETS.json",
+      "sha256": "ddab140fd18e03df4d19a975502264a333d29ab932ac4d650ba2f501a4f74a43"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "e3d48f294b8f3a85bb72aa1b43d724014d2e3c971b5d9b808071bcc2ac96a36d"
+    },
+    {
+      "name": "README.md",
+      "sha256": "a0e8940fd45a86ef9804d7e0c69ee7f2614196982fb84fb5f639fb1b2accd1e6"
+    },
+    {
+      "name": "XDA-POST.md",
+      "sha256": "c9a658b817e03b3c66086d0619f66d0c5ca1ea5fe84ae4a1d308df8f1d34e45d"
+    },
+    {
+      "name": "RELEASE-PLAN.md",
+      "sha256": "f260c0c5781653d49a4495e5efbccdafd171f8e927687d92bc7bcc9f05b71493"
+    },
+    {
+      "name": "INSTALLATION.md",
+      "sha256": "b35cf37846a94ef63695088a33757969fe17c900399efca4d957b791a088a912"
+    },
+    {
+      "name": "verify_modern_package.py",
+      "sha256": "d81dd2bf6960aedca4ffb7759f33aeb0de6361f298e5c39ef5ce241fdf26f406"
+    }
+  ],
+  "google_payload_uploaded": false,
+  "private_userdata_uploaded": false,
+  "xda_post_published": false,
+  "tablet_flashed": false
+}
