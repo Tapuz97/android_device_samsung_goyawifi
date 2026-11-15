@@ -29,11 +29,14 @@ Offline verification:
 - Saved R2 system SHA256 remains
   2778300b359e54c35966390e47c779c14cd11da1f5fb4ae0af3bddad1f49b400.
 
-Candidate: Trebuchet-T110-swipe-up-20261115.apk. A same-certificate launcher update
-can be installed later on the matching R2 ROM without a full image flash. No
-framework/SystemUI replacement is required. Never write the faulty physical
-SYSTEM partition. The extracted original system APK is a signing/reference
-artifact: it is dex-stripped and is not an installable rollback APK.
+Candidate: Trebuchet-T110-swipe-up-20261115.apk. Follow-up installation found that
+this ROM explicitly blocks platform-package updates under /data/app, despite a
+matching certificate. The standalone APK is therefore a build/signing reference,
+not a usable user-storage update on this ROM. The complete rebuilt system image
+includes the new launcher and matching ARM preoptimized code. Install through the
+established loop-container method; never write the faulty physical SYSTEM
+partition. The extracted original system APK is a signing/reference artifact:
+it is dex-stripped and is not an installable rollback APK.
 
 Device acceptance remains pending: portrait and landscape swipe-up from blank
 Home, icons and dock; app launching/search; Home/Back; repeated open/close without

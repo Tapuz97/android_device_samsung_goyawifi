@@ -1,0 +1,9 @@
+{
+  "status": "PASS_ACTUAL_IMAGE_LAUNCHER_AND_MATCHING_ARM_ODEX",
+  "files": {
+    "priv-app/Trebuchet/Trebuchet.apk": "8a32a00239c1bd8e1c8acd54fa1ea26016a04aa04e540327a948ef7e3fe2b21c",
+    "priv-app/Trebuchet/oat/arm/Trebuchet.odex": "0e2cae5b6004fbb2c090d6f4302db656049c8230afe44313e213a7d48de73542"
+  },
+  "swipe_accessibility_resource_present": true,
+  "new_detector_in_build_dex": true
+}

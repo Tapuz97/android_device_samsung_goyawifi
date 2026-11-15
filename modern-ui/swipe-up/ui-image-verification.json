@@ -1,0 +1,30 @@
+{
+  "status": "OFFLINE_COMPLETE_IMAGE_CHECKS_PASSED_NOT_HARDWARE_QUALIFIED",
+  "android": "7.1.2",
+  "api": 25,
+  "lineage": "14.1",
+  "ui_branch": "t110/lineage14-modern-ui-20261114",
+  "build_fingerprint": "samsung/lineage_goyawifi/goyawifi:7.1.2/NJH47F/T110_UI_20261114_R2:userdebug/test-keys",
+  "ui_source_manifest_sha256": "39de9227b7e84e256f56a4f2d85078110fc0c82407c513e5b91099efbe820240",
+  "boot_reused_unchanged": true,
+  "physical_system_write_allowed": false,
+  "inode_bitmap_padding_normalized": true,
+  "google_apps_included": false,
+  "files": [
+    {
+      "name": "boot.img",
+      "bytes": 16777216,
+      "sha256": "93aa73c2cd75efee0441513967a878eb9b92161109d326febc26a61a48b2b0f2"
+    },
+    {
+      "name": "system.raw.img",
+      "bytes": 1594884096,
+      "sha256": "eb38b38a506d10b0d8b7f405951dd58e50e6521a7528e2bd83ff2157bb7baa97"
+    },
+    {
+      "name": "system.raw.img.gz",
+      "bytes": 354950643,
+      "sha256": "118bd3cc0f229dc2a43e9f1e402270e49636650f7339c1adfeb57540cadf53d4"
+    }
+  ]
+}

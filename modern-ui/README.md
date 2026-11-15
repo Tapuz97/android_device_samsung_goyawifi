@@ -117,7 +117,9 @@ Its signing certificate matches the original launcher extracted from installed
 R2. The saved R2 image hash is unchanged. No tablet installation was attempted:
 the owner requested offline preparation. Device gesture acceptance is pending.
 
-The standalone update avoids replacing framework/SystemUI or flashing the ROM.
+A device installation attempt rejected the standalone update: this ROM blocks
+platform packages in user storage. A complete image with matching launcher ARM
+preoptimized code was therefore built and checked for loop-container installation.
 The existing R2 system artifact still contains the earlier launcher; only the new
 APK/source bundle contains this gesture. Hidden anchor/reserved dock rank remain
 for layout/animation compatibility. Gesture details and test evidence are under
