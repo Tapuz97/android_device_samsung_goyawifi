@@ -1,0 +1,105 @@
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=7.1.2
+LINEAGE_VERSION=14.1-20261115-UNOFFICIAL-goyawifi
+TARGET_PRODUCT=lineage_goyawifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_BUILD_TYPE=release
+TARGET_BUILD_APPS=
+TARGET_ARCH=arm
+TARGET_ARCH_VARIANT=armv7-a-neon
+TARGET_CPU_VARIANT=cortex-a9
+TARGET_2ND_ARCH=
+TARGET_2ND_ARCH_VARIANT=
+TARGET_2ND_CPU_VARIANT=
+HOST_ARCH=x86_64
+HOST_2ND_ARCH=x86
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-Ubuntu-22.04-jammy
+HOST_CROSS_OS=windows
+HOST_CROSS_ARCH=x86
+HOST_CROSS_2ND_ARCH=x86_64
+HOST_BUILD_TYPE=release
+BUILD_ID=NJH47F
+OUT_DIR=/root/t110-lineage14-ui/out
+============================================
+Running kati to generate build-lineage_goyawifi.ninja...
+$(shell cd packages/apps/Trebuchet ; find -L  src -name "*.java" -and -not -name ".*") was changed, regenerating...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=7.1.2
+LINEAGE_VERSION=14.1-20261115-UNOFFICIAL-goyawifi
+TARGET_PRODUCT=lineage_goyawifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_BUILD_TYPE=release
+TARGET_BUILD_APPS=
+TARGET_ARCH=arm
+TARGET_ARCH_VARIANT=armv7-a-neon
+TARGET_CPU_VARIANT=cortex-a9
+TARGET_2ND_ARCH=
+TARGET_2ND_ARCH_VARIANT=
+TARGET_2ND_CPU_VARIANT=
+HOST_ARCH=x86_64
+HOST_2ND_ARCH=x86
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-Ubuntu-22.04-jammy
+HOST_CROSS_OS=windows
+HOST_CROSS_ARCH=x86
+HOST_CROSS_2ND_ARCH=x86_64
+HOST_BUILD_TYPE=release
+BUILD_ID=NJH47F
+OUT_DIR=/root/t110-lineage14-ui/out
+============================================
+find: '/root/t110-lineage14-ui/out/target/common/obj/SHARED_LIBRARIES/libwifi-hal-mock_intermediates': No such file or directory
+vendor/cm/build/tasks/kernel.mk:159: ***************************************************************
+vendor/cm/build/tasks/kernel.mk:160: * Using prebuilt kernel binary instead of source              *
+vendor/cm/build/tasks/kernel.mk:161: * THIS IS DEPRECATED, AND WILL BE DISCONTINUED                *
+vendor/cm/build/tasks/kernel.mk:162: * Please configure your device to download the kernel         *
+vendor/cm/build/tasks/kernel.mk:163: * source repository to kernel/samsung/goyawifi
+vendor/cm/build/tasks/kernel.mk:164: * for more information                                        *
+vendor/cm/build/tasks/kernel.mk:165: ***************************************************************
+Starting build with ninja
+ninja: Entering directory `.'
+[  3% 3/77] target R.java/Manifest.java: Trebuchet (/root/t110-lineage14-ui/out/target/common/obj/APPS/Trebuchet_intermediates/src/R.stamp)
+warning: string 'application_name' has no default translation.
+warning: string 'toggle_weight_watcher' has no default translation.
+Warning: AndroidManifest.xml already defines minSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+Warning: AndroidManifest.xml already defines targetSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+[  3% 3/77] Ensure Jack server is installed and started
+Jack server already installed in "/root/.jack-server"
+Launching Jack server java -XX:MaxJavaStackTraceDepth=-1 -Djava.io.tmpdir=/tmp -Dfile.encoding=UTF-8 -XX:+TieredCompilation -cp /root/.jack-server/launcher.jar com.android.jack.launcher.ServerLauncher
+[  3% 3/77] Docs droiddoc: /root/t110-lineage14-ui/out/target/common/docs/api-stubs
+DroidDoc took 4 sec. to write docs to /root/t110-lineage14-ui/out/target/common/docs/api-stubs
+[  6% 5/77] Compiling SDK Stubs: /root/t110-lineage14-ui/out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jar
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+[  7% 6/77] Generating TOC: /root/t110-lineage14-ui/out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jar.toc
+[  7% 6/77] Compiling SDK Stubs with Jack: /root/t110-lineage14-ui/out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.jack
+[  9% 7/77] build /root/t110-lineage14-ui/out/target/common/obj/JAVA_LIBRARIES/android_stubs_current_intermediates/classes.dex.toc
+[ 61% 8/13] Building with Jack: /root/t110-lineage14-ui/out/target/common/obj/APPS/Trebuchet_intermediates/with-local/classes.dex
+[ 69% 9/13] Copying: /root/t110-lineage14-ui/out/target/common/obj/APPS/Trebuchet_intermediates/classes.dex
+[ 84% 11/13] build /root/t110-lineage14-ui/out/target/product/goyawifi/obj/APPS/Trebuchet_intermediates/oat/arm/package.odex
+[ 92% 12/13] Copy: /root/t110-lineage14-ui/out/target/product/goyawifi/system/priv-app/Trebuchet/oat/arm/Trebuchet.odex
+[ 92% 12/13] target Package: Trebuchet (/root/t110-lineage14-ui/out/target/product/goyawifi/obj/APPS/Trebuchet_intermediates/package.apk)
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c mdpi-v4. Use --preferred-density instead.
+warning: ignoring flag -c hdpi-v4. Use --preferred-density instead.
+warning: string 'application_name' has no default translation.
+warning: string 'application_name' is missing 43 required localizations: ast_ES az_AZ be_BY bn_BD bs_BA cy_GB en_AU en_CA en_GB en_IN en_NZ en_SG en_US eo_EU eu_ES gl_ES gu_IN hy_AM is_IS ka_GE kk_KZ km_KH kn_IN ku_IQ ky_KG lb_LU lo_LA mk_MK ml_IN mn_MN mr_IN my_MM ne_NP pa_IN si_LK sq_AL ta_IN te_IN ur_PK uz_UZ zh_CN zh_HK zh_TW
+warning: string 'toggle_weight_watcher' has no default translation.
+warning: string 'toggle_weight_watcher' is missing 45 required localizations: ast_ES az_AZ be_BY bn_BD bs_BA cy_GB en_AU en_CA en_GB en_IN en_NZ en_SG en_US eo_EU et_EE eu_ES gl_ES gu_IN hy_AM is_IS ka_GE kk_KZ km_KH kn_IN ku_IQ ky_KG lb_LU lo_LA mk_MK ml_IN mn_MN mr_IN ms_MY my_MM ne_NP pa_IN si_LK sq_AL ta_IN te_IN ur_PK uz_UZ zh_CN zh_HK zh_TW
+Warning: AndroidManifest.xml already defines minSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+Warning: AndroidManifest.xml already defines targetSdkVersion (in http://schemas.android.com/apk/res/android); using existing value in manifest.
+[100% 13/13] Install: /root/t110-lineage14-ui/out/target/product/goyawifi/system/priv-app/Trebuchet/Trebuchet.apk
+
+[0;32m#### make completed successfully (01:19 (mm:ss)) ####[00m
+

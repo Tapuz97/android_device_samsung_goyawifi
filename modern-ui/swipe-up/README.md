@@ -1,0 +1,46 @@
+# Home swipe-up launcher update - 2026-11-15
+
+Prepared offline at the owner's request; not installed or tested on the tablet.
+The installed R2 system image and its online/local rollback copies are unchanged.
+
+Swipe upward on Home or the dock to open Trebuchet's existing app drawer. The old
+drawer button is invisible, non-clickable and excluded from accessibility. Both
+native transition paths keep it hidden. A native accessibility "Apps" action on
+the workspace provides an alternative to the gesture.
+
+This uses the current app drawer, search, icons and preferences. It does not add
+a replacement launcher or a new drawer implementation. The native reveal
+animation runs on release; it does not follow the finger continuously.
+
+Recognition rejects taps, short movement, horizontal/downward/diagonal gestures,
+long presses, multiple pointers and cancelled gestures. Widget regions, folders,
+dragging, resize mode and other launcher states are excluded. The hidden anchor
+and reserved center dock rank are deliberately retained for saved-layout and
+native animation compatibility; the dock slot has not been reclaimed.
+
+Offline verification:
+
+- All 21 pure-Java gesture checks passed.
+- Native Trebuchet build on the existing ARM/API25 platform passed.
+- Matching DEX is embedded, including the new detector and accessibility action.
+- APK ZIP CRC and alignment passed.
+- APK v1 and v2 signature checks passed; its certificate matches the launcher
+  extracted from the saved installed R2 system image.
+- Saved R2 system SHA256 remains
+  2778300b359e54c35966390e47c779c14cd11da1f5fb4ae0af3bddad1f49b400.
+
+Candidate: Trebuchet-T110-swipe-up-20261115.apk. A same-certificate launcher update
+can be installed later on the matching R2 ROM without a full image flash. No
+framework/SystemUI replacement is required. Never write the faulty physical
+SYSTEM partition. The extracted original system APK is a signing/reference
+artifact: it is dex-stripped and is not an installable rollback APK.
+
+Device acceptance remains pending: portrait and landscape swipe-up from blank
+Home, icons and dock; app launching/search; Home/Back; repeated open/close without
+the button reappearing; sideways paging; long-press drag; widget scrolling;
+multi-touch; accessibility Apps action. Physical responsiveness is not proven by
+the classifier tests or build.
+
+Backups: existing R2 draft release and original working 14.1 remain preserved.
+The standalone update and verification records have their own draft release.
+This update does not change hardware drivers, navigation settings or Android API.

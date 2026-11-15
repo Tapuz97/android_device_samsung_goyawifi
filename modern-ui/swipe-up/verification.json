@@ -1,0 +1,23 @@
+{
+  "status": "PASS_OFFLINE_ONLY",
+  "apk": "Trebuchet-T110-swipe-up-20261115.apk",
+  "apk_sha256": "65e9375d44450d60a4ff57193522086db87e0794b7c5ced9b1340db6afe858d1",
+  "bytes": 2884919,
+  "package": "com.cyanogenmod.trebuchet",
+  "min_sdk": 22,
+  "target_sdk": 23,
+  "build_platform_api": 25,
+  "signing_certificate_sha256": "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8",
+  "installed_r2_certificate_matches": true,
+  "embedded_matching_dex": {
+    "classes.dex": "d0991ab2bc8dfdbed2a0dbaf3655fe89aba063188f43fb89720d08ae81601c6b"
+  },
+  "zipalign": true,
+  "apk_v1_and_v2_signatures_verified": true,
+  "zip_crc_verified": true,
+  "gesture_classifier_checks": "PASS: 21 gesture behavior checks",
+  "launcher_build": "PASS",
+  "r2_system_backup_sha256": "2778300b359e54c35966390e47c779c14cd11da1f5fb4ae0af3bddad1f49b400",
+  "device_installation": "NOT_ATTEMPTED_USER_REQUESTED_OFFLINE",
+  "device_gesture_acceptance": "PENDING"
+}

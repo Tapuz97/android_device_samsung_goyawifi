@@ -230,5 +230,29 @@
   "frameworks/base/packages/SystemUI/res/values-w550dp-land/dimens.xml": {
     "before_sha256": "152460862aa2b8ac67c67cc8cf55e0e478cc0f1acec2fe590dbb5ca47727547a",
     "sha256": "4d21cd447504a67741855be2d42af6493b9591b334e77e03a12b9ad6ef519781"
+  },
+  "packages/apps/Trebuchet/src/com/android/launcher3/util/HomeSwipeDetector.java": {
+    "before_sha256": null,
+    "sha256": "2c505484161e20eda619c003f78e047c46ead3e2ade8a6a28d2dd9523ddc1def"
+  },
+  "packages/apps/Trebuchet/src/com/android/launcher3/DragLayer.java": {
+    "before_sha256": "187bb4cb28c1aa8d2360b7fe370c80327f8f2f49eeb3fd2216af99b8161a850c",
+    "sha256": "51555bd2d8843f07f41ac5bb17ccf273f466fa33dcab70e087cb827fef32d866"
+  },
+  "packages/apps/Trebuchet/src/com/android/launcher3/Hotseat.java": {
+    "before_sha256": "07c42a27e8b229e272dde718f8f7e1c2a104a6d9d137948543eae674378ff01a",
+    "sha256": "26be5f771fcaeb23a3824b818914e8784995f7ac134be34a5529f73a53c103e4"
+  },
+  "packages/apps/Trebuchet/src/com/android/launcher3/LauncherStateTransitionAnimation.java": {
+    "before_sha256": "2aeff8b9206a598bcee098871f96d694368e073c16869abeba4914da169a699e",
+    "sha256": "34d782eb1b81904f515f9d225dd2ce28d353c1d0c164b9010ade19cc16b71ff4"
+  },
+  "packages/apps/Trebuchet/res/values/t110_swipe_up.xml": {
+    "before_sha256": null,
+    "sha256": "4eb8c5d51c0a85926f51cf57ec341533f8fdd3199677f42ffa963e531fc00b22"
+  },
+  "packages/apps/Trebuchet/src/com/android/launcher3/Workspace.java": {
+    "before_sha256": "61c8c8492cd2e3150954f7d631087a78091523fccd08ae945e4e7d7765d04d96",
+    "sha256": "4eb57d2755d15f0ac6f719eae9c3ecc3f4dcbeb238f48f10596716ac6458a0bf"
   }
 }

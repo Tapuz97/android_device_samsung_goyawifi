@@ -102,3 +102,23 @@ R1 images and private pre-UI data are preserved in `artifacts-r1` and
 `hardware-test-r1`; the original working14.1 images remain in their original
 artifact directory. The known baseline BootAnimation native crash still needs a
 separate audit; it did not prevent the inspected R1 Home/Settings/shade sessions.
+
+## Offline swipe-up follow-up - 2026-11-15
+
+The native launcher now recognizes upward Home/dock swipes to open its existing
+app drawer. Its former button stays invisible through creation and both state
+transitions; an accessibility Apps action remains available. Widget gestures,
+sideways paging, long presses and multi-touch are protected by eligibility and
+recognition checks. See [swipe-up/README.md](swipe-up/README.md) for limitations.
+
+The classifier passed 21 checks, native Trebuchet compiled and a self-contained
+signed update APK passed DEX, CRC, alignment and Android v1/v2 signature checks.
+Its signing certificate matches the original launcher extracted from installed
+R2. The saved R2 image hash is unchanged. No tablet installation was attempted:
+the owner requested offline preparation. Device gesture acceptance is pending.
+
+The standalone update avoids replacing framework/SystemUI or flashing the ROM.
+The existing R2 system artifact still contains the earlier launcher; only the new
+APK/source bundle contains this gesture. Hidden anchor/reserved dock rank remain
+for layout/animation compatibility. Gesture details and test evidence are under
+swipe-up; artifact verification is under swipe-up/verification.json.

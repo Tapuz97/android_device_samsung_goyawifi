@@ -822,6 +822,257 @@
      <bool name="preferences_interface_use_scroller_default">true</bool>
      <bool name="preferences_interface_use_horizontal_scrubber_default">true</bool>
      <bool name="preferences_interface_drawer_search_default">true</bool>
+--- a/packages/apps/Trebuchet/src/com/android/launcher3/DragLayer.java
++++ b/packages/apps/Trebuchet/src/com/android/launcher3/DragLayer.java
+@@ -32,6 +32,7 @@
+ import android.view.MotionEvent;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.view.ViewConfiguration;
+ import android.view.accessibility.AccessibilityEvent;
+ import android.view.accessibility.AccessibilityManager;
+ import android.view.animation.DecelerateInterpolator;
+@@ -41,6 +42,7 @@
+ 
+ import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
+ import com.android.launcher3.util.Thunk;
++import com.android.launcher3.util.HomeSwipeDetector;
+ 
+ import java.util.ArrayList;
+ 
+@@ -96,6 +98,8 @@
+     private Drawable mRightHoverDrawableActive;
+ 
+     private boolean mBlockTouches = false;
++    private final HomeSwipeDetector mHomeSwipe;
++    private boolean mHomeSwipeIntercepted;
+ 
+     /**
+      * Used to create a new DragLayer from XML.
+@@ -116,6 +120,9 @@
+         mLeftHoverDrawableActive = res.getDrawable(R.drawable.page_hover_left_active);
+         mRightHoverDrawableActive = res.getDrawable(R.drawable.page_hover_right_active);
+         mIsRtl = Utilities.isRtl(res);
++        int slop = ViewConfiguration.get(context).getScaledTouchSlop();
++        mHomeSwipe = new HomeSwipeDetector(Math.max(48 * res.getDisplayMetrics().density,
++                4 * slop), slop, ViewConfiguration.getLongPressTimeout());
+     }
+ 
+     public void setup(Launcher launcher, DragController controller) {
+@@ -216,12 +223,59 @@
+         return false;
+     }
+ 
++    private boolean canOpenAppsFromHome() {
++        if (mLauncher == null || mDragController == null || mBlockTouches
++                || mCurrentResizeFrame != null || mDragController.isDragging()
++                || (mOverlayView != null && mOverlayView.getParent() != null)) return false;
++        Workspace workspace = mLauncher.getWorkspace();
++        return workspace != null && workspace.getState() == Workspace.State.NORMAL
++                && !workspace.isSwitchingState() && !mLauncher.isAppsViewVisible()
++                && !workspace.isOnOrMovingToCustomContent() && workspace.getOpenFolder() == null;
++    }
++
++    private boolean canStartHomeSwipe(MotionEvent event) {
++        if (!canOpenAppsFromHome()) return false;
++        Workspace workspace = mLauncher.getWorkspace();
++        Rect bounds = new Rect();
++        getDescendantRectRelativeToSelf(workspace, bounds);
++        boolean inside = bounds.contains((int) event.getX(), (int) event.getY());
++        getDescendantRectRelativeToSelf(mLauncher.getHotseat(), bounds);
++        inside |= bounds.contains((int) event.getX(), (int) event.getY());
++        if (!inside) return false;
++        View page = workspace.getChildAt(workspace.getCurrentPage());
++        if (page instanceof CellLayout) {
++            ViewGroup children = ((CellLayout) page).getShortcutsAndWidgets();
++            for (int i = 0; i < children.getChildCount(); i++) {
++                View child = children.getChildAt(i);
++                if (child.getTag() instanceof LauncherAppWidgetInfo) {
++                    getDescendantRectRelativeToSelf(child, bounds);
++                    if (bounds.contains((int) event.getX(), (int) event.getY())) return false;
++                }
++            }
++        }
++        return true;
++    }
++
++    @Override
++    public void requestDisallowInterceptTouchEvent(boolean disallow) {
++        if (disallow && !mHomeSwipeIntercepted) mHomeSwipe.cancel();
++        super.requestDisallowInterceptTouchEvent(disallow);
++    }
++
+     @Override
+     public boolean onInterceptTouchEvent(MotionEvent ev) {
+         int action = ev.getAction();
++        if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
++            mHomeSwipeIntercepted = false;
++            mHomeSwipe.begin(ev.getX(), ev.getY(), ev.getEventTime(), canStartHomeSwipe(ev));
++        } else if (ev.getActionMasked() == MotionEvent.ACTION_POINTER_DOWN
++                || action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
++            mHomeSwipe.cancel();
++        }
+ 
+         if (action == MotionEvent.ACTION_DOWN) {
+             if (handleTouchDown(ev, true)) {
++                mHomeSwipe.cancel();
+                 return true;
+             }
+         } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+@@ -231,7 +285,17 @@
+             mTouchCompleteListener = null;
+         }
+         clearAllResizeFrames();
+-        return mDragController.onInterceptTouchEvent(ev);
++        if (mDragController.onInterceptTouchEvent(ev)) {
++            mHomeSwipe.cancel();
++            return true;
++        }
++        if (!canOpenAppsFromHome()) mHomeSwipe.cancel();
++        if (ev.getActionMasked() == MotionEvent.ACTION_MOVE
++                && mHomeSwipe.move(ev.getX(), ev.getY(), ev.getEventTime(), ev.getPointerCount())) {
++            mHomeSwipeIntercepted = true;
++            return true;
++        }
++        return false;
+     }
+ 
+     @Override
+@@ -337,6 +401,41 @@
+ 
+     @Override
+     public boolean onTouchEvent(MotionEvent ev) {
++        // Empty dock space may have no child touch target. Observe that stream
++        // here as well as in interception, without stealing a child's DOWN.
++        if (!mHomeSwipeIntercepted && ev.getActionMasked() == MotionEvent.ACTION_MOVE) {
++            if (!canOpenAppsFromHome()) mHomeSwipe.cancel();
++            mHomeSwipeIntercepted = mHomeSwipe.move(ev.getX(), ev.getY(),
++                    ev.getEventTime(), ev.getPointerCount());
++        }
++        if (mHomeSwipeIntercepted) {
++            int maskedAction = ev.getActionMasked();
++            if (!canOpenAppsFromHome()) mHomeSwipe.cancel();
++            if (maskedAction == MotionEvent.ACTION_MOVE) {
++                mHomeSwipe.move(ev.getX(), ev.getY(), ev.getEventTime(), ev.getPointerCount());
++            } else if (maskedAction == MotionEvent.ACTION_POINTER_DOWN) {
++                mHomeSwipe.cancel();
++            } else if (maskedAction == MotionEvent.ACTION_UP
++                    || maskedAction == MotionEvent.ACTION_CANCEL) {
++                boolean open = maskedAction == MotionEvent.ACTION_UP
++                        && mHomeSwipe.end(ev.getX(), ev.getY(), ev.getPointerCount());
++                mHomeSwipe.cancel();
++                mHomeSwipeIntercepted = false;
++                if (mTouchCompleteListener != null) mTouchCompleteListener.onTouchComplete();
++                mTouchCompleteListener = null;
++                if (open && canOpenAppsFromHome()) {
++                    post(new Runnable() {
++                        @Override
++                        public void run() {
++                            if (canOpenAppsFromHome()) {
++                                mLauncher.showAppsView(true, true, true, false);
++                            }
++                        }
++                    });
++                }
++            }
++            return true;
++        }
+         boolean handled = false;
+         int action = ev.getAction();
+ 
+@@ -372,7 +471,9 @@
+             }
+         }
+         if (handled) return true;
+-        return mDragController.onTouchEvent(ev);
++        boolean dragging = mDragController.onTouchEvent(ev);
++        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) mHomeSwipe.cancel();
++        return dragging || mHomeSwipe.isTracking();
+     }
+ 
+     /**
+--- a/packages/apps/Trebuchet/src/com/android/launcher3/Hotseat.java
++++ b/packages/apps/Trebuchet/src/com/android/launcher3/Hotseat.java
+@@ -137,6 +137,11 @@
+         CellLayout.LayoutParams lp = new CellLayout.LayoutParams(x,y,1,1);
+         lp.canReorder = false;
+         mContent.addViewToCellLayout(allAppsButton, -1, allAppsButton.getId(), lp, true);
++        allAppsButton.setVisibility(INVISIBLE);
++        allAppsButton.setClickable(false);
++        allAppsButton.setLongClickable(false);
++        allAppsButton.setFocusable(false);
++        allAppsButton.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+     }
+ 
+     @Override
+--- a/packages/apps/Trebuchet/src/com/android/launcher3/LauncherStateTransitionAnimation.java
++++ b/packages/apps/Trebuchet/src/com/android/launcher3/LauncherStateTransitionAnimation.java
+@@ -139,7 +139,7 @@
+                         allAppsButtonView.setVisibility(View.INVISIBLE);
+                     }
+                     public void onAnimationEnd(Animator animation) {
+-                        allAppsButtonView.setVisibility(View.VISIBLE);
++                        allAppsButtonView.setVisibility(View.INVISIBLE);
+                     }
+                 };
+             }
+@@ -441,7 +441,7 @@
+                     public void onAnimationStart(Animator animation) {
+                         // We set the alpha instead of visibility to ensure that the focus does not
+                         // get taken from the all apps view
+-                        allAppsButtonView.setVisibility(View.VISIBLE);
++                        allAppsButtonView.setVisibility(View.INVISIBLE);
+                         allAppsButtonView.setAlpha(0f);
+                     }
+                     public void onAnimationEnd(Animator animation) {
+--- a/packages/apps/Trebuchet/src/com/android/launcher3/Workspace.java
++++ b/packages/apps/Trebuchet/src/com/android/launcher3/Workspace.java
+@@ -56,6 +56,7 @@
+ import android.view.View;
+ import android.view.ViewGroup;
+ import android.view.accessibility.AccessibilityManager;
++import android.view.accessibility.AccessibilityNodeInfo;
+ import android.view.animation.DecelerateInterpolator;
+ import android.view.animation.Interpolator;
+ import android.widget.TextView;
+@@ -2070,6 +2071,27 @@
+         return mState;
+     }
+ 
++    @Override
++    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
++        super.onInitializeAccessibilityNodeInfo(info);
++        if (mLauncher != null && mState == State.NORMAL && !isSwitchingState()
++                && getOpenFolder() == null && !isOnOrMovingToCustomContent()) {
++            info.addAction(new AccessibilityNodeInfo.AccessibilityAction(
++                    R.id.t110_action_open_all_apps, getContext().getString(R.string.all_apps_button_label)));
++        }
++    }
++
++    @Override
++    public boolean performAccessibilityAction(int action, Bundle arguments) {
++        if (action == R.id.t110_action_open_all_apps && mLauncher != null
++                && mState == State.NORMAL && !isSwitchingState() && !mDragController.isDragging()
++                && getOpenFolder() == null && !isOnOrMovingToCustomContent()) {
++            mLauncher.showAppsView(true, true, true, false);
++            return true;
++        }
++        return super.performAccessibilityAction(action, arguments);
++    }
++
+     public void updateAccessibilityFlags() {
+         if (Utilities.ATLEAST_LOLLIPOP) {
+             int total = getPageCount();
+@@ -2077,7 +2099,8 @@
+                 updateAccessibilityFlags((CellLayout) getPageAt(i), i);
+             }
+             setImportantForAccessibility((mState == State.NORMAL || mState == State.OVERVIEW)
+-                    ? IMPORTANT_FOR_ACCESSIBILITY_AUTO
++                    ? (mState == State.NORMAL ? IMPORTANT_FOR_ACCESSIBILITY_YES
++                            : IMPORTANT_FOR_ACCESSIBILITY_AUTO)
+                             : IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
+         } else {
+             int accessible = mState == State.NORMAL ?
 --- a/packages/apps/WallpaperPicker/res/values-nodpi/wallpapers.xml
 +++ b/packages/apps/WallpaperPicker/res/values-nodpi/wallpapers.xml
 @@ -17,6 +17,7 @@
