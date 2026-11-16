@@ -1,7 +1,9 @@
 # Google sign-in drawing on the GC1000
 
-Status: source compiled; full platform image and offline gates passed. The
-software-layer change still needs a real sign-in rendering check before PASS.
+Status: full platform and Google images built, checked and installed. The
+Google account page now draws cleanly; the owner confirmed "Clean buttons;
+Next is blue" on the physical tablet. Authentication and Play installation are
+still owner checks, not qualified by the drawing result.
 
 The physical RGB/BGR mismatch is a separate confirmed issue, now corrected by
 matching the native visual through RenderEngine and libEGL. All four physical
@@ -48,3 +50,24 @@ position has been fixed. Preserve this remaining UI requirement explicitly.
 
 Authentication and Play Store app installation remain unqualified. Keep the
 accepted modernized ROM available and never write the faulty physical SYSTEM.
+
+## Installed-image verification
+
+Google raw SHA256:
+d0f6500e24f0807ca5660b3467c1db5baee3437dca50b003481268535b512028
+
+Full boot and exact native-library/boot-framework readback passed. The runtime
+logged the software-draw layer in the Google UI process. The compositor remains
+Vivante GC1000 accelerated. Native icon/Settings/navigation/lock checks passed,
+and original Google APKs remain intact. Experimental Chromium switches are
+reverted. HTTPS connectivity returned204 after startup settled.
+
+The SIM-page resource overlay was exercised: Skip bounds were x460..570,
+y949..1009 on the 600x1024 logical display, and its original action advanced
+setup. This does not relocate the hosted account page's separate Skip control.
+
+A BootAnimation native exit SIGSEGV was recorded during this boot. The system
+continued to the working Google form; a clean animation-exit result is not
+claimed. This startup cleanup fault remains separate work. Normal app root,
+Google account authentication, Play install and the broader Google edition's
+functional suite remain unqualified.
