@@ -297,7 +297,7 @@ index 4234db823925e9a7d5530d78b73f1935ab288f92..d882a38c4799534b21d8f09de280d5a6
  
      return dso;
 diff --git a/opengl/libs/EGL/eglApi.cpp b/opengl/libs/EGL/eglApi.cpp
-index 0cd8b0235e67189286af180d9f33e4ced0f04cb8..9c65a289035c3610c91eb4cb06bbc46e18aaaf6a 100644
+index 0cd8b02..c40e73a 100644
 --- a/opengl/libs/EGL/eglApi.cpp
 +++ b/opengl/libs/EGL/eglApi.cpp
 @@ -54,6 +54,9 @@
@@ -330,7 +330,18 @@ index 0cd8b0235e67189286af180d9f33e4ced0f04cb8..9c65a289035c3610c91eb4cb06bbc46e
      // EGL_KHR_lock_surface
      { "eglLockSurfaceKHR",
              (__eglMustCastToProperFunctionPointerType)&eglLockSurfaceKHR },
-@@ -2137,3 +2146,17 @@ EGLBoolean eglQueryTimestampSupportedANDROID(EGLDisplay dpy, EGLSurface surface,
+@@ -497,7 +506,9 @@ EGLSurface eglCreateWindowSurface(  EGLDisplay dpy, EGLConfig config,
+ #endif
+         android_dataspace dataSpace = HAL_DATASPACE_UNKNOWN;
+ 
+-#if WORKAROUND_BUG_10194508
++// ANI7 exposes both RGBA and BGRA configs. Inferring a format from
++// channel widths loses that distinction and forces the BGRA scanout to RGBA.
++#if WORKAROUND_BUG_10194508 || defined(T110_MRVL_LEGACY)
+         if (!cnx->egl.eglGetConfigAttrib(iDpy, config, EGL_NATIVE_VISUAL_ID,
+                 &format)) {
+             ALOGE("eglGetConfigAttrib(EGL_NATIVE_VISUAL_ID) failed: %#x",
+@@ -2137,3 +2148,17 @@ EGLBoolean eglQueryTimestampSupportedANDROID(EGLDisplay dpy, EGLSurface surface,
              return EGL_FALSE;
      }
  }
@@ -529,6 +540,28 @@ index 958abf2b00adbda2ab10b68d893accc3ec843353..afde396986e955c18752f93f3a7d43ee
  
      // commits the list
      status_t commit();
+diff --git a/services/surfaceflinger/RenderEngine/RenderEngine.cpp b/services/surfaceflinger/RenderEngine/RenderEngine.cpp
+index 28b3319..090132f 100644
+--- a/services/surfaceflinger/RenderEngine/RenderEngine.cpp
++++ b/services/surfaceflinger/RenderEngine/RenderEngine.cpp
+@@ -381,8 +381,17 @@ static status_t selectEGLConfig(EGLDisplay display, EGLint format,
+         attribs[EGL_RED_SIZE]                   = 8;
+         attribs[EGL_GREEN_SIZE]                 = 8;
+         attribs[EGL_BLUE_SIZE]                  = 8;
++#ifdef T110_MRVL_LEGACY
++        // Marvell's EGL rewrites the native window's requested buffer format to
++        // the selected config visual. Choosing RGBA for the BGRA framebuffer
++        // swaps red/blue at scanout, although capture-to-FBO still looks correct.
++        // This driver exposes working BGRA ES2 window configs (14/16/18/20).
++        wantedAttribute                         = EGL_NATIVE_VISUAL_ID;
++        wantedAttributeValue                    = format;
++#else
+         wantedAttribute                         = EGL_NONE;
+         wantedAttributeValue                    = EGL_NONE;
++#endif
+     } else {
+         // if no renderable type specified, fallback to a simplified query
+         wantedAttribute                         = EGL_NATIVE_VISUAL_ID;
 diff --git a/services/surfaceflinger/SurfaceFlinger_hwc1.cpp b/services/surfaceflinger/SurfaceFlinger_hwc1.cpp
 index e0b2d55b805d5b273340cf75e5aafbd819cae7dc..d8ed20d59cf64811040b2665a5d93eb973063cb8 100644
 --- a/services/surfaceflinger/SurfaceFlinger_hwc1.cpp

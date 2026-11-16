@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2026 The SM-T110 device contributors
+  SPDX-License-Identifier: Apache-2.0
+
+  Android 7 tablet services and hardware already present in this build.
+  Do not copy tablet_core_hardware.xml wholesale: that also claims a compass
+  and managed users, which have not been qualified on this device.
+-->
+<permissions>
+    <feature name="android.software.device_admin" />
+    <feature name="android.software.backup" />
+    <feature name="android.software.home_screen" />
+    <feature name="android.software.input_methods" />
+    <feature name="android.software.print" />
+    <feature name="android.hardware.audio.output" />
+    <feature name="android.hardware.microphone" />
+    <feature name="android.hardware.sensor.accelerometer" />
+    <feature name="android.hardware.screen.portrait" />
+    <feature name="android.hardware.screen.landscape" />
+</permissions>

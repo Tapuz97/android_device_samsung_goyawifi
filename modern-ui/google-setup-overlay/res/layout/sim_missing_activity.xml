@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Resource-only overlay: retain the original activity, IDs and click handler. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="?android:attr/colorBackground">
+    <com.android.setupwizardlib.GlifLayout
+        android:id="@*com.google.android.setupwizard:id/setup_wizard_layout"
+        android:icon="@*com.google.android.setupwizard:drawable/ic_sim_card"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout style="@*com.google.android.setupwizard:style/SuwContentFrame"
+            android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:id="@*com.google.android.setupwizard:id/sim_missing_description"
+                style="@*com.google.android.setupwizard:style/SuwDescription.Glif"
+                android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.android.setupwizardlib.GlifLayout>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="72dp"
+        android:paddingLeft="24dp" android:paddingRight="24dp" android:paddingBottom="12dp">
+        <Button android:id="@*com.google.android.setupwizard:id/sim_missing_skip_button"
+            style="@android:style/Widget.Material.Button.Colored"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right" android:minHeight="48dp"
+            android:text="@*com.google.android.setupwizard:string/skip_button_label" />
+    </FrameLayout>
+</LinearLayout>

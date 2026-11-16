@@ -47,3 +47,6 @@ PRODUCT_COPY_FILES += frameworks/av/media/libstagefright/data/media_codecs_googl
 
 # Use Nougat's native readPixels capture path for the Vivante GC1000.
 PRODUCT_PROPERTY_OVERRIDES += ro.bq.gpu_to_cpu_unsupported=1
+
+# Standard capabilities used by Accounts, policy, backup and input.
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/t110-core-features.xml:system/etc/permissions/t110-core-features.xml
