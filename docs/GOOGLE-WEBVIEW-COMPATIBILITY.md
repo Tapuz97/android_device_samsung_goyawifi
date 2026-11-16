@@ -2,8 +2,8 @@
 
 Status: full platform and Google images built, checked and installed. The
 Google account page now draws cleanly; the owner confirmed "Clean buttons;
-Next is blue" on the physical tablet. Authentication and Play installation are
-still owner checks, not qualified by the drawing result.
+Next is blue" on the physical tablet. The owner subsequently reported Google sign-in and Play Store use working;
+no specific installed app was named or independently recorded.
 
 The physical RGB/BGR mismatch is a separate confirmed issue, now corrected by
 matching the native visual through RenderEngine and libEGL. All four physical
@@ -69,5 +69,7 @@ setup. This does not relocate the hosted account page's separate Skip control.
 A BootAnimation native exit SIGSEGV was recorded during this boot. The system
 continued to the working Google form; a clean animation-exit result is not
 claimed. This startup cleanup fault remains separate work. Normal app root,
-Google account authentication, Play install and the broader Google edition's
-functional suite remain unqualified.
+Google sign-in/Play use are owner-reported working; the broader final-edition
+functional suite remains incomplete.
+
+Final release preparation: see release-final/docs/TEST-STATUS.md and UPLOAD-MAP.md. No additional tablet flash was performed.

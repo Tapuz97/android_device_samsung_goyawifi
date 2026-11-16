@@ -12,5 +12,5 @@
   "toolchain_commit": "3d37334606f36c1639a1caf928994c56b360eeb1",
   "toolchain_version": "GCC4.6.x-google20120106",
   "adapted_from": "https://github.com/jakaco/lineageos-14.1-goyawifi/blob/main/kernel/patches/0002-goyawifi-boot-ramdisks-of-any-size.patch",
-  "hardware_validation": "Kernel4 boot and userdata/system-loop mounts confirmed; Android7 startup unconfirmed"
+  "hardware_validation": "Used by the installed Android7.1.2/LineageOS14.1 builds; boot, physical display/touch and base functional checks observed on the development SM-T110. Second-device clean install not qualified."
 }

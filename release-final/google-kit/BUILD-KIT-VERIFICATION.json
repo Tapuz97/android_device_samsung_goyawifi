@@ -1,0 +1,8 @@
+{
+  "status": "PASS_ALL_NATIVE_AND_GOOGLE_FILE_CONTENT_MATCHES_TESTED_PAYLOAD",
+  "files_checked": 1872,
+  "symlinks_checked": 226,
+  "new_raw_sha256": "7d778f53dba5ed8b03358f4561b76a54a0880dc7a96af589d6317f4c5c417750",
+  "archive_sha256": "336879f8322c33cda5498f7044c85cad3f4527313df47a9d8fc47b1fd890c408",
+  "note": "Filesystem timestamps may change the raw-image hash; every payload byte is checked."
+}

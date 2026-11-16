@@ -1,0 +1,16 @@
+{
+  "native_color_libraries_both_images": "PASS_EXACT_READBACK_HASH_MATCH",
+  "rom_archives": "PASS_ZIP_CRC_GZIP_RAW_SYSTEM_AND_BOOT_HASHES",
+  "public_google_build_kit": {
+    "status": "PASS_ALL_NATIVE_AND_GOOGLE_FILE_CONTENT_MATCHES_TESTED_PAYLOAD",
+    "files_checked": 1872,
+    "symlinks_checked": 226,
+    "new_raw_sha256": "7d778f53dba5ed8b03358f4561b76a54a0880dc7a96af589d6317f4c5c417750",
+    "archive_sha256": "336879f8322c33cda5498f7044c85cad3f4527313df47a9d8fc47b1fd890c408",
+    "note": "Filesystem timestamps may change the raw-image hash; every payload byte is checked."
+  },
+  "read_only_preflight": "PASS_VALID_FIXTURE_AND_7_DANGEROUS_MISMATCH_REJECTIONS",
+  "google_signin_play": "OWNER_REPORTED_WORKING_APP_UNSPECIFIED",
+  "second_device_clean_install": "NOT_QUALIFIED",
+  "tablet_flashed_during_preparation": false
+}

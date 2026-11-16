@@ -1,0 +1,14 @@
+{
+  "status": "PASS_IDENTICAL_CONFIRMED_COLOR_FIX_IN_BOTH_ACTUAL_IMAGES",
+  "libraries": [
+    {
+      "file": "lib/libEGL.so",
+      "sha256_both_editions": "cc25780101f614a530131e2ff9bd73361c460d849983587fd5136f2b738afd40"
+    },
+    {
+      "file": "lib/libsurfaceflinger.so",
+      "sha256_both_editions": "d86f75f67b1aed1a119b7c939a704f7778bbc486a7ecddcc7032558b7fe52b63"
+    }
+  ],
+  "owner_physical_palette_confirmation": true
+}

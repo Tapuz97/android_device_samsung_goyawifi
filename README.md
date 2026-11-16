@@ -1,3 +1,16 @@
+# Modernized SM-T110 release preparation — 2026-11-16
+
+Start with [release-final/README.md](release-final/README.md) for both editions,
+the confirmed native colour fix, Google build kit, checksums, XDA post and
+manual installation/rollback guide. This is an experimental engineering port;
+the Google edition was confirmed working by the owner, not an independent
+second-device clean-install qualification. Public assets are staged in a draft
+GitHub release; XDA has not been posted.
+
+The remaining material below retains the original source/build documentation.
+
+---
+
 # Samsung Galaxy Tab 3 Lite SM-T110 - LineageOS 14.1 bring-up
 
 Android7.1.2 full tablet product. Hardware qualification follows the first complete

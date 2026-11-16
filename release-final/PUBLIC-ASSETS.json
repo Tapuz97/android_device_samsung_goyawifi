@@ -1,0 +1,23 @@
+[
+  {
+    "path": "PUBLIC/SM-T110-Lineage14.1-Modernized-20261116-without-Google-apps.zip",
+    "name": "SM-T110-Lineage14.1-Modernized-20261116-without-Google-apps.zip",
+    "bytes": 372099341,
+    "sha256": "cb38b9abb8f93bed43362f1272e779d58bae51d58200bac70091d0ada8cf0cfe",
+    "public_upload_allowed": true
+  },
+  {
+    "path": "PUBLIC/SM-T110-Lineage14.1-Modernized-20261116-Google-build-kit.zip",
+    "name": "SM-T110-Lineage14.1-Modernized-20261116-Google-build-kit.zip",
+    "bytes": 104518,
+    "sha256": "37eb82fb66230f7294b3094649152c634905d383a4898cb5bf8fd9049b7978af",
+    "public_upload_allowed": true
+  },
+  {
+    "path": "PUBLIC/SM-T110-Modernized-20261116-Guide-and-tools.zip",
+    "name": "SM-T110-Modernized-20261116-Guide-and-tools.zip",
+    "bytes": 22799,
+    "sha256": "5c084f273d4dcaabc8c6e080715895eec07135e4cb893641fbedff55e545ea7b",
+    "public_upload_allowed": true
+  }
+]

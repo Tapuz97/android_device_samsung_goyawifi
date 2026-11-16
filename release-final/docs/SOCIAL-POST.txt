@@ -1,0 +1,9 @@
+Modernized LineageOS14.1 for the Galaxy Tab3 Lite SM-T110: updated native icons,
+swipe-up Apps, redesigned Settings/navigation, corrected screen colours, and an
+optional Google apps edition. Android7.1.2 backend for the legacy hardware.
+
+Experimental engineering release; SM-T110 only. Read the installation layout,
+known limitations and checksums before flashing. The ROM is a computer-side
+archive, not a generic TWRP ZIP. Google sign-in/Play use confirmed by the owner.
+
+https://github.com/Tapuz97/android_device_samsung_goyawifi/tree/release/lineage14.1-modern-t110-20261116

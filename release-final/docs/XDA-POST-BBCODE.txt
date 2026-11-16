@@ -1,0 +1,118 @@
+This is an unofficial LineageOS14.1 port for the [B]Samsung Galaxy Tab3 Lite
+Wi-Fi SM-T110[/B], with a native interface revamp inspired by newer LineageOS.
+It retains Android7.1.2 for the tablet's legacy drivers. It is not Android13.
+
+[B]SM-T110/goyawifi only. Do not use these files on T111, T113, T116 or T210.[/B]
+
+[SIZE=5][B]What changed[/B][/SIZE]
+
+- Updated circular icons for13 system apps, with native launcher integration.
+- Swipe up from Home to open Apps; swipe down from the top of the app grid to
+  close. The old drawer button and alphabet strip are hidden.
+- Modernized native Settings, toolbar Search and category Back navigation.
+- One [B]Gestures & Navigation[/B] category for hardware and onscreen navigation.
+- Updated Quick Settings, rounded notifications/dialogs and Recents/Clear all.
+- Native wallpaper selection and clean lock/wake fading.
+- Permanent display-format correction: physical blues now match screenshots.
+- A scoped software-drawing compatibility path for Google's account web view;
+  the normal Android compositor remains GPU accelerated.
+
+[SIZE=5][B]Editions and downloads[/B][/SIZE]
+
+Both editions have the same modernized interface and colour correction.
+
+- [URL=https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/download/t110-lineage14-modern-final-20261116/SM-T110-Lineage14.1-Modernized-20261116-without-Google-apps.zip]Without Google apps — ROM archive[/URL]
+- [URL=https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/download/t110-lineage14-modern-final-20261116/SM-T110-Lineage14.1-Modernized-20261116-Google-build-kit.zip]With Google apps — local build kit[/URL]
+- [URL=https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/download/t110-lineage14-modern-final-20261116/SM-T110-Modernized-20261116-Guide-and-tools.zip]Installation guide and verification tools[/URL]
+- [URL=https://github.com/Tapuz97/android_device_samsung_goyawifi/releases/download/t110-lineage14-modern-final-20261116/SHA256SUMS-PUBLIC.txt]Checksums[/URL]
+- [URL=https://github.com/Tapuz97/android_device_samsung_goyawifi/tree/release/lineage14.1-modern-t110-20261116]Device source and compatibility patches[/URL]
+
+The tested Google edition uses [B]OpenGApps ARM / Android7.1 / pico / 20220215[/B],
+not a MindTheGapps package for a newer Android version. The build kit takes the
+Google-free ROM and your original upstream GApps download, checks their hashes
+and assembles the Google edition on your computer. It preserves the native UI
+and original Google APK signatures. Read GOOGLE-EDITION.md in the guide.
+
+Google downloads remain upstream in accordance with the project's
+[URL=https://opengapps.org/blog/post/2016/03/18/the-no-mirror-policy/]no-mirror policy[/URL].
+
+[SIZE=5][B]Required recovery and Windows tools[/B][/SIZE]
+
+- [URL=https://androidfilehost.com/?fid=23329332407589909]Original T110 TWRP2.7.0.1 by gr8nole[/URL]
+- [URL=https://androidfilehost.com/?fid=23501681358545965]Odin3.07 linked by the recovery developer[/URL]
+- [URL=https://developer.samsung.com/android-usb-driver]Samsung USB driver[/URL]
+- [URL=https://developer.android.com/tools/releases/platform-tools]Google platform-tools / ADB[/URL]
+- [URL=https://sourceforge.net/projects/opengapps/files/arm/20220215/open_gapps-arm-7.1-pico-20220215.zip/download]Exact tested OpenGApps input[/URL], if choosing Google apps
+
+Our retained Windows toolkit was Odin3.13.1. This is a different version from
+the developer-linked3.07; do not confuse or rename them.
+
+[SIZE=5][B]Installation — read before flashing[/B][/SIZE]
+
+[B]These ROM ZIPs are computer transport archives, not TWRP update ZIPs or Odin
+AP packages. Do not select them in TWRP Install or flash the raw image to SYSTEM.[/B]
+
+The development tablet has read faults in physical SYSTEM. The included boot
+image mounts an ext4 system file stored on userdata, with a separate Android
+data directory. This layout is essential to this build. Formatting userdata
+after installation erases the ROM container as well as its isolated data.
+
+1. Confirm SM-T110/goyawifi and make your own matching boot/recovery/data backups.
+2. Install the matching T110 TWRP if needed. In Odin use AP/PDA for its recovery
+   tar.md5, Auto Reboot off, Re-Partition and Nand Erase off. After PASS, boot
+   directly into recovery with Power + Home + Volume Up.
+3. Verify/extract the chosen ROM on your computer using the supplied Python tools.
+4. Follow [B]INSTALLATION.md[/B], including model, partition-size, ext4, free-space
+   and image-hash checks. Stage and verify the system container before writing
+   the matched boot image. Recovery, bootloader, PIT, EFS and physical SYSTEM
+   are not part of the ROM write operation.
+5. The recovery handoff used on our tablet is [ICODE]adb -s SERIAL shell /sbin/reboot recovery_done[/ICODE].
+   Generic Reboot System previously returned to recovery; do not repeatedly
+   reflash bootloaders to work around that.
+
+The manual engineering procedure and matching layout have been exercised on
+the development tablet. [B]An independent clean install on another SM-T110 has
+not been qualified.[/B] This release is for experienced testers; it is not being
+presented as a proven universal installer. First boot can take several minutes
+while Android prepares apps. Confirm the physical screen and touch, not just a
+boot-completed property. Rollback instructions are included in the guide.
+
+[SIZE=5][B]Tested and still open[/B][/SIZE]
+
+[B]Display colours and Google account form:[/B] Physically confirmed correct after the fixes
+[B]Touch, modern drawer and updated icons:[/B] Confirmed on this tablet
+[B]Native Settings/navigation/lock changes:[/B] Bounded checks passed; lock/wake confirmed
+[B]Google sign-in and Play Store:[/B] Owner reported working; no named app test receipt
+[B]Wi-Fi scanning/connection/internet:[/B] Confirmed; HTTP/HTTPS checks passed
+[B]Bluetooth discovery/pairing/file transfer:[/B] Confirmed on the14.1 base
+[B]Camera preview/photos and speaker:[/B] Physically confirmed on the14.1 base
+[B]Recorder/microphone:[/B] Non-silent recording and failure handling checked on the base
+[B]True unplugged suspend/wake:[/B] One real suspend cycle passed on the base
+[B]Video with audio, Bluetooth audio, microSD/headset/OTG, GPS:[/B] Not fully qualified in the final Google edition
+[B]Capacitive-key LED brightness, double-tap wake, app root, OTA:[/B] Not advertised as supported
+
+Older base results are identified above; they are not a claim that every test
+was repeated on the final Google-enabled image. The Google-free image contains
+the exact checked colour-fix libraries and native payload, but its final archive
+was not separately reflashed after this release preparation.
+
+Known limitations: legacy security patches, permissive SELinux, unencrypted
+userdata and limited performance on this hardware. A native BootAnimation exit
+fault was recorded although Android continued to the working interface. Google's
+account-page Skip works but remains at bottom-left; its requested right-side
+placement is unfinished. No claim of current Android security support, Play
+Integrity certification or compatibility with every modern Play Store app.
+
+[SIZE=5][B]Sources and credits[/B][/SIZE]
+
+Thanks to LineageOS/CyanogenMod/AOSP contributors; Samsung, Marvell and Vivante
+device work; gr8nole for T110 recovery; the goyawifi/T210 reference developers;
+and OpenGApps contributors. T210 code is a development reference, not a
+flash-compatible ROM.
+
+[URL=https://github.com/Tapuz97/android_kernel_samsung_goya/tree/e7d7b1f23e999539c74761216d20f432fd63e052]Corresponding kernel source[/URL]
+and exact platform pins/patches, configuration, artwork provenance and build
+notes are linked in SOURCE-AND-CREDITS.md and the device repository.
+
+For bug reports, include the exact model, edition, release checksum, steps and
+sanitized logs. Do not post account details, device identifiers or personal files.

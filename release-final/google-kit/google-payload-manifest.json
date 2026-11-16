@@ -1,0 +1,137 @@
+{
+  "base_raw_sha256": "c908d2fae9760ec3a898e249143b375cbd7c349c1b97259cc4734d08355341f4",
+  "upstream_zip_sha256": "8c26062b0a54b6b6433e9cce11d76a6a12c13cc8fc3dcaee5875af1662a4b74b",
+  "files": [
+    {
+      "file": "app/GoogleCalendarSyncAdapter/GoogleCalendarSyncAdapter.apk",
+      "upstream_archive": "GApps/calsync-all.tar.lz",
+      "sha256": "65af77416ac4ea29f77468452be4c736c956afca1a2f802da2aa010c5c38cb4b"
+    },
+    {
+      "file": "app/GoogleContactsSyncAdapter/GoogleContactsSyncAdapter.apk",
+      "upstream_archive": "Core/googlecontactssync-all.tar.lz",
+      "sha256": "b1686aa7bc9e30090cb2b6c8c4d6e7ff1d9a92c6d773af97adad6382e93e89d2"
+    },
+    {
+      "file": "etc/default-permissions/default-permissions.xml",
+      "upstream_archive": "Core/defaultetc-common.tar.lz",
+      "sha256": "23c6bfb79c60ed5225a7f18362036c7b27ccb5bd628a4ccd47420a558ad9df5b"
+    },
+    {
+      "file": "etc/default-permissions/opengapps-permissions.xml",
+      "upstream_archive": "Core/defaultetc-common.tar.lz",
+      "sha256": "5bb5b24c96f3301d42192e60bb5cc0e356e2f314424b76343f7581a7be15d55e"
+    },
+    {
+      "file": "etc/permissions/com.google.android.maps.xml",
+      "upstream_archive": "Core/defaultframework-common.tar.lz",
+      "sha256": "a5ef5f6ce05b50415e47e62f24ef733a816605b65022af45fe00370911a51913"
+    },
+    {
+      "file": "etc/permissions/com.google.android.media.effects.xml",
+      "upstream_archive": "Core/defaultframework-common.tar.lz",
+      "sha256": "06ca9066d58da30bcf9b3570a801a6a24a256c213581b0c7633396715420b281"
+    },
+    {
+      "file": "etc/preferred-apps/google.xml",
+      "upstream_archive": "Core/defaultetc-common.tar.lz",
+      "sha256": "0de744d10dcc56996dfb4bba341f8f610d812b855543c4c0921e0eff75762141"
+    },
+    {
+      "file": "etc/sysconfig/google.xml",
+      "upstream_archive": "Core/defaultetc-common.tar.lz",
+      "sha256": "e4ff20bf4d659b5e2ce220fa56655c1433c641a1758925c61cfeae9923f4e526"
+    },
+    {
+      "file": "etc/sysconfig/google_build.xml",
+      "upstream_archive": "Core/defaultetc-common.tar.lz",
+      "sha256": "724875dc95f7fb7eb950714f9a474a9a304e081626d9364647e02409e4bdae9c"
+    },
+    {
+      "file": "etc/sysconfig/google_exclusives_enable.xml",
+      "upstream_archive": "Core/defaultetc-common.tar.lz",
+      "sha256": "ef4b126c4c1059390b8ee3c761152b6d6612314701e4e073e365ebabd9fcf99a"
+    },
+    {
+      "file": "framework/com.google.android.maps.jar",
+      "upstream_archive": "Core/defaultframework-common.tar.lz",
+      "sha256": "8a9147a2be6da47a288abb2aac4f36f121749a47888a0a9416169d39742f41f8"
+    },
+    {
+      "file": "framework/com.google.android.media.effects.jar",
+      "upstream_archive": "Core/defaultframework-common.tar.lz",
+      "sha256": "3dbce4419913db65da68e50e145f932a4d46dcdd599463fb6a070833d66ceff5"
+    },
+    {
+      "file": "priv-app/ConfigUpdater/ConfigUpdater.apk",
+      "upstream_archive": "Core/configupdater-all.tar.lz",
+      "sha256": "7d8b2369a41e5605dbb6628e8c2498fdfaa4da8f99b900e8d740ec6814ca79ad"
+    },
+    {
+      "file": "priv-app/GoogleBackupTransport/GoogleBackupTransport.apk",
+      "upstream_archive": "Core/googlebackuptransport-all.tar.lz",
+      "sha256": "ef215a8f7cb482e369c2e7a5efd435607d89150722da09ccccc79f598b0a50b4"
+    },
+    {
+      "file": "priv-app/GoogleFeedback/GoogleFeedback.apk",
+      "upstream_archive": "Core/googlefeedback-all.tar.lz",
+      "sha256": "b00da05defd49568d25af6cce38eefa6cb13a6d0d4b5dc512f2cce11c34d5611"
+    },
+    {
+      "file": "priv-app/GoogleLoginService/GoogleLoginService.apk",
+      "upstream_archive": "Core/gsflogin-all.tar.lz",
+      "sha256": "77cfd23b01c8b3c42b5b429233baa9eedecf480c8b15495f1e3843546b193f4d"
+    },
+    {
+      "file": "priv-app/GoogleOneTimeInitializer/GoogleOneTimeInitializer.apk",
+      "upstream_archive": "Core/googleonetimeinitializer-all.tar.lz",
+      "sha256": "fda78d8c30248312db9cb43c1392cd32247175f369008c339ef5d266ac927618"
+    },
+    {
+      "file": "priv-app/GooglePartnerSetup/GooglePartnerSetup.apk",
+      "upstream_archive": "Core/googlepartnersetup-all.tar.lz",
+      "sha256": "6b552789e7e487b5b1ef64df787f5821406a67a8b60eb89089da596d5cb84348"
+    },
+    {
+      "file": "priv-app/GoogleServicesFramework/GoogleServicesFramework.apk",
+      "upstream_archive": "Core/gsfcore-all.tar.lz",
+      "sha256": "c612dbea23a360bca617881ef29980b10dfd01fa8161aa77ce3f4fc011fb95db"
+    },
+    {
+      "file": "priv-app/Phonesky/Phonesky.apk",
+      "upstream_archive": "Core/vending-arm.tar.lz",
+      "sha256": "f1606d37ac1d15334141ca76b8c500385fde8685e7a4c9ea662bff2527faaac2"
+    },
+    {
+      "file": "priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk",
+      "upstream_archive": "Core/gmscore-arm.tar.lz",
+      "sha256": "6c072a1961052f1a5a3cd8ce3d99edfe5f698dee4ba78a97382b6038ddb9faf8"
+    },
+    {
+      "file": "priv-app/SetupWizard/SetupWizard.apk",
+      "upstream_archive": "Core/setupwizardtablet-all.tar.lz",
+      "sha256": "00614d38f760a32002a387f391d8db7d8d2f8d94866ae4eb52804c177ed6687c"
+    },
+    {
+      "file": "vendor/overlay/T110SetupLayout.apk",
+      "upstream_archive": "T110 resource-only setup footer source",
+      "sha256": "995ff7b79bcc7d17ecf5ebe24dbf3cf197234f133c2ff441d14c9c8a1c39b996"
+    }
+  ],
+  "selected_archives": [
+    "Core/configupdater-all.tar.lz",
+    "Core/defaultetc-common.tar.lz",
+    "Core/defaultframework-common.tar.lz",
+    "Core/gmscore-arm.tar.lz",
+    "Core/googlebackuptransport-all.tar.lz",
+    "Core/googlecontactssync-all.tar.lz",
+    "Core/googlefeedback-all.tar.lz",
+    "Core/googleonetimeinitializer-all.tar.lz",
+    "Core/googlepartnersetup-all.tar.lz",
+    "Core/gsfcore-all.tar.lz",
+    "Core/gsflogin-all.tar.lz",
+    "Core/setupwizardtablet-all.tar.lz",
+    "Core/vending-arm.tar.lz",
+    "GApps/calsync-all.tar.lz"
+  ]
+}
