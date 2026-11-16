@@ -50,6 +50,28 @@ index e4cdbce09796f1cd21aa9c05e94e2299d462cbd3..adf6c22373d39c40b56d6a41ef4664bd
      private static void chooseDriver(Context context) {
          String driverPackageName = SystemProperties.get(PROPERTY_GFX_DRIVER);
          if (driverPackageName == null || driverPackageName.isEmpty()) {
+diff --git a/core/java/android/webkit/WebView.java b/core/java/android/webkit/WebView.java
+index a2c3dd88..0697c8de 100644
+--- a/core/java/android/webkit/WebView.java
++++ b/core/java/android/webkit/WebView.java
+@@ -2415,6 +2415,17 @@ public class WebView extends AbsoluteLayout
+     @Override
+     protected void onAttachedToWindow() {
+         super.onAttachedToWindow();
++        // T110's GC1000 corrupts modern Gaia button/rounded-clip tiles. Use the
++        // supported WebView software-draw layer only in the Google UI process;
++        // keep native windows and every other app hardware accelerated. Do not
++        // disable Chromium's GPU service: that is not a WebView draw fallback.
++        if ("goyawifi".equals(Build.DEVICE)
++                && "com.google.android.gms".equals(getContext().getPackageName())
++                && "com.google.android.gms.ui".equals(android.app.ActivityThread.currentProcessName())
++                && android.os.SystemProperties.getBoolean("persist.t110.suw_sw", true)) {
++            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
++            Log.i(LOGTAG, "T110 Google UI WebView software-draw layer");
++        }
+         mProvider.getViewDelegate().onAttachedToWindow();
+     }
+ 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
 index 47674d7e51ffbd2d2133ea90849f1e9cccac3bee..1f0adc184d88df280cd3623721f9b8ede618094a 100755
 --- a/core/res/res/values/config.xml
